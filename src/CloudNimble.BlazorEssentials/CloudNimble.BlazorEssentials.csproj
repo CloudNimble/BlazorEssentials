@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>BlazorEssentials</PackageId>
+    <Company>CloudNimble</Company>
+    <Description>A set of utilities to make Blazor development easier than ever. Includes base classes for Application State, Configuration, and ViewModels, as well as an ODataResultList and a helper to pull configuration files out of embedded resources.</Description>
+    <Version>1.0.0-alpha.1</Version>
+    <Copyright>CloudNimble, Inc.</Copyright>
+    <PackageLicenseUrl>https://choosealicense.com/licenses/mit/</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/CloudNimble/BlazorEssentials</RepositoryUrl>
+    <PackageReleaseNotes>1.0.0-alpha.1 - Initial release.</PackageReleaseNotes>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageTags>Blazor</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="BlazorObservable.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Blazor" Version="0.5.1" />
+    <DotNetCliToolReference Include="Microsoft.AspNetCore.Blazor.Cli" Version="0.5.1" />
+  </ItemGroup>
+
+</Project>

@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28016.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudNimble.BlazorEssentials", "CloudNimble.BlazorEssentials\CloudNimble.BlazorEssentials.csproj", "{66088AA6-B13B-4C56-86DF-62F51DFF2A7A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudNimble.BlazorEssentials", "CloudNimble.BlazorEssentials\CloudNimble.BlazorEssentials.csproj", "{66088AA6-B13B-4C56-86DF-62F51DFF2A7A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudNimble.BlazorEssentials.TestApp", "CloudNimble.BlazorEssentials.TestApp\CloudNimble.BlazorEssentials.TestApp.csproj", "{DA58D778-981D-47DC-A7EA-40381872FBBB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{66088AA6-B13B-4C56-86DF-62F51DFF2A7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66088AA6-B13B-4C56-86DF-62F51DFF2A7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66088AA6-B13B-4C56-86DF-62F51DFF2A7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA58D778-981D-47DC-A7EA-40381872FBBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA58D778-981D-47DC-A7EA-40381872FBBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA58D778-981D-47DC-A7EA-40381872FBBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA58D778-981D-47DC-A7EA-40381872FBBB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

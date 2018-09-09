@@ -6,7 +6,7 @@ namespace CloudNimble.BlazorEssentials
     /// <summary>
     /// A base class to control application-wide state in a Blazor app.
     /// </summary>
-    public class AppStateBase //: BlazorObservable
+    public class AppStateBase : BlazorObservable
     {
 
         #region Private Members
@@ -20,20 +20,20 @@ namespace CloudNimble.BlazorEssentials
         /// <summary>
         /// 
         /// </summary>
-        //public ClaimsPrincipal CurrentUser
-        //{
-        //    get { return _currentUser; }
-        //    set
-        //    {
-        //        if (_currentUser != value)
-        //        {
-        //            _currentUser = value;
-        //            RaisePropertyChanged(() => CurrentUser);
-        //        }
-        //    }
-        //}
+        public ClaimsPrincipal CurrentUser
+        {
+            get { return _currentUser; }
+            set
+            {
+                if (_currentUser != value)
+                {
+                    _currentUser = value;
+                    RaisePropertyChanged(() => CurrentUser);
+                }
+            }
+        }
 
-        public ClaimsPrincipal CurrentUser { get; set; }
+        //public ClaimsPrincipal CurrentUser { get; set; }
 
         /// <summary>
         /// 

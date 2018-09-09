@@ -5,14 +5,15 @@
     <PackageId>BlazorEssentials</PackageId>
     <Company>CloudNimble</Company>
     <Description>A set of utilities to make Blazor development easier than ever. Includes base classes for Application State, Configuration, and ViewModels, as well as an ODataResultList and a helper to pull configuration files out of embedded resources.</Description>
-    <Version>1.0.0-alpha.4</Version>
+    <Version>1.0.0-alpha.5</Version>
     <Copyright>CloudNimble, Inc.</Copyright>
     <PackageLicenseUrl>https://choosealicense.com/licenses/mit/</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/CloudNimble/BlazorEssentials</RepositoryUrl>
     <PackageReleaseNotes>1.0.0-alpha.1 - Initial release.
 1.0.0-alpha.2 - Added injected UriHelper + FilterCriteria to ViewModelBase.
 1.0.0-alpha.3 - Added BlazorObservable and have AppStateBase inherit from it.
-1.0.0-alpha.4 - Added claims-based authentication hooks to AppStateBase.</PackageReleaseNotes>
+1.0.0-alpha.4 - Added claims-based authentication hooks to AppStateBase.
+1.0.0-alpha.5 - Changed the order of generic parameters on ViewModelBase to match the constructor order.</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageTags>Blazor</PackageTags>
     <Authors>CloudNimble</Authors>

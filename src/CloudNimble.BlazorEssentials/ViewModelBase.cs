@@ -9,9 +9,9 @@ namespace CloudNimble.BlazorEssentials
     /// </summary>
     /// <typeparam name="TAppState"></typeparam>
     /// <typeparam name="TConfig"></typeparam>
-    public class ViewModelBase<TAppState, TConfig>
-        where TAppState : AppStateBase
+    public class ViewModelBase<TConfig, TAppState>
         where TConfig : ConfigurationBase
+        where TAppState : AppStateBase
     {
 
         #region Properties

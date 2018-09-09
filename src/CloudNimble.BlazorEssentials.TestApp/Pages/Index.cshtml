@@ -1,19 +1,20 @@
-﻿@page "/"
+﻿@using System.Security.Claims
+@page "/"
 @inject ConfigurationBase config
+@inject AppStateBase  appState
 
 <h1>Hello, world!</h1>
 <p>Welcome to your new app. </p>
 
 <h3>Injected Configuration:</h3>
-ApiRoot: "@config.ApiRoot"
+<p>ApiRoot: "@config.ApiRoot"</p>
 
 <SurveyPrompt Title="How is Blazor working for you?" />
 
+<button type="button" class="btn btn-primary" onclick="@appState.SignIn">Sign In</button>
+<button type="button" class="btn btn-primary" onclick="@appState.SignOut">Sign Out</button>
+<br />
+Signed In: @appState.IsSignedIn @( appState.IsSignedIn ? "| Expires " + appState.CurrentUser.FindFirst(ClaimTypes.Expiration).Value : "" )
+
 @functions {
-
-    protected override async Task OnInitAsync()
-    {
-    
-    }
-
 }

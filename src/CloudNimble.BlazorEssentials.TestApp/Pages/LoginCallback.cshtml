@@ -1,0 +1,21 @@
+﻿@using Microsoft.AspNetCore.Blazor.Services
+@using System.Security.Claims
+@page "/Account/LoginCallback"
+@inject ConfigurationBase config
+@inject AppStateBase  appState
+@inject IUriHelper uriHelper
+
+<div class="text-center">We're processing your login, please stand by...</div>
+
+@functions
+{
+
+    protected override async Task OnInitAsync()
+    {
+        var uri = uriHelper.GetAbsoluteUri();
+        var token = uri.Substring(uri.IndexOf("#") + 1);
+        System.Console.WriteLine(token);
+        appState.ProcessToken(token);
+    }
+
+}

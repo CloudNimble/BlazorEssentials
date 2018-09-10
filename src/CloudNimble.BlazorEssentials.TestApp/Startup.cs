@@ -11,9 +11,13 @@ namespace CloudNimble.BlazorEssentials.TestApp
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton(new ConfigurationBase { ApiRoot = "https://catalog.data.gov/api/3/" });
+            services.AddSingleton(ConfigurationHelper<ConfigurationBase>.GetConfigurationFromJson());
             services.AddSingleton(new AppStateBase(
-                (appState) =>
+                () =>
+                {
+                    return "";
+                },
+                (appState, token) =>
                 {
                     var ci = new ClaimsIdentity(
                         new List<Claim>

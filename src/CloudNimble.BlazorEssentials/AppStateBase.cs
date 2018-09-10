@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Blazor.Browser.Services;
+using System;
 using System.Security.Claims;
 
 namespace CloudNimble.BlazorEssentials
@@ -13,9 +14,10 @@ namespace CloudNimble.BlazorEssentials
         #region Private Members
 
         private ClaimsPrincipal _currentUser;
-        private Func<AppStateBase, ClaimsPrincipal> _signInFunc;
-        private Action<AppStateBase> _signOutAction;
+        private Func<string> _generateRedirectUrlFunc;
+        private Func<AppStateBase, string, ClaimsPrincipal> _processTokenFunc;
         private Action<AppStateBase> _refreshTokenAction;
+        private Action<AppStateBase> _signOutAction;
 
         #endregion
 
@@ -53,21 +55,25 @@ namespace CloudNimble.BlazorEssentials
         /// </summary>
         public AppStateBase()
         {
-            _signInFunc = (appStateBase) => { return null; };
-            _signOutAction = (s) => { };
+            _generateRedirectUrlFunc = () => { return string.Empty; };
+            _processTokenFunc = (appStateBase, token) => { return null; };
             _refreshTokenAction = (s) => { };
+            _signOutAction = (s) => { };
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="signInFunc"></param>
+        /// <param name="generateRedirectUrlFunc"></param>
+        /// <param name="processTokenFunc"></param>
+        /// <param name="refreshTokenAction"></param>
         /// <param name="signOutAction"></param>
-        public AppStateBase(Func<AppStateBase, ClaimsPrincipal> signInFunc, Action<AppStateBase> signOutAction, Action<AppStateBase> refreshTokenAction) : base()
+        public AppStateBase(Func<string> generateRedirectUrlFunc, Func<AppStateBase, string, ClaimsPrincipal> processTokenFunc, Action<AppStateBase> refreshTokenAction, Action<AppStateBase> signOutAction) : base()
         {
-            _signInFunc = signInFunc;
-            _signOutAction = signOutAction;
+            _generateRedirectUrlFunc = generateRedirectUrlFunc;
+            _processTokenFunc = processTokenFunc;
             _refreshTokenAction = refreshTokenAction;
+            _signOutAction = signOutAction;
         }
 
         #endregion
@@ -79,7 +85,25 @@ namespace CloudNimble.BlazorEssentials
         /// </summary>
         public void SignIn()
         {
-            CurrentUser = _signInFunc(this);
+            BrowserUriHelper.Instance.NavigateTo(_generateRedirectUrlFunc());
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="token"></param>
+        public void ProcessToken(string token)
+        {
+            CurrentUser = _processTokenFunc(this, token);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void RefreshToken()
+        {
+            //TODO: Should the action replace the CurrentUser or should we do it? Leaning toward us.
+            _refreshTokenAction(this);
         }
 
         /// <summary>
@@ -88,14 +112,7 @@ namespace CloudNimble.BlazorEssentials
         public void SignOut()
         {
             _signOutAction(this);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public void RefreshToken()
-        {
-            _refreshTokenAction(this);
+            CurrentUser = null;
         }
 
         #endregion

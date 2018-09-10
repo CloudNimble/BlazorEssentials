@@ -20,7 +20,7 @@ namespace CloudNimble.BlazorEssentials
         public static T GetConfigurationFromJson(string fileName = "appSettings.json")
         {
             // Get the configuration from embedded dll.
-            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(fileName))
+            using (var stream = Assembly.GetCallingAssembly().GetManifestResourceStream(fileName))
             using (var reader = new StreamReader(stream))
             {
                 return Json.Deserialize<T>(reader.ReadToEnd());

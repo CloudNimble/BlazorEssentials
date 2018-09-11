@@ -5,7 +5,7 @@
     <PackageId>BlazorEssentials</PackageId>
     <Company>CloudNimble</Company>
     <Description>A set of utilities to make Blazor development easier than ever. Includes base classes for Application State, Configuration, and ViewModels, as well as an ODataResultList and a helper to pull configuration files out of embedded resources.</Description>
-    <Version>1.0.0-alpha.7</Version>
+    <Version>1.0.0-alpha.9</Version>
     <Copyright>CloudNimble, Inc.</Copyright>
     <PackageLicenseUrl>https://choosealicense.com/licenses/mit/</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/CloudNimble/BlazorEssentials</RepositoryUrl>
@@ -15,7 +15,9 @@
 1.0.0-alpha.4 - Added claims-based authentication hooks to AppStateBase.
 1.0.0-alpha.5 - Changed the order of generic parameters on ViewModelBase to match the constructor order.
 1.0.0-alpha.6 - Updated the Login process to separate the login redirect from the post-login return.
-1.0.0-alpha7 - Fixed the ConfigurationHelper so it pulls from the right assembly.</PackageReleaseNotes>
+1.0.0-alpha.7 - Fixed the ConfigurationHelper so it pulls from the right assembly.
+1.0.0-alpha.8 - Added ClaimsExtensions to standardize incoming claims.
+1.0.0-alpha.9 - Redirect to home after the login token is processed.</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageTags>Blazor</PackageTags>
     <Authors>CloudNimble</Authors>

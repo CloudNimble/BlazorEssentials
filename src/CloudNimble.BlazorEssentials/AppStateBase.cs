@@ -95,6 +95,7 @@ namespace CloudNimble.BlazorEssentials
         public void ProcessToken(string token)
         {
             CurrentUser = _processTokenFunc(this, token);
+            BrowserUriHelper.Instance.NavigateTo("/");
         }
 
         /// <summary>

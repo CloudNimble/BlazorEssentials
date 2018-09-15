@@ -127,8 +127,8 @@ namespace CloudNimble.BlazorEssentials
         /// </summary>
         public void SignOut()
         {
-            _signOutAction(this);
             CurrentUser = null;
+            _signOutAction(this);
         }
 
         #endregion

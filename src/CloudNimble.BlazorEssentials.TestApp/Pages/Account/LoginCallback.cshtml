@@ -1,7 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Blazor.Services
-@using System.Security.Claims
 @page "/Account/LoginCallback"
-@inject ConfigurationBase config
 @inject AppStateBase  appState
 @inject IUriHelper uriHelper
 
@@ -14,7 +12,7 @@
     {
         var uri = uriHelper.GetAbsoluteUri();
         var token = uri.Substring(uri.IndexOf("#") + 1);
-        System.Console.WriteLine(token);
+        //System.Console.WriteLine(token);
         appState.ProcessToken(token);
     }
 

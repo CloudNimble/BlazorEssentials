@@ -1,4 +1,7 @@
-﻿@inherits BlazorLayoutComponent
+﻿@using CloudNimble.BlazorEssentials
+@using System.Security.Claims
+@inherits BlazorLayoutComponent
+@inject AppStateBase appState
 
 <div class="sidebar">
     <NavMenu />
@@ -6,7 +9,17 @@
 
 <div class="main">
     <div class="top-row px-4">
-        <a href="http://blazor.net" target="_blank" class="ml-md-auto">About</a>
+        @if (!appState.IsSignedIn)
+        {
+            <button type="button" class="btn btn-primary ml-md-auto" onclick="@appState.SignIn">Sign In</button>
+        }
+        else
+        {
+            <div class="ml-md-auto">
+                @appState.CurrentUser.FindFirst(ClaimTypes.Name).Value&nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-primary" onclick="@appState.SignOut">Sign Out</button>
+            </div>
+        }
     </div>
 
     <div class="content px-4">

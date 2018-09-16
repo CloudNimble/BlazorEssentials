@@ -87,6 +87,20 @@ namespace CloudNimble.BlazorEssentials
         #region Public Methods
 
         /// <summary>
+        /// Adds the specified roles to the <see cref="AllowedRoles"/> list if they are not already present, and disabled Anonymous access.
+        /// </summary>
+        /// <param name="roles">A comma-separated list of roles to add to the <see cref="AllowedRoles"/>.</param>
+        /// <remarks>
+        /// If you want to leave Anonymous access on and just light up new features, then add to the <see cref="AllowedRoles"/> list manually.
+        /// </remarks>
+        public void AddRoles(params string[] roles)
+        {
+            // RWM: Add any roles that aren't already in the list.
+            AllowedRoles.AddRange(roles.Where(c => !AllowedRoles.Contains(c)));
+            AllowAnonymous = false;
+        }
+
+        /// <summary>
         /// Checks the <see cref="AppState.CurrentUser"/> authorization and boots the user to the Unauthorized page if required.
         /// </summary>
         public void Authorize()

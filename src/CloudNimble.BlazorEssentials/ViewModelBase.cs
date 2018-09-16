@@ -53,7 +53,8 @@ namespace CloudNimble.BlazorEssentials
         /// </summary>
         public bool IsAuthorized
         {
-            get => AllowAnonymous ? true : AppState.IsSignedIn && AllowedRoles.Select(c => AppState.CurrentUser.IsInRole(c)).Any(c => c == true);
+            //RWM: If AllowAnonymous, authorized. Otherwise, if you're signed in but no roles are specified, authorized. Otherwise, ff you're signed in and you have any of the roles, authorized.
+            get => AllowAnonymous ? true : AppState.IsSignedIn && AllowedRoles.Count == 0 ? true : AppState.IsSignedIn && AllowedRoles.Select(c => AppState.CurrentUser.IsInRole(c)).Any(c => c == true);
         }
 
         /// <summary>

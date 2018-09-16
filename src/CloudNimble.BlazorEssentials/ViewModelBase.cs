@@ -90,7 +90,13 @@ namespace CloudNimble.BlazorEssentials
         /// </summary>
         public void Authorize()
         {
-            if (!IsAuthorized) UriHelper.NavigateTo(Configuration.UnauthorizedRedirectUrl);
+            if (!IsAuthorized)
+            {
+                //RWM: If we're not signed in at all, go to the sign in prompt.
+                if (!AppState.IsSignedIn) AppState.SignIn();
+                //RWM: Otherwise, you're signed in but not allowed to see it. Redirect.
+                UriHelper.NavigateTo(Configuration.UnauthorizedRedirectUrl);
+            }
         }
 
         #endregion

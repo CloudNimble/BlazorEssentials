@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Pages\LoginCallback.cshtml">
+    <Content Update="Pages\Account\LoginCallback.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>

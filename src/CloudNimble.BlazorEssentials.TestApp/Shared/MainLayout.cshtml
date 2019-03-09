@@ -1,6 +1,6 @@
 ﻿@using CloudNimble.BlazorEssentials
 @using System.Security.Claims
-@inherits BlazorLayoutComponent
+@inherits LayoutComponentBase
 @inject AppStateBase appState
 
 <div class="sidebar">
@@ -16,7 +16,7 @@
         else
         {
             <div class="ml-md-auto">
-                @appState.CurrentUser.FindFirst(ClaimTypes.Name).Value&nbsp;&nbsp;&nbsp;
+                <span class="pr-3">@appState.CurrentUser.FindFirst(ClaimTypes.Name).Value</span>
                 <button type="button" class="btn btn-primary" onclick="@appState.SignOut">Sign Out</button>
             </div>
         }

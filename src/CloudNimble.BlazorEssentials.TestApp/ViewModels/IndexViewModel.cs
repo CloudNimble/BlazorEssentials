@@ -1,6 +1,6 @@
-﻿using System.Net.Http;
+﻿using Microsoft.AspNetCore.Components.Services;
+using System.Net.Http;
 using System.Security.Claims;
-using Microsoft.AspNetCore.Blazor.Services;
 
 namespace CloudNimble.BlazorEssentials.TestApp.ViewModels
 {

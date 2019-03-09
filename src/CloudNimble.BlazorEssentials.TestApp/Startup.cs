@@ -1,5 +1,5 @@
 using CloudNimble.BlazorEssentials.TestApp.ViewModels;
-using Microsoft.AspNetCore.Blazor.Builder;
+using Microsoft.AspNetCore.Components.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -24,7 +24,7 @@ namespace CloudNimble.BlazorEssentials.TestApp
             services.AddSingleton<SecuredPageViewModel>();
             services.AddSingleton<AdminPageViewModel>();
             services.AddSingleton(ConfigurationHelper<ConfigurationBase>.GetConfigurationFromJson());
-            services.AddSingleton(new AppStateBase(
+            services.AddSingleton(new BlazorAuthenticationConfig(
                 () =>
                 {
                     //RWM: Your actual code should redirect to an outside identity authority that then redirects back here.
@@ -51,9 +51,13 @@ namespace CloudNimble.BlazorEssentials.TestApp
                     //RWM: This should be a logout call.
                 })
             );
+            services.AddSingleton<AppStateBase>();
+
         }
 
-        public void Configure(IBlazorApplicationBuilder app)
+
+
+        public void Configure(IComponentsApplicationBuilder app)
         {
             app.AddComponent<App>("app");
         }

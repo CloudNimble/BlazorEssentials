@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components.Services;
+﻿using Microsoft.AspNetCore.Components;
 using System.Security.Claims;
 
 namespace CloudNimble.BlazorEssentials

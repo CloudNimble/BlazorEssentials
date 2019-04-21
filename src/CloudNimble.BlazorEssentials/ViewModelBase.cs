@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Net.Http;
 using Microsoft.AspNetCore.Blazor.Services;
-using Microsoft.AspNetCore.Components.Services;
+using Microsoft.AspNetCore.Components;
 
 namespace CloudNimble.BlazorEssentials
 {

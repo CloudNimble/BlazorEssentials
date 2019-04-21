@@ -27,14 +27,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Pages\Account\LoginCallback.cshtml">
+    <Content Update="Pages\Account\LoginCallback.razor">
       <Pack>$(IncludeRazorContentInPack)</Pack>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
-    <Content Update="Pages\AdminPage.cshtml">
+    <Content Update="Pages\AdminPage.razor">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Pages\SecuredPage.cshtml">
+    <Content Update="Pages\SecuredPage.razor">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
   </ItemGroup>

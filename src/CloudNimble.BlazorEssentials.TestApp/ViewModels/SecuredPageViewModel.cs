@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components.Services;
+﻿using Microsoft.AspNetCore.Components;
 using System.Net.Http;
 
 namespace CloudNimble.BlazorEssentials.TestApp.ViewModels

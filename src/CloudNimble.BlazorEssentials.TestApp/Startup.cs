@@ -55,8 +55,6 @@ namespace CloudNimble.BlazorEssentials.TestApp
 
         }
 
-
-
         public void Configure(IComponentsApplicationBuilder app)
         {
             app.AddComponent<App>("app");

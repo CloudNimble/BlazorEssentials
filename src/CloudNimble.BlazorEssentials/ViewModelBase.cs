@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Components;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using Microsoft.AspNetCore.Blazor.Services;
-using Microsoft.AspNetCore.Components;
 
 namespace CloudNimble.BlazorEssentials
 {
@@ -57,6 +56,16 @@ namespace CloudNimble.BlazorEssentials
             //RWM: If AllowAnonymous, authorized. Otherwise, if you're signed in but no roles are specified, authorized. Otherwise, ff you're signed in and you have any of the roles, authorized.
             get => AllowAnonymous ? true : AppState.IsSignedIn && AllowedRoles.Count == 0 ? true : AppState.IsSignedIn && AllowedRoles.Select(c => AppState.CurrentUser.IsInRole(c)).Any(c => c == true);
         }
+
+        /// <summary>
+        /// A boolean signifying whether or not the ViewModel has loaded the required data.
+        /// </summary>
+        public bool IsLoaded { get; set; }
+
+        /// <summary>
+        /// A boolean signifying whether or not the ViewModel is presently in the middle of loading the required data.
+        /// </summary>
+        public bool IsLoading { get; set; }
 
         /// <summary>
         /// The injected <see cref="IUriHelper"/> instance for the ViewModel.

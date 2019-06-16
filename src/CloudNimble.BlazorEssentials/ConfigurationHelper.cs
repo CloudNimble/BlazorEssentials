@@ -1,6 +1,6 @@
-﻿using Microsoft.JSInterop;
-using System.IO;
+﻿using System.IO;
 using System.Reflection;
+using System.Text.Json.Serialization;
 
 namespace CloudNimble.BlazorEssentials
 {
@@ -23,7 +23,7 @@ namespace CloudNimble.BlazorEssentials
             using (var stream = Assembly.GetCallingAssembly().GetManifestResourceStream(fileName))
             using (var reader = new StreamReader(stream))
             {
-                return Json.Deserialize<T>(reader.ReadToEnd());
+                return JsonSerializer.Parse<T>(reader.ReadToEnd());
             }
         }
 

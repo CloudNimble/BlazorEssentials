@@ -15,7 +15,7 @@ namespace CloudNimble.BlazorEssentials.TestApp.ViewModels
         /// <param name="appState"></param>
         /// <param name="uriHelper"></param>
         /// <param name="httpClient"></param>
-        public AdminPageViewModel(ConfigurationBase configuration, AppStateBase appState, IUriHelper uriHelper, HttpClient httpClient) : base(configuration, appState, uriHelper, httpClient)
+        public AdminPageViewModel(ConfigurationBase configuration, AppStateBase appState, IUriHelper uriHelper, HttpClient httpClient) : base(uriHelper, httpClient, configuration, appState)
         {
             //RWM: Demonstrate setting roles from a ViewModel.
             AddRoles("admin");

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -83,10 +84,10 @@ namespace CloudNimble.BlazorEssentials
         /// <param name="appState">The <typeparamref name="TAppState"/> instance injected from the DI container.</param>
         /// <param name="uriHelper">The <see cref="IUriHelper"/> instance injected from the DI container.</param>
         /// <param name="httpClient">The <see cref="HttpClient"/> instance injected from the DI container.</param>
-        public ViewModelBase(TConfig configuration, TAppState appState, IUriHelper uriHelper, HttpClient httpClient)
+        public ViewModelBase(IUriHelper uriHelper, HttpClient httpClient, TConfig configuration = null, TAppState appState = null)
         {
             Configuration = configuration;
-            AppState = appState;
+            AppState = appState ?? (TAppState)new AppStateBase(uriHelper);
             UriHelper = uriHelper;
             HttpClient = httpClient;
             AllowedRoles = new List<string>();
@@ -115,6 +116,11 @@ namespace CloudNimble.BlazorEssentials
         /// </summary>
         public void Authorize()
         {
+            if (Configuration == null)
+            {
+                throw new ArgumentNullException("configuration", "You must add a Configuration section to the DI container if you want to use Authorization.");
+            }
+
             if (!IsAuthorized)
             {
                 //RWM: If we're not signed in at all, go to the sign in prompt.

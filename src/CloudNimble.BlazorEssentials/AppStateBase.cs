@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using System;
 using System.Security.Claims;
 
 namespace CloudNimble.BlazorEssentials
@@ -13,7 +14,7 @@ namespace CloudNimble.BlazorEssentials
         #region Private Members
 
         private ClaimsPrincipal _currentUser;
-        private IUriHelper _uriHelper;
+        private readonly IUriHelper _uriHelper;
         private readonly BlazorAuthenticationConfig _config;
 
         #endregion
@@ -50,7 +51,7 @@ namespace CloudNimble.BlazorEssentials
         /// </summary>
         /// <param name="uriHelper"></param>
         /// <param name="authOptions"></param>
-        public AppStateBase(IUriHelper uriHelper, BlazorAuthenticationConfig authOptions)
+        public AppStateBase(IUriHelper uriHelper, BlazorAuthenticationConfig authOptions = null)
         {
             _uriHelper = uriHelper;
             _config = authOptions;
@@ -65,6 +66,10 @@ namespace CloudNimble.BlazorEssentials
         /// </summary>
         public void SignIn()
         {
+            if (_config == null)
+            {
+                throw new ArgumentNullException("authOptions", "You attempted to use the Authentication option without registering a BlazorAuthenticationConfig instance with the IServiceCollection.");
+            }
             _uriHelper.NavigateTo(_config.GenerateRedirectUrl());
         }
 
@@ -83,6 +88,11 @@ namespace CloudNimble.BlazorEssentials
         /// </summary>
         public void RefreshToken()
         {
+            if (_config == null)
+            {
+                throw new ArgumentNullException("authOptions", "You attempted to use the Authentication option without registering a BlazorAuthenticationConfig instance with the IServiceCollection.");
+            }
+
             //TODO: Should the action replace the CurrentUser or should we do it? Leaning toward us.
             _config.RefreshToken(this);
         }
@@ -92,6 +102,11 @@ namespace CloudNimble.BlazorEssentials
         /// </summary>
         public void SignOut()
         {
+            if (_config == null)
+            {
+                throw new ArgumentNullException("authOptions", "You attempted to use the Authentication option without registering a BlazorAuthenticationConfig instance with the IServiceCollection.");
+            }
+
             CurrentUser = null;
             _config.SignOut(this);
         }

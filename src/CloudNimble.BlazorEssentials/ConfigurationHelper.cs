@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.Diagnostics;
+using System.IO;
 using System.Reflection;
 using System.Text.Json.Serialization;
 
@@ -19,11 +21,22 @@ namespace CloudNimble.BlazorEssentials
         /// <returns></returns>
         public static T GetConfigurationFromJson(string fileName = "appSettings.json")
         {
-            // Get the configuration from embedded dll.
-            using (var stream = Assembly.GetCallingAssembly().GetManifestResourceStream(fileName))
-            using (var reader = new StreamReader(stream))
+            try
             {
-                return JsonSerializer.Parse<T>(reader.ReadToEnd());
+
+                // Get the configuration from embedded dll.
+                using (var stream = Assembly.GetCallingAssembly().GetManifestResourceStream(fileName))
+                {
+                    using (var reader = new StreamReader(stream))
+                    {
+                        return JsonSerializer.Parse<T>(reader.ReadToEnd());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError(ex.Message);
+                return null;
             }
         }
 

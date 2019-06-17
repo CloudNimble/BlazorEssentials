@@ -8,7 +8,7 @@ namespace CloudNimble.BlazorEssentials.TestApp.ViewModels
 
         #region Constructors
 
-        public SecuredPageViewModel(ConfigurationBase configuration, AppStateBase appState, IUriHelper uriHelper, HttpClient httpClient) : base(configuration, appState, uriHelper, httpClient)
+        public SecuredPageViewModel(ConfigurationBase configuration, AppStateBase appState, IUriHelper uriHelper, HttpClient httpClient) : base(uriHelper, httpClient, configuration, appState)
         {
         }
 

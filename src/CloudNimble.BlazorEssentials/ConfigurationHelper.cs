@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
-using System.Text.Json.Serialization;
+using System.Text.Json;
 
 namespace CloudNimble.BlazorEssentials
 {
@@ -29,7 +29,7 @@ namespace CloudNimble.BlazorEssentials
                 {
                     using (var reader = new StreamReader(stream))
                     {
-                        return JsonSerializer.Parse<T>(reader.ReadToEnd());
+                        return JsonSerializer.Deserialize<T>(reader.ReadToEnd());
                     }
                 }
             }

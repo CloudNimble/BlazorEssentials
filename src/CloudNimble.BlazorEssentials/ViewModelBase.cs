@@ -12,7 +12,7 @@ namespace CloudNimble.BlazorEssentials
     /// </summary>
     /// <typeparam name="TAppState"></typeparam>
     /// <typeparam name="TConfig"></typeparam>
-    public class ViewModelBase<TConfig, TAppState>
+    public class ViewModelBase<TConfig, TAppState> : BlazorObservable
         where TConfig : ConfigurationBase
         where TAppState : AppStateBase
     {

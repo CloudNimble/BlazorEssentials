@@ -11,13 +11,13 @@
     <div class="top-row px-4">
         @if (!appState.IsSignedIn)
         {
-            <button type="button" class="btn btn-primary ml-md-auto" onclick="@appState.SignIn">Sign In</button>
+            <button type="button" class="btn btn-primary ml-md-auto" @onclick="appState.SignIn">Sign In</button>
         }
         else
         {
             <div class="ml-md-auto">
                 <span class="pr-3">@appState.CurrentUser.FindFirst(ClaimTypes.Name).Value</span>
-                <button type="button" class="btn btn-primary" onclick="@appState.SignOut">Sign Out</button>
+                <button type="button" class="btn btn-primary" @onclick="appState.SignOut">Sign Out</button>
             </div>
         }
     </div>

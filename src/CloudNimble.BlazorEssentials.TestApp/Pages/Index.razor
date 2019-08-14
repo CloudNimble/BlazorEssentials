@@ -23,7 +23,7 @@
         this.StateHasChanged();
     }
 
-    protected override async Task OnInitAsync()
+    protected override async Task OnInitializedAsync()
     {
         //RWM: This is probably leaky and we need a better way to do this.
         appState.PropertyChanged += UserChangedHandler;

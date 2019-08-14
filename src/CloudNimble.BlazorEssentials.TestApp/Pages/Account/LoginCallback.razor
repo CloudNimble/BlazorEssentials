@@ -8,7 +8,7 @@
 @functions
 {
 
-    protected override async Task OnInitAsync()
+    protected override async Task OnInitializedAsync()
     {
         var uri = uriHelper.GetAbsoluteUri();
         var token = uri.Substring(uri.IndexOf("#") + 1);

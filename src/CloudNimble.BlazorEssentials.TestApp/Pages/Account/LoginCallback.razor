@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Components;
 @page "/Account/LoginCallback"
 @inject AppStateBase  appState
-@inject IUriHelper uriHelper
+@inject NavigationManager navigationHelper
 
 <div class="text-center">We're processing your login, please stand by...</div>
 
@@ -10,7 +10,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        var uri = uriHelper.GetAbsoluteUri();
+        var uri = navigationHelper.Uri;
         var token = uri.Substring(uri.IndexOf("#") + 1);
         //System.Console.WriteLine(token);
         appState.ProcessToken(token);

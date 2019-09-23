@@ -69,9 +69,9 @@ namespace CloudNimble.BlazorEssentials
         public bool IsLoading { get; set; }
 
         /// <summary>
-        /// The injected <see cref="IUriHelper"/> instance for the ViewModel.
+        /// The injected <see cref="NavigationManager"/> instance for the ViewModel.
         /// </summary>
-        public IUriHelper UriHelper { get; internal set; }
+        public NavigationManager NavigationManager { get; internal set; }
 
         #endregion
 
@@ -80,16 +80,16 @@ namespace CloudNimble.BlazorEssentials
         /// <summary>
         /// Creates a new instance of the <see cref="ViewModelBase"/>.
         /// </summary>
+        /// <param name="navigationManager">The <see cref="IUriHelper"/> instance injected from the DI container.</param>
+        /// <param name="httpClient">The <see cref="HttpClient"/> instance injected from the DI container.</param>
         /// <param name="configuration">The <typeparamref name="TConfig"/> instance injected from the DI container.</param>
         /// <param name="appState">The <typeparamref name="TAppState"/> instance injected from the DI container.</param>
-        /// <param name="uriHelper">The <see cref="IUriHelper"/> instance injected from the DI container.</param>
-        /// <param name="httpClient">The <see cref="HttpClient"/> instance injected from the DI container.</param>
-        public ViewModelBase(IUriHelper uriHelper, HttpClient httpClient, TConfig configuration = null, TAppState appState = null)
+        public ViewModelBase(NavigationManager navigationManager, HttpClient httpClient, TConfig configuration = null, TAppState appState = null)
         {
-            Configuration = configuration;
-            AppState = appState ?? (TAppState)new AppStateBase(uriHelper);
-            UriHelper = uriHelper;
+            NavigationManager = navigationManager;
             HttpClient = httpClient;
+            Configuration = configuration;
+            AppState = appState ?? (TAppState)new AppStateBase(navigationManager);
             AllowedRoles = new List<string>();
         }
 
@@ -126,7 +126,7 @@ namespace CloudNimble.BlazorEssentials
                 //RWM: If we're not signed in at all, go to the sign in prompt.
                 if (!AppState.IsSignedIn) AppState.SignIn();
                 //RWM: Otherwise, you're signed in but not allowed to see it. Redirect.
-                UriHelper.NavigateTo(Configuration.UnauthorizedRedirectUrl);
+                NavigationManager.NavigateTo(Configuration.UnauthorizedRedirectUrl);
             }
         }
 

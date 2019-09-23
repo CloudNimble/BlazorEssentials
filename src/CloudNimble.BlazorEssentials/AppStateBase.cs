@@ -14,7 +14,7 @@ namespace CloudNimble.BlazorEssentials
         #region Private Members
 
         private ClaimsPrincipal _currentUser;
-        private readonly IUriHelper _uriHelper;
+        private readonly NavigationManager _navigationManager;
         private readonly BlazorAuthenticationConfig _config;
 
         #endregion
@@ -49,11 +49,11 @@ namespace CloudNimble.BlazorEssentials
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="uriHelper"></param>
+        /// <param name="navigationManager"></param>
         /// <param name="authOptions"></param>
-        public AppStateBase(IUriHelper uriHelper, BlazorAuthenticationConfig authOptions = null)
+        public AppStateBase(NavigationManager navigationManager, BlazorAuthenticationConfig authOptions = null)
         {
-            _uriHelper = uriHelper;
+            _navigationManager = navigationManager;
             _config = authOptions;
         }
 
@@ -70,7 +70,7 @@ namespace CloudNimble.BlazorEssentials
             {
                 throw new ArgumentNullException("authOptions", "You attempted to use the Authentication option without registering a BlazorAuthenticationConfig instance with the IServiceCollection.");
             }
-            _uriHelper.NavigateTo(_config.GenerateRedirectUrl());
+            _navigationManager.NavigateTo(_config.GenerateRedirectUrl());
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace CloudNimble.BlazorEssentials
         public void ProcessToken(string token)
         {
             CurrentUser = _config.ProcessToken(this, token);
-            _uriHelper.NavigateTo("/");
+            _navigationManager.NavigateTo("/");
         }
 
         /// <summary>

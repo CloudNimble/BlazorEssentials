@@ -73,6 +73,11 @@ namespace CloudNimble.BlazorEssentials
         /// </summary>
         public NavigationManager NavigationManager { get; internal set; }
 
+        /// <summary>
+        /// Allows the Blazor page to pass the StateHasChanged function back to the ViewModels so ViewModel operations can trigger state chamges.
+        /// </summary>
+        public Action StateHasChangedAction { get; set; } = () => { };
+
         #endregion
 
         #region Constructors

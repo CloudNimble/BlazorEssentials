@@ -50,7 +50,7 @@ namespace CloudNimble.BlazorEssentials
         public HttpClient HttpClient { get; internal set; }
 
         /// <summary>
-        /// A boolean signifying whether or not the <see cref="AppState.CurrentUser"/> is authorized to see the Page, given the <see cref="AllowAnonymous"/> and <see cref="AllowedRoles"/> criteria.
+        /// A boolean signifying whether or not the <see cref="AppStateBase.CurrentUser"/> is authorized to see the Page, given the <see cref="AllowAnonymous"/> and <see cref="AllowedRoles"/> criteria.
         /// </summary>
         public bool IsAuthorized
         {
@@ -83,9 +83,9 @@ namespace CloudNimble.BlazorEssentials
         #region Constructors
 
         /// <summary>
-        /// Creates a new instance of the <see cref="ViewModelBase"/>.
+        /// Creates a new instance of the <see cref="ViewModelBase{TConfig, TAppState}"/>.
         /// </summary>
-        /// <param name="navigationManager">The <see cref="IUriHelper"/> instance injected from the DI container.</param>
+        /// <param name="navigationManager">The <see cref="NavigationManager"/> instance injected from the DI container.</param>
         /// <param name="httpClient">The <see cref="HttpClient"/> instance injected from the DI container.</param>
         /// <param name="configuration">The <typeparamref name="TConfig"/> instance injected from the DI container.</param>
         /// <param name="appState">The <typeparamref name="TAppState"/> instance injected from the DI container.</param>
@@ -117,7 +117,7 @@ namespace CloudNimble.BlazorEssentials
         }
 
         /// <summary>
-        /// Checks the <see cref="AppState.CurrentUser"/> authorization and boots the user to the Unauthorized page if required.
+        /// Checks the <see cref="AppStateBase.CurrentUser"/> authorization and boots the user to the Unauthorized page if required.
         /// </summary>
         public void Authorize()
         {

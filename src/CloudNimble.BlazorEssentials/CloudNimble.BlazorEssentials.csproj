@@ -1,13 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <PackageId>BlazorEssentials</PackageId>
-    <Company>CloudNimble</Company>
     <Description>A set of utilities to make Blazor development easier than ever. Includes base classes for Application State, Configuration, and ViewModels, as well as an ODataResultList and a helper to pull configuration files out of embedded resources.</Description>
-    <Version>1.0.0-beta.2</Version>
-    <Copyright>CloudNimble, Inc.</Copyright>
-    <PackageLicenseUrl></PackageLicenseUrl>
     <RepositoryUrl>https://github.com/CloudNimble/BlazorEssentials</RepositoryUrl>
     <PackageReleaseNotes>1.0.0-alpha.1 - Initial release.
 1.0.0-alpha.2 - Added injected UriHelper + FilterCriteria to ViewModelBase.
@@ -24,12 +20,17 @@
     <PackageTags>Blazor, RazorComponents, Razor Components</PackageTags>
     <Authors>CloudNimble</Authors>
     <RepositoryType>git</RepositoryType>
+    <NoWarn>$(NoWarn);CS1998;CS1591;CA1052;CA1801;CA1822</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Blazor" Version="3.0.0-preview9.19465.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Blazor.HttpClient" Version="3.0.0-preview9.19465.2" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="3.0.0" />
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Blazor" Version="3.1.0-preview4.19579.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Blazor.HttpClient" Version="3.1.0-preview4.19579.2" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="3.1.0" />
   </ItemGroup>
 
 </Project>

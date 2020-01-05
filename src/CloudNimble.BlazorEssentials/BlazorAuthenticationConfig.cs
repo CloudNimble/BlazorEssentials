@@ -51,18 +51,18 @@ namespace CloudNimble.BlazorEssentials
         /// Creates a new instance of <see cref="BlazorAuthenticationConfig"/> suitable for use with Authentication.
         /// </summary>
         /// <param name="generateRedirectUrl">
-        /// A <see cref="Func{string}"/> that generates the URL to redirect to for authenticating and returning a JWT.
+        /// A <see cref="Func{T, TResult}" /> that generates the URL to redirect to for authenticating and returning a JWT.
         /// </param>
         /// <param name="processToken">
-        /// A <see cref="Func{AppStateBase, String, ClaimsPrincipal}"/> that takes an instance <see cref="AppStateBase>"/> and the token to process as
-        /// input parameters, and returns a populated ClaimsPrincipal to set as the <see cref="CurrentUser"/>.
+        /// A <see cref="Func{AppStateBase, String, ClaimsPrincipal}"/> that takes an instance <see cref="AppStateBase"/> and the token to process as
+        /// input parameters, and returns a populated ClaimsPrincipal to set as the <see cref="AppStateBase.CurrentUser"/>.
         /// </param>
         /// <param name="refreshToken">
-        /// An <see cref="Action{AppStateBase}"/> that takes an instance of <see cref="AppStateBase>"/> as an input parameter and refreshes an expired 
+        /// An <see cref="Action{AppStateBase}"/> that takes an instance of <see cref="AppStateBase"/> as an input parameter and refreshes an expired 
         /// token for the currently logged-in user.
         /// </param>
         /// <param name="signOut">
-        /// An< see cref="Action{AppStateBase}"/> that takes an instance of<see cref= "AppStateBase>" /> as an input parameter and signs the current user
+        /// An <see cref="Action{AppStateBase}"/> that takes an instance of<see cref= "AppStateBase" /> as an input parameter and signs the current user
         /// out of the login provider.
         /// </param>
         public BlazorAuthenticationConfig(Func<string> generateRedirectUrl, Func<AppStateBase, string, ClaimsPrincipal> processToken, Action<AppStateBase> refreshToken, Action<AppStateBase> signOut)

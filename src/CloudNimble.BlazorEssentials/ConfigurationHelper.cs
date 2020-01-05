@@ -11,7 +11,7 @@ namespace CloudNimble.BlazorEssentials
     /// 
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class ConfigurationHelper<T> where T : ConfigurationBase
+    public static class ConfigurationHelper<T> where T : ConfigurationBase
     {
 
         /// <summary>
@@ -23,15 +23,10 @@ namespace CloudNimble.BlazorEssentials
         {
             try
             {
-
                 // Get the configuration from embedded dll.
-                using (var stream = Assembly.GetCallingAssembly().GetManifestResourceStream(fileName))
-                {
-                    using (var reader = new StreamReader(stream))
-                    {
-                        return JsonSerializer.Deserialize<T>(reader.ReadToEnd());
-                    }
-                }
+                using var stream = Assembly.GetCallingAssembly().GetManifestResourceStream(fileName);
+                using var reader = new StreamReader(stream);
+                return JsonSerializer.Deserialize<T>(reader.ReadToEnd());
             }
             catch (Exception ex)
             {

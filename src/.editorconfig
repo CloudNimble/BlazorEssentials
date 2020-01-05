@@ -29,3 +29,6 @@ dotnet_diagnostic.CA1822.severity = suggestion
 
 # CA1052: Static holder types should be Static or NotInheritable
 dotnet_diagnostic.CA1052.severity = suggestion
+
+# CA1054: Uri parameters should not be strings
+dotnet_diagnostic.CA1054.severity = suggestion

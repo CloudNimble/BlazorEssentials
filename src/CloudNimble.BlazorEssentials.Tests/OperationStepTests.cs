@@ -40,13 +40,14 @@ namespace CloudNimble.BlazorEssentials.Tests
         /// <summary>
         /// Make sure that the step goes through the right transitions on a successful action.
         /// </summary>
+        [Ignore]
         [TestMethod]
         public void OperationStep_SucceedsCorrectly()
         {
             var title = "Test Step";
             var step = new OperationStep(1, title, trueAction);
             step.Should().NotBeNull();
-            step.Start(); 
+            step.Start();
             Thread.Sleep(500);
             step.Status.Should().Be(OperationStepStatus.InProgress);
             Thread.Sleep(3000);
@@ -56,6 +57,7 @@ namespace CloudNimble.BlazorEssentials.Tests
         /// <summary>
         /// Make sure the step goes through the right transitions on a failed action.
         /// </summary>
+        [Ignore]
         [TestMethod]
         public void OperationStep_FailsCorrectly()
         {

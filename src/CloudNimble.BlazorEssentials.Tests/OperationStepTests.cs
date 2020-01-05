@@ -1,12 +1,12 @@
 using CloudNimble.BlazorEssentials.Merlin;
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using FluentAssertions;
 
 namespace CloudNimble.BlazorEssentials.Tests
-{ 
+{
 
     /// <summary>
     /// 

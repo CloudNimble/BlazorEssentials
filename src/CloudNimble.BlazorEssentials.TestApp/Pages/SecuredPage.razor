@@ -11,10 +11,11 @@
 
 @functions
 {
-protected override async Task OnInitializedAsync()
-{
-    viewModel.AllowAnonymous = false;
-    viewModel.Authorize();
-}
+    protected override async Task OnInitializedAsync()
+    {
+        viewModel.AllowAnonymous = false;
+        viewModel.Authorize();
+        await Task.FromResult(true);
+    }
 
 }

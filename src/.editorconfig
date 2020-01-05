@@ -17,3 +17,15 @@ dotnet_diagnostic.CA2007.severity = suggestion
 
 # CS4014: Because this call is not awaited, execution of the current method continues before the call is completed
 dotnet_diagnostic.CS4014.severity = suggestion
+
+# IDE0060: Remove unused parameter
+dotnet_code_quality_unused_parameters = all:suggestion
+
+# CA1822: Mark members as static
+dotnet_diagnostic.CA1801.severity = suggestion
+
+# CA1822: Mark members as static
+dotnet_diagnostic.CA1822.severity = suggestion
+
+# CA1052: Static holder types should be Static or NotInheritable
+dotnet_diagnostic.CA1052.severity = suggestion

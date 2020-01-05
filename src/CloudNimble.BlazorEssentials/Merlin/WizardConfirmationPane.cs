@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CloudNimble.BlazorEssentials.Merlin
+﻿namespace CloudNimble.BlazorEssentials.Merlin
 {
 
     /// <summary>
@@ -11,10 +7,16 @@ namespace CloudNimble.BlazorEssentials.Merlin
     public class WizardConfirmationPane : WizardPane
     {
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="nextLabel"></param>
         public WizardConfirmationPane(int id, string nextLabel = "NEXT") : base(id, null, null, nextLabel)
         {
-            OnNextAction = 
+            //OnNextAction = 
         }
 
     }
+
 }

@@ -1,6 +1,7 @@
 ﻿using CloudNimble.BlazorEssentials.Navigation;
 using Microsoft.AspNetCore.Components;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Security.Claims;
@@ -85,6 +86,16 @@ namespace CloudNimble.BlazorEssentials
         public void InitializeNav()
         {
             CurrentNavItem = NavItems.FirstOrDefault(c => c.Url.ToUpper().StartsWith(NavigationManager.ToBaseRelativePath(NavigationManager.Uri).ToUpper()));
+        }
+
+        /// <summary>
+        /// Load the NavigationItems into <see cref="NavItems" /> and properly wire up the PropertyChanged event.
+        /// </summary>
+        /// <param name="items"></param>
+        public void LoadNavItems(List<NavigationItem> items)
+        {
+            NavItems = new ObservableCollection<NavigationItem>(items);
+            NavItems.CollectionChanged += (sender, e) => { RaisePropertyChanged(nameof(NavItems)); };
         }
 
         /// <summary>

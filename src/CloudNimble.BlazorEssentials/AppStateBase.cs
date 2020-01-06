@@ -25,13 +25,13 @@ namespace CloudNimble.BlazorEssentials
         #region Properties
 
         /// <summary>
-        /// 
+        /// The <see cref="NavigationItem" /> from <see cref="NavItems" /> that corresponds to the current Route.
         /// </summary>
         public NavigationItem CurrentNavItem { get; set; }
 
 
         /// <summary>
-        /// 
+        /// The <see cref="ClaimsPrincipal" /> for the currently logged-in user.
         /// </summary>
         public ClaimsPrincipal CurrentUser
         {
@@ -80,15 +80,7 @@ namespace CloudNimble.BlazorEssentials
 
         #region Public Methods
 
-        /// <summary>
-        /// Initilizes <see cref="CurrentNavItem" /> to the proper value based on the current route.
-        /// </summary>
-        public void InitializeNav()
-        {
-            CurrentNavItem = NavItems.FirstOrDefault(c => c.Url.ToUpper().StartsWith(NavigationManager.ToBaseRelativePath(NavigationManager.Uri).ToUpper()));
-        }
-
-        /// <summary>
+         /// <summary>
         /// Load the NavigationItems into <see cref="NavItems" /> and properly wire up the PropertyChanged event.
         /// </summary>
         /// <param name="items"></param>
@@ -96,6 +88,19 @@ namespace CloudNimble.BlazorEssentials
         {
             NavItems = new ObservableCollection<NavigationItem>(items);
             NavItems.CollectionChanged += (sender, e) => { RaisePropertyChanged(nameof(NavItems)); };
+        }
+
+        /// <summary>
+        /// Navigates to the specified Uri and sets <see cref="CurrentNavItem" /> to the matching <see cref="NavigationItem" /> in <see cref="NavItems" />.
+        /// </summary>
+        /// <param name="uri"></param>
+        public void Navigate(string uri)
+        {
+            if (!string.IsNullOrWhiteSpace(uri))
+            {
+                NavigationManager.NavigateTo(uri);
+            }
+            SetCurrentNavItem();
         }
 
         /// <summary>
@@ -120,6 +125,14 @@ namespace CloudNimble.BlazorEssentials
 
             //TODO: Should the action replace the CurrentUser or should we do it? Leaning toward us.
             _config.RefreshToken(this);
+        }
+
+        /// <summary>
+        /// Initilizes <see cref="CurrentNavItem" /> to the proper value based on the current route.
+        /// </summary>
+        public void SetCurrentNavItem()
+        {
+            CurrentNavItem = NavItems.FirstOrDefault(c => c.Url.ToUpper().StartsWith(NavigationManager.ToBaseRelativePath(NavigationManager.Uri).ToUpper()));
         }
 
         /// <summary>

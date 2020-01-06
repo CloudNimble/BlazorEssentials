@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using CloudNimble.BlazorEssentials.Navigation;
+using Microsoft.AspNetCore.Components;
 using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Security.Claims;
 
 namespace CloudNimble.BlazorEssentials
@@ -14,12 +17,17 @@ namespace CloudNimble.BlazorEssentials
         #region Private Members
 
         private ClaimsPrincipal _currentUser;
-        private readonly NavigationManager _navigationManager;
         private readonly BlazorAuthenticationConfig _config;
 
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public NavigationItem CurrentNavItem { get; set; }
+
 
         /// <summary>
         /// 
@@ -42,6 +50,16 @@ namespace CloudNimble.BlazorEssentials
         /// </summary>
         public bool IsSignedIn => CurrentUser != null /*&& CurrentUser.FindFirst(ClaimTypes.Expiration).Value*/;
 
+        /// <summary>
+        /// The instance of the <see cref="NavigationManager" /> injected by the DI system.
+        /// </summary>
+        public NavigationManager NavigationManager { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ObservableCollection<NavigationItem> NavItems { get; private set; }
+
         #endregion
 
         #region Constructors
@@ -53,7 +71,7 @@ namespace CloudNimble.BlazorEssentials
         /// <param name="authOptions"></param>
         public AppStateBase(NavigationManager navigationManager, BlazorAuthenticationConfig authOptions = null)
         {
-            _navigationManager = navigationManager;
+            NavigationManager = navigationManager;
             _config = authOptions;
         }
 
@@ -62,15 +80,11 @@ namespace CloudNimble.BlazorEssentials
         #region Public Methods
 
         /// <summary>
-        /// Triggers the authentication mechanism specified in Startup.cs to sign the user into the login provider.
+        /// Initilizes <see cref="CurrentNavItem" /> to the proper value based on the current route.
         /// </summary>
-        public void SignIn()
+        public void InitializeNav()
         {
-            if (_config == null)
-            {
-                throw new ArgumentNullException("authOptions", "You attempted to use the Authentication option without registering a BlazorAuthenticationConfig instance with the IServiceCollection.");
-            }
-            _navigationManager.NavigateTo(_config.GenerateRedirectUrl());
+            CurrentNavItem = NavItems.FirstOrDefault(c => c.Url.ToUpper().StartsWith(NavigationManager.ToBaseRelativePath(NavigationManager.Uri).ToUpper()));
         }
 
         /// <summary>
@@ -80,7 +94,7 @@ namespace CloudNimble.BlazorEssentials
         public void ProcessToken(string token)
         {
             CurrentUser = _config.ProcessToken(this, token);
-            _navigationManager.NavigateTo("/");
+            NavigationManager.NavigateTo("/");
         }
 
         /// <summary>
@@ -95,6 +109,18 @@ namespace CloudNimble.BlazorEssentials
 
             //TODO: Should the action replace the CurrentUser or should we do it? Leaning toward us.
             _config.RefreshToken(this);
+        }
+
+        /// <summary>
+        /// Triggers the authentication mechanism specified in Startup.cs to sign the user into the login provider.
+        /// </summary>
+        public void SignIn()
+        {
+            if (_config == null)
+            {
+                throw new ArgumentNullException("authOptions", "You attempted to use the Authentication option without registering a BlazorAuthenticationConfig instance with the IServiceCollection.");
+            }
+            NavigationManager.NavigateTo(_config.GenerateRedirectUrl());
         }
 
         /// <summary>

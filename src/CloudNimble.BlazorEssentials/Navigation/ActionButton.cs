@@ -9,6 +9,8 @@ namespace CloudNimble.BlazorEssentials.Navigation
     public class ActionButton
     {
 
+        #region Properties
+
         /// <summary>
         /// The CSS class(es) that will be applied to the button tag.
         /// </summary>
@@ -33,6 +35,29 @@ namespace CloudNimble.BlazorEssentials.Navigation
         /// The text that will be displayed to the end user when the cursor is hovered over the button.
         /// </summary>
         public string Tooltip { get; set; }
+
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="actionMethod"></param>
+        /// <param name="tooltip"></param>
+        /// <param name="iconClass"></param>
+        /// <param name="buttonClass"></param>
+        /// <param name="buttonText"></param>
+        public ActionButton(Action actionMethod, string tooltip, string iconClass = null, string buttonClass = null, string buttonText = null)
+        {
+            ActionMethod = actionMethod;
+            Tooltip = tooltip;
+            IconClass = iconClass;
+            ButtonClass = buttonClass;
+            ButtonText = buttonText;
+        }
+
+        #endregion
 
     }
 

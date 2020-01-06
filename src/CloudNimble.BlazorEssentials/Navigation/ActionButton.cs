@@ -29,7 +29,7 @@ namespace CloudNimble.BlazorEssentials.Navigation
         /// <summary>
         /// A lambda expression that will be executed when the button is clicked.
         /// </summary>
-        public Action ActionMethod { get; set; }
+        public Action ActionMethod { get; set; } = () => { };
 
         /// <summary>
         /// The text that will be displayed to the end user when the cursor is hovered over the button.
@@ -50,7 +50,10 @@ namespace CloudNimble.BlazorEssentials.Navigation
         /// <param name="buttonText"></param>
         public ActionButton(Action actionMethod, string tooltip, string iconClass = null, string buttonClass = null, string buttonText = null)
         {
-            ActionMethod = actionMethod;
+            if (actionMethod != null)
+            {
+                ActionMethod = actionMethod;
+            }
             Tooltip = tooltip;
             IconClass = iconClass;
             ButtonClass = buttonClass;

@@ -11,7 +11,7 @@
     <div class="top-row px-4">
         @if (!appState.IsSignedIn)
         {
-            <button type="button" class="btn btn-primary ml-md-auto" @onclick="appState.SignIn">Sign In</button>
+            <a class="btn btn-primary ml-md-auto" @onclick="appState.SignIn">Sign In</a>
         }
         else
         {

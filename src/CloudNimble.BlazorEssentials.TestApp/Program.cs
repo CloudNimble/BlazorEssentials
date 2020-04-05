@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Blazor.Hosting;
+﻿using CloudNimble.BlazorEssentials.TestApp.ViewModels;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using System.Threading.Tasks;
 
 namespace CloudNimble.BlazorEssentials.TestApp
 {
@@ -13,18 +16,24 @@ namespace CloudNimble.BlazorEssentials.TestApp
         /// 
         /// </summary>
         /// <param name="args"></param>
-        public static void Main(string[] args)
+        /// <returns></returns>
+        public static async Task Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            var builder = WebAssemblyHostBuilder.CreateDefault(args);
+            builder.RootComponents.Add<App>("app");
+
+            builder.Services.AddBaseAddressHttpClient();
+
+            builder.Services.AddSingleton<IndexViewModel>();
+            builder.Services.AddSingleton<SecuredPageViewModel>();
+            builder.Services.AddSingleton<AdminPageViewModel>();
+            builder.Services.AddSingleton(ConfigurationHelper<ConfigurationBase>.GetConfigurationFromJson());
+            builder.Services.AddSingleton<BlazorAuthenticationConfig, TestAppAuthenticationConfig>();
+            builder.Services.AddSingleton<AppStateBase>();
+
+            await builder.Build().RunAsync().ConfigureAwait(false);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="args"></param>
-        /// <returns></returns>
-        public static IWebAssemblyHostBuilder CreateHostBuilder(string[] args) =>
-            BlazorWebAssemblyHost.CreateDefaultBuilder()
-                .UseBlazorStartup<Startup>();
     }
+
 }

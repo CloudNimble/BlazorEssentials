@@ -17,7 +17,8 @@ namespace CloudNimble.BlazorEssentials
 
         #region Private Members
 
-        private ClaimsPrincipal _currentUser;
+        private ClaimsPrincipal currentUser;
+        private NavigationItem currentNavItem;
         private readonly BlazorAuthenticationConfig _config;
 
         #endregion
@@ -27,20 +28,30 @@ namespace CloudNimble.BlazorEssentials
         /// <summary>
         /// The <see cref="NavigationItem" /> from <see cref="NavItems" /> that corresponds to the current Route.
         /// </summary>
-        public NavigationItem CurrentNavItem { get; set; }
-
+        public NavigationItem CurrentNavItem 
+        {
+            get => currentNavItem;
+            set
+            {
+                if (currentNavItem != value)
+                {
+                    currentNavItem = value;
+                    RaisePropertyChanged(() => CurrentNavItem);
+                }
+            }
+        }
 
         /// <summary>
         /// The <see cref="ClaimsPrincipal" /> for the currently logged-in user.
         /// </summary>
         public ClaimsPrincipal CurrentUser
         {
-            get { return _currentUser; }
+            get => currentUser;
             set
             {
-                if (_currentUser != value)
+                if (currentUser != value)
                 {
-                    _currentUser = value;
+                    currentUser = value;
                     RaisePropertyChanged(() => CurrentUser);
                 }
             }
@@ -80,7 +91,7 @@ namespace CloudNimble.BlazorEssentials
 
         #region Public Methods
 
-         /// <summary>
+        /// <summary>
         /// Load the NavigationItems into <see cref="NavItems" /> and properly wire up the PropertyChanged event.
         /// </summary>
         /// <param name="items"></param>

@@ -44,6 +44,40 @@ namespace CloudNimble.BlazorEssentials.Tests
         /// Make sure the step goes through the right transitions on a failed action.
         /// </summary>
         [TestMethod]
+        public void OperationStep_TrueForAnonymous()
+        {
+            var item = new NavigationItem("", "", "", "", false, "", "", "", true);
+            item.IsVisible.Should().Be(false);
+            item.IsVisibleToUser(null).Should().BeTrue();
+        }
+
+        /// <summary>
+        /// Make sure the step goes through the right transitions on a failed action.
+        /// </summary>
+        [TestMethod]
+        public void OperationStep_FalseForAnonymous()
+        {
+            var item = new NavigationItem("", "", "", "", false, "", "");
+            item.IsVisible.Should().Be(false);
+            item.IsVisibleToUser(null).Should().BeFalse();
+        }
+
+        /// <summary>
+        /// Make sure the step goes through the right transitions on a failed action.
+        /// </summary>
+        [TestMethod]
+        public void OperationStep_TrueForEmpty()
+        {
+            var item = new NavigationItem("", "", "", "", false, "", "");
+            item.IsVisible.Should().Be(false);
+            var principal = GetEmptyClaimsPrincipal();
+            item.IsVisibleToUser(principal).Should().BeTrue();
+        }
+
+        /// <summary>
+        /// Make sure the step goes through the right transitions on a failed action.
+        /// </summary>
+        [TestMethod]
         public void OperationStep_FalseForEmpty()
         {
             var item = new NavigationItem("", "", "", "", false, "", "", "admin, test");

@@ -10,22 +10,22 @@
         /// <summary>
         /// 
         /// </summary>
-        NotStarted,
+        NotStarted = 0,
 
         /// <summary>
         /// 
         /// </summary>
-        InProgress,
+        InProgress = 1,
 
         /// <summary>
         /// 
         /// </summary>
-        Succeeded,
+        Failed = 99,
 
         /// <summary>
         /// 
         /// </summary>
-        Failed
+        Succeeded = 100,
 
     }
 

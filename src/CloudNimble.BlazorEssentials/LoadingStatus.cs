@@ -1,21 +1,21 @@
-﻿namespace CloudNimble.BlazorEssentials.Merlin
+﻿namespace CloudNimble.BlazorEssentials
 {
 
     /// <summary>
-    /// 
+    /// Outlines the different phases of the loading cycle.
     /// </summary>
-    public enum WizardPaneStatus
+    public enum LoadingStatus
     {
 
         /// <summary>
         /// 
         /// </summary>
-        NotStarted = 0,
+        NotLoaded = 0,
 
         /// <summary>
         /// 
         /// </summary>
-        InProgress = 1,
+        Loading = 1,
 
         /// <summary>
         /// 
@@ -25,7 +25,7 @@
         /// <summary>
         /// 
         /// </summary>
-        Succeeded = 100,
+        Loaded = 100
 
     }
 

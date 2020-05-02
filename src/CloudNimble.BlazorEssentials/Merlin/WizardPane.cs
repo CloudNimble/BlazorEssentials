@@ -20,7 +20,7 @@ namespace CloudNimble.BlazorEssentials.Merlin
         private WizardPaneStatus status;
         private Func<Task<bool>> defaultAction = () => { return Task.FromResult(true); };
 
-    #endregion
+        #endregion
 
         #region Properties
 
@@ -61,7 +61,7 @@ namespace CloudNimble.BlazorEssentials.Merlin
         public Func<Task<bool>> OnBackAction { get; set; }
 
         /// <summary>
-        /// A computed string containing the DisplayText for the currently running OperationStep.
+        /// A <see cref="WizardPaneStatus" /> specifying the current state of this WizardPane.
         /// </summary>
         public WizardPaneStatus Status
         {

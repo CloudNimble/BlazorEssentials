@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net.Http;
 using System.Security.Claims;
 
 namespace CloudNimble.BlazorEssentials
@@ -19,7 +20,7 @@ namespace CloudNimble.BlazorEssentials
 
         private ClaimsPrincipal currentUser;
         private NavigationItem currentNavItem;
-        private readonly BlazorAuthenticationConfig _config;
+        private readonly BlazorAuthenticationConfig config;
 
         #endregion
 
@@ -58,6 +59,11 @@ namespace CloudNimble.BlazorEssentials
         }
 
         /// <summary>
+        /// The instance of the <see cref="HttpClient" /> injected by the DI system.
+        /// </summary>
+        public HttpClient HttpClient { get; private set; }
+
+        /// <summary>
         /// 
         /// </summary>
         public bool IsSignedIn => CurrentUser != null /*&& CurrentUser.FindFirst(ClaimTypes.Expiration).Value*/;
@@ -65,7 +71,7 @@ namespace CloudNimble.BlazorEssentials
         /// <summary>
         /// The instance of the <see cref="NavigationManager" /> injected by the DI system.
         /// </summary>
-        public NavigationManager NavigationManager { get; set; }
+        public NavigationManager NavigationManager { get; private set; }
 
         /// <summary>
         /// 
@@ -80,11 +86,13 @@ namespace CloudNimble.BlazorEssentials
         /// 
         /// </summary>
         /// <param name="navigationManager"></param>
+        /// <param name="httpClient"></param>
         /// <param name="authOptions"></param>
-        public AppStateBase(NavigationManager navigationManager, BlazorAuthenticationConfig authOptions = null)
+        public AppStateBase(NavigationManager navigationManager, HttpClient httpClient, BlazorAuthenticationConfig authOptions = null)
         {
+            config = authOptions;
+            HttpClient = httpClient;
             NavigationManager = navigationManager;
-            _config = authOptions;
         }
 
         #endregion
@@ -120,7 +128,7 @@ namespace CloudNimble.BlazorEssentials
         /// <param name="token"></param>
         public void ProcessToken(string token)
         {
-            CurrentUser = _config.ProcessToken(this, token);
+            CurrentUser = config.ProcessToken(this, token);
             NavigationManager.NavigateTo("/");
         }
 
@@ -129,13 +137,13 @@ namespace CloudNimble.BlazorEssentials
         /// </summary>
         public void RefreshToken()
         {
-            if (_config == null)
+            if (config == null)
             {
                 throw new ArgumentNullException("authOptions", "You attempted to use the Authentication option without registering a BlazorAuthenticationConfig instance with the IServiceCollection.");
             }
 
             //TODO: Should the action replace the CurrentUser or should we do it? Leaning toward us.
-            _config.RefreshToken(this);
+            config.RefreshToken(this);
         }
 
         /// <summary>
@@ -151,11 +159,11 @@ namespace CloudNimble.BlazorEssentials
         /// </summary>
         public void SignIn()
         {
-            if (_config == null)
+            if (config == null)
             {
                 throw new ArgumentNullException("authOptions", "You attempted to use the Authentication option without registering a BlazorAuthenticationConfig instance with the IServiceCollection.");
             }
-            NavigationManager.NavigateTo(_config.GenerateRedirectUrl());
+            NavigationManager.NavigateTo(config.GenerateRedirectUrl());
         }
 
         /// <summary>
@@ -163,13 +171,13 @@ namespace CloudNimble.BlazorEssentials
         /// </summary>
         public void SignOut()
         {
-            if (_config == null)
+            if (config == null)
             {
                 throw new ArgumentNullException("authOptions", "You attempted to use the Authentication option without registering a BlazorAuthenticationConfig instance with the IServiceCollection.");
             }
 
             CurrentUser = null;
-            _config.SignOut(this);
+            config.SignOut(this);
         }
 
         #endregion

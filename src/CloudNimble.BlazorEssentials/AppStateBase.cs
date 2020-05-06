@@ -78,6 +78,11 @@ namespace CloudNimble.BlazorEssentials
         /// </summary>
         public ObservableCollection<NavigationItem> NavItems { get; private set; }
 
+        /// <summary>
+        /// Allows the Blazor MainLayout to pass the StateHasChanged function back to the AppState so ViewModel operations can trigger state changes.
+        /// </summary>
+        public Action StateHasChangedAction { get; set; } = () => { };
+
         #endregion
 
         #region Constructors

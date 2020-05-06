@@ -27,6 +27,7 @@
     {
         //RWM: This is probably leaky and we need a better way to do this.
         appState.PropertyChanged += UserChangedHandler;
+        appState.StateHasChangedAction += StateHasChanged;
         await Task.FromResult(true);
     }
 

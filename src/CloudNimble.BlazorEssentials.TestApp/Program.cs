@@ -1,6 +1,8 @@
 ﻿using CloudNimble.BlazorEssentials.TestApp.ViewModels;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace CloudNimble.BlazorEssentials.TestApp
@@ -22,7 +24,7 @@ namespace CloudNimble.BlazorEssentials.TestApp
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("app");
 
-            builder.Services.AddBaseAddressHttpClient();
+            builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
             builder.Services.AddSingleton<IndexViewModel>();
             builder.Services.AddSingleton<SecuredPageViewModel>();

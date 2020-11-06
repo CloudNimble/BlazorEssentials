@@ -9,17 +9,14 @@ namespace CloudNimble.BlazorEssentials.TestApp.ViewModels
 
         #region Properties
 
-        public string LoginStatus
-        {
-            get => $"Signed In: {AppState.IsSignedIn} {(AppState.IsSignedIn ? "| Expires: " + AppState.CurrentUser.FindFirst(ClaimTypes.Expiration).Value : "")}";
-        }
+
 
         #endregion
 
 
         #region Constructors
 
-        public IndexViewModel(ConfigurationBase configuration, AppStateBase appState, NavigationManager navigationManager, HttpClient httpClient) : base(navigationManager, httpClient, configuration, appState)
+        public IndexViewModel(ConfigurationBase configuration, AppStateBase appState, NavigationManager navigationManager, IHttpClientFactory httpClientFactory) : base(navigationManager, httpClientFactory, configuration, appState)
         {
         }
 

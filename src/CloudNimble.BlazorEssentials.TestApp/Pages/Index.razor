@@ -13,20 +13,11 @@
 <h3>Injected Configuration:</h3>
 <p>ApiRoot: "@config.ApiRoot"</p>
 
-<p>@viewModel.LoginStatus</p>
-
 @functions
 {
 
-    void UserChangedHandler(object sender, PropertyChangedEventArgs e)
-    {
-        this.StateHasChanged();
-    }
-
     protected override async Task OnInitializedAsync()
     {
-        //RWM: This is probably leaky and we need a better way to do this.
-        appState.PropertyChanged += UserChangedHandler;
         appState.StateHasChangedAction += StateHasChanged;
         await Task.FromResult(true);
     }

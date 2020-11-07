@@ -18,16 +18,6 @@ namespace CloudNimble.BlazorEssentials
         #region Properties
 
         /// <summary>
-        /// A boolean signifying whether or not Anonymous users can access the current Page. Defaults to true.
-        /// </summary>
-        public bool AllowAnonymous { get; set; } = true;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public List<string> AllowedRoles { get; set; }
-
-        /// <summary>
         /// The injected <see cref="AppStateBase"/> instance for the ViewModel.
         /// </summary>
         public TAppState AppState { get; internal set; }
@@ -74,7 +64,6 @@ namespace CloudNimble.BlazorEssentials
             HttpClientFactory = httpClientFactory;
             Configuration = configuration;
             AppState = appState ?? (TAppState)new AppStateBase(navigationManager, httpClientFactory);
-            AllowedRoles = new List<string>();
         }
 
         #endregion

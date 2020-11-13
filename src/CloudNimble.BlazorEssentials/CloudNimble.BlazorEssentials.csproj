@@ -1,21 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFrameworks>netstandard2.1;net5.0</TargetFrameworks>
     <PackageId>BlazorEssentials</PackageId>
     <Description>A set of utilities to make Blazor development easier than ever. Includes base classes for Application State, Configuration, and ViewModels, as well as an ODataResultList and a helper to pull configuration files out of embedded resources.</Description>
     <RepositoryUrl>https://github.com/CloudNimble/BlazorEssentials</RepositoryUrl>
-    <PackageReleaseNotes>1.0.0-alpha.1 - Initial release.
-1.0.0-alpha.2 - Added injected UriHelper + FilterCriteria to ViewModelBase.
-1.0.0-alpha.3 - Added BlazorObservable and have AppStateBase inherit from it.
-1.0.0-alpha.4 - Added claims-based authentication hooks to AppStateBase.
-1.0.0-alpha.5 - Changed the order of generic parameters on ViewModelBase to match the constructor order.
-1.0.0-alpha.6 - Updated the Login process to separate the login redirect from the post-login return.
-1.0.0-alpha.7 - Fixed the ConfigurationHelper so it pulls from the right assembly.
-1.0.0-alpha.8 - Added ClaimsExtensions to standardize incoming claims.
-1.0.0-alpha.9 - Redirect to home after the login token is processed.
-1.0.0-beta.1 - Updated for Blazor 0.9.
-1.0.0-beta.2 - Updated for Blazor 3.0 Preview 4.</PackageReleaseNotes>
+    <PackageReleaseNotes>Version 2.0.0
+- Added support for Blazor on .NET 5.0
+- Removed custom authentication solution in favor of OOB auth
+- Added ApiAuthorizationMessageHandler to add tokens to the API specified in ConfigurationBase.ApiRoot.
+- Injecting an IHttpClientFactory where necessary instead of an HttpClient.</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageTags>Blazor, RazorComponents, Razor Components</PackageTags>
     <Authors>CloudNimble</Authors>
@@ -28,12 +22,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="3.2.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="3.2.1" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="3.1.9" />
-    <PackageReference Include="Microsoft.Extensions.Http" Version="3.1.9" />
-    <PackageReference Include="System.Net.Http.Json" Version="3.2.1" />
-    <PackageReference Include="System.Collections" Version="4.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="[3.2.0, 4.0.0)" Condition="'$(TargetFramework)'=='netstandard2.1'" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="[3.2.1, 4.0.0)" Condition="'$(TargetFramework)'=='netstandard2.1'" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="[3.1.9, 4.0.0)" Condition="'$(TargetFramework)'=='netstandard2.1'" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="[3.1.9, 4.0.0)" Condition="'$(TargetFramework)'=='netstandard2.1'" />
+    <PackageReference Include="System.Net.Http.Json" Version="[3.2.1, 4.0.0)" Condition="'$(TargetFramework)'=='netstandard2.1'" />
+    
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="[5.0.0, 6.0.0)" Condition="'$(TargetFramework)'=='net5.0'" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="[5.0.0, 6.0.0)" Condition="'$(TargetFramework)'=='net5.0'" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="[5.0.0, 6.0.0)" Condition="'$(TargetFramework)'=='net5.0'" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="[5.0.0, 6.0.0)" Condition="'$(TargetFramework)'=='net5.0'" />
+    <PackageReference Include="System.Net.Http.Json" Version="[5.0.0, 6.0.0)" Condition="'$(TargetFramework)'=='net5.0'" />
+    <PackageReference Include="System.Collections" Version="[4.3.0, 6.0.0)" />
   </ItemGroup>
 
   <ItemGroup>

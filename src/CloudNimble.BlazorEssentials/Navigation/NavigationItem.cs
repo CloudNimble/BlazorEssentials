@@ -55,14 +55,22 @@ namespace CloudNimble.BlazorEssentials.Navigation
         public string Url { get; set; }
 
         /// <summary>
-        /// 
+        /// A <see cref="HashSet{T}"/> of roles that this NavigationItem is visible to.
         /// </summary>
         public HashSet<string> Roles { get; private set; }
 
         /// <summary>
-        /// 
+        /// A <see cref="bool"/> specifying whether or not this <see cref="NavigationItem"/> is visible when a user is not logged in.
         /// </summary>
         public bool AllowAnonymous { get; }
+
+        /// <summary>
+        /// Allows you to set parameters specific to the page that you do NOT want to pass through the Routing system.
+        /// </summary>
+        /// <remarks>
+        /// Accessible through <see cref="AppStateBase.CurrentNavItem"/>.
+        /// </remarks>
+        public dynamic Parameters { get; set; }
 
         #endregion
 

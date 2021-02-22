@@ -8,6 +8,7 @@
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<NoWarn>$(NoWarn);CS1998;CS1591;CA1052;CA1801;CA1822</NoWarn>
+		<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
 	</PropertyGroup>
 
 	<ItemGroup>

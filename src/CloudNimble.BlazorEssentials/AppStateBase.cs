@@ -18,6 +18,7 @@ namespace CloudNimble.BlazorEssentials
         #region Private Members
 
         private NavigationItem currentNavItem;
+        private LoadingStatus loadingStatus;
 
         #endregion
 
@@ -43,6 +44,22 @@ namespace CloudNimble.BlazorEssentials
         /// The instance of the <see cref="IHttpClientFactory" /> injected by the DI system.
         /// </summary>
         public IHttpClientFactory HttpClientFactory { get; private set; }
+
+        /// <summary>
+        /// A <see cref="LoadingStatus"/> specifying the current state of the required data for this ViewModel.
+        /// </summary>
+        public LoadingStatus LoadingStatus
+        {
+            get => loadingStatus;
+            set
+            {
+                if (loadingStatus != value)
+                {
+                    loadingStatus = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
 
         /// <summary>
         /// The instance of the <see cref="NavigationManager" /> injected by the DI system.

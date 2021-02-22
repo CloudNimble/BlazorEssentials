@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using System.Collections.Generic;
 using System.Net.Http;
 
 namespace CloudNimble.BlazorEssentials
@@ -14,6 +13,12 @@ namespace CloudNimble.BlazorEssentials
         where TConfig : ConfigurationBase
         where TAppState : AppStateBase
     {
+
+        #region Private Members
+
+        private LoadingStatus loadingStatus;
+
+        #endregion
 
         #region Properties
 
@@ -40,7 +45,18 @@ namespace CloudNimble.BlazorEssentials
         /// <summary>
         /// A <see cref="LoadingStatus"/> specifying the current state of the required data for this ViewModel.
         /// </summary>
-        public LoadingStatus LoadingStatus { get; set; }
+        public LoadingStatus LoadingStatus
+        {
+            get => loadingStatus;
+            set
+            {
+                if (loadingStatus != value)
+                {
+                    loadingStatus = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
 
         /// <summary>
         /// The injected <see cref="NavigationManager"/> instance for the ViewModel.

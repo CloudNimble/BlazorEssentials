@@ -181,7 +181,7 @@ namespace CloudNimble.BlazorEssentials.Navigation
         #region Public Methods
 
         /// <summary>
-        /// 
+        /// Returns a boolean indicating whether or not the NavItem is available to any of the Roles the <paramref name="claimsPrincipal"/> is in.
         /// </summary>
         /// <param name="claimsPrincipal"></param>
         public bool IsVisibleToUser(ClaimsPrincipal claimsPrincipal)

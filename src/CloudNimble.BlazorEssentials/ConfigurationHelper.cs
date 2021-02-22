@@ -11,6 +11,7 @@ namespace CloudNimble.BlazorEssentials
     /// 
     /// </summary>
     /// <typeparam name="T"></typeparam>
+    [Obsolete("This method has been replaced by the built-in configuration system, which is downloaded from the server.", false)]
     public static class ConfigurationHelper<T> where T : ConfigurationBase
     {
 

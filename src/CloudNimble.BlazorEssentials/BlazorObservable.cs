@@ -61,7 +61,6 @@ namespace CloudNimble.BlazorEssentials
         /// <typeparam name="T">The type of the property that changed.</typeparam>
         /// <param name="propertyExpression">An expression identifying the property that changed.</param>
         [SuppressMessage("Microsoft.Design", "CA1030:UseEventsWhereAppropriate", Justification = "This cannot be an event")]
-        [SuppressMessage("Microsoft.Design", "CA1006:GenericMethodsShouldProvideTypeParameter", Justification = "This syntax is more convenient than other alternatives.")]
         protected virtual void RaisePropertyChanged<T>(Expression<Func<T>> propertyExpression)
         {
             if (propertyExpression == null) return;

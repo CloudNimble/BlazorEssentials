@@ -26,8 +26,11 @@ namespace CloudNimble.BlazorEssentials
     /// A base class for EF Code First objects to implement INPC, IValidateable, and IEditable.
     /// </summary>
     //// [ClassInfo(typeof(ViewModelBase))]
-    public class BlazorObservable : INotifyPropertyChanged
+    public class BlazorObservable : INotifyPropertyChanged, IDisposable
     {
+
+        private bool disposedValue;
+
         /// <summary>
         /// Occurs when a property value changes.
         /// </summary>
@@ -97,6 +100,36 @@ namespace CloudNimble.BlazorEssentials
             RaisePropertyChanged(propertyName);
         }
 
+        #region IDisposable
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    PropertyChanged = null;
+                }
+
+                disposedValue = true;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
     }
+
+    #endregion
 
 }

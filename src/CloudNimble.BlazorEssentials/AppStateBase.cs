@@ -1,5 +1,6 @@
 ﻿using CloudNimble.BlazorEssentials.Navigation;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -23,6 +24,11 @@ namespace CloudNimble.BlazorEssentials
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// The <see cref="AuthenticationStateProvider"/> for the app.
+        /// </summary>
+        public AuthenticationStateProvider AuthenticationStateProvider { get; set; }
 
         /// <summary>
         /// The <see cref="NavigationItem" /> from <see cref="NavItems" /> that corresponds to the current Route.

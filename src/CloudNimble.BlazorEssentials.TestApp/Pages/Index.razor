@@ -18,8 +18,12 @@
 
     protected override async Task OnInitializedAsync()
     {
-        appState.StateHasChangedAction += StateHasChanged;
-        await Task.FromResult(true);
+        viewModel.PropertyChanged += (sender, e) =>
+        {
+            this.StateHasChanged();
+        };
+
+        await viewModel.Load();
     }
 
 }

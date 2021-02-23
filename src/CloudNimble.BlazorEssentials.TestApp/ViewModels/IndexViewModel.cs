@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System.Net.Http;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace CloudNimble.BlazorEssentials.TestApp.ViewModels
 {
@@ -22,6 +23,15 @@ namespace CloudNimble.BlazorEssentials.TestApp.ViewModels
 
         #endregion
 
+        #region Public Methods
+
+        public async Task Load()
+        {
+            await Task.FromResult(0).ConfigureAwait(false);
+        }
+
     }
+
+    #endregion
 
 }

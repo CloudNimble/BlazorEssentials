@@ -23,13 +23,19 @@ using System.Runtime.CompilerServices;
 namespace CloudNimble.BlazorEssentials
 {
     /// <summary>
-    /// A base class for EF Code First objects to implement INPC, IValidateable, and IEditable.
+    /// A base class for Blazor ViewModels to implement INotifyPropertyChanged and IDisposable.
     /// </summary>
-    //// [ClassInfo(typeof(ViewModelBase))]
     public class BlazorObservable : INotifyPropertyChanged, IDisposable
     {
 
+        #region Private Members
+
         private bool disposedValue;
+        private LoadingStatus loadingStatus;
+
+        #endregion
+
+        #region Events
 
         /// <summary>
         /// Occurs when a property value changes.
@@ -40,6 +46,35 @@ namespace CloudNimble.BlazorEssentials
         /// Provides access to the PropertyChanged event handler to derived classes.
         /// </summary>
         protected PropertyChangedEventHandler PropertyChangedHandler => PropertyChanged;
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// A <see cref="LoadingStatus"/> specifying the current state of the required data for this ViewModel.
+        /// </summary>
+        public LoadingStatus LoadingStatus
+        {
+            get => loadingStatus;
+            set
+            {
+                if (loadingStatus != value)
+                {
+                    loadingStatus = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Allows the current Blazor container to pass the StateHasChanged action back to the BlazorObservable so ViewModel operations can trigger state changes.
+        /// </summary>
+        public Action StateHasChangedAction { get; set; } = () => { };
+
+        #endregion
+
+        #region Methods
 
         /// <summary>
         /// Raises the PropertyChanged event if needed.
@@ -100,6 +135,8 @@ namespace CloudNimble.BlazorEssentials
             RaisePropertyChanged(propertyName);
         }
 
+        #endregion
+
         #region IDisposable
 
         /// <summary>
@@ -128,8 +165,9 @@ namespace CloudNimble.BlazorEssentials
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
-    }
 
-    #endregion
+        #endregion
+
+    }
 
 }

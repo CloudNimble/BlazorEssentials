@@ -19,7 +19,6 @@ namespace CloudNimble.BlazorEssentials
         #region Private Members
 
         private NavigationItem currentNavItem;
-        private LoadingStatus loadingStatus;
 
         #endregion
 
@@ -52,22 +51,6 @@ namespace CloudNimble.BlazorEssentials
         public IHttpClientFactory HttpClientFactory { get; private set; }
 
         /// <summary>
-        /// A <see cref="LoadingStatus"/> specifying the current state of the required data for this ViewModel.
-        /// </summary>
-        public LoadingStatus LoadingStatus
-        {
-            get => loadingStatus;
-            set
-            {
-                if (loadingStatus != value)
-                {
-                    loadingStatus = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-        /// <summary>
         /// The instance of the <see cref="NavigationManager" /> injected by the DI system.
         /// </summary>
         public NavigationManager NavigationManager { get; private set; }
@@ -76,11 +59,6 @@ namespace CloudNimble.BlazorEssentials
         /// 
         /// </summary>
         public ObservableCollection<NavigationItem> NavItems { get; private set; }
-
-        /// <summary>
-        /// Allows the Blazor MainLayout to pass the StateHasChanged function back to the AppState so ViewModel operations can trigger state changes.
-        /// </summary>
-        public Action StateHasChangedAction { get; set; } = () => { };
 
         #endregion
 

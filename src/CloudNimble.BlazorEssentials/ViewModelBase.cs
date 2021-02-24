@@ -14,12 +14,6 @@ namespace CloudNimble.BlazorEssentials
         where TAppState : AppStateBase
     {
 
-        #region Private Members
-
-        private LoadingStatus loadingStatus;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
@@ -41,22 +35,6 @@ namespace CloudNimble.BlazorEssentials
         /// The injected <see cref="IHttpClientFactory"/> instance for the ViewModel.
         /// </summary>
         public IHttpClientFactory HttpClientFactory { get; internal set; }
-
-        /// <summary>
-        /// A <see cref="LoadingStatus"/> specifying the current state of the required data for this ViewModel.
-        /// </summary>
-        public LoadingStatus LoadingStatus
-        {
-            get => loadingStatus;
-            set
-            {
-                if (loadingStatus != value)
-                {
-                    loadingStatus = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
 
         /// <summary>
         /// The injected <see cref="NavigationManager"/> instance for the ViewModel.

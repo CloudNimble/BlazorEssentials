@@ -11,7 +11,7 @@
 
     <!--<SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)breakdance.snk</AssemblyOriginatorKeyFile>-->
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>9.0</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup>

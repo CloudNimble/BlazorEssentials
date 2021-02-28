@@ -1,4 +1,4 @@
-﻿@inject AppStateBase appState
+﻿@inject AppState appState
 
 <div class="top-row pl-4 navbar navbar-dark">
     <a class="navbar-brand" href="">BlazorEssentials Test</a>
@@ -9,27 +9,23 @@
 
 <div class="@(collapseNavMenu ? "collapse" : null)" @onclick="ToggleNavMenu">
     <ul class="nav flex-column">
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match=NavLinkMatch.All>
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </li>
-        @*@if (appState.IsSignedIn)
+        @foreach (var items in appState.NavItems.Where(c => c.AllowAnonymous).GroupBy(c => c.Category))
         {
-            <li class="nav-item px-3">
-                <NavLink class="nav-link" href="securedpage">
-                    <span class="oi oi-plus" aria-hidden="true"></span> Secured Page
-                </NavLink>
-            </li>
-            @if (appState.CurrentUser.IsInRole("admin"))
+            if (!string.IsNullOrWhiteSpace(items.Key))
             {
+                <li class="nav-header">@items.Key</li>
+            }
+            @foreach (var item in items)
+            {
+
+                if (!item.IsVisible) continue;
                 <li class="nav-item px-3">
-                    <NavLink class="nav-link" href="adminpage">
-                        <span class="oi oi-list-rich" aria-hidden="true"></span> Admin Page
+                    <NavLink class="nav-link" href="@item.Url" @onclick="@(() => appState.CurrentNavItem = item)" Match="NavLinkMatch.All">
+                        <i class="@item.Icon"></i>@item.Text
                     </NavLink>
                 </li>
             }
-        }*@
+        }
     </ul>
 </div>
 

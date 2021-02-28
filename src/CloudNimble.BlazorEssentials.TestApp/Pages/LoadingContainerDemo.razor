@@ -1,0 +1,76 @@
+﻿@using CloudNimble.BlazorEssentials.TestApp.ViewModels;
+
+@page "/LoadingContainer"
+
+@inject ConfigurationBase config
+@inject AppState appState
+@inject LoadingContainerViewModel viewModel
+
+<div>
+    <h4>LoadingContainer: Single Value</h4>
+    <LoadingContainer TItem="KeyValuePair<string, string>" @bind-LoadingStatus="viewModel.LoadingStatus" @bind-Data="viewModel.Item">
+        <LoadingContent>
+            <BlazorLoading />
+        </LoadingContent>
+        <LoadedContent>
+            @context.Key: @context.Value
+        </LoadedContent>
+        <FailedContent>
+            Oh, sh*t!
+        </FailedContent>
+    </LoadingContainer>
+</div>
+
+<div>
+    <h4>LoadingContainer: List</h4>
+    <LoadingContainer TItem="List<KeyValuePair<string, string>>" @bind-LoadingStatus="viewModel.LoadingStatus" @bind-Data="viewModel.Items">
+        <LoadingContent>
+            <BlazorLoading />
+        </LoadingContent>
+        <LoadedContent>
+            @foreach (var kvp in @context)
+                {
+            <span>@kvp.Key: @kvp.Value</span><br />
+            }
+        </LoadedContent>
+        <FailedContent>
+            Oh, sh*t!
+        </FailedContent>
+    </LoadingContainer>
+</div>
+
+<div>
+    <h4>LoadingContainer: Empty List</h4>
+    <LoadingContainer TItem="List<KeyValuePair<string, string>>" @bind-LoadingStatus="viewModel.LoadingStatus" @bind-Data="viewModel.NoItems">
+        <LoadingContent>
+            <BlazorLoading />
+        </LoadingContent>
+        <LoadedContent>
+            @foreach (var kvp in @context)
+                {
+            <span>@kvp.Key: @kvp.Value</span><br />
+            }
+        </LoadedContent>
+        <FailedContent>
+            Oh, sh*t!
+        </FailedContent>
+        <NoResultsContent>
+            The API did not return any results.
+        </NoResultsContent>
+    </LoadingContainer>
+</div>
+
+@code
+{
+    protected override async Task OnInitializedAsync()
+    {
+        viewModel.StateHasChangedAction = StateHasChanged;
+        viewModel.PropertyChanged += (sender, e) =>
+        {
+            this.StateHasChanged();
+        };
+
+        await viewModel.Load();
+    }
+
+}

@@ -1,4 +1,5 @@
 ﻿using CloudNimble.BlazorEssentials.Authentication;
+using CloudNimble.BlazorEssentials.TestApp.Models;
 using CloudNimble.BlazorEssentials.TestApp.ViewModels;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -23,7 +24,7 @@ namespace CloudNimble.BlazorEssentials.TestApp
         public static async Task Main(string[] args)
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
-            builder.RootComponents.Add<App>("app");
+            builder.RootComponents.Add<App>("#app");
 
             var config = builder.Configuration.GetSection("TestApp").Get<ConfigurationBase>();
 
@@ -35,10 +36,8 @@ namespace CloudNimble.BlazorEssentials.TestApp
             builder.Services.AddSingleton(c => config);
 
             builder.Services.AddSingleton<IndexViewModel>();
-            builder.Services.AddSingleton<SecuredPageViewModel>();
-            builder.Services.AddSingleton<AdminPageViewModel>();
-            builder.Services.AddSingleton(ConfigurationHelper<ConfigurationBase>.GetConfigurationFromJson());
-            builder.Services.AddSingleton<AppStateBase>();
+            builder.Services.AddSingleton<LoadingContainerViewModel>();
+            builder.Services.AddSingleton<AppState>();
 
             await builder.Build().RunAsync().ConfigureAwait(false);
         }

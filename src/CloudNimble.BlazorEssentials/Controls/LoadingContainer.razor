@@ -1,0 +1,99 @@
+﻿@typeparam TItem
+@using System.Collections
+
+@switch (LoadingStatus)
+{
+    case LoadingStatus.NotLoaded:
+        @NotLoadedContent
+        break;
+    case LoadingStatus.Loading:
+        @LoadingContent
+        break;
+
+    case LoadingStatus.Loaded:
+        if (Data == null || (Data != null && IsGenericList && (Data as IList).Count == 0))
+        {
+            @NoResultsContent
+        }
+        else
+        {
+            @LoadedContent(Data)
+        }
+        break;
+
+    case LoadingStatus.Failed:
+        @FailedContent
+        break;
+}
+
+
+@code
+{
+    /// <summary>
+    /// The information you will be binding this control against.
+    /// </summary>
+    [Parameter]
+    public TItem Data { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [Parameter]
+    public EventCallback<TItem> DataChanged { get; set; }
+
+    /// <summary>
+    ///
+    /// </summary>
+    [Parameter]
+    public RenderFragment LoadingContent { get; set; }
+
+    /// <summary>
+    ///
+    /// </summary>
+    [Parameter]
+    public RenderFragment<TItem> LoadedContent { get; set; }
+
+    /// <summary>
+    ///
+    /// </summary>
+    [Parameter]
+    public LoadingStatus LoadingStatus { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [Parameter]
+    public EventCallback<LoadingStatus> LoadingStatusChanged { get; set; }
+
+    /// <summary>
+    ///
+    /// </summary>
+    [Parameter]
+    public RenderFragment NoResultsContent { get; set; }
+
+    /// <summary>
+    ///
+    /// </summary>
+    [Parameter]
+    public RenderFragment NotLoadedContent { get; set; }
+
+    /// <summary>
+    ///
+    /// </summary>
+    [Parameter]
+    public RenderFragment FailedContent { get; set; }
+
+    /// <summary>
+    ///
+    /// </summary>
+    private bool IsGenericList
+    {
+        get
+        {
+            var type = typeof(TItem);
+            var interfaceTest = new Predicate<Type>(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IList<>));
+            return interfaceTest(type) || type.GetInterfaces().Any(i => interfaceTest(i));
+        }
+    }
+
+}

@@ -1,23 +1,22 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using CloudNimble.BlazorEssentials.TestApp.Models;
+using Microsoft.AspNetCore.Components;
+using System.Collections.Generic;
 using System.Net.Http;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace CloudNimble.BlazorEssentials.TestApp.ViewModels
 {
-    public class IndexViewModel : ViewModelBase<ConfigurationBase, AppStateBase>
+    public class IndexViewModel : ViewModelBase<ConfigurationBase, AppState>
     {
 
         #region Properties
 
 
-
         #endregion
-
 
         #region Constructors
 
-        public IndexViewModel(ConfigurationBase configuration, AppStateBase appState, NavigationManager navigationManager, IHttpClientFactory httpClientFactory) : base(navigationManager, httpClientFactory, configuration, appState)
+        public IndexViewModel(ConfigurationBase configuration, AppState appState, NavigationManager navigationManager, IHttpClientFactory httpClientFactory) : base(navigationManager, httpClientFactory, configuration, appState)
         {
         }
 
@@ -27,7 +26,9 @@ namespace CloudNimble.BlazorEssentials.TestApp.ViewModels
 
         public async Task Load()
         {
-            await Task.FromResult(0).ConfigureAwait(false);
+            LoadingStatus = LoadingStatus.Loading;
+            await Task.Delay(5000);
+            LoadingStatus = LoadingStatus.Loaded;
         }
 
     }

@@ -107,6 +107,7 @@ namespace CloudNimble.BlazorEssentials
         /// </summary>
         public void SetCurrentNavItem()
         {
+            if (NavItems == null) return;
             CurrentNavItem = NavItems.FirstOrDefault(c => c.Url.ToUpper().StartsWith(NavigationManager.ToBaseRelativePath(NavigationManager.Uri).ToUpper()));
         }
 

@@ -1,45 +1,49 @@
 ﻿@using CloudNimble.BlazorEssentials
 @using System.Security.Claims
 @inherits LayoutComponentBase
-@inject AppStateBase appState
+@inject AppState appState
 @inject NavigationManager navManager
-@inject AuthenticationStateProvider AuthenticationStateProvider
+@*@inject AuthenticationStateProvider AuthenticationStateProvider
+*@
 
-<div class="sidebar">
-    <NavMenu />
-</div>
-
-<div class="main">
-    <div class="top-row px-4">
-        <h1>
-            @if (!string.IsNullOrWhiteSpace(appState.CurrentNavItem?.PageIcon))
-            {
-                <i class="@appState.CurrentNavItem?.PageIcon"></i>
-            }
-            @appState.CurrentNavItem?.PageTitle
-        </h1>
-        <div class="profile-actions">
-            <AuthorizeView>
-                <a href="#" data-toggle="popover" data-placement="bottom" data-popover-content="#profile-menu">
-                    <div class="profile-picture">
-                        <img src="@context.User.FindFirst("picture")?.Value" />
-                    </div>
-                </a>
-            </AuthorizeView>
-        </div>
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
     </div>
 
-    <div class="content px-4">
-        @Body
+    <div class="main">
+        <div class="top-row px-4">
+            <h1>
+                @if (!string.IsNullOrWhiteSpace(appState.CurrentNavItem?.PageIcon))
+                {
+                    <i class="@appState.CurrentNavItem?.PageIcon"></i>
+                }
+                @appState.CurrentNavItem?.PageTitle
+            </h1>
+            <div class="profile-actions">
+                @*            <AuthorizeView>
+                    <a href="#" data-toggle="popover" data-placement="bottom" data-popover-content="#profile-menu">
+                    <div class="profile-picture">
+                    <img src="@context.User.FindFirst("picture")?.Value" />
+                    </div>
+                    </a>
+                    </AuthorizeView>
+                *@
+            </div>
+        </div>
+
+        <div class="content px-4">
+            @Body
+        </div>
     </div>
 </div>
 
 @code
 {
 
-    [CascadingParameter]
-    private Task<AuthenticationState> authenticationStateTask { get; set; }
-
+    @*    [CascadingParameter]
+        private Task<AuthenticationState> authenticationStateTask { get; set; }
+    *@
     protected override void OnParametersSet()
     {
         appState.SetCurrentNavItem();
@@ -48,7 +52,7 @@
     protected override async Task OnInitializedAsync()
     {
         appState.StateHasChangedAction += StateHasChanged;
-        appState.AuthenticationStateProvider = AuthenticationStateProvider;
+        //appState.AuthenticationStateProvider = AuthenticationStateProvider;
         //await appState.LoadCoreData();
     }
 

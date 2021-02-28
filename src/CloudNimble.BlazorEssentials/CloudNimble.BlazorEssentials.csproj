@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.1;net5.0</TargetFrameworks>
@@ -15,7 +15,17 @@
     <Authors>CloudNimble</Authors>
     <RepositoryType>git</RepositoryType>
     <NoWarn>$(NoWarn);CS1998;CS1591;CA1052;CA1801;CA1822</NoWarn>
+    <RazorLangVersion>3.0</RazorLangVersion>
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)'=='net5.0'">
+    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)'=='net5.0'">
+    <SupportedPlatform Include="browser" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />

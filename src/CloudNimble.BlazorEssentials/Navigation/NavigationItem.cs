@@ -25,6 +25,11 @@ namespace CloudNimble.BlazorEssentials.Navigation
         public string Category { get; set; }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public List<NavigationItem> Children { get; set; }
+
+        /// <summary>
         /// A string representing the CSS class(es) for the icon that can be displayed next to the <see cref="Text"/>.
         /// </summary>
         public string Icon { get; set; }
@@ -81,7 +86,8 @@ namespace CloudNimble.BlazorEssentials.Navigation
         /// </summary>
         public NavigationItem()
         {
-            Roles = new HashSet<string>();
+            Children = new();
+            Roles = new();
         }
 
         /// <summary>

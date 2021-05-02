@@ -38,6 +38,7 @@ namespace CloudNimble.BlazorEssentials.TestApp
             builder.Services.AddSingleton<IndexViewModel>();
             builder.Services.AddSingleton<LoadingContainerViewModel>();
             builder.Services.AddSingleton<AppState>();
+            builder.Services.AddSingleton<AppStateBase>(sp => sp.GetRequiredService<AppState>());
 
             await builder.Build().RunAsync().ConfigureAwait(false);
         }

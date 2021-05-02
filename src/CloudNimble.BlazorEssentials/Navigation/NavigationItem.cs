@@ -25,6 +25,11 @@ namespace CloudNimble.BlazorEssentials.Navigation
         public string Category { get; set; }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public List<NavigationItem> Children { get; set; }
+
+        /// <summary>
         /// A string representing the CSS class(es) for the icon that can be displayed next to the <see cref="Text"/>.
         /// </summary>
         public string Icon { get; set; }
@@ -81,7 +86,8 @@ namespace CloudNimble.BlazorEssentials.Navigation
         /// </summary>
         public NavigationItem()
         {
-            Roles = new HashSet<string>();
+            Children = new();
+            Roles = new();
         }
 
         /// <summary>
@@ -127,6 +133,22 @@ namespace CloudNimble.BlazorEssentials.Navigation
         public NavigationItem(string text, string icon, string url, string category, bool isVisible) : this(text, icon, url, category)
         {
             IsVisible = isVisible;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="text">A string representing the text that will be displayed in the NavBar.</param>
+        /// <param name="icon">A string representing the CSS class(es) for the icon that can be displayed next to the <see cref="Text"/>.</param>
+        /// <param name="category">
+        /// A string representing the parent category for this <see cref="NavigationItem" />. Can be useful for grouping 
+        /// <see cref="NavigationItem">NavigationItems</see> into caregories for display.
+        /// </param>
+        /// <param name="isVisible">Specifies whether or not this <see cref="NavigationItem" /> is visible on the NavBar.</param>
+        /// <param name="children">A <see cref="List{NavigationItem}"/> containing nodes to render underneath this one.</param>
+        public NavigationItem(string text, string icon, string category, bool isVisible, List<NavigationItem> children) : this(text, icon, null, category, isVisible)
+        {
+            Children = children;
         }
 
         /// <summary>

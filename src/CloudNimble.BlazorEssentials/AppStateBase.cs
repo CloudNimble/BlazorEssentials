@@ -1,7 +1,7 @@
-﻿using CloudNimble.BlazorEssentials.Navigation;
+﻿using CloudNimble.BlazorEssentials.Extensions;
+using CloudNimble.BlazorEssentials.Navigation;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -58,7 +58,7 @@ namespace CloudNimble.BlazorEssentials
         /// <summary>
         /// 
         /// </summary>
-        public ObservableCollection<NavigationItem> NavItems { get; private set; }
+        public ObservableCollection<NavigationItem> NavItems { get; internal set; }
 
         #endregion
 
@@ -107,8 +107,16 @@ namespace CloudNimble.BlazorEssentials
         /// </summary>
         public void SetCurrentNavItem()
         {
+            SetCurrentNavItem(NavigationManager.ToBaseRelativePath(NavigationManager.Uri));
+        }
+
+        /// <summary>
+        /// Initilizes <see cref="CurrentNavItem" /> to the proper value based on the current route.
+        /// </summary>
+        public void SetCurrentNavItem(string url)
+        {
             if (NavItems == null) return;
-            CurrentNavItem = NavItems.FirstOrDefault(c => c.Url.ToUpper().StartsWith(NavigationManager.ToBaseRelativePath(NavigationManager.Uri).ToUpper()));
+            CurrentNavItem = NavItems.Traverse(c => c.Children).FirstOrDefault(c => !string.IsNullOrWhiteSpace(c.Url) && c.Url.ToUpper().StartsWith(url.ToUpper()));
         }
 
         #endregion

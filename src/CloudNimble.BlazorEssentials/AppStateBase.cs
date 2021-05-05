@@ -2,10 +2,12 @@
 using CloudNimble.BlazorEssentials.Navigation;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 
 namespace CloudNimble.BlazorEssentials
 {
@@ -107,19 +109,31 @@ namespace CloudNimble.BlazorEssentials
         /// </summary>
         public void SetCurrentNavItem()
         {
+            if (CurrentNavItem != null) return;
             SetCurrentNavItem(NavigationManager.ToBaseRelativePath(NavigationManager.Uri));
         }
 
         /// <summary>
         /// Initilizes <see cref="CurrentNavItem" /> to the proper value based on the current route.
         /// </summary>
+        /// <param name="url"></param>
         public void SetCurrentNavItem(string url)
         {
             if (NavItems == null) return;
-            CurrentNavItem = NavItems.Traverse(c => c.Children).FirstOrDefault(c => !string.IsNullOrWhiteSpace(c.Url) && c.Url.ToUpper().StartsWith(url.ToUpper()));
+
+            CurrentNavItem = NavItems.Traverse(c => c.Children).FirstOrDefault(c => c.Url != null && ToFixedUrl(c.Url).StartsWith(url, StringComparison.InvariantCultureIgnoreCase));
         }
 
         #endregion
+
+        private string ToFixedUrl(string url)
+        {
+            //Console.WriteLine("URL: " + url);
+            var absoluteUri = NavigationManager.ToAbsoluteUri(url);
+            //Console.WriteLine("AbsoluteUri: " + absoluteUri.ToString());
+            return NavigationManager.ToBaseRelativePath(absoluteUri.ToString());
+
+        }
 
     }
 

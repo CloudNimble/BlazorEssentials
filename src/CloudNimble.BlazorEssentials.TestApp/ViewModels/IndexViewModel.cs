@@ -1,6 +1,5 @@
 ﻿using CloudNimble.BlazorEssentials.TestApp.Models;
 using Microsoft.AspNetCore.Components;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 

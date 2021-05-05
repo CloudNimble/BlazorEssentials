@@ -4,6 +4,7 @@ using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -38,7 +39,7 @@ namespace CloudNimble.BlazorEssentials.Tests
         /// Make sure that the Step is initialized properly.
         /// </summary>
         [TestMethod]
-        public void AppStateBase_RecursiveNavItems_SetCorrectly()
+        public void AppStateBase_RecursiveNavItems_SetSpecificItem()
         {
             var state = new AppStateBase(null, null);
 
@@ -46,12 +47,12 @@ namespace CloudNimble.BlazorEssentials.Tests
             {
                 new NavigationItem("Test1", "Icon", "Category1", true, new List<NavigationItem>
                 {
-                    new NavigationItem("Inner1", "Icon1", "/")
+                    new NavigationItem("Inner1", "Icon1", "")
                 }),
                 new NavigationItem("Test2", "Icon", "Category1", true, new List<NavigationItem>
                 {
-                    new NavigationItem("Inner2", "Icon2", "/2"),
-                    new NavigationItem("Inner3", "Icon3", "/3")
+                    new NavigationItem("Inner2", "Icon2", "2"),
+                    new NavigationItem("Inner3", "Icon3", "3")
                 }),
 
             };
@@ -59,10 +60,11 @@ namespace CloudNimble.BlazorEssentials.Tests
             list.Should().HaveCount(2);
 
             state.LoadNavItems(list);
-            state.SetCurrentNavItem("/2");
+            state.SetCurrentNavItem("2");
 
             var results = state.NavItems.Traverse(c => c.Children);
             results.Should().HaveCount(5);
+            results.First().Text.Should().Be("Test1");
             //RWM: This is not presently testing the order, because the order is incorrect.
             //However, correct order is not necessary for SetCurrentNavItem to work correctly.
 

@@ -17,7 +17,7 @@ namespace CloudNimble.BlazorEssentials.Extensions
         /// <remarks>https://stackoverflow.com/a/32655815/403765</remarks>
         public static IEnumerable<T> Traverse<T>(this IEnumerable<T> items, Func<T, IEnumerable<T>> childSelector)
         {
-            var stack = new Stack<T>(items);
+            var stack = new Stack<T>(items.Reverse());
             while (stack.Any())
             {
                 var next = stack.Pop();

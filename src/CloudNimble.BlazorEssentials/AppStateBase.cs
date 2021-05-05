@@ -116,7 +116,7 @@ namespace CloudNimble.BlazorEssentials
         public void SetCurrentNavItem(string url)
         {
             if (NavItems == null) return;
-            CurrentNavItem = NavItems.Traverse(c => c.Children).FirstOrDefault(c => !string.IsNullOrWhiteSpace(c.Url) && c.Url.ToUpper().StartsWith(url.ToUpper()));
+            CurrentNavItem = NavItems.Traverse(c => c.Children).FirstOrDefault(c => c.Url != null && c.Url.ToUpper().StartsWith(url.ToUpper()));
         }
 
         #endregion

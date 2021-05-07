@@ -1,5 +1,6 @@
 using CloudNimble.BlazorEssentials.Extensions;
 using CloudNimble.BlazorEssentials.Navigation;
+using CloudNimble.Breakdance.Blazor;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -41,13 +42,13 @@ namespace CloudNimble.BlazorEssentials.Tests
         [TestMethod]
         public void AppStateBase_RecursiveNavItems_SetSpecificItem()
         {
-            var state = new AppStateBase(null, null);
+            var state = new AppStateBase(new TestableNavigationManager("https://localhost/"), null);
 
             var list = new List<NavigationItem>
             {
                 new NavigationItem("Test1", "Icon", "Category1", true, new List<NavigationItem>
                 {
-                    new NavigationItem("Inner1", "Icon1", "")
+                    new NavigationItem("Inner1", "Icon1", "/")
                 }),
                 new NavigationItem("Test2", "Icon", "Category1", true, new List<NavigationItem>
                 {

@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
-using System.Runtime.CompilerServices;
 
 namespace CloudNimble.BlazorEssentials
 {
@@ -127,12 +126,12 @@ namespace CloudNimble.BlazorEssentials
         #endregion
 
         private string ToFixedUrl(string url)
-        {
+        { 
+            if (url == null) return string.Empty;
             //Console.WriteLine("URL: " + url);
             var absoluteUri = NavigationManager.ToAbsoluteUri(url);
             //Console.WriteLine("AbsoluteUri: " + absoluteUri.ToString());
             return NavigationManager.ToBaseRelativePath(absoluteUri.ToString());
-
         }
 
     }

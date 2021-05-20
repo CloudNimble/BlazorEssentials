@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Breakdance.Blazor" Version="2.1.0-CI-20210507-171853" />
+    <PackageReference Include="bunit" Version="1.1.5" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
     <PackageReference Include="MSTest.TestAdapter" Version="2.1.2" />
     <PackageReference Include="MSTest.TestFramework" Version="2.1.2" />

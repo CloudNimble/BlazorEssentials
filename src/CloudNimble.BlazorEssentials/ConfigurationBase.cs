@@ -2,7 +2,7 @@
 {
 
     /// <summary>
-    /// 
+    /// A base class implementation of the configuration your Blazor app will pull from wwwroot/appsettings.json.
     /// </summary>
     public class ConfigurationBase
     {
@@ -14,6 +14,14 @@
         /// Most Blazor apps will call at least one API. If you need to call more than one, just inherit from ConfigurationBase and add your own properties.
         /// </remarks>
         public string ApiRoot { get; set; }
+
+        /// <summary>
+        /// The website your Blazor app is being served from.
+        /// </summary>
+        /// <remarks>
+        /// Sometimes you will need to get information about the app's deployment before it has been fully-initialized in Program.cs. This is the place to do it.
+        /// </remarks>
+        public string AppRoot { get; set; }
 
     }
 

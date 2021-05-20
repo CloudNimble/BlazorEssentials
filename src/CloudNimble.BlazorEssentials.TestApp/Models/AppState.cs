@@ -33,7 +33,7 @@ namespace CloudNimble.BlazorEssentials.TestApp.Models
             this.config = config;
             var nav = new List<NavigationItem>
             {
-                new NavigationItem("Dashboard",             "fad fa-fw fa-desktop", "/",                    "Main",        true, "Dashboard",              "fad fa-fw fa-2x fa-desktop", null, true),
+                new NavigationItem("Dashboard",             "fad fa-fw fa-desktop", "/",                   "Main",        true, "Dashboard",              "fad fa-fw fa-2x fa-desktop", null, true),
                 new NavigationItem("LoadingContainer Demo", "fad fa-fw fa-desktop", "LoadingContainer",    "Controls",    true, "LoadingContainer Demo",  "fad fa-fw fa-2x fa-desktop", null, true)
             };
             LoadNavItems(nav);

@@ -16,8 +16,14 @@
 <h3>Injected Configuration:</h3>
 <p>ApiRoot: "@config.ApiRoot"</p>
 
+<hr />
+@Html.Raw(htmlContent)
+
 @code
 {
+
+    private string htmlContent = "<h5>This is HTML content rendered using the <strong>@Html.Raw Blazor helper</strong>.</h5>";
+
     protected override async Task OnInitializedAsync()
     {
         viewModel.StateHasChangedAction = StateHasChanged;

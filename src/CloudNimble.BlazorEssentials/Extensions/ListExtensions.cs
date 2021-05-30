@@ -4,6 +4,10 @@ using System.Linq;
 
 namespace CloudNimble.BlazorEssentials.Extensions
 {
+
+    /// <summary>
+    /// 
+    /// </summary>
     public static class ListExtensions
     {
 
@@ -22,11 +26,11 @@ namespace CloudNimble.BlazorEssentials.Extensions
             {
                 var next = stack.Pop();
                 yield return next;
-                foreach (var child in childSelector(next))
+                foreach (var child in childSelector(next).Reverse())
                     stack.Push(child);
             }
         }
 
-
     }
+
 }

@@ -2,7 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-	</PropertyGroup>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<NoWarn>$(NoWarn);CS1998;CS1591;CA1052;CA1801;CA1822;CS0618</NoWarn>
@@ -40,10 +41,6 @@
 		<Content Update="Pages\LoadingContainerDemo.razor">
 			<Pack>$(IncludeRazorContentInPack)</Pack>
 		</Content>
-	</ItemGroup>
-
-	<ItemGroup>
-		<PackageReference Update="Microsoft.CodeQuality.Analyzers" Version="3.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>

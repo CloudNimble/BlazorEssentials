@@ -11,7 +11,7 @@ namespace CloudNimble.BlazorEssentials.TestApp.ViewModels
 
         #region Properties
 
-        public KeyValuePair<string, string> Item { get; set; }
+        public KeyValuePair<string, string>? Item { get; set; }
 
         public List<KeyValuePair<string, string>> Items { get; set; }
 

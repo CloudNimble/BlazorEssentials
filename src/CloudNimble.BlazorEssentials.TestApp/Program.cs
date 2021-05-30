@@ -1,10 +1,7 @@
-﻿using CloudNimble.BlazorEssentials.Authentication;
-using CloudNimble.BlazorEssentials.TestApp.Models;
+﻿using CloudNimble.BlazorEssentials.TestApp.Models;
 using CloudNimble.BlazorEssentials.TestApp.ViewModels;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using System.Threading.Tasks;
 
 namespace CloudNimble.BlazorEssentials.TestApp
@@ -26,19 +23,10 @@ namespace CloudNimble.BlazorEssentials.TestApp
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
 
-            var config = builder.Configuration.GetSection("TestApp").Get<ConfigurationBase>();
-
-            builder.Services.AddScoped<ApiAuthorizationMessageHandler>();
-
-            builder.Services.AddHttpClient("BurnRateApi", client => client.BaseAddress = new Uri(config.ApiRoot))
-                .AddHttpMessageHandler<ApiAuthorizationMessageHandler>();
-
-            builder.Services.AddSingleton(c => config);
+            builder.AddBlazorEssentials<ConfigurationBase, AppState>("TestApp");
 
             builder.Services.AddSingleton<IndexViewModel>();
             builder.Services.AddSingleton<LoadingContainerViewModel>();
-            builder.Services.AddSingleton<AppState>();
-            builder.Services.AddSingleton<AppStateBase>(sp => sp.GetRequiredService<AppState>());
 
             await builder.Build().RunAsync().ConfigureAwait(false);
         }

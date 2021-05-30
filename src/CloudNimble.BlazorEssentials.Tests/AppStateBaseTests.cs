@@ -34,15 +34,16 @@ namespace CloudNimble.BlazorEssentials.Tests
         {
             var state = new AppStateBase(null, null);
             state.LoadingStatus.Should().Be(LoadingStatus.NotLoaded);
+            state.NavItems.Should().BeNull();
         }
 
         /// <summary>
         /// Make sure that the Step is initialized properly.
         /// </summary>
         [TestMethod]
-        public void AppStateBase_RecursiveNavItems_SetSpecificItem()
+        public void AppStateBase_SetCurrentNavItem_Nested_NoParameters()
         {
-            var state = new AppStateBase(new TestableNavigationManager("https://localhost/"), null);
+            var state = new AppStateBase(new TestableNavigationManager(), null);
 
             var list = new List<NavigationItem>
             {
@@ -55,23 +56,122 @@ namespace CloudNimble.BlazorEssentials.Tests
                     new NavigationItem("Inner2", "Icon2", "2"),
                     new NavigationItem("Inner3", "Icon3", "3")
                 }),
-
             };
 
             list.Should().HaveCount(2);
 
             state.LoadNavItems(list);
-            state.SetCurrentNavItem("2");
+            state.NavItems.Should().HaveCount(2);
 
             var results = state.NavItems.Traverse(c => c.Children);
             results.Should().HaveCount(5);
             results.First().Text.Should().Be("Test1");
-            //RWM: This is not presently testing the order, because the order is incorrect.
-            //However, correct order is not necessary for SetCurrentNavItem to work correctly.
+
+            state.SetCurrentNavItem("2");
 
             state.CurrentNavItem.Should().NotBeNull();
             state.CurrentNavItem.Text.Should().Be("Inner2");
         }
+
+        /// <summary>
+        /// Make sure that the Step is initialized properly.
+        /// </summary>
+        [TestMethod]
+        public void AppStateBase_SetCurrentNavItem_Nested_Parameters()
+        {
+            var state = new AppStateBase(new TestableNavigationManager(), null);
+
+            var list = new List<NavigationItem>
+            {
+                new NavigationItem("Test1", "Icon", "Category1", true, new List<NavigationItem>
+                {
+                    new NavigationItem("Inner1", "Icon1", "/")
+                }),
+                new NavigationItem("Test2", "Icon", "Category1", true, new List<NavigationItem>
+                {
+                    new NavigationItem("Inner2", "Icon2", "2"),
+                    new NavigationItem("Inner3", "Icon3", "3")
+                }),
+            };
+
+            list.Should().HaveCount(2);
+
+            state.LoadNavItems(list);
+            state.NavItems.Should().HaveCount(2);
+
+            var results = state.NavItems.Traverse(c => c.Children);
+            results.Should().HaveCount(5);
+            results.First().Text.Should().Be("Test1");
+
+            state.SetCurrentNavItem("2/SomeParameter");
+
+            state.CurrentNavItem.Should().NotBeNull();
+            state.CurrentNavItem.Text.Should().Be("Inner2");
+        }
+
+        #region ToFixedUrl
+
+        /// <summary>
+        /// Ensure
+        /// </summary>
+        [TestMethod]
+        public void AppStateBase_ToFixedUrl_Root_Slash()
+        {
+            var state = new AppStateBase(new TestableNavigationManager("https://localhost/"), null);
+            state.ToRelativeUrl("/").Should().Be("");
+        }
+
+        /// <summary>
+        /// Make sure that the Step is initialized properly.
+        /// </summary>
+        [TestMethod]
+        public void AppStateBase_ToFixedUrl_Root_Blank()
+        {
+            var state = new AppStateBase(new TestableNavigationManager("https://localhost/"), null);
+            state.ToRelativeUrl("").Should().Be("");
+        }
+
+        /// <summary>
+        /// Make sure that the Step is initialized properly.
+        /// </summary>
+        [TestMethod]
+        public void AppStateBase_ToFixedUrl_NotRoot_NoParameter_Slash()
+        {
+            var state = new AppStateBase(new TestableNavigationManager("https://localhost/"), null);
+            state.ToRelativeUrl("/2").Should().Be("2");
+        }
+
+        /// <summary>
+        /// Make sure that the Step is initialized properly.
+        /// </summary>
+        [TestMethod]
+        public void AppStateBase_ToFixedUrl_NotRoot_NoParameter_NoSlash()
+        {
+            var state = new AppStateBase(new TestableNavigationManager("https://localhost/"), null);
+            state.ToRelativeUrl("2").Should().Be("2");
+        }
+
+        /// <summary>
+        /// Make sure that the Step is initialized properly.
+        /// </summary>
+        [TestMethod]
+        public void AppStateBase_ToFixedUrl_NotRoot_Parameter_Slash()
+        {
+            var state = new AppStateBase(new TestableNavigationManager("https://localhost/"), null);
+            state.ToRelativeUrl("/2/Hello").Should().Be("2/Hello");
+        }
+
+        /// <summary>
+        /// Make sure that the Step is initialized properly.
+        /// </summary>
+        [TestMethod]
+        public void AppStateBase_ToFixedUrl_NotRoot_Parameter_NoSlash()
+        {
+            var state = new AppStateBase(new TestableNavigationManager("https://localhost/"), null);
+            state.ToRelativeUrl("2/Hello").Should().Be("2/Hello");
+        }
+
+        #endregion
 
     }
 

@@ -8,12 +8,12 @@
 
 <div>
     <h4>LoadingContainer: Single Value</h4>
-    <LoadingContainer TItem="KeyValuePair<string, string>" @bind-LoadingStatus="viewModel.LoadingStatus" @bind-Data="viewModel.Item">
+    <LoadingContainer TItem="KeyValuePair<string, string>?" @bind-LoadingStatus="viewModel.LoadingStatus" @bind-Data="viewModel.Item">
         <LoadingContent>
             <BlazorLoading />
         </LoadingContent>
         <LoadedContent>
-            @context.Key: @context.Value
+            @context.Value.Key: @context.Value.Value
         </LoadedContent>
         <FailedContent>
             Oh, sh*t!

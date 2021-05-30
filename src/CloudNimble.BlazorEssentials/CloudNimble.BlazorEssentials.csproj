@@ -34,20 +34,18 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="[3.2.0, 4.0.0)" Condition="'$(TargetFramework)'=='netstandard2.1'" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="[3.2.1, 4.0.0)" Condition="'$(TargetFramework)'=='netstandard2.1'" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="[3.1.9, 4.0.0)" Condition="'$(TargetFramework)'=='netstandard2.1'" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="[3.1.9, 4.0.0)" Condition="'$(TargetFramework)'=='netstandard2.1'" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="[3.1.9, 4.0.0)" Condition="'$(TargetFramework)'=='netstandard2.1'" />
     <PackageReference Include="System.Net.Http.Json" Version="[3.2.1, 4.0.0)" Condition="'$(TargetFramework)'=='netstandard2.1'" />
     
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="[5.0.0, 6.0.0)" Condition="'$(TargetFramework)'=='net5.0'" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="[5.0.0, 6.0.0)" Condition="'$(TargetFramework)'=='net5.0'" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="[5.0.0, 6.0.0)" Condition="'$(TargetFramework)'=='net5.0'" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="[5.0.0, 6.0.0)" Condition="'$(TargetFramework)'=='net5.0'" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="[5.0.0, 6.0.0)" Condition="'$(TargetFramework)'=='net5.0'" />
     <PackageReference Include="System.Net.Http.Json" Version="[5.0.0, 6.0.0)" Condition="'$(TargetFramework)'=='net5.0'" />
     <PackageReference Include="System.Collections" Version="[4.3.0, 6.0.0)" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Update="Microsoft.CodeQuality.Analyzers" Version="3.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -56,7 +54,10 @@
 
   <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-      <_Parameter1>CloudNimble.BlazorEssentials.Tests</_Parameter1>
+      <_Parameter1>CloudNimble.BlazorEssentials.Breakdance</_Parameter1>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>CloudNimble.BlazorEssentials.Tests.Breakdance</_Parameter1>
     </AssemblyAttribute>
   </ItemGroup>
 

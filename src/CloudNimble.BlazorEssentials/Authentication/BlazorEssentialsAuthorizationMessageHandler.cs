@@ -8,7 +8,7 @@ namespace CloudNimble.BlazorEssentials.Authentication
     /// <summary>
     /// 
     /// </summary>
-    public class ApiAuthorizationMessageHandler : AuthorizationMessageHandler
+    public class BlazorEssentialsAuthorizationMessageHandler : AuthorizationMessageHandler
     {
 
         /// <summary>
@@ -17,10 +17,10 @@ namespace CloudNimble.BlazorEssentials.Authentication
         /// <param name="config"></param>
         /// <param name="provider"></param>
         /// <param name="navigationManager"></param>
-        public ApiAuthorizationMessageHandler(ConfigurationBase config, IAccessTokenProvider provider, NavigationManager navigationManager) : base(provider, navigationManager)
+        public BlazorEssentialsAuthorizationMessageHandler(ConfigurationBase config, IAccessTokenProvider provider, NavigationManager navigationManager) : base(provider, navigationManager)
         {
             if (config == null) throw new ArgumentNullException(nameof(config));
-            ConfigureHandler(authorizedUrls: new[] { config.ApiRoot });
+            ConfigureHandler(authorizedUrls: new[] { config.ApiRoot, config.AppRoot });
         }
 
     }

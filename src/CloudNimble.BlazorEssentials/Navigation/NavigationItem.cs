@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
 
@@ -8,6 +9,7 @@ namespace CloudNimble.BlazorEssentials.Navigation
     /// <summary>
     /// Defines an app navigation structure suitable for binding to navigation menus.
     /// </summary>
+    [DebuggerDisplay("{DebuggerDisplay,nq}")]
     public class NavigationItem
     {
 
@@ -76,6 +78,15 @@ namespace CloudNimble.BlazorEssentials.Navigation
         /// Accessible through <see cref="AppStateBase.CurrentNavItem"/>.
         /// </remarks>
         public dynamic Parameters { get; set; }
+
+        /// <summary>
+        /// Returns a string suitable for display in the debugger. Ensures such strings are compiled by the runtime and not interpreted by the currently-executing language.
+        /// </summary>
+        /// <remarks>http://blogs.msdn.com/b/jaredpar/archive/2011/03/18/debuggerdisplay-attribute-best-practices.aspx</remarks>
+        private string DebuggerDisplay
+        {
+            get { return $"Text: {Text} | Icon: {Icon} | Url: {Url}"; }
+        }
 
         #endregion
 

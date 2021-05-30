@@ -16,7 +16,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CloudNimble.BlazorEssentials\CloudNimble.BlazorEssentials.csproj" />
+    <ProjectReference Include="..\CloudNimble.BlazorEssentials.Breakdance\CloudNimble.BlazorEssentials.Breakdance.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

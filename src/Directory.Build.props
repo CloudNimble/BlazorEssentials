@@ -65,23 +65,27 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <StandardTestTfms>netcoreapp3.1;net461</StandardTestTfms>
+    <StandardTestTfms>net5.0</StandardTestTfms>
   </PropertyGroup>
 
   <ItemGroup Condition=" $(IsTestProject) != 'true' and  $(IsSampleProject) != 'true'">
     <!-- RWM: The code quality on the unit tests right now is not awesome, so let's skip checking it for now. -->
-    <PackageReference Include="Microsoft.CodeQuality.Analyzers" Version="2.9.8">
+    <PackageReference Include="Microsoft.CodeQuality.Analyzers" Version="3.0.0">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>$(AssemblyName.Replace("CloudNimble.BlazorEssentials", "CloudNimble.BlazorEssentials.Tests"))</_Parameter1>
+    </AssemblyAttribute>
+    
   </ItemGroup>
 
   <ItemGroup Condition=" $(IsTestProject) == 'true' ">
-    <PackageReference Include="FluentAssertions" Version="5.10.3">
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="FluentAssertions.Analyzers" Version="0.11.4">
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
+    <PackageReference Include="FluentAssertions" Version="[5.10.3, 6.0.0)" PrivateAssets="All" />
+    <PackageReference Include="FluentAssertions.Analyzers" Version="[0.11.4, 1.0.0)" PrivateAssets="All" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.2.4" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.2.4" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.10.0" />
   </ItemGroup>
 
 </Project>

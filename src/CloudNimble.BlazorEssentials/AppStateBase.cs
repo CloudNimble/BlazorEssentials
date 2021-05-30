@@ -120,19 +120,25 @@ namespace CloudNimble.BlazorEssentials
         {
             if (NavItems == null) return;
 
-            CurrentNavItem = NavItems.Traverse(c => c.Children).FirstOrDefault(c => c.Url != null && ToFixedUrl(c.Url).StartsWith(url, StringComparison.InvariantCultureIgnoreCase));
+            var items = NavItems.Traverse(c => c.Children);
+            var urlToSet = ToRelativeUrl(url);
+
+            CurrentNavItem = items.Where(c => c.Url != null).FirstOrDefault(c => (urlToSet == string.Empty && ToRelativeUrl(c.Url) == string.Empty) || (ToRelativeUrl(c.Url) != string.Empty && urlToSet.StartsWith(ToRelativeUrl(c.Url), StringComparison.InvariantCultureIgnoreCase)));
         }
 
         #endregion
 
-        private string ToFixedUrl(string url)
+        #region Internal Methods
+
+        internal string ToRelativeUrl(string url)
         { 
             if (url == null) return string.Empty;
-            //Console.WriteLine("URL: " + url);
             var absoluteUri = NavigationManager.ToAbsoluteUri(url);
-            //Console.WriteLine("AbsoluteUri: " + absoluteUri.ToString());
-            return NavigationManager.ToBaseRelativePath(absoluteUri.ToString());
+            var baseRelative = NavigationManager.ToBaseRelativePath(absoluteUri.ToString());
+            return baseRelative;
         }
+
+        #endregion
 
     }
 

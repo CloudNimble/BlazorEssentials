@@ -40,7 +40,7 @@ namespace CloudNimble.BlazorEssentials.Navigation
         /// <summary>
         /// 
         /// </summary>
-        public bool IsDisabled { get; set; }
+        public Func<bool> IsDisabledFunc { get; set; }
 
         /// <summary>
         /// 
@@ -76,25 +76,53 @@ namespace CloudNimble.BlazorEssentials.Navigation
 
         #region Constructors
 
+        public ActionButton()
+        {
+            Children = new();
+        }
+
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="actionMethod"></param>
-        /// <param name="tooltip"></param>
-        /// <param name="iconClass"></param>
-        /// <param name="buttonClass"></param>
         /// <param name="buttonText"></param>
-        public ActionButton(Action actionMethod, string tooltip, string iconClass = null, string buttonClass = null, string buttonText = null)
+        /// <param name="buttonClass"></param>
+        /// <param name="iconClass"></param>
+        /// <param name="popoverName"></param>
+        /// <param name="popoverHeader"></param>
+        /// <param name="popoverPlacement"></param>
+        /// <param name="isDisabledFunc"></param>
+        /// <param name="children"></param>
+        public ActionButton(string buttonText, string buttonClass, string iconClass,  string popoverName, string popoverHeader, string popoverPlacement, Func<bool> isDisabledFunc = null, List<ActionButton> children = null) : this()
         {
-            Children = new();
-            if (actionMethod != null)
-            {
-                ActionMethod = actionMethod;
-            }
-            Tooltip = tooltip;
-            IconClass = iconClass;
-            ButtonClass = buttonClass;
             ButtonText = buttonText;
+            ButtonClass = buttonClass;
+            IconClass = iconClass;
+            PopoverName = popoverName;
+            PopoverHeader = popoverHeader;
+            PopoverPlacement = popoverPlacement;
+            IsDisabledFunc = isDisabledFunc ?? (() => false);
+            Children = children ?? new();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="buttonText"></param>
+        /// <param name="buttonClass"></param>
+        /// <param name="iconClass"></param>
+        /// <param name="actionMethod"></param>
+        /// <param name="isDisabledFunc"></param>
+        /// <param name="tooltip"></param>
+        /// <param name="tooltipContainer"></param>
+        public ActionButton(string buttonText, string buttonClass, string iconClass, Action actionMethod = null, Func<bool> isDisabledFunc = null, string tooltip = null, string tooltipContainer = "body") : this()
+        {
+            ButtonText = buttonText;
+            ButtonClass = buttonClass;
+            IconClass = iconClass;
+            ActionMethod = actionMethod ?? (() => { });
+            IsDisabledFunc = isDisabledFunc ?? (() => false);
+            Tooltip = tooltip;
+            TooltipContainer = tooltipContainer;
         }
 
         #endregion

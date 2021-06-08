@@ -82,6 +82,21 @@ namespace CloudNimble.BlazorEssentials.Navigation
         }
 
         /// <summary>
+        /// Creates a new <see cref="ActionButton"/> instance specifically for icon-only buttons, usually in the header or footer.
+        /// </summary>
+        /// <param name="iconClass"></param>
+        /// <param name="tooltip"></param>
+        /// <param name="actionMethod"></param>
+        /// <param name="isDisabledFunc"></param>
+        public ActionButton(string iconClass, string tooltip, Action actionMethod = null, Func<bool> isDisabledFunc = null)
+        {
+            IconClass = iconClass;
+            Tooltip = tooltip;
+            ActionMethod = actionMethod ?? (() => { });
+            IsDisabledFunc = isDisabledFunc ?? (() => false);
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="buttonText"></param>

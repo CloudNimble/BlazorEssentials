@@ -367,7 +367,10 @@ namespace CloudNimble.BlazorEssentials.Merlin
                 case nameof(OperationStep.Status):
                     var currentStep = stepsList.FirstOrDefault(c => c.Status == OperationStepStatus.InProgress);
                     ProgressText = currentStep?.DisplayText ?? "";
-                    ProgressPercent = decimal.Divide((stepsList.Count(c => (int)c.Status >= 2) * 2) + stepsList.Count(c => c.Status == OperationStepStatus.InProgress), stepsList.Count() * 2);
+
+                    //ProgressPercent = decimal.Divide((stepsList.Count(c => (int)c.Status >= 2) * 2) + stepsList.Count(c => c.Status == OperationStepStatus.InProgress), stepsList.Count() * 2);
+                    ProgressPercent = decimal.Divide(stepsList.Count(c => c.Status == OperationStepStatus.Succeeded), stepsList.Count);
+
                     IsSubmitting = stepsList.Any(c => c.Status == OperationStepStatus.InProgress);
                     IsSubmitted = stepsList.All(c => c.Status == OperationStepStatus.Succeeded || c.Status == OperationStepStatus.Failed);
                     Succeeded = IsSubmitted && stepsList.All(c => c.Status == OperationStepStatus.Succeeded);

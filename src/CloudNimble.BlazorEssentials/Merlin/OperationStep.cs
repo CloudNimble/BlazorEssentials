@@ -158,6 +158,7 @@ namespace CloudNimble.BlazorEssentials.Merlin
         /// The Action that the Operation calls to trigger a Step. It wrapps the call to onAction with status update logic.
         /// </summary>
         /// <returns></returns>
+        /// <remarks></remarks>
         public async Task Start()
         {
             //await Task.Run(async () =>

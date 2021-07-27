@@ -9,18 +9,11 @@ namespace CloudNimble.BlazorEssentials.Tests
 {
 
     /// <summary>
-    /// 
+    /// Tests the functionality of the <see cref="OperationStep"/> in the operation framework.
     /// </summary>
     [TestClass]
     public class OperationStepTests
     {
-
-        #region Private Members
-
-        Func<Task<bool>> trueAction = () => { Thread.Sleep(2000); return Task.FromResult(true); };
-        Func<Task<bool>> falseAction = () => { Thread.Sleep(2000); return Task.FromResult(false); };
-
-        #endregion
 
         /// <summary>
         /// Make sure that the Step is initialized properly.
@@ -29,7 +22,7 @@ namespace CloudNimble.BlazorEssentials.Tests
         public void OperationStep_CorrectInitialState()
         {
             var title = "Test Step";
-            var step = new OperationStep(1, title, trueAction);
+            var step = new OperationStep(1, title, () => { return Task.FromResult(true); });
             step.Should().NotBeNull();
             step.Status.Should().Be(OperationStepStatus.NotStarted);
             step.OnAction.Should().NotBeNull();
@@ -40,34 +33,64 @@ namespace CloudNimble.BlazorEssentials.Tests
         /// <summary>
         /// Make sure that the step goes through the right transitions on a successful action.
         /// </summary>
-        [Ignore]
         [TestMethod]
         public void OperationStep_SucceedsCorrectly()
         {
             var title = "Test Step";
-            var step = new OperationStep(1, title, trueAction);
+            var actionComplete = false;
+            var step = new OperationStep(1, title, () => { Thread.Sleep(2000); actionComplete = true; return Task.FromResult(true); });
             step.Should().NotBeNull();
-            step.Start();
+            step.Status.Should().Be(OperationStepStatus.NotStarted);
+
+            // fire off the operation step on another thread so that we can watch its status here
+            Task.Run(() =>
+            {
+                step.Start();
+            }).ConfigureAwait(false);
+
+            // give the operationstep a half-second to spin up
             Thread.Sleep(500);
+
             step.Status.Should().Be(OperationStepStatus.InProgress);
-            Thread.Sleep(3000);
+
+            // wait until the static flag lets us know that the operation step has finished (includes a 10 second escape hatch)
+            SpinWait.SpinUntil(() => { return actionComplete; }, 10000);
+
+            // give the operation a half-second to update its state
+            Thread.Sleep(500);
+
             step.Status.Should().Be(OperationStepStatus.Succeeded);
         }
 
         /// <summary>
         /// Make sure the step goes through the right transitions on a failed action.
         /// </summary>
-        [Ignore]
         [TestMethod]
         public void OperationStep_FailsCorrectly()
         {
             var title = "Test Step";
-            var step = new OperationStep(1, title, falseAction);
+            var actionComplete = false;
+            var step = new OperationStep(1, title, () => { Thread.Sleep(2000); actionComplete = true; return Task.FromResult(false); });
             step.Should().NotBeNull();
-            step.Start();
+            step.Status.Should().Be(OperationStepStatus.NotStarted);
+
+            // fire off the operation step on another thread so that we can watch its status here
+            Task.Run(() =>
+            {
+                step.Start();
+            }).ConfigureAwait(false);
+
+            // give the operation a half-second to update its state
             Thread.Sleep(500);
+
             step.Status.Should().Be(OperationStepStatus.InProgress);
-            Thread.Sleep(3000);
+
+            // wait until the static flag lets us know that the operation step has finished (includes a 10 second escape hatch)
+            SpinWait.SpinUntil(() => { return actionComplete; }, 10000);
+
+            // give the operation a half-second to update its state
+            Thread.Sleep(500);
+
             step.Status.Should().Be(OperationStepStatus.Failed);
         }
 

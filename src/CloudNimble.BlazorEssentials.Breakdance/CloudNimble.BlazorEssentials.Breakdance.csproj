@@ -15,7 +15,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Breakdance.Blazor" Version="[2.1.0-CI-20210530-211400, 3.0.0)" />
+    <PackageReference Include="Breakdance.Blazor" Version="3.0.0-CI-20210727-164054" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="[5.0.0, 6.0.0)" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="[5.0.0, 6.0.0)" />
   </ItemGroup>

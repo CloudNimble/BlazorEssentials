@@ -7,7 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Breakdance.Blazor" Version="2.1.0-CI-20210530-211400" />
+    <None Remove="Pages\OperationRender.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Pages\OperationRender.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Breakdance.Blazor" Version="3.0.0-CI-20210727-164054" />
     <PackageReference Include="bunit" Version="1.1.5" />
     <PackageReference Include="coverlet.collector" Version="1.2.1">
       <PrivateAssets>all</PrivateAssets>

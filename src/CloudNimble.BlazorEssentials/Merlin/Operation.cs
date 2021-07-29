@@ -368,8 +368,12 @@ namespace CloudNimble.BlazorEssentials.Merlin
                     var currentStep = stepsList.FirstOrDefault(c => c.Status == OperationStepStatus.InProgress);
                     ProgressText = currentStep?.DisplayText ?? "";
 
-                    //ProgressPercent = decimal.Divide((stepsList.Count(c => (int)c.Status >= 2) * 2) + stepsList.Count(c => c.Status == OperationStepStatus.InProgress), stepsList.Count() * 2);
-                    ProgressPercent = decimal.Divide(stepsList.Count(c => c.Status == OperationStepStatus.Succeeded), stepsList.Count);
+                    ProgressPercent = decimal.Divide
+                    (
+                        (stepsList.Count(c => (int)c.Status >= 90) * 2)                         // how many steps are done, times 2 because these steps also had a previous "in progress" step
+                            + stepsList.Count(c => c.Status == OperationStepStatus.InProgress), // how many steps are in progress
+                        stepsList.Count() * 2                                                   // each step in the operation has 2 states that we are concerned about (in progress and either succeeded or failed)
+                    );
 
                     IsSubmitting = stepsList.Any(c => c.Status == OperationStepStatus.InProgress);
                     IsSubmitted = stepsList.All(c => c.Status == OperationStepStatus.Succeeded || c.Status == OperationStepStatus.Failed);

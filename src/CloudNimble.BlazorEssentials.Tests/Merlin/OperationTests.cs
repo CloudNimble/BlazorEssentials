@@ -19,10 +19,15 @@ namespace CloudNimble.BlazorEssentials.Tests
 
         #region Private Members
 
-        private string Echo(string input)
+        /// <summary>
+        /// Simulates an asynchronous call
+        /// </summary>
+        /// <param name="input">String to write back to the caller.</param>
+        /// <returns></returns>
+        private async Task<string> Echo(string input)
         {
             Thread.Sleep(2000);
-            return input;
+            return await Task.FromResult(input);
         }
 
         #endregion
@@ -78,8 +83,7 @@ namespace CloudNimble.BlazorEssentials.Tests
             operation.CurrentProgressClass.Should().Be("bg-warning");
             operation.IsSubmitting.Should().BeTrue();
             operation.Steps[0].Status.Should().Be(OperationStepStatus.InProgress);
-            //operation.ProgressPercent.Should().Be(.25M);
-            operation.ProgressPercent.Should().Be(0M);
+            operation.ProgressPercent.Should().Be(.25M);
 
             // this will force the current thread to stop here until the first step indicates completion (includes a 10 second escape hatch)
             SpinWait.SpinUntil(() => { return step1Complete; }, 10000);
@@ -89,8 +93,7 @@ namespace CloudNimble.BlazorEssentials.Tests
 
             operation.Steps[0].Status.Should().Be(OperationStepStatus.Succeeded);
             operation.Steps[1].Status.Should().Be(OperationStepStatus.InProgress);
-            //operation.ProgressPercent.Should().Be(.75M);
-            operation.ProgressPercent.Should().Be(.5M);
+            operation.ProgressPercent.Should().Be(.75M);
 
             // this will force the current thread to stop here until the first step indicates completion (includes a 10 second escape hatch)
             SpinWait.SpinUntil(() => { return step2Complete; }, 10000);
@@ -140,8 +143,7 @@ namespace CloudNimble.BlazorEssentials.Tests
             operation.CurrentProgressClass.Should().Be("bg-warning");
             operation.IsSubmitting.Should().BeTrue();
             operation.Steps[0].Status.Should().Be(OperationStepStatus.InProgress);
-            //operation.ProgressPercent.Should().Be(.25M);
-            operation.ProgressPercent.Should().Be(0M);
+            operation.ProgressPercent.Should().Be(.25M);
 
             // this will force the current thread to stop here until the first step indicates completion (includes a 10 second escape hatch)
             SpinWait.SpinUntil(() => { return step1Complete; }, 10000);
@@ -151,8 +153,7 @@ namespace CloudNimble.BlazorEssentials.Tests
 
             operation.Steps[0].Status.Should().Be(OperationStepStatus.Succeeded);
             operation.Steps[1].Status.Should().Be(OperationStepStatus.InProgress);
-            //operation.ProgressPercent.Should().Be(.75M);
-            operation.ProgressPercent.Should().Be(.5M);
+            operation.ProgressPercent.Should().Be(.75M);
 
             // this will force the current thread to stop here until the first step indicates completion (includes a 10 second escape hatch)
             SpinWait.SpinUntil(() => { return step2Complete; }, 10000);
@@ -178,9 +179,11 @@ namespace CloudNimble.BlazorEssentials.Tests
 
             var steps = new List<OperationStep>
             {
-                new OperationStep(1, "Step 1", () => { result = Echo("The quick brown fox"); return Task.FromResult(true); }),
-                new OperationStep(2, "Step 2", () => { result = Echo($"{result} jumped"); return Task.FromResult(true); }),
-                new OperationStep(2, "Step 3", () => { result = Echo($"{result} over the lazy dog."); return Task.FromResult(true); })
+                new OperationStep(1, "Step 1", async () => { result = await Echo("The quick"); return true; }),
+                new OperationStep(2, "Step 2", async () => { result = await Echo($"{result} brown fox"); return true; }),
+                new OperationStep(3, "Step 3", async () => { result = await Echo($"{result} jumped"); return true; }),
+                new OperationStep(4, "Step 4", async () => { result = await Echo($"{result} over the"); return true; }),
+                new OperationStep(5, "Step 5", async () => { result = await Echo($"{result} lazy dog."); return true; }),
             };
             var operation = new Operation("Limerick", steps, "Success", "Fail");
 

@@ -1,2 +1,54 @@
-﻿
-<title></title>
+﻿@using CloudNimble.BlazorEssentials.Merlin
+@using System.ComponentModel
+
+<div class="title">@operation.Title</div>
+
+<div class="succeeded">@operation.Succeeded</div>
+
+<div class="propertyChanges">@PropertyChangedCount</div>
+
+<div class="statusMessage">@operation.ResultText</div>
+
+@code
+{
+    private Operation operation;
+
+    /// <summary>
+    ///
+    /// </summary>
+    [Parameter]
+    public List<OperationStep> OperationSteps { get; set; }
+
+    /// <summary>
+    ///
+    /// </summary>
+    [Parameter]
+    public string DisplayName { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public bool? IsSubmitted => operation?.IsSubmitted;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public int PropertyChangedCount { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        operation = new Operation(DisplayName, OperationSteps, "success", "failure");
+        operation.PropertyChanged += Operation_PropertyChanged;
+        await operation.Start();
+    }
+
+    private void Operation_PropertyChanged(object sender, PropertyChangedEventArgs e)
+    {
+        // InvokeAsync is inherited, it syncs the call back to the render thread
+        InvokeAsync(() =>
+        {
+            PropertyChangedCount++;
+            StateHasChanged();
+        }).GetAwaiter().GetResult();
+    }
+}

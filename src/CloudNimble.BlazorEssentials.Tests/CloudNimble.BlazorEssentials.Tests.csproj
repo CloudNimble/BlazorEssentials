@@ -1,17 +1,16 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <RazorLangVersion>3.0</RazorLangVersion>
+    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+    <LangVersion>9.0</LangVersion>
     <IsPackable>false</IsPackable>
     <NoWarn>$(NoWarn);NU5125;NU5105;NU5048;NU5014;CA1052;CA1801;CA1822;</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Pages\OperationRender.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="Pages\OperationRender.razor" />
+    <SupportedPlatform Include="browser" />
   </ItemGroup>
 
   <ItemGroup>

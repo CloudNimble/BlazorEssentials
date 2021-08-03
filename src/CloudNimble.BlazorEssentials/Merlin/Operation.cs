@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 
 namespace CloudNimble.BlazorEssentials.Merlin
@@ -20,14 +21,13 @@ namespace CloudNimble.BlazorEssentials.Merlin
         private string currentIcon;
         private string currentIconColor;
         private string currentProgressClass;
-        private bool isSubmitted;
-        private bool isSubmitting;
         private decimal progressPercent;
         private string progressText;
         private string resultText;
+        private bool shouldObserveStatus;
         private bool showPanel;
+        private OperationStatus status;
         private ObservableCollection<OperationStep> steps;
-        private bool succeeded;
         private string title;
 
         #endregion
@@ -107,38 +107,6 @@ namespace CloudNimble.BlazorEssentials.Merlin
         public OperationStatusDisplay DisplayText { get; set; }
 
         /// <summary>
-        /// A computed boolean specifying whether or not all of the OperationSteps have moved past the "InProgress" status.
-        /// </summary>
-        public bool IsSubmitted
-        {
-            get => isSubmitted;
-            private set
-            {
-                if (isSubmitted != value)
-                {
-                    isSubmitted = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-        /// <summary>
-        /// A computed boolean specifying whether or not any of the OperationSteps are in the "InProgress" status.
-        /// </summary>
-        public bool IsSubmitting
-        {
-            get => isSubmitting;
-            private set
-            {
-                if (isSubmitting != value)
-                {
-                    isSubmitting = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-        /// <summary>
         /// A computed number containing the percentage of all the OperationSteps in the "Succeeded" status.
         /// </summary>
         public decimal ProgressPercent
@@ -203,6 +171,26 @@ namespace CloudNimble.BlazorEssentials.Merlin
         }
 
         /// <summary>
+        /// A computed boolean specifying whether or not ALL of the OperationSteps are successful.
+        /// </summary>
+        public OperationStatus Status
+        {
+            get => status;
+            private set
+            {
+                if (status != value)
+                {
+                    status = value;
+                    RaisePropertyChanged();
+                    if (shouldObserveStatus)
+                    {
+                        StateHasChangedAction();
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// A <see cref="ObservableCollection{OperationStep}" /> containing the different steps of the Operation.
         /// </summary>
         public ObservableCollection<OperationStep> Steps
@@ -214,23 +202,6 @@ namespace CloudNimble.BlazorEssentials.Merlin
                 {
                     steps = value;
                     RaisePropertyChanged();
-                }
-            }
-        }
-
-        /// <summary>
-        /// A computed boolean specifying whether or not ALL of the OperationSteps are successful.
-        /// </summary>
-        public bool Succeeded
-        {
-            get => succeeded;
-            private set
-            {
-                if (succeeded != value)
-                {
-                    succeeded = value;
-                    RaisePropertyChanged();
-                    ResultText = value ? DisplayText.Success : DisplayText.Failure;
                 }
             }
         }
@@ -260,14 +231,17 @@ namespace CloudNimble.BlazorEssentials.Merlin
         /// </summary>
         /// <param name="title"></param>
         /// <param name="steps"></param>
-        /// <param name="successText"></param>
-        /// <param name="failureText"></param>
-        public Operation(string title, IEnumerable<OperationStep> steps, string successText, string failureText)
+        /// <param name="successText">Initializer for the Success value on the DisplayText property.</param>
+        /// <param name="failureText">Initializer for the Failure value on the DisplayText property.</param>
+        /// <param name="inProgressText">Initializer for the InProgress value on the DisplayText property.</param>
+        /// <param name="notStartedText">Initializer for the NotStarted value on the DisplayText property.</param>
+        /// <param name="shouldObserveStatus">Initializer for internal flag indicating if the control should trigger the StateHasChanged action in the <see cref="BlazorObservable"/> when the <see cref="OperationStatus"/> changes.</param>
+        public Operation(string title, IEnumerable<OperationStep> steps, string successText, string failureText, string inProgressText = "Working...", string notStartedText = "", bool shouldObserveStatus = true)
         {
-            DisplayIcon = new OperationStatusDisplay("fa-thumbs-up", "fa-thumbs-down", "fa-hourglass fa-pulse");
-            DisplayIconColor = new OperationStatusDisplay("text-success", "text-danger", "text-warning");
-            DisplayProgressClass = new OperationStatusDisplay("bg-success", "bg-danger", "bg-warning");
-            DisplayText = new OperationStatusDisplay(successText, failureText);
+            DisplayIcon = new OperationStatusDisplay("fa-thumbs-up", "fa-thumbs-down", "fa-hourglass fa-pulse", "");
+            DisplayIconColor = new OperationStatusDisplay("text-success", "text-danger", "text-warning", "");
+            DisplayProgressClass = new OperationStatusDisplay("bg-success", "bg-danger", "bg-warning", "");
+            DisplayText = new OperationStatusDisplay(successText, failureText, inProgressText, notStartedText);
             Steps = new ObservableCollection<OperationStep>();
             Title = title;
 
@@ -277,6 +251,8 @@ namespace CloudNimble.BlazorEssentials.Merlin
             {
                 Steps.Add(step);
             }
+            this.shouldObserveStatus = shouldObserveStatus;
+            PropertyChanged += Operation_PropertyChanged;
         }
 
         #endregion
@@ -292,10 +268,9 @@ namespace CloudNimble.BlazorEssentials.Merlin
         }
 
         /// <summary>
-        /// Starts the Operation, looping through each step until it is finished.
+        /// Starts the Operation, looping through each step until it is finished or until a step fails.
         /// </summary>
-        /// <returns></returns>
-        public async Task Start()
+        public void Start()
         {
             //RWM: We want this to run out-of-band, don't await it.
             Task.Run(async () =>
@@ -312,15 +287,15 @@ namespace CloudNimble.BlazorEssentials.Merlin
                         };
                     }
                 });
-            }).ConfigureAwait(false);
+            });
         }
 
         /// <summary>
-        /// 
+        /// Modify the status of a specific <see cref="OperationStep"/>.
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="status"></param>
-        /// <param name="errorText"></param>
+        /// <param name="id"><see cref="OperationStep"/> identifier.</param>
+        /// <param name="status">New <see cref="OperationStepStatus"/>.</param>
+        /// <param name="errorText">New value for the ErrorText property on the <see cref="OperationStep"/>.</param>
         public void UpdateStep(int id, OperationStepStatus status, string errorText)
         {
             var step = Steps.ToList().FirstOrDefault(c => c.Id == id);
@@ -361,6 +336,16 @@ namespace CloudNimble.BlazorEssentials.Merlin
             }
         }
 
+        private void Operation_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(Status):
+                    BlazorStateChanged();
+                    break;
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -368,45 +353,60 @@ namespace CloudNimble.BlazorEssentials.Merlin
         /// <param name="e"></param>
         private void OperationStep_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            var stepsList = Steps.ToList();
             switch (e.PropertyName)
             {
                 case nameof(OperationStep.Status):
-                    var currentStep = stepsList.FirstOrDefault(c => c.Status == OperationStepStatus.InProgress);
+
+                    //@robertmclaws: First update the UI that the particular OperationStep has changed. THEN determine if the Operation is in a different state to trigger UI updates.
+                    BlazorStateChanged();
+
+                    var currentStep = Steps.FirstOrDefault(c => c.Status == OperationStepStatus.InProgress);
                     ProgressText = currentStep?.DisplayText ?? "";
 
+                    // @robertmclaws: This handles cases where a > 2 step process fails in the middle. Short-circuit if we've failed.
+                    //                Start at the end, assume failure, work backwards.
+                    if (Steps.Any(c => c.Status == OperationStepStatus.Failed))
+                    {
+                        ProgressPercent = 1M;
+                        ShowFailed();
+                        break;
+                    }
+
+                    // @robertmclaws: Everything has to have won in order to win the day.
+                    if (Steps.All(c => c.Status == OperationStepStatus.Succeeded))
+                    {
+                        ProgressPercent = 1M;
+                        ShowSucceeded();
+                        break;
+                    }
+
+                    // @robertmclaws: Handles the Reset case.
+                    if (Steps.All(c => c.Status == OperationStepStatus.NotStarted))
+                    {
+                        ProgressPercent = 0M;
+                        ShowNotStarted();
+                        break;
+                    }
+
+                    // @robertmclaws: Assume everything else is an "in motion" state.
+                    // @caldwell0414: only need to calculate the progress percentage during the InProgress status; otherwise, it is a known value (set above)
                     ProgressPercent = decimal.Divide
                     (
-                        (stepsList.Count(c => (int)c.Status >= 90) * 2)                         // how many steps are done, times 2 because these steps also had a previous "in progress" step
-                            + stepsList.Count(c => c.Status == OperationStepStatus.InProgress), // how many steps are in progress
-                        stepsList.Count() * 2                                                   // each step in the operation has 2 states that we are concerned about (in progress and either succeeded or failed)
+                        (Steps.Count(c => (int)c.Status >= 90) * 2)                         // how many steps are done, times 2 because these steps also had a previous "in progress" step
+                            + Steps.Count(c => c.Status == OperationStepStatus.InProgress), // how many steps are in progress
+                        Steps.Count() * 2                                                   // each step in the operation has 2 states that we are concerned about (in progress and either succeeded or failed)
                     );
 
-                    IsSubmitting = stepsList.Any(c => c.Status == OperationStepStatus.InProgress);
-                    IsSubmitted = stepsList.All(c => c.Status == OperationStepStatus.Succeeded || c.Status == OperationStepStatus.Failed);
-                    Succeeded = IsSubmitted && stepsList.All(c => c.Status == OperationStepStatus.Succeeded);
-
-                    if (stepsList.Any(c => c.Status == OperationStepStatus.Failed))
-                    {
-                        ShowFailed();
-                    }
-
-                    if (IsSubmitted)
-                    {
-                        if (Succeeded)
-                        {
-                            ShowSucceeded();
-                        }
-                        else
-                        {
-                            ShowFailed();
-                        }
-                    }
-                    if (IsSubmitting)
-                    {
-                        ShowInProgress();
-                    }
+                    ShowInProgress();
                     break;
+            }
+        }
+
+        private void BlazorStateChanged()
+        {
+            if (shouldObserveStatus)
+            {
+                StateHasChangedAction();
             }
         }
 
@@ -415,6 +415,8 @@ namespace CloudNimble.BlazorEssentials.Merlin
             CurrentIcon = DisplayIcon.Failure;
             CurrentIconColor = DisplayIconColor.Failure;
             CurrentProgressClass = DisplayProgressClass.Failure;
+            ResultText = DisplayText.Failure;
+            Status = OperationStatus.Failed;
         }
 
         private void ShowInProgress()
@@ -422,6 +424,17 @@ namespace CloudNimble.BlazorEssentials.Merlin
             CurrentIcon = DisplayIcon.InProgress;
             CurrentIconColor = DisplayIconColor.InProgress;
             CurrentProgressClass = DisplayProgressClass.InProgress;
+            ResultText = DisplayText.InProgress;
+            Status = OperationStatus.InProgress;
+        }
+
+        private void ShowNotStarted()
+        {
+            CurrentIcon = DisplayIcon.NotStarted;
+            CurrentIconColor = DisplayIconColor.NotStarted;
+            CurrentProgressClass = DisplayProgressClass.NotStarted;
+            ResultText = DisplayText.NotStarted;
+            Status = OperationStatus.NotStarted;
         }
 
         private void ShowSucceeded()
@@ -429,6 +442,8 @@ namespace CloudNimble.BlazorEssentials.Merlin
             CurrentIcon = DisplayIcon.Success;
             CurrentIconColor = DisplayIconColor.Success;
             CurrentProgressClass = DisplayProgressClass.Success;
+            ResultText = DisplayText.Success;
+            Status = OperationStatus.Succeeded;
         }
 
         #endregion

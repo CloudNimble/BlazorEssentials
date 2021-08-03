@@ -3,7 +3,7 @@
 
 <div class="title">@operation.Title</div>
 
-<div class="succeeded">@operation.Succeeded</div>
+<div class="finished">@Finished</div>
 
 <div class="propertyChanges">@PropertyChangedCount</div>
 
@@ -28,18 +28,18 @@
     /// <summary>
     /// 
     /// </summary>
-    public bool? IsSubmitted => operation?.IsSubmitted;
+    public bool Finished => operation != null && operation.Status > OperationStatus.InProgress;
 
     /// <summary>
     /// 
     /// </summary>
     public int PropertyChangedCount { get; set; }
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
         operation = new Operation(DisplayName, OperationSteps, "success", "failure");
         operation.PropertyChanged += Operation_PropertyChanged;
-        await operation.Start();
+        operation.Start();
     }
 
     private void Operation_PropertyChanged(object sender, PropertyChangedEventArgs e)

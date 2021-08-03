@@ -40,17 +40,29 @@ namespace CloudNimble.BlazorEssentials.Tests
         {
             var title = "Test Operation";
             var operationSteps = new List<OperationStep> { new OperationStep(1, "Step1", () => { return Task.FromResult(true); }) };
-            var operation = new Operation(title, operationSteps, "Success", "Fail");
+            var operation = new Operation(title, operationSteps, "Success", "Fail", "In Progress", "Not Started");
             operation.Should().NotBeNull();
-            operation.Title.Should().Be(title);
-            operation.Steps.Should().NotBeNull();
+
+            operation.CurrentIcon.Should().BeNull();
+            operation.CurrentIconColor.Should().BeNull();
+            operation.CurrentProgressClass.Should().BeNull();
             operation.DisplayIcon.Should().NotBeNull();
             operation.DisplayIconColor.Should().NotBeNull();
             operation.DisplayProgressClass.Should().NotBeNull();
             operation.DisplayText.Should().NotBeNull();
-            operation.DisplayText.Success.Should().Be("Success");
             operation.DisplayText.Failure.Should().Be("Fail");
+            operation.DisplayText.InProgress.Should().Be("In Progress");
+            operation.DisplayText.NotStarted.Should().Be("Not Started");
+            operation.DisplayText.Success.Should().Be("Success");
+            operation.LoadingStatus.Should().Be(LoadingStatus.NotLoaded);
+            operation.ProgressPercent.Should().Be(0M);
+            operation.ProgressText.Should().BeNull();
+            operation.ResultText.Should().BeNull();
+            operation.ShowPanel.Should().BeFalse();
+            operation.Status.Should().Be(OperationStatus.NotStarted);
+            operation.Steps.Should().NotBeNull();
             operation.Steps.All(c => c.Status == OperationStepStatus.NotStarted).Should().BeTrue();
+            operation.Title.Should().Be(title);
         }
 
         /// <summary>
@@ -62,76 +74,72 @@ namespace CloudNimble.BlazorEssentials.Tests
             var title = "Test Operation";
             var canCompleteStep1 = false;
             var canCompleteStep2 = false;
-            var step1Started = false;
-            var step2Started = false;
 
-            var steps = new List<OperationStep>
+            var operationSteps = new List<OperationStep>
             {
-                new OperationStep(1, "Step 1", () => { step1Started = true; SpinWait.SpinUntil(() => { return canCompleteStep1; }, 30000); return Task.FromResult(true); }),
-                new OperationStep(2, "Step 2", () => { step2Started = true; SpinWait.SpinUntil(() => { return canCompleteStep2; }, 30000); return Task.FromResult(true); })
+                new OperationStep(1, "Step 1", () => { SpinWait.SpinUntil(() => { return canCompleteStep1; }, 30000); return Task.FromResult(true); }),
+                new OperationStep(2, "Step 2", () => { SpinWait.SpinUntil(() => { return canCompleteStep2; }, 30000); return Task.FromResult(true); })
             };
-            var operation = new Operation(title, steps, "Success", "Fail");
+            var operation = new Operation(title, operationSteps, "Success", "Fail", "In Progress", "Not Started");
 
             // check the initial property state
-            operation.Should().NotBeNull();
-            operation.Title.Should().Be(title);
-            operation.Steps.Should().NotBeNull();
+            operation.CurrentIcon.Should().BeNull();
+            operation.CurrentIconColor.Should().BeNull();
+            operation.CurrentProgressClass.Should().BeNull();
             operation.DisplayIcon.Should().NotBeNull();
             operation.DisplayIconColor.Should().NotBeNull();
             operation.DisplayProgressClass.Should().NotBeNull();
             operation.DisplayText.Should().NotBeNull();
-            operation.DisplayText.Success.Should().Be("Success");
             operation.DisplayText.Failure.Should().Be("Fail");
-
-            // check the state of the properties that update during the operation lifecycle
-            operation.CurrentIcon.Should().BeNull();
-            operation.CurrentIconColor.Should().BeNull();
-            operation.CurrentProgressClass.Should().BeNull();
+            operation.DisplayText.InProgress.Should().Be("In Progress");
+            operation.DisplayText.NotStarted.Should().Be("Not Started");
+            operation.DisplayText.Success.Should().Be("Success");
+            operation.LoadingStatus.Should().Be(LoadingStatus.NotLoaded);
+            operation.ProgressPercent.Should().Be(0M);
+            operation.ProgressText.Should().BeNull();
             operation.ResultText.Should().BeNull();
-            operation.IsSubmitting.Should().BeFalse();
-            operation.IsSubmitted.Should().BeFalse();
-            operation.Succeeded.Should().BeFalse();
+            operation.ShowPanel.Should().BeFalse();
+            operation.Status.Should().Be(OperationStatus.NotStarted);
+            operation.Steps.Should().NotBeNull();
             operation.Steps.All(c => c.Status == OperationStepStatus.NotStarted).Should().BeTrue();
+            operation.Title.Should().Be(title);
 
-            // when the operation starts, it will fire off all the operation steps on another thread and return immediately
+            // start the opreation and wait for it to move to the InProgress state
             operation.Start();
-            SpinWait.SpinUntil(() => { return step1Started; }, 10000);
+            SpinWait.SpinUntil(() => { return operation.Status == OperationStatus.InProgress; }, 10000);
 
-            // check for in-progress state
+            // check for in-progress state (step 1)
             operation.CurrentIcon.Should().Be("fa-hourglass fa-pulse");
             operation.CurrentIconColor.Should().Be("text-warning");
             operation.CurrentProgressClass.Should().Be("bg-warning");
-            operation.ResultText.Should().BeNull();
-            operation.IsSubmitting.Should().BeTrue();
-            operation.IsSubmitted.Should().BeFalse();
-            operation.Succeeded.Should().BeFalse();
+            operation.ProgressPercent.Should().Be(.25M);
+            operation.ResultText.Should().Be(operation.DisplayText.InProgress);
+            operation.Status.Should().Be(OperationStatus.InProgress);
             operation.Steps[0].Status.Should().Be(OperationStepStatus.InProgress);
             operation.Steps[1].Status.Should().Be(OperationStepStatus.NotStarted);
-            operation.ProgressPercent.Should().Be(.25M);
 
             // allow step 1 to complete
             canCompleteStep1 = true;
 
-            // ensure that the first step reaches the final state without an error
-            var hasStartedStep2 = SpinWait.SpinUntil(() => { return step2Started; }, 10000);
-            hasStartedStep2.Should().BeTrue();
+            // what for step 2 to get started
+            var hasStep2Started = SpinWait.SpinUntil(() => { return operation.Steps[1].Status > OperationStepStatus.NotStarted; }, 10000);
+            hasStep2Started.Should().BeTrue();
 
+            // check for in-progress state (step 2)
             operation.CurrentIcon.Should().Be("fa-hourglass fa-pulse");
             operation.CurrentIconColor.Should().Be("text-warning");
             operation.CurrentProgressClass.Should().Be("bg-warning");
-            operation.ResultText.Should().BeNull();
-            operation.IsSubmitting.Should().BeTrue();
-            operation.IsSubmitted.Should().BeFalse();
-            operation.Succeeded.Should().BeFalse();
+            operation.ProgressPercent.Should().Be(.75M);
+            operation.ResultText.Should().Be(operation.DisplayText.InProgress);
+            operation.Status.Should().Be(OperationStatus.InProgress);
             operation.Steps[0].Status.Should().Be(OperationStepStatus.Succeeded);
             operation.Steps[1].Status.Should().Be(OperationStepStatus.InProgress);
-            operation.ProgressPercent.Should().Be(.75M);
 
             // allow step 2 to complete
             canCompleteStep2 = true;
 
             // wait until the operation has completed
-            var hasCompletedOperation = SpinWait.SpinUntil(() => { return operation.IsSubmitted; }, 10000);
+            var hasCompletedOperation = SpinWait.SpinUntil(() => { return operation.Status > OperationStatus.InProgress; }, 10000);
             hasCompletedOperation.Should().BeTrue();
 
             // check the final state of the operation
@@ -139,8 +147,6 @@ namespace CloudNimble.BlazorEssentials.Tests
             operation.CurrentIconColor.Should().Be("text-success");
             operation.CurrentProgressClass.Should().Be("bg-success");
             operation.ResultText.Should().Be(operation.DisplayText.Success);
-            operation.IsSubmitting.Should().BeFalse();
-            operation.Succeeded.Should().BeTrue();
             operation.Steps.All(c => c.Status == OperationStepStatus.Succeeded).Should().BeTrue();
             operation.Steps.Any(c => c.Status == OperationStepStatus.Failed).Should().BeFalse();
             operation.ProgressPercent.Should().Be(1M);
@@ -155,76 +161,72 @@ namespace CloudNimble.BlazorEssentials.Tests
             var title = "Test Operation";
             var canCompleteStep1 = false;
             var canCompleteStep2 = false;
-            var step1Started = false;
-            var step2Started = false;
 
-            var steps = new List<OperationStep>
+            var operationSteps = new List<OperationStep>
             {
-                new OperationStep(1, "Step 1", () => { step1Started = true; SpinWait.SpinUntil(() => { return canCompleteStep1; }, 30000); return Task.FromResult(true); }),
-                new OperationStep(2, "Step 2", () => { step2Started = true; SpinWait.SpinUntil(() => { return canCompleteStep2; }, 30000); return Task.FromResult(false); })
+                new OperationStep(1, "Step 1", () => { SpinWait.SpinUntil(() => { return canCompleteStep1; }, 30000); return Task.FromResult(true); }),
+                new OperationStep(2, "Step 2", () => { SpinWait.SpinUntil(() => { return canCompleteStep2; }, 30000); return Task.FromResult(false); })
             };
-            var operation = new Operation(title, steps, "Success", "Fail");
+            var operation = new Operation(title, operationSteps, "Success", "Fail", "In Progress", "Not Started");
 
             // check the initial property state
-            operation.Should().NotBeNull();
-            operation.Title.Should().Be(title);
-            operation.Steps.Should().NotBeNull();
+            operation.CurrentIcon.Should().BeNull();
+            operation.CurrentIconColor.Should().BeNull();
+            operation.CurrentProgressClass.Should().BeNull();
             operation.DisplayIcon.Should().NotBeNull();
             operation.DisplayIconColor.Should().NotBeNull();
             operation.DisplayProgressClass.Should().NotBeNull();
             operation.DisplayText.Should().NotBeNull();
-            operation.DisplayText.Success.Should().Be("Success");
             operation.DisplayText.Failure.Should().Be("Fail");
-
-            // check the state of the properties that update during the operation lifecycle
-            operation.CurrentIcon.Should().BeNull();
-            operation.CurrentIconColor.Should().BeNull();
-            operation.CurrentProgressClass.Should().BeNull();
+            operation.DisplayText.InProgress.Should().Be("In Progress");
+            operation.DisplayText.NotStarted.Should().Be("Not Started");
+            operation.DisplayText.Success.Should().Be("Success");
+            operation.LoadingStatus.Should().Be(LoadingStatus.NotLoaded);
+            operation.ProgressPercent.Should().Be(0M);
+            operation.ProgressText.Should().BeNull();
             operation.ResultText.Should().BeNull();
-            operation.IsSubmitting.Should().BeFalse();
-            operation.IsSubmitted.Should().BeFalse();
-            operation.Succeeded.Should().BeFalse();
+            operation.ShowPanel.Should().BeFalse();
+            operation.Status.Should().Be(OperationStatus.NotStarted);
+            operation.Steps.Should().NotBeNull();
             operation.Steps.All(c => c.Status == OperationStepStatus.NotStarted).Should().BeTrue();
+            operation.Title.Should().Be(title);
 
-            // when the operation starts, it will fire off all the operation steps on another thread and return immediately
+            // start the opreation and wait for it to move to the InProgress state
             operation.Start();
-            SpinWait.SpinUntil(() => { return step1Started; }, 10000);
+            SpinWait.SpinUntil(() => { return operation.Status == OperationStatus.InProgress; }, 10000);
 
-            // check for in-progress state
+            // check for in-progress state (step 1)
             operation.CurrentIcon.Should().Be("fa-hourglass fa-pulse");
             operation.CurrentIconColor.Should().Be("text-warning");
             operation.CurrentProgressClass.Should().Be("bg-warning");
-            operation.ResultText.Should().BeNull();
-            operation.IsSubmitting.Should().BeTrue();
-            operation.IsSubmitted.Should().BeFalse();
-            operation.Succeeded.Should().BeFalse();
+            operation.ProgressPercent.Should().Be(.25M);
+            operation.ResultText.Should().Be(operation.DisplayText.InProgress);
+            operation.Status.Should().Be(OperationStatus.InProgress);
             operation.Steps[0].Status.Should().Be(OperationStepStatus.InProgress);
             operation.Steps[1].Status.Should().Be(OperationStepStatus.NotStarted);
-            operation.ProgressPercent.Should().Be(.25M);
 
             // allow step 1 to complete
             canCompleteStep1 = true;
 
-            // ensure that the first step reaches the final state without an error
-            var hasStartedStep2 = SpinWait.SpinUntil(() => { return step2Started; }, 10000);
-            hasStartedStep2.Should().BeTrue();
+            // what for step 2 to get started
+            var hasStep2Started = SpinWait.SpinUntil(() => { return operation.Steps[1].Status > OperationStepStatus.NotStarted; }, 10000);
+            hasStep2Started.Should().BeTrue();
 
+            // check for in-progress state (step 2)
             operation.CurrentIcon.Should().Be("fa-hourglass fa-pulse");
             operation.CurrentIconColor.Should().Be("text-warning");
             operation.CurrentProgressClass.Should().Be("bg-warning");
-            operation.ResultText.Should().BeNull();
-            operation.IsSubmitting.Should().BeTrue();
-            operation.IsSubmitted.Should().BeFalse();
-            operation.Succeeded.Should().BeFalse();
+            operation.ProgressPercent.Should().Be(.75M);
+            operation.ResultText.Should().Be(operation.DisplayText.InProgress);
+            operation.Status.Should().Be(OperationStatus.InProgress);
             operation.Steps[0].Status.Should().Be(OperationStepStatus.Succeeded);
             operation.Steps[1].Status.Should().Be(OperationStepStatus.InProgress);
-            operation.ProgressPercent.Should().Be(.75M);
 
             // allow step 2 to complete
             canCompleteStep2 = true;
 
             // wait until the operation has completed
-            var hasCompletedOperation = SpinWait.SpinUntil(() => { return operation.IsSubmitted; }, 10000);
+            var hasCompletedOperation = SpinWait.SpinUntil(() => { return operation.Status > OperationStatus.InProgress; }, 10000);
             hasCompletedOperation.Should().BeTrue();
 
             // check the final state of the operation
@@ -232,11 +234,10 @@ namespace CloudNimble.BlazorEssentials.Tests
             operation.CurrentIconColor.Should().Be("text-danger");
             operation.CurrentProgressClass.Should().Be("bg-danger");
             operation.ResultText.Should().Be(operation.DisplayText.Failure);
-            operation.IsSubmitting.Should().BeFalse();
-            operation.Succeeded.Should().BeFalse();
             operation.Steps[0].Status.Should().Be(OperationStepStatus.Succeeded);
             operation.Steps[1].Status.Should().Be(OperationStepStatus.Failed);
             operation.ProgressPercent.Should().Be(1M);
+
         }
 
         /// <summary>
@@ -247,66 +248,62 @@ namespace CloudNimble.BlazorEssentials.Tests
         {
             var title = "Test Operation";
             var canCompleteStep1 = false;
-            var step1Started = false;
 
-            var steps = new List<OperationStep>
+            var operationSteps = new List<OperationStep>
             {
-                new OperationStep(1, "Step 1", () => { step1Started = true; SpinWait.SpinUntil(() => { return canCompleteStep1; }, 30000); return Task.FromResult(false); }),
+                new OperationStep(1, "Step 1", () => { SpinWait.SpinUntil(() => { return canCompleteStep1; }, 30000); return Task.FromResult(false); }),
                 new OperationStep(2, "Step 2", () => { return Task.FromResult(true); })
             };
-            var operation = new Operation(title, steps, "Success", "Fail");
+            var operation = new Operation(title, operationSteps, "Success", "Fail", "In Progress", "Not Started");
 
             // check the initial property state
-            operation.Should().NotBeNull();
-            operation.Title.Should().Be(title);
-            operation.Steps.Should().NotBeNull();
+            operation.CurrentIcon.Should().BeNull();
+            operation.CurrentIconColor.Should().BeNull();
+            operation.CurrentProgressClass.Should().BeNull();
             operation.DisplayIcon.Should().NotBeNull();
             operation.DisplayIconColor.Should().NotBeNull();
             operation.DisplayProgressClass.Should().NotBeNull();
             operation.DisplayText.Should().NotBeNull();
-            operation.DisplayText.Success.Should().Be("Success");
             operation.DisplayText.Failure.Should().Be("Fail");
-
-            // check the state of the properties that update during the operation lifecycle
-            operation.CurrentIcon.Should().BeNull();
-            operation.CurrentIconColor.Should().BeNull();
-            operation.CurrentProgressClass.Should().BeNull();
+            operation.DisplayText.InProgress.Should().Be("In Progress");
+            operation.DisplayText.NotStarted.Should().Be("Not Started");
+            operation.DisplayText.Success.Should().Be("Success");
+            operation.LoadingStatus.Should().Be(LoadingStatus.NotLoaded);
+            operation.ProgressPercent.Should().Be(0M);
+            operation.ProgressText.Should().BeNull();
             operation.ResultText.Should().BeNull();
-            operation.IsSubmitting.Should().BeFalse();
-            operation.IsSubmitted.Should().BeFalse();
-            operation.Succeeded.Should().BeFalse();
+            operation.ShowPanel.Should().BeFalse();
+            operation.Status.Should().Be(OperationStatus.NotStarted);
+            operation.Steps.Should().NotBeNull();
             operation.Steps.All(c => c.Status == OperationStepStatus.NotStarted).Should().BeTrue();
+            operation.Title.Should().Be(title);
 
-            // when the operation starts, it will fire off all the operation steps on another thread and return immediately
+            // start the opreation and wait for it to move to the InProgress state
             operation.Start();
-            SpinWait.SpinUntil(() => { return step1Started; }, 10000);
+            SpinWait.SpinUntil(() => { return operation.Status == OperationStatus.InProgress; }, 10000);
 
-            // check for in-progress state
+            // check for in-progress state (step 1)
             operation.CurrentIcon.Should().Be("fa-hourglass fa-pulse");
             operation.CurrentIconColor.Should().Be("text-warning");
             operation.CurrentProgressClass.Should().Be("bg-warning");
-            operation.ResultText.Should().BeNull();
-            operation.IsSubmitting.Should().BeTrue();
-            operation.IsSubmitted.Should().BeFalse();
-            operation.Succeeded.Should().BeFalse();
+            operation.ProgressPercent.Should().Be(.25M);
+            operation.ResultText.Should().Be(operation.DisplayText.InProgress);
+            operation.Status.Should().Be(OperationStatus.InProgress);
             operation.Steps[0].Status.Should().Be(OperationStepStatus.InProgress);
             operation.Steps[1].Status.Should().Be(OperationStepStatus.NotStarted);
-            operation.ProgressPercent.Should().Be(.25M);
 
             // allow step 1 to complete
             canCompleteStep1 = true;
 
             // wait until the operation has completed
-            var hasCompletedOperation = SpinWait.SpinUntil(() => { return operation.IsSubmitted; }, 10000);
+            var hasCompletedOperation = SpinWait.SpinUntil(() => { return operation.Status > OperationStatus.InProgress; }, 10000);
             hasCompletedOperation.Should().BeTrue();
 
             // check the final state of the operation
             operation.CurrentIcon.Should().Be("fa-thumbs-down");
             operation.CurrentIconColor.Should().Be("text-danger");
             operation.CurrentProgressClass.Should().Be("bg-danger");
-            //operation.ResultText.Should().Be(operation.DisplayText.Failure);
-            operation.IsSubmitting.Should().BeFalse();
-            operation.Succeeded.Should().BeFalse();
+            operation.ResultText.Should().Be(operation.DisplayText.Failure);
             operation.Steps[0].Status.Should().Be(OperationStepStatus.Failed);
             operation.Steps[1].Status.Should().Be(OperationStepStatus.NotStarted);
             operation.ProgressPercent.Should().Be(1M);
@@ -344,16 +341,13 @@ namespace CloudNimble.BlazorEssentials.Tests
             operation.CurrentIconColor.Should().BeNull();
             operation.CurrentProgressClass.Should().BeNull();
             operation.ResultText.Should().BeNull();
-            operation.IsSubmitting.Should().BeFalse();
-            operation.IsSubmitted.Should().BeFalse();
-            operation.Succeeded.Should().BeFalse();
             operation.Steps.All(c => c.Status == OperationStepStatus.NotStarted).Should().BeTrue();
 
             // when the operation starts, it will fire off all the operation steps on another thread and return immediately
             operation.Start();
 
             // wait until the operation has completed
-            var hasCompletedOperation = SpinWait.SpinUntil(() => { return operation.IsSubmitted; }, 30000);
+            var hasCompletedOperation = SpinWait.SpinUntil(() => { return operation.Status > OperationStatus.InProgress; }, 30000);
             hasCompletedOperation.Should().BeTrue();
 
             // check the final state of the operation
@@ -361,8 +355,6 @@ namespace CloudNimble.BlazorEssentials.Tests
             operation.CurrentIconColor.Should().Be("text-success");
             operation.CurrentProgressClass.Should().Be("bg-success");
             operation.ResultText.Should().Be(operation.DisplayText.Success);
-            operation.IsSubmitting.Should().BeFalse();
-            operation.Succeeded.Should().BeTrue();
             operation.Steps.All(c => c.Status == OperationStepStatus.Succeeded).Should().BeTrue();
             operation.Steps.Any(c => c.Status == OperationStepStatus.Failed).Should().BeFalse();
             operation.ProgressPercent.Should().Be(1M);

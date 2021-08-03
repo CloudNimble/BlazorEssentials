@@ -83,7 +83,7 @@ namespace CloudNimble.BlazorEssentials.Tests.Pages
             component.Instance.DisplayName.Should().Be(componentName);
             component.Find(".title").TextContent.Should().Be(componentName);
 
-            var satisfied = SpinWait.SpinUntil(() => { return component.Instance.IsSubmitted ?? false; }, 10000);
+            var satisfied = SpinWait.SpinUntil(() => { return component.Instance.Finished; }, 10000);
             satisfied.Should().Be(true);
             component.Find(".succeeded").TextContent.Should().Be("True");
             component.Find(".statusMessage").TextContent.Should().Be("success");
@@ -113,7 +113,7 @@ namespace CloudNimble.BlazorEssentials.Tests.Pages
             component.Instance.DisplayName.Should().Be(componentName);
             component.Find(".title").TextContent.Should().Be(componentName);
 
-            var satisfied = SpinWait.SpinUntil(() => { return component.Instance.IsSubmitted ?? false; }, 10000);
+            var satisfied = SpinWait.SpinUntil(() => { return component.Instance.Finished; }, 10000);
             satisfied.Should().Be(true);
             component.Find(".succeeded").TextContent.Should().Be("False");
             //JHC NOTE: it doesn't look like the operation is setting its ResultText value to the failure message
@@ -144,7 +144,7 @@ namespace CloudNimble.BlazorEssentials.Tests.Pages
             component.Instance.DisplayName.Should().Be(componentName);
             component.Find(".title").TextContent.Should().Be(componentName);
 
-            var satisfied = SpinWait.SpinUntil(() => { return component.Instance.IsSubmitted ?? false; }, 10000);
+            var satisfied = SpinWait.SpinUntil(() => { return component.Instance.Finished; }, 10000);
             satisfied.Should().Be(true);
             component.Find(".succeeded").TextContent.Should().Be("True");
             component.Find(".statusMessage").TextContent.Should().Be("success");

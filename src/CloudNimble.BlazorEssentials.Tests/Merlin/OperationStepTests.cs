@@ -180,11 +180,6 @@ namespace CloudNimble.BlazorEssentials.Tests
             step.DisplayText.Should().Be(title);
             step.ErrorText.Should().BeNullOrWhiteSpace();
 
-            monitor.Should().RaisePropertyChangeFor(c => c.Id);
-            monitor.Should().RaisePropertyChangeFor(c => c.DisplayText);
-            monitor.Should().RaisePropertyChangeFor(c => c.Status);
-            monitor.OccurredEvents.Where(c => c.EventName == "PropertyChanged").Count().Should().Be(3);
-
             // fire off the operation step on another thread so that we can watch its status here
             Task.Run(() =>
             {
@@ -196,10 +191,10 @@ namespace CloudNimble.BlazorEssentials.Tests
             step.Status.Should().Be(OperationStepStatus.InProgress);
             step.ErrorText.Should().BeNullOrWhiteSpace();
 
-            monitor.Should().RaisePropertyChangeFor(c => c.Id);
-            monitor.Should().RaisePropertyChangeFor(c => c.DisplayText);
+            monitor.OccurredEvents.Where(c => c.EventName == "PropertyChanged").Count().Should().Be(2);
             monitor.Should().RaisePropertyChangeFor(c => c.Status);
-            monitor.OccurredEvents.Where(c => c.EventName == "PropertyChanged").Count().Should().Be(6);
+            monitor.Should().RaisePropertyChangeFor(c => c.Label);
+            monitor.Clear();
 
             // allow the step to complete
             canComplete = true;
@@ -209,10 +204,9 @@ namespace CloudNimble.BlazorEssentials.Tests
             hasCompleted.Should().BeTrue();
             step.ErrorText.Should().BeNullOrWhiteSpace();
 
-            monitor.Should().RaisePropertyChangeFor(c => c.Id);
-            monitor.Should().RaisePropertyChangeFor(c => c.DisplayText);
+            monitor.OccurredEvents.Where(c => c.EventName == "PropertyChanged").Count().Should().Be(2);
             monitor.Should().RaisePropertyChangeFor(c => c.Status);
-            monitor.OccurredEvents.Where(c => c.EventName == "PropertyChanged").Count().Should().Be(9);
+            monitor.Should().RaisePropertyChangeFor(c => c.Label);
         }
 
     }

@@ -300,10 +300,17 @@ namespace CloudNimble.BlazorEssentials.Merlin
             //RWM: We want this to run out-of-band, don't await it.
             Task.Run(async () =>
             {
+                var shouldContinue = true;
                 Steps.ToList().ForEach(async c =>
                 {
-                    await c.Start().ConfigureAwait(false);
-                    if (c.Status == OperationStepStatus.Failed) return;
+                    if (shouldContinue)
+                    {
+                        await c.Start().ConfigureAwait(false);
+                        if (c.Status == OperationStepStatus.Failed)
+                        {
+                            shouldContinue = false;
+                        };
+                    }
                 });
             }).ConfigureAwait(false);
         }

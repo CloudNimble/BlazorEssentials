@@ -1,13 +1,32 @@
 ﻿@using CloudNimble.BlazorEssentials.Merlin
 @using System.ComponentModel
 
-<div class="title">@operation.Title</div>
+<title>@operation.Title</title>
 
-<div class="finished">@Finished</div>
+<!-- create a fake <icon/> element -->
+<icon 
+    color="@operation.CurrentIconColor"
+    value="@operation.CurrentIcon" />
+
+<!-- create a fake <progress/> element -->
+<progress
+    class="@operation.CurrentProgressClass"
+    displayText="@operation.ProgressText"
+    value="@operation.ProgressPercent" />
+
+<!-- create a display element for operation and step statuses -->
+<div class="operationStatus">@operation.Status</div>
+
+<ul>
+    @foreach (var step in operation.Steps)
+    {
+        <li id="step_@step.Id">@step.DisplayText = @step.Status</li>
+    }
+</ul>
 
 <div class="propertyChanges">@PropertyChangedCount</div>
 
-<div class="statusMessage">@operation.ResultText</div>
+<div class="resultText">@operation.ResultText</div>
 
 @code
 {
@@ -20,26 +39,36 @@
     public List<OperationStep> OperationSteps { get; set; }
 
     /// <summary>
-    ///
+    /// Sets the title for the <see cref="Operation"/>.
     /// </summary>
     [Parameter]
     public string DisplayName { get; set; }
 
     /// <summary>
-    /// 
+    /// Provides the test with access to a property on the <see cref="Operation"/>.
     /// </summary>
-    public bool Finished => operation != null && operation.Status > OperationStatus.InProgress;
+    public OperationStatus Status => operation.Status;
+
+    /// <summary>
+    /// Provides the test with access to a property on the <see cref="Operation"/>.
+    /// </summary>
+    public OperationStatusDisplay DisplayText => operation.DisplayText;
 
     /// <summary>
     /// 
     /// </summary>
     public int PropertyChangedCount { get; set; }
 
+    public void Start()
+    {
+        operation.Start();
+    }
+
     protected override void OnInitialized()
     {
-        operation = new Operation(DisplayName, OperationSteps, "success", "failure");
+        operation = new Operation(DisplayName, OperationSteps, "Success", "Fail", "In Progress", "Not Started");
         operation.PropertyChanged += Operation_PropertyChanged;
-        operation.Start();
+        //operation.Start();
     }
 
     private void Operation_PropertyChanged(object sender, PropertyChangedEventArgs e)

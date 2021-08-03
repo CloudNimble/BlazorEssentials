@@ -51,7 +51,7 @@ namespace CloudNimble.BlazorEssentials.Merlin
         }
 
         /// <summary>
-        /// A cmputed string that determines what the icon color should be as the Steps change.
+        /// A computed string that determines what the icon color should be as the Steps change.
         /// </summary>
         public string CurrentIconColor
         {
@@ -253,6 +253,9 @@ namespace CloudNimble.BlazorEssentials.Merlin
             }
             this.shouldObserveStatus = shouldObserveStatus;
             PropertyChanged += Operation_PropertyChanged;
+
+            // @caldwell0414: set the initial state of the operation
+            ShowNotStarted();
         }
 
         #endregion

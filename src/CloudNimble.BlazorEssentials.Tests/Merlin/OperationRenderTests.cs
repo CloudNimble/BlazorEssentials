@@ -43,114 +43,108 @@ namespace CloudNimble.BlazorEssentials.Tests.Pages
         /// Tests that the <see cref="OperationRender"/> component can be initialized.
         /// </summary>
         [TestMethod]
-        public void BlazorComponent_CanBindTo_Parameters()
+        public void RenderComponent_InitialState_HasExpectedValues()
         {
-            var componentName = "Operation Render Test Component";
+            var title = "Operation Render Test Component";
+            var operationSteps = new List<OperationStep> { new OperationStep(1, "Step1", () => { return Task.FromResult(true); }) };
 
             var component = BUnitTestContext.RenderComponent<OperationRender>(parameters => parameters
-                .Add(c => c.OperationSteps, new List<OperationStep>())
-                .Add(c => c.DisplayName, componentName)
+                .Add(c => c.OperationSteps, operationSteps)
+                .Add(c => c.DisplayName, title)
             );
 
+            // check the initial component state
             component.Should().NotBeNull();
             component.RenderCount.Should().Be(1);
-            component.Instance.DisplayName.Should().Be(componentName);
-            component.Find(".title").TextContent.Should().Be(componentName);
-            component.Find(".succeeded").TextContent.Should().Be("False");
-            component.Find(".statusMessage").TextContent.Should().Be("success");
+            component.Instance.Should().NotBeNull();
+            component.Instance.Status.Should().Be(OperationStatus.NotStarted);
+
+            component.Find("icon").GetAttribute("color").Should().BeEmpty();
+            component.Find("icon").GetAttribute("value").Should().BeEmpty();
+            component.Find(".operationStatus").TextContent.Should().Be(OperationStatus.NotStarted.ToString());
+            component.Find("progress").GetAttribute("class").Should().BeEmpty();
+            component.Find("progress").GetAttribute("displayText").Should().BeNull();
+            component.Find("progress").GetAttribute("value").As<decimal>().Should().Be(0M);
+            component.Find(".propertyChanges").TextContent.As<int>().Should().Be(0);
+            component.Find(".resultText").TextContent.Should().Be(component.Instance.DisplayText.NotStarted);
+            component.Find("title").TextContent.Should().Be(title);
+            component.Find("ul").Children.Count().Should().Be(1);
+            component.Find("ul").Children.All(c => c.TextContent.Contains(OperationStatus.NotStarted.ToString())).Should().BeTrue();
         }
 
         /// <summary>
         /// Tests that the <see cref="OperationRender"/> component changes when properties change on the <see cref="Operation"/>.
         /// </summary>
         [TestMethod]
-        public void BlazorComponent_CanBindTo_OperationProperties()
+        public void Operation_OnSuccess_HasExpectedValues()
         {
-            var componentName = "Operation Render Test Component";
+            var title = "Operation Render Test Component";
+            var canCompleteStep1 = false;
+            var canCompleteStep2 = false;
 
             var operationSteps = new List<OperationStep>
             {
-                new OperationStep(1, "Step 1", ()  => { Thread.Sleep(2000); return Task.FromResult(true); })
+                new OperationStep(1, "Step 1", () => { SpinWait.SpinUntil(() => { return canCompleteStep1; }, 30000); return Task.FromResult(true); }),
+                new OperationStep(2, "Step 2", () => { SpinWait.SpinUntil(() => { return canCompleteStep2; }, 30000); return Task.FromResult(true); })
             };
 
             var component = BUnitTestContext.RenderComponent<OperationRender>(parameters => parameters
                 .Add(c => c.OperationSteps, operationSteps)
-                .Add(c => c.DisplayName, componentName)
+                .Add(c => c.DisplayName, title)
             );
 
+            // check the initial component state
             component.Should().NotBeNull();
-            component.RenderCount.Should().BeGreaterThan(1);
-            component.Instance.DisplayName.Should().Be(componentName);
-            component.Find(".title").TextContent.Should().Be(componentName);
+            component.RenderCount.Should().Be(1);
+            component.Instance.Should().NotBeNull();
+            component.Instance.Status.Should().Be(OperationStatus.NotStarted);
 
-            var satisfied = SpinWait.SpinUntil(() => { return component.Instance.Finished; }, 10000);
-            satisfied.Should().Be(true);
-            component.Find(".succeeded").TextContent.Should().Be("True");
-            component.Find(".statusMessage").TextContent.Should().Be("success");
-        }
+            component.Find("icon").GetAttribute("color").Should().BeEmpty();
+            component.Find("icon").GetAttribute("value").Should().BeEmpty();
+            component.Find(".operationStatus").TextContent.Should().Be(OperationStatus.NotStarted.ToString());
+            component.Find("progress").GetAttribute("class").Should().BeEmpty();
+            component.Find("progress").GetAttribute("displayText").Should().BeNull();
+            component.Find("progress").GetAttribute("value").As<decimal>().Should().Be(0M);
+            component.Find(".propertyChanges").TextContent.As<int>().Should().Be(0);
+            component.Find(".resultText").TextContent.Should().Be(component.Instance.DisplayText.NotStarted);
+            component.Find("title").TextContent.Should().Be(title);
+            component.Find("ul").Children.Count().Should().Be(2);
+            component.Find("ul").Children.All(c => c.TextContent.Contains(OperationStatus.NotStarted.ToString())).Should().BeTrue();
 
-        /// <summary>
-        /// Tests that the <see cref="OperationRender"/> component has the correct content when an <see cref="OperationStep"/> fails.
-        /// </summary>
-        [TestMethod]
-        public void BlazorComponent_FailedStep_UpdatesProperties()
-        {
-            var componentName = "Operation Render Test Component";
+            // start the operation
+            component.Instance.Start();
+            SpinWait.SpinUntil(() => { return component.Instance.Status == OperationStatus.InProgress; }, 10000);
 
-            var operationSteps = new List<OperationStep>
-            {
-                new OperationStep(1, "Step 1", ()  => { Thread.Sleep(2000); return Task.FromResult(false); }),
-                new OperationStep(1, "Step 2", ()  => { Thread.Sleep(2000); return Task.FromResult(true); })
-            };
+            // check for in-progress state (step 1)
+            component.Find("icon").GetAttribute("color").Should().Be("text-warning");
+            component.Find("icon").GetAttribute("value").Should().Be("fa-hourglass fa-pulse");
+            component.Find(".operationStatus").TextContent.Should().Be(OperationStatus.InProgress.ToString());
+            component.Find("progress").GetAttribute("class").Should().Be("bg-warning");
+            component.Find("progress").GetAttribute("displayText").Should().Be("Step 1");
+            component.Find("progress").GetAttribute("value").Should().Be("0.25");
+            component.Find(".propertyChanges").TextContent.Should().Be($"{component.RenderCount - 1}");
+            component.Find(".resultText").TextContent.Should().Be(component.Instance.DisplayText.InProgress);
+            component.Find("ul").Children.FirstOrDefault(c => c.GetAttribute("id") == "step_1").TextContent.Contains(OperationStepStatus.InProgress.ToString());
+            component.Find("ul").Children.FirstOrDefault(c => c.GetAttribute("id") == "step_2").TextContent.Contains(OperationStepStatus.NotStarted.ToString());
 
-            var component = BUnitTestContext.RenderComponent<OperationRender>(parameters => parameters
-                .Add(c => c.OperationSteps, operationSteps)
-                .Add(c => c.DisplayName, componentName)
-            );
+            // allow step 1 to complete
+            canCompleteStep1 = true;
+            canCompleteStep2 = true;
 
-            component.Should().NotBeNull();
-            component.RenderCount.Should().BeGreaterThan(1);
-            component.Instance.DisplayName.Should().Be(componentName);
-            component.Find(".title").TextContent.Should().Be(componentName);
+            // wait until the operation has completed
+            var hasCompletedOperation = SpinWait.SpinUntil(() => { return component.Instance.Status > OperationStatus.InProgress; }, 10000);
+            hasCompletedOperation.Should().BeTrue();
 
-            var satisfied = SpinWait.SpinUntil(() => { return component.Instance.Finished; }, 10000);
-            satisfied.Should().Be(true);
-            component.Find(".succeeded").TextContent.Should().Be("False");
-            //JHC NOTE: it doesn't look like the operation is setting its ResultText value to the failure message
-            //component.Find(".statusMessage").TextContent.Should().Be("failure");
-        }
-
-        /// <summary>
-        /// Tests that the <see cref="OperationRender"/> component is rendered each time the OnPropertyChanged event occurs in the <see cref="Operation"/>.
-        /// </summary>
-        [TestMethod]
-        public void BlazorComponent_EventNotifications_RaisedFromOperation()
-        {
-            var componentName = "Operation Render Test Component";
-
-            var operationSteps = new List<OperationStep>
-            {
-                new OperationStep(1, "Step 1", ()  => { Thread.Sleep(2000); return Task.FromResult(true); })
-            };
-
-            var component = BUnitTestContext.RenderComponent<OperationRender>(parameters => parameters
-                .Add(c => c.OperationSteps, operationSteps)
-                .Add(c => c.DisplayName, componentName)
-            );
-            using var monitoredSubject = component.Monitor();
-
-            component.Should().NotBeNull();
-            component.RenderCount.Should().BeGreaterThan(1);
-            component.Instance.DisplayName.Should().Be(componentName);
-            component.Find(".title").TextContent.Should().Be(componentName);
-
-            var satisfied = SpinWait.SpinUntil(() => { return component.Instance.Finished; }, 10000);
-            satisfied.Should().Be(true);
-            component.Find(".succeeded").TextContent.Should().Be("True");
-            component.Find(".statusMessage").TextContent.Should().Be("success");
-
-            monitoredSubject.Subject.RenderCount.Should().Be(component.Instance.PropertyChangedCount);
-
+            // check the final state of the operation
+            component.Find("icon").GetAttribute("color").Should().Be("text-success");
+            component.Find("icon").GetAttribute("value").Should().Be("fa-thumbs-up");
+            component.Find(".operationStatus").TextContent.Should().Be(OperationStatus.Succeeded.ToString());
+            component.Find("progress").GetAttribute("class").Should().Be("bg-success");
+            component.Find("progress").GetAttribute("displayText").Should().BeEmpty();
+            component.Find("progress").GetAttribute("value").Should().Be("1");
+            component.Find(".propertyChanges").TextContent.Should().Be($"{component.RenderCount - 1}");
+            component.Find(".resultText").TextContent.Should().Be(component.Instance.DisplayText.Success);
+            component.Find("ul").Children.All(c => c.TextContent.Contains(OperationStepStatus.Succeeded.ToString())).Should().BeTrue();
         }
 
     }

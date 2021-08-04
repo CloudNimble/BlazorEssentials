@@ -1,0 +1,83 @@
+﻿@using CloudNimble.BlazorEssentials.Merlin
+@using System.ComponentModel
+
+<title>@operation.Title</title>
+
+<!-- create a fake <icon/> element -->
+<icon 
+    color="@operation.CurrentIconColor"
+    value="@operation.CurrentIcon" />
+
+<!-- create a fake <progress/> element -->
+<progress
+    class="@operation.CurrentProgressClass"
+    displayText="@operation.ProgressText"
+    value="@operation.ProgressPercent" />
+
+<!-- create a display element for operation and step statuses -->
+<div class="operationStatus">@operation.Status</div>
+
+<ul>
+    @foreach (var step in operation.Steps)
+    {
+        <li id="step_@step.Id">@step.DisplayText = @step.Status</li>
+    }
+</ul>
+
+<div class="propertyChanges">@PropertyChangedCount</div>
+
+<div class="resultText">@operation.ResultText</div>
+
+@code
+{
+    private Operation operation;
+
+    /// <summary>
+    ///
+    /// </summary>
+    [Parameter]
+    public List<OperationStep> OperationSteps { get; set; }
+
+    /// <summary>
+    /// Sets the title for the <see cref="Operation"/>.
+    /// </summary>
+    [Parameter]
+    public string DisplayName { get; set; }
+
+    /// <summary>
+    /// Provides the test with access to a property on the <see cref="Operation"/>.
+    /// </summary>
+    public OperationStatus Status => operation.Status;
+
+    /// <summary>
+    /// Provides the test with access to a property on the <see cref="Operation"/>.
+    /// </summary>
+    public OperationStatusDisplay DisplayText => operation.DisplayText;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public int PropertyChangedCount { get; set; }
+
+    public void Start()
+    {
+        operation.Start();
+    }
+
+    protected override void OnInitialized()
+    {
+        operation = new Operation(DisplayName, OperationSteps, "Success", "Fail", "In Progress", "Not Started");
+        operation.PropertyChanged += Operation_PropertyChanged;
+        //operation.Start();
+    }
+
+    private void Operation_PropertyChanged(object sender, PropertyChangedEventArgs e)
+    {
+        // InvokeAsync is inherited, it syncs the call back to the render thread
+        InvokeAsync(() =>
+        {
+            PropertyChangedCount++;
+            StateHasChanged();
+        }).GetAwaiter().GetResult();
+    }
+}

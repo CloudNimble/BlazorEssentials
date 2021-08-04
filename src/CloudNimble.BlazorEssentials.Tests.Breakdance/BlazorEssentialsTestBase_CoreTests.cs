@@ -6,7 +6,7 @@ namespace CloudNimble.BlazorEssentials.Tests.Breakdance
 {
 
     /// <summary>
-    /// 
+    /// Tests the functionality of <see cref="BlazorEssentialsTestBase{ConfigurationBase, AppStateBase}"/>.
     /// </summary>
     [TestClass]
     public class BlazorEssentialsTestBase_CoreTests

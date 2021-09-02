@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
-using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 
 namespace CloudNimble.BlazorEssentials.Merlin
@@ -261,6 +260,25 @@ namespace CloudNimble.BlazorEssentials.Merlin
         #endregion
 
         #region Public Methods
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="steps"></param>
+        public void ReplaceSteps(List<OperationStep> steps)
+        {
+            if (steps is null)
+            {
+                throw new ArgumentNullException(nameof(steps));
+            }
+
+            Steps.Clear();
+            foreach (var step in steps)
+            {
+                Steps.Add(step);
+            }
+            RaisePropertyChanged(() => Steps);
+        }
 
         /// <summary>
         /// Changes all of the Steps back to "NotStarted" so the Operation can be run again.

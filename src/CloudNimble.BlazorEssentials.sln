@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29521.150
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31606.5
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudNimble.BlazorEssentials", "CloudNimble.BlazorEssentials\CloudNimble.BlazorEssentials.csproj", "{66088AA6-B13B-4C56-86DF-62F51DFF2A7A}"
 EndProject
@@ -26,7 +26,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudNimble.BlazorEssential
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudNimble.BlazorEssentials.Tests.Breakdance", "CloudNimble.BlazorEssentials.Tests.Breakdance\CloudNimble.BlazorEssentials.Tests.Breakdance.csproj", "{E3447C35-3C7F-41F5-9974-090928DA47D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudNimble.BlazorEssentials.Tests.TestApp", "ClousNimble.BlazorEssentials.Tests.TestApp\CloudNimble.BlazorEssentials.Tests.TestApp.csproj", "{1A44B77F-440A-4583-8389-11C7361A5A28}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudNimble.BlazorEssentials.Tests.TestApp", "CloudNimble.BlazorEssentials.Tests.TestApp\CloudNimble.BlazorEssentials.Tests.TestApp.csproj", "{8DE34BED-F9B3-433E-8792-6CB69FD92B39}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,10 +54,10 @@ Global
 		{E3447C35-3C7F-41F5-9974-090928DA47D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E3447C35-3C7F-41F5-9974-090928DA47D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E3447C35-3C7F-41F5-9974-090928DA47D6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1A44B77F-440A-4583-8389-11C7361A5A28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1A44B77F-440A-4583-8389-11C7361A5A28}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1A44B77F-440A-4583-8389-11C7361A5A28}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1A44B77F-440A-4583-8389-11C7361A5A28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DE34BED-F9B3-433E-8792-6CB69FD92B39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DE34BED-F9B3-433E-8792-6CB69FD92B39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DE34BED-F9B3-433E-8792-6CB69FD92B39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DE34BED-F9B3-433E-8792-6CB69FD92B39}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -68,7 +68,7 @@ Global
 		{FF48F403-06A4-48EF-8895-BE9C0525A734} = {CC249F92-C601-4E38-B97F-11A147AB591A}
 		{0196C208-A33E-4DE8-8A82-38E4B1833D84} = {ECD7C347-6470-4446-B1E4-AAE7427CEF9D}
 		{E3447C35-3C7F-41F5-9974-090928DA47D6} = {CC249F92-C601-4E38-B97F-11A147AB591A}
-		{1A44B77F-440A-4583-8389-11C7361A5A28} = {78E94341-4FB9-4A15-A5D4-37E3CB09111C}
+		{8DE34BED-F9B3-433E-8792-6CB69FD92B39} = {78E94341-4FB9-4A15-A5D4-37E3CB09111C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D047FF11-7182-40CE-BD75-11AB69B332C4}

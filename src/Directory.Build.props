@@ -4,7 +4,7 @@
     <IsBenchmarkProject Condition="$(MSBuildProjectName.EndsWith('.Performance'))">true</IsBenchmarkProject>
     <IsTestProject Condition="$(MSBuildProjectName.ToLower().Contains('.tests'))">true</IsTestProject>
     <IsTestAssetProject Condition="$(RepoRelativeProjectDir.Contains('testassets'))">true</IsTestAssetProject>
-    <IsSampleProject Condition="$(MSBuildProjectName.ToLower().Contains('.samples.'))">true</IsSampleProject>
+    <IsSampleProject Condition="$(MSBuildProjectName.ToLower().EndsWith('blazoressentials.testapp'))">true</IsSampleProject>
     <IsNetCore Condition=" '$(TargetFramework)' == 'netcoreapp3.1' OR '$(TargetFramework)' == 'net5.0' OR '$(TargetFramework)' == 'net6.0' ">true</IsNetCore>
     <IsPrimaryProject Condition=" ('$(IsBenchmarkProject)' != 'true' And '$(IsTestProject)' != 'true' And '$(IsTestAssetProject)' != 'true' And '$(IsSampleProject)' != 'true' And '$(IsSampleProject)' != 'true') or '$(IsTemplatePackageProject)' == 'true' ">true</IsPrimaryProject>
     
@@ -14,6 +14,12 @@
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
 
     <LangVersion>9.0</LangVersion>
+
+    <!-- .NET 6 kinda sucks. There is no good reason for doing this. -->
+    <DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
+    
+    <!-- Working around Blazor issue https://github.com/dotnet/aspnetcore/issues/30427  -->
+    <DisableScopedCssBundling>true</DisableScopedCssBundling>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -55,12 +61,16 @@
 
   <PropertyGroup Condition=" $(IsPrimaryProject) == 'true' ">
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)</DocumentationFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup>
-    <StandardTestTfms>net5.0</StandardTestTfms>
+    <StandardTestTfms>net5.0;net6.0</StandardTestTfms>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" $(IsSampleProject) == 'true' ">
+    <GenerateProgramFile>false</GenerateProgramFile>
   </PropertyGroup>
 
   <ItemGroup Condition=" $(IsTestProject) != 'true' and $(IsSampleProject) != 'true' ">
@@ -79,9 +89,9 @@
   <ItemGroup Condition=" $(IsTestProject) == 'true' ">
     <PackageReference Include="FluentAssertions" Version="5.10.3" PrivateAssets="All" />
     <PackageReference Include="FluentAssertions.Analyzers" Version="0.11.4" PrivateAssets="All" />
-    <PackageReference Include="MSTest.TestAdapter" Version="2.2.5" />
-    <PackageReference Include="MSTest.TestFramework" Version="2.2.5" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.10.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.2.6" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.2.6" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
+    <DocumentationFile>$(DocumentationFile)\$(AssemblyName).xml</DocumentationFile>
+  </PropertyGroup>
+  
+  <PropertyGroup>    
     <PackageId>BlazorEssentials.Breakdance</PackageId>
     <Description>A set of utilities to make Blazor development easier than ever. Includes base classes to test BlazorEssentials ViewModels.</Description>
     <RepositoryUrl>https://github.com/CloudNimble/BlazorEssentials</RepositoryUrl>
@@ -11,13 +15,16 @@
     <PackageTags>Blazor, RazorComponents, Razor Components, Breakdance</PackageTags>
     <Authors>CloudNimble</Authors>
     <RepositoryType>git</RepositoryType>
-    <NoWarn>$(NoWarn);CS1998;CS1591;CA1052;CA1801;CA1822</NoWarn>
+    <NoWarn>$(NoWarn);CS1998;CS1591;CA1052;CA1801;CA1822;NU5104</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Breakdance.Blazor" Version="3.0.0-CI-20210727-164054" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="[5.0.0, 6.0.0)" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="[5.0.0, 6.0.0)" />
+    <PackageReference Include="Breakdance.Blazor" Version="[3.0.0-CI-20210727-164054, 5.0.0)" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="[5.0.0, 6.0.0)" Condition="'$(TargetFramework)'=='net5.0'" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="[5.0.0, 6.0.0)" Condition="'$(TargetFramework)'=='net5.0'" />
+
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="[6.0.0-preview.7.21377.19, 7.0.0)" Condition="'$(TargetFramework)'=='net6.0'" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="[6.0.0-preview.7.21377.19, 7.0.0)" Condition="'$(TargetFramework)'=='net6.0'" />
   </ItemGroup>
 
   <ItemGroup>

@@ -25,7 +25,7 @@ namespace CloudNimble.BlazorEssentials.Threading
 
         private bool disposedValue;
         private Timer timer;
-        private DateTime timerStarted { get; set; } = DateTime.UtcNow.AddYears(-1);
+        private DateTime TimerStarted { get; set; } = DateTime.UtcNow.AddYears(-1);
 
         #endregion
 
@@ -92,8 +92,8 @@ namespace CloudNimble.BlazorEssentials.Threading
 
             // if timeout is not up yet - adjust timeout to fire 
             // with potentially new Action parameters           
-            if (curTime.Subtract(timerStarted).TotalMilliseconds < interval)
-                interval -= (int)curTime.Subtract(timerStarted).TotalMilliseconds;
+            if (curTime.Subtract(TimerStarted).TotalMilliseconds < interval)
+                interval -= (int)curTime.Subtract(TimerStarted).TotalMilliseconds;
 
             timer = new Timer(interval);
             timer.Elapsed += (s, e) =>
@@ -107,7 +107,7 @@ namespace CloudNimble.BlazorEssentials.Threading
             };
 
             timer.Start();
-            timerStarted = curTime;
+            TimerStarted = curTime;
         }
 
         #region IDisposable

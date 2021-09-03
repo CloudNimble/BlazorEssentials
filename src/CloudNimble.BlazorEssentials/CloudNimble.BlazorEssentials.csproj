@@ -1,34 +1,36 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.1;net5.0</TargetFrameworks>
+    <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
+    <DocumentationFile>$(DocumentationFile)\$(AssemblyName).xml</DocumentationFile>
+    
+    <RazorLangVersion>3.0</RazorLangVersion>
+    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <PackageId>BlazorEssentials</PackageId>
     <Description>A set of utilities to make Blazor development easier than ever. Includes base classes for Application State, Configuration, and ViewModels, as well as an ODataResultList and a helper to pull configuration files out of embedded resources.</Description>
     <RepositoryUrl>https://github.com/CloudNimble/BlazorEssentials</RepositoryUrl>
-    <PackageReleaseNotes>Version 2.0.0
-- Added support for Blazor on .NET 5.0
-- Removed custom authentication solution in favor of OOB auth
-- Added ApiAuthorizationMessageHandler to add tokens to the API specified in ConfigurationBase.ApiRoot.
-- Injecting an IHttpClientFactory where necessary instead of an HttpClient.</PackageReleaseNotes>
+    <PackageReleaseNotes>
+      Version 2.0.0
+      - Added support for Blazor on .NET 5.0
+      - Removed custom authentication solution in favor of OOB auth
+      - Added ApiAuthorizationMessageHandler to add tokens to the API specified in ConfigurationBase.ApiRoot.
+      - Injecting an IHttpClientFactory where necessary instead of an HttpClient.
+    </PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageTags>Blazor, RazorComponents, Razor Components</PackageTags>
     <Authors>CloudNimble</Authors>
     <RepositoryType>git</RepositoryType>
     <NoWarn>$(NoWarn);CS1998;CS1591;CA1052;CA1801;CA1822</NoWarn>
-    <RazorLangVersion>3.0</RazorLangVersion>
   </PropertyGroup>
-
-  <PropertyGroup Condition="'$(TargetFramework)'=='net5.0'">
-    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
-  </PropertyGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)'=='net5.0'">
-    <SupportedPlatform Include="browser" />
-  </ItemGroup>
 
 
   <ItemGroup>
+    <SupportedPlatform Include="browser" />
     <None Include="..\.editorconfig" Link=".editorconfig" />
+    <Folder Include="Forms\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,10 +48,14 @@
     <PackageReference Include="Microsoft.Extensions.Http" Version="[5.0.0, 6.0.0)" Condition="'$(TargetFramework)'=='net5.0'" />
     <PackageReference Include="System.Net.Http.Json" Version="[5.0.0, 6.0.0)" Condition="'$(TargetFramework)'=='net5.0'" />
     <PackageReference Include="System.Collections" Version="[4.3.0, 6.0.0)" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Forms\" />
+    
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="[6.0.0-preview.7.*, 7.0.0)" Condition="'$(TargetFramework)'=='net6.0'" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="[6.0.0-preview.7.*, 7.0.0)" Condition="'$(TargetFramework)'=='net6.0'" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="[6.0.0-preview.7.*, 7.0.0)" Condition="'$(TargetFramework)'=='net6.0'" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="[6.0.0-preview.7.*, 7.0.0)" Condition="'$(TargetFramework)'=='net6.0'" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="[6.0.0-preview.7.*, 7.0.0)" Condition="'$(TargetFramework)'=='net6.0'" />
+    <PackageReference Include="System.Net.Http.Json" Version="[6.0.0-preview.7.*, 7.0.0)" Condition="'$(TargetFramework)'=='net6.0'" />
+    <PackageReference Include="System.Collections" Version="[4.3.0, 7.0.0)" />
   </ItemGroup>
 
   <ItemGroup>

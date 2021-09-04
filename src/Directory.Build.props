@@ -74,6 +74,10 @@
   <PropertyGroup Condition=" $(IsSampleProject) == 'true' ">
     <GenerateProgramFile>false</GenerateProgramFile>
   </PropertyGroup>
+  
+  <PropertyGroup Condition=" $(IsTestProject) == 'true' ">
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
 
   <ItemGroup Condition=" $(IsTestProject) != 'true' and $(IsSampleProject) != 'true' ">
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />

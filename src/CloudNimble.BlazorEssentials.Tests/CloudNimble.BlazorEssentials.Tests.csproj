@@ -26,4 +26,7 @@
     <ProjectReference Include="..\CloudNimble.BlazorEssentials\CloudNimble.BlazorEssentials.csproj" />
   </ItemGroup>
 
+  <Target Name="PrepareProjectReferences">
+  </Target>
+
 </Project>

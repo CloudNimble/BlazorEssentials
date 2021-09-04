@@ -19,7 +19,9 @@
     <DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
     
     <!-- Working around Blazor issue https://github.com/dotnet/aspnetcore/issues/30427  -->
-    <DisableScopedCssBundling>true</DisableScopedCssBundling>
+    <DisableScopedCssBundling>none</DisableScopedCssBundling>
+    <EnableDefaultScopedCssItems>false</EnableDefaultScopedCssItems>
+    <ScopedCssEnabled>false</ScopedCssEnabled>
   </PropertyGroup>
 
   <PropertyGroup>

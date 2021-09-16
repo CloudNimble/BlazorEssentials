@@ -5,6 +5,12 @@
     /// </summary>
     public enum HttpHandlerMode
     {
+
+        /// <summary>
+        /// 
+        /// </summary>
+        None,
+
         /// <summary>
         /// 
         /// </summary>
@@ -13,7 +19,8 @@
         /// <summary>
         /// 
         /// </summary>
-        Replace
+        Replace, 
+
     }
 
 }

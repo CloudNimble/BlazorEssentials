@@ -2,6 +2,7 @@
 using CloudNimble.BlazorEssentials.TestApp.ViewModels;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CloudNimble.BlazorEssentials.TestApp

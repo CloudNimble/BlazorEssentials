@@ -26,7 +26,7 @@ namespace Microsoft.AspNetCore.Components.WebAssembly.Hosting
             where TConfiguration : ConfigurationBase
             where TAppState : AppStateBase
         {
-            return AddBlazorEssentials<TConfiguration, TAppState, BlazorEssentialsAuthorizationMessageHandler>(builder, configSectionName);
+            return AddBlazorEssentials<TConfiguration, TAppState, BlazorEssentialsAuthorizationMessageHandler<TConfiguration>>(builder, configSectionName);
         }
 
         /// <summary>

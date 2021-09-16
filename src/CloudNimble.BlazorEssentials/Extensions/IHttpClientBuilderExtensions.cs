@@ -21,6 +21,7 @@ namespace Microsoft.Extensions.DependencyInjection
             where THandler : DelegatingHandler
 
         {
+            if (mode == HttpHandlerMode.None) return builder;
             return mode == HttpHandlerMode.Add ? builder.AddHttpMessageHandler<THandler>() : builder.ConfigurePrimaryHttpMessageHandler<THandler>();
         }
 

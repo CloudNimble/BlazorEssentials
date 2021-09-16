@@ -14,8 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Breakdance.Blazor" Version="3.0.0-CI-20210727-164054" />
-    <PackageReference Include="bunit" Version="1.1.5" />
+    <PackageReference Include="Breakdance.Blazor" Version="3.0.0-CI-20210916-155332" />
+    <PackageReference Include="bunit" Version="1.2.49" />
     <PackageReference Include="coverlet.collector" Version="1.2.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

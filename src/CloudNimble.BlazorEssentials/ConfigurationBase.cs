@@ -1,4 +1,6 @@
-﻿namespace CloudNimble.BlazorEssentials
+﻿using CloudNimble.BlazorEssentials.Authentication;
+
+namespace CloudNimble.BlazorEssentials
 {
 
     /// <summary>
@@ -18,6 +20,7 @@
         /// <remarks>
         /// Most Blazor apps will call at least one API. If you need to call more than one, just inherit from ConfigurationBase and add your own properties.
         /// </remarks>
+        [AuthenticatedEndpoint]
         public string ApiRoot { get; set; }
 
         /// <summary>
@@ -31,6 +34,7 @@
         /// <remarks>
         /// Sometimes you will need to get information about the app's deployment before it has been fully-initialized in Program.cs. This is the place to do it.
         /// </remarks>
+        [AuthenticatedEndpoint]
         public string AppRoot { get; set; }
 
         /// <summary>

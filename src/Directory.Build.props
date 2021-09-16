@@ -82,7 +82,7 @@
   <ItemGroup Condition=" $(IsTestProject) != 'true' and $(IsSampleProject) != 'true' ">
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
     <!-- RWM: The code quality on the unit tests right now is not awesome, so let's skip checking it for now. -->
-    <PackageReference Include="Microsoft.CodeQuality.Analyzers" Version="3.3.1">
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="5.0.3">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
 
@@ -95,8 +95,8 @@
   <ItemGroup Condition=" $(IsTestProject) == 'true' ">
     <PackageReference Include="FluentAssertions" Version="5.10.3" PrivateAssets="All" />
     <PackageReference Include="FluentAssertions.Analyzers" Version="0.11.4" PrivateAssets="All" />
-    <PackageReference Include="MSTest.TestAdapter" Version="2.2.6" />
-    <PackageReference Include="MSTest.TestFramework" Version="2.2.6" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.2.7" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.2.7" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
   </ItemGroup>
 

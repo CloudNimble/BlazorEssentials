@@ -38,7 +38,7 @@ namespace CloudNimble.BlazorEssentials.Breakdance
         /// <param name="configSectionName"></param>
         public void AssemblySetup(string configSectionName)
         {
-            AssemblySetup<BlazorEssentialsAuthorizationMessageHandler>(configSectionName);
+            AssemblySetup<BlazorEssentialsAuthorizationMessageHandler<TConfiguration>>(configSectionName);
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace CloudNimble.BlazorEssentials.Breakdance
             base.TestSetup();
             var config = BUnitTestContext.Services.AddConfigurationBase<TConfiguration>(TestHost.Services.GetService<IConfiguration>(), configSectionName);
             BUnitTestContext.Services.AddAppStateBase<TAppState>();
-            BUnitTestContext.Services.AddHttpClients<BlazorEssentialsAuthorizationMessageHandler>(config, config.HttpHandlerMode);
+            BUnitTestContext.Services.AddHttpClients<BlazorEssentialsAuthorizationMessageHandler<TConfiguration>>(config, config.HttpHandlerMode);
         }
 
         /// <summary>

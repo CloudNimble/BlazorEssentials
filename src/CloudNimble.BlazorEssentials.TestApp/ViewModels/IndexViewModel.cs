@@ -1,5 +1,6 @@
 ﻿using CloudNimble.BlazorEssentials.TestApp.Models;
 using Microsoft.AspNetCore.Components;
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -26,7 +27,8 @@ namespace CloudNimble.BlazorEssentials.TestApp.ViewModels
         public async Task Load()
         {
             LoadingStatus = LoadingStatus.Loading;
-            await Task.Delay(5000);
+            var client = HttpClientFactory.CreateClient(Configuration.ApiClientName);
+            Console.WriteLine(await client.GetStringAsync(Configuration.ApiRoot));
             LoadingStatus = LoadingStatus.Loaded;
         }
 

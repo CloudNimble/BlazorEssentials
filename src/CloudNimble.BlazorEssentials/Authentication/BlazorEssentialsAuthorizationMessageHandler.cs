@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using System;
+using System.Linq;
+using System.Reflection;
 
 namespace CloudNimble.BlazorEssentials.Authentication
 {
@@ -8,7 +10,8 @@ namespace CloudNimble.BlazorEssentials.Authentication
     /// <summary>
     /// 
     /// </summary>
-    public class BlazorEssentialsAuthorizationMessageHandler : AuthorizationMessageHandler
+    public class BlazorEssentialsAuthorizationMessageHandler<T> : AuthorizationMessageHandler
+        where T: ConfigurationBase
     {
 
         /// <summary>
@@ -17,10 +20,17 @@ namespace CloudNimble.BlazorEssentials.Authentication
         /// <param name="config"></param>
         /// <param name="provider"></param>
         /// <param name="navigationManager"></param>
-        public BlazorEssentialsAuthorizationMessageHandler(ConfigurationBase config, IAccessTokenProvider provider, NavigationManager navigationManager) : base(provider, navigationManager)
+        public BlazorEssentialsAuthorizationMessageHandler(T config, IAccessTokenProvider provider, NavigationManager navigationManager) : base(provider, navigationManager)
         {
             if (config == null) throw new ArgumentNullException(nameof(config));
-            ConfigureHandler(authorizedUrls: new[] { config.ApiRoot, config.AppRoot });
+
+            var authorizedUrls = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                .Where(c => c.GetCustomAttributes<AuthenticatedEndpointAttribute>().Any())
+                .Select(c => c.GetValue(config))
+                .Where(c => !string.IsNullOrWhiteSpace(c as string))
+                .Select(c => c as string);
+
+            ConfigureHandler(authorizedUrls: authorizedUrls);
         }
 
     }

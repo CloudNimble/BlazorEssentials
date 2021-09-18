@@ -49,7 +49,7 @@ namespace Microsoft.AspNetCore.Components.WebAssembly.Hosting
 
             var config = builder.Services.AddConfigurationBase<TConfiguration>(builder.Configuration, configSectionName);
             builder.Services.AddAppStateBase<TAppState>();
-            builder.Services.AddHttpClients<TMessageHandler>(config);
+            builder.Services.AddHttpClients<TConfiguration, TMessageHandler>(config);
             return builder;
         }
 

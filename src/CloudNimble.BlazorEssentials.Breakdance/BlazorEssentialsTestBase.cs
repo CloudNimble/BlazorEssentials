@@ -52,7 +52,7 @@ namespace CloudNimble.BlazorEssentials.Breakdance
             TestHostBuilder.ConfigureServices((builder, services) => {
                 var config = services.AddConfigurationBase<TConfiguration>(builder.Configuration, configSectionName);
                 services.AddAppStateBase<TAppState>();
-                services.AddHttpClients<TMessageHandler>(config, config.HttpHandlerMode);
+                services.AddHttpClients<TConfiguration, TMessageHandler>(config, config.HttpHandlerMode);
                 services.AddSingleton<NavigationManager, TestableNavigationManager>();
             });
 
@@ -71,7 +71,7 @@ namespace CloudNimble.BlazorEssentials.Breakdance
             TestHostBuilder.ConfigureServices((builder, services) => {
                 var config = services.AddConfigurationBase<TConfiguration>(builder.Configuration, configSectionName);
                 services.AddAppStateBase<TAppState>();
-                services.AddHttpClients<TMessageHandler>(config, httpHandlerMode);
+                services.AddHttpClients<TConfiguration, TMessageHandler>(config, httpHandlerMode);
                 services.AddSingleton<NavigationManager, TestableNavigationManager>();
             });
 
@@ -86,7 +86,7 @@ namespace CloudNimble.BlazorEssentials.Breakdance
             base.TestSetup();
             var config = BUnitTestContext.Services.AddConfigurationBase<TConfiguration>(TestHost.Services.GetService<IConfiguration>(), configSectionName);
             BUnitTestContext.Services.AddAppStateBase<TAppState>();
-            BUnitTestContext.Services.AddHttpClients<BlazorEssentialsAuthorizationMessageHandler<TConfiguration>>(config, config.HttpHandlerMode);
+            BUnitTestContext.Services.AddHttpClients<TConfiguration, BlazorEssentialsAuthorizationMessageHandler<TConfiguration>>(config, config.HttpHandlerMode);
         }
 
         /// <summary>
@@ -98,7 +98,7 @@ namespace CloudNimble.BlazorEssentials.Breakdance
             base.TestSetup();
             var config = BUnitTestContext.Services.AddConfigurationBase<TConfiguration>(TestHost.Services.GetService<IConfiguration>(), configSectionName);
             BUnitTestContext.Services.AddAppStateBase<TAppState>();
-            BUnitTestContext.Services.AddHttpClients<TMessageHandler>(config, httpHandlerMode);
+            BUnitTestContext.Services.AddHttpClients<TConfiguration, TMessageHandler>(config, httpHandlerMode);
         }
 
         #endregion

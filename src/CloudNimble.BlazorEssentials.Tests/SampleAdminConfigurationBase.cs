@@ -15,7 +15,7 @@ namespace CloudNimble.BlazorEssentials.Tests
         /// <summary>
         /// 
         /// </summary>
-        [AuthenticatedEndpoint]
+        [AuthenticatedEndpoint(nameof(AdminApiClientName))]
         public string AdminApiRoot => $"{ApiRoot}Admin";
 
     }

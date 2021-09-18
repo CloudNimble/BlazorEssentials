@@ -14,6 +14,12 @@ namespace CloudNimble.BlazorEssentials.Authentication
     public class AuthenticatedEndpointAttribute : Attribute
     {
 
+        internal string ClientNameProperty { get; set; }
+
+        public AuthenticatedEndpointAttribute(string clientNameProperty)
+        {
+            ClientNameProperty = clientNameProperty;
+        }
 
     }
 

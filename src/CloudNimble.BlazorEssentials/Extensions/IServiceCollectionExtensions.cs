@@ -1,8 +1,11 @@
 ﻿using CloudNimble.BlazorEssentials;
+using CloudNimble.BlazorEssentials.Authentication;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
+using System.Linq;
 using System.Net.Http;
+using System.Reflection;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -54,39 +57,48 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <summary>
         /// 
         /// </summary>
+        /// <typeparam name="TConfig"></typeparam>
         /// <typeparam name="TMessageHandler"></typeparam>
         /// <param name="services"></param>
         /// <param name="config"></param>
         /// <returns></returns>
-        internal static IServiceCollection AddHttpClients<TMessageHandler>(this IServiceCollection services, ConfigurationBase config)
+        internal static IServiceCollection AddHttpClients<TConfig, TMessageHandler>(this IServiceCollection services, TConfig config)
             where TMessageHandler : DelegatingHandler
+            where TConfig : ConfigurationBase
         {
-            return AddHttpClients<TMessageHandler>(services, config, config.HttpHandlerMode);
+            return AddHttpClients<TConfig, TMessageHandler>(services, config, config.HttpHandlerMode);
         }
 
         /// <summary>
         /// 
         /// </summary>
+        /// <typeparam name="TConfig"></typeparam>
         /// <typeparam name="TMessageHandler"></typeparam>
         /// <param name="services"></param>
         /// <param name="config"></param>
         /// <param name="httpHandlerMode"></param>
         /// <returns></returns>
-        internal static IServiceCollection AddHttpClients<TMessageHandler>(this IServiceCollection services, ConfigurationBase config, HttpHandlerMode httpHandlerMode)
+        internal static IServiceCollection AddHttpClients<TConfig, TMessageHandler>(this IServiceCollection services, TConfig config, HttpHandlerMode httpHandlerMode)
             where TMessageHandler : DelegatingHandler
+            where TConfig : ConfigurationBase
         {
-            services.TryAddScoped<TMessageHandler>();
-
-            if (!string.IsNullOrWhiteSpace(config.AppRoot))
+            if (httpHandlerMode != HttpHandlerMode.None)
             {
-                services.AddHttpClient(config.AppClientName, client => client.BaseAddress = new Uri(config.AppRoot))
-                    .AddHttpMessageHandler<TMessageHandler>(httpHandlerMode);
+                services.TryAddScoped<TMessageHandler>();
             }
 
-            if (!string.IsNullOrWhiteSpace(config.ApiRoot))
+            var properties = typeof(TConfig).GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                .Where(c => c.GetCustomAttributes<AuthenticatedEndpointAttribute>().Any());
+
+            foreach (var property in properties)
             {
-                services.AddHttpClient(config.ApiClientName, client => client.BaseAddress = new Uri(config.ApiRoot))
-                        .AddHttpMessageHandler<TMessageHandler>(httpHandlerMode);
+                var url = property.GetValue(config) as string;
+                if (string.IsNullOrWhiteSpace(url)) continue;
+
+                var attribute = property.GetCustomAttribute<AuthenticatedEndpointAttribute>();
+
+                services.AddHttpClient(typeof(TConfig).GetProperty(attribute.ClientNameProperty).GetValue(config) as string, client => client.BaseAddress = new Uri(url))
+                    .AddHttpMessageHandler<TMessageHandler>(httpHandlerMode);
             }
 
             return services;

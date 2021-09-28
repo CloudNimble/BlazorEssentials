@@ -3,6 +3,7 @@ using CloudNimble.Breakdance.Blazor;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Net.Http;
 
@@ -49,10 +50,9 @@ namespace CloudNimble.BlazorEssentials.Breakdance
         public void AssemblySetup<TMessageHandler>(string configSectionName)
              where TMessageHandler : DelegatingHandler
         {
+            TestHostBuilder.AddBlazorEssentials<TConfiguration, TAppState, TMessageHandler>(configSectionName);
+
             TestHostBuilder.ConfigureServices((builder, services) => {
-                var config = services.AddConfigurationBase<TConfiguration>(builder.Configuration, configSectionName);
-                services.AddAppStateBase<TAppState>();
-                services.AddHttpClients<TConfiguration, TMessageHandler>(config, config.HttpHandlerMode);
                 services.AddSingleton<NavigationManager, TestableNavigationManager>();
             });
 
@@ -68,10 +68,9 @@ namespace CloudNimble.BlazorEssentials.Breakdance
         public void AssemblySetup<TMessageHandler>(string configSectionName, HttpHandlerMode httpHandlerMode)
              where TMessageHandler : DelegatingHandler
         {
+            TestHostBuilder.AddBlazorEssentials<TConfiguration, TAppState, TMessageHandler>(configSectionName, httpHandlerMode);
+
             TestHostBuilder.ConfigureServices((builder, services) => {
-                var config = services.AddConfigurationBase<TConfiguration>(builder.Configuration, configSectionName);
-                services.AddAppStateBase<TAppState>();
-                services.AddHttpClients<TConfiguration, TMessageHandler>(config, httpHandlerMode);
                 services.AddSingleton<NavigationManager, TestableNavigationManager>();
             });
 

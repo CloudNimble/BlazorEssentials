@@ -19,7 +19,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Breakdance.Blazor" Version="3.0.0-CI-20210916-155332" />
+    <PackageReference Include="Breakdance.Blazor" Version="3.0.0-CI-20210928-174607" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="[5.0.0, 6.0.0)" Condition="'$(TargetFramework)'=='net5.0'" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="[5.0.0, 6.0.0)" Condition="'$(TargetFramework)'=='net5.0'" />
 

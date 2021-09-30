@@ -26,13 +26,7 @@ namespace Microsoft.Extensions.Hosting
             where TAppState : AppStateBase
             where TMessageHandler : DelegatingHandler
         {
-            builder.ConfigureServices((builder, services) => {
-                var config = services.AddConfigurationBase<TConfiguration>(builder.Configuration, configSectionName);
-                services.AddAppStateBase<TAppState>();
-                services.AddHttpClients<TConfiguration, TMessageHandler>(config, config.HttpHandlerMode);
-            });
-
-            return builder;
+            return AddBlazorEssentials<TConfiguration, TAppState, TMessageHandler>(builder, configSectionName, HttpHandlerMode.Add);
         }
 
         /// <summary>
@@ -45,7 +39,7 @@ namespace Microsoft.Extensions.Hosting
         /// <param name="configSectionName"></param>
         /// <param name="httpHandlerMode"></param>
         /// <returns></returns>
-        public static IHostBuilder AddBlazorEssentials<TConfiguration, TAppState, TMessageHandler>(this IHostBuilder builder, string configSectionName, HttpHandlerMode httpHandlerMode)
+        public static IHostBuilder AddBlazorEssentials<TConfiguration, TAppState, TMessageHandler>(this IHostBuilder builder, string configSectionName, HttpHandlerMode httpHandlerMode = HttpHandlerMode.)
             where TConfiguration : ConfigurationBase
             where TAppState : AppStateBase
             where TMessageHandler : DelegatingHandler

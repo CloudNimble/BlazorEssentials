@@ -39,7 +39,7 @@ namespace Microsoft.Extensions.Hosting
         /// <param name="configSectionName"></param>
         /// <param name="httpHandlerMode"></param>
         /// <returns></returns>
-        public static IHostBuilder AddBlazorEssentials<TConfiguration, TAppState, TMessageHandler>(this IHostBuilder builder, string configSectionName, HttpHandlerMode httpHandlerMode = HttpHandlerMode.)
+        public static IHostBuilder AddBlazorEssentials<TConfiguration, TAppState, TMessageHandler>(this IHostBuilder builder, string configSectionName, HttpHandlerMode httpHandlerMode)
             where TConfiguration : ConfigurationBase
             where TAppState : AppStateBase
             where TMessageHandler : DelegatingHandler

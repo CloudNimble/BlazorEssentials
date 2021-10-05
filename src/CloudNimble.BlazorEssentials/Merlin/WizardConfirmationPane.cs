@@ -1,4 +1,6 @@
-﻿namespace CloudNimble.BlazorEssentials.Merlin
+﻿using System;
+
+namespace CloudNimble.BlazorEssentials.Merlin
 {
 
     /// <summary>
@@ -11,10 +13,13 @@
         /// 
         /// </summary>
         /// <param name="id"></param>
+        /// <param name="title"></param>
+        /// <param name="description"></param>
+        /// <param name="stateHasChangedAction"></param>
         /// <param name="nextLabel"></param>
-        public WizardConfirmationPane(int id, string nextLabel = "NEXT") : base(id, null, null, nextLabel)
+        public WizardConfirmationPane(int id, string title, string description, Action stateHasChangedAction, string nextLabel = "NEXT")
+            : base(id, title, description, stateHasChangedAction, null, null, nextLabel)
         {
-            //OnNextAction = 
         }
 
     }

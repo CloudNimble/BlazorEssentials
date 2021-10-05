@@ -35,7 +35,7 @@ namespace CloudNimble.BlazorEssentials.Merlin
         /// <summary>
         /// 
         /// </summary>
-        public string NextLabel { get; set; }
+        public string NextLabel { get; set; } = "NEXT";
 
         /// <summary>
         /// A computed string containing the DisplayText for the currently running OperationStep.
@@ -49,12 +49,12 @@ namespace CloudNimble.BlazorEssentials.Merlin
         /// <summary>
         /// 
         /// </summary>
-        public Func<Wizard, Task<bool>> OnNextAction { get; set; }
+        public Func<Wizard, Task<bool>> OnNextAction { get; set; } = (wizard) => { return Task.FromResult(true); };
 
         /// <summary>
         /// 
         /// </summary>
-        public Func<Task<bool>> OnBackAction { get; set; }
+        public Func<Task<bool>> OnBackAction { get; set; } = () => { return Task.FromResult(true); };
 
         /// <summary>
         /// A <see cref="WizardPaneStatus" /> specifying the current state of this WizardPane.
@@ -78,15 +78,15 @@ namespace CloudNimble.BlazorEssentials.Merlin
         /// 
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="onNextAction"></param>
-        /// <param name="onBackAction"></param>
-        /// <param name="nextLabel"></param>
-        public WizardPane(int id, Func<Wizard, Task<bool>> onNextAction, Func<Task<bool>>? onBackAction, string nextLabel = "NEXT")
+        /// <param name="title"></param>
+        /// <param name="description"></param>
+        /// <param name="stateHasChangedAction"></param>
+        public WizardPane(int id, string title, string description, Action stateHasChangedAction)
         {
             Id = id;
-            OnNextAction = onNextAction;
-            OnBackAction = onBackAction ?? defaultAction;
-            NextLabel = nextLabel;
+            Title = title;
+            Description = description;
+            StateHasChangedAction = stateHasChangedAction;
         }
 
         /// <summary>
@@ -95,14 +95,16 @@ namespace CloudNimble.BlazorEssentials.Merlin
         /// <param name="id"></param>
         /// <param name="title"></param>
         /// <param name="description"></param>
+        /// <param name="stateHasChangedAction"></param>
         /// <param name="onNextAction"></param>
         /// <param name="onBackAction"></param>
         /// <param name="nextLabel"></param>
-        public WizardPane(int id, string title, string description, Func<Wizard, Task<bool>> onNextAction, Func<Task<bool>>? onBackAction, string nextLabel = "NEXT")
-            : this(id, onNextAction, onBackAction, nextLabel)
+        public WizardPane(int id, string title, string description, Action stateHasChangedAction, Func<Wizard, Task<bool>> onNextAction, Func<Task<bool>>? onBackAction, string nextLabel = "NEXT")
+            : this(id, title, description, stateHasChangedAction)
         {
-            Title = title;
-            Description = description;
+            OnNextAction = onNextAction;
+            OnBackAction = onBackAction ?? defaultAction;
+            NextLabel = nextLabel;
         }
 
         #endregion

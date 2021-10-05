@@ -96,15 +96,42 @@ namespace CloudNimble.BlazorEssentials.Merlin
         /// <param name="title"></param>
         /// <param name="description"></param>
         /// <param name="stateHasChangedAction"></param>
+        /// <param name="nextLabel"></param>
+        public WizardPane(int id, string title, string description, Action stateHasChangedAction, string nextLabel)
+            : this(id, title, description, stateHasChangedAction)
+        {
+            NextLabel = nextLabel;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="title"></param>
+        /// <param name="description"></param>
+        /// <param name="stateHasChangedAction"></param>
+        /// <param name="onNextAction"></param>
+        /// <param name="nextLabel"></param>
+        public WizardPane(int id, string title, string description, Action stateHasChangedAction, string nextLabel, Func<Wizard, Task<bool>> onNextAction)
+            : this(id, title, description, stateHasChangedAction, nextLabel)
+        {
+            OnNextAction = onNextAction;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="title"></param>
+        /// <param name="description"></param>
+        /// <param name="stateHasChangedAction"></param>
         /// <param name="onNextAction"></param>
         /// <param name="onBackAction"></param>
         /// <param name="nextLabel"></param>
-        public WizardPane(int id, string title, string description, Action stateHasChangedAction, Func<Wizard, Task<bool>> onNextAction, Func<Task<bool>>? onBackAction, string nextLabel = "NEXT")
-            : this(id, title, description, stateHasChangedAction)
+        public WizardPane(int id, string title, string description, Action stateHasChangedAction, string nextLabel, Func<Wizard, Task<bool>> onNextAction, Func<Task<bool>> onBackAction)
+            : this(id, title, description, stateHasChangedAction, nextLabel, onNextAction)
         {
-            OnNextAction = onNextAction;
-            OnBackAction = onBackAction ?? defaultAction;
-            NextLabel = nextLabel;
+            OnBackAction = onBackAction;
         }
 
         #endregion

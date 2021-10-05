@@ -18,7 +18,7 @@ namespace CloudNimble.BlazorEssentials.Merlin
         /// <param name="stateHasChangedAction"></param>
         /// <param name="nextLabel"></param>
         public WizardConfirmationPane(int id, string title, string description, Action stateHasChangedAction, string nextLabel = "NEXT")
-            : base(id, title, description, stateHasChangedAction, null, null, nextLabel)
+            : base(id, title, description, stateHasChangedAction, nextLabel)
         {
         }
 

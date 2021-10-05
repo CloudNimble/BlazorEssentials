@@ -98,7 +98,6 @@ namespace CloudNimble.BlazorEssentials.Merlin
         {
             Title = title;
             Panes = new ObservableCollection<WizardPane>();
-            Operation = operation;
             if (panes != null)
             {
                 foreach (var pane in panes)
@@ -106,6 +105,8 @@ namespace CloudNimble.BlazorEssentials.Merlin
                     Panes.Add(pane);
                 }
             }
+            CurrentPane = Panes[0];
+            Operation = operation;
         }
 
         #endregion

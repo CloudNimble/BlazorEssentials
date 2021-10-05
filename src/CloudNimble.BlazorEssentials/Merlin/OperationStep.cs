@@ -30,14 +30,7 @@ namespace CloudNimble.BlazorEssentials.Merlin
         public string DisplayText
         {
             get => displayText;
-            set
-            {
-                if (displayText != value)
-                {
-                    displayText = value;
-                    RaisePropertyChanged();
-                }
-            }
+            set => Set(() => DisplayText, ref displayText, value);
         }
 
         /// <summary>
@@ -46,14 +39,7 @@ namespace CloudNimble.BlazorEssentials.Merlin
         public string ErrorText
         {
             get => errorText;
-            set
-            {
-                if (errorText != value)
-                {
-                    errorText = value;
-                    RaisePropertyChanged();
-                }
-            }
+            set => Set(() => ErrorText, ref errorText, value);
         }
 
         /// <summary>
@@ -62,14 +48,7 @@ namespace CloudNimble.BlazorEssentials.Merlin
         public int Id
         {
             get => id;
-            set
-            {
-                if (id != value)
-                {
-                    id = value;
-                    RaisePropertyChanged();
-                }
-            }
+            set => Set(() => Id, ref id, value);
         }
 
         /// <summary>
@@ -78,14 +57,7 @@ namespace CloudNimble.BlazorEssentials.Merlin
         public string Label
         {
             get => label;
-            private set
-            {
-                if (label != value)
-                {
-                    label = value;
-                    RaisePropertyChanged();
-                }
-            }
+            set => Set(() => Label, ref label, value);
         }
 
         /// <summary>

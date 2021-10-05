@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 #nullable enable
@@ -27,6 +25,11 @@ namespace CloudNimble.BlazorEssentials.Merlin
         /// <summary>
         /// 
         /// </summary>
+        public string? Description { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public int Id { get; set; }
 
         /// <summary>
@@ -40,14 +43,7 @@ namespace CloudNimble.BlazorEssentials.Merlin
         public bool IsNextEnabled
         {
             get => isNextEnabled;
-            private set
-            {
-                if (isNextEnabled != value)
-                {
-                    isNextEnabled = value;
-                    RaisePropertyChanged();
-                }
-            }
+            set => Set(() => IsNextEnabled, ref isNextEnabled, value);
         }
 
         /// <summary>
@@ -66,26 +62,47 @@ namespace CloudNimble.BlazorEssentials.Merlin
         public WizardPaneStatus Status
         {
             get => status;
-            internal set
-            {
-                if (status != value)
-                {
-                    status = value;
-                    RaisePropertyChanged();
-                }
-            }
+            set => Set(() => Status, ref status, value);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string? Title { get; set; }
 
         #endregion
 
         #region Constructors
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="onNextAction"></param>
+        /// <param name="onBackAction"></param>
+        /// <param name="nextLabel"></param>
         public WizardPane(int id, Func<Wizard, Task<bool>> onNextAction, Func<Task<bool>>? onBackAction, string nextLabel = "NEXT")
         {
             Id = id;
             OnNextAction = onNextAction;
             OnBackAction = onBackAction ?? defaultAction;
             NextLabel = nextLabel;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="title"></param>
+        /// <param name="description"></param>
+        /// <param name="onNextAction"></param>
+        /// <param name="onBackAction"></param>
+        /// <param name="nextLabel"></param>
+        public WizardPane(int id, string title, string description, Func<Wizard, Task<bool>> onNextAction, Func<Task<bool>>? onBackAction, string nextLabel = "NEXT")
+            : this(id, onNextAction, onBackAction, nextLabel)
+        {
+            Title = title;
+            Description = description;
         }
 
         #endregion

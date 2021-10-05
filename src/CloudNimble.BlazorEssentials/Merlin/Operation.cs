@@ -39,14 +39,7 @@ namespace CloudNimble.BlazorEssentials.Merlin
         public string CurrentIcon
         {
             get => currentIcon;
-            private set
-            {
-                if (currentIcon != value)
-                {
-                    currentIcon = value;
-                    RaisePropertyChanged();
-                }
-            }
+            set => Set(() => CurrentIcon, ref currentIcon, value);
         }
 
         /// <summary>
@@ -55,14 +48,7 @@ namespace CloudNimble.BlazorEssentials.Merlin
         public string CurrentIconColor
         {
             get => currentIconColor;
-            private set
-            {
-                if (currentIconColor != value)
-                {
-                    currentIconColor = value;
-                    RaisePropertyChanged();
-                }
-            }
+            set => Set(() => CurrentIconColor, ref currentIconColor, value);
         }
 
         /// <summary>
@@ -71,14 +57,7 @@ namespace CloudNimble.BlazorEssentials.Merlin
         public string CurrentProgressClass
         {
             get => currentProgressClass;
-            set
-            {
-                if (currentProgressClass != value)
-                {
-                    currentProgressClass = value;
-                    RaisePropertyChanged();
-                }
-            }
+            set => Set(() => CurrentProgressClass, ref currentProgressClass, value);
         }
 
         /// <summary>
@@ -111,14 +90,7 @@ namespace CloudNimble.BlazorEssentials.Merlin
         public decimal ProgressPercent
         {
             get => progressPercent;
-            private set
-            {
-                if (progressPercent != value)
-                {
-                    progressPercent = value;
-                    RaisePropertyChanged();
-                }
-            }
+            set => Set(() => ProgressPercent, ref progressPercent, value);
         }
 
         /// <summary>
@@ -127,14 +99,7 @@ namespace CloudNimble.BlazorEssentials.Merlin
         public string ProgressText
         {
             get => progressText;
-            private set
-            {
-                if (progressText != value)
-                {
-                    progressText = value;
-                    RaisePropertyChanged();
-                }
-            }
+            set => Set(() => ProgressText, ref progressText, value);
         }
 
         /// <summary>
@@ -143,14 +108,8 @@ namespace CloudNimble.BlazorEssentials.Merlin
         public string ResultText
         {
             get => resultText;
-            private set
-            {
-                if (resultText != value)
-                {
-                    resultText = value;
-                    RaisePropertyChanged();
-                }
-            }
+            set => Set(() => ResultText, ref resultText, value);
+
         }
 
         /// <summary>
@@ -159,14 +118,8 @@ namespace CloudNimble.BlazorEssentials.Merlin
         public bool ShowPanel
         {
             get => showPanel;
-            private set
-            {
-                if (showPanel != value)
-                {
-                    showPanel = value;
-                    RaisePropertyChanged();
-                }
-            }
+            set => Set(() => ShowPanel, ref showPanel, value);
+
         }
 
         /// <summary>
@@ -195,14 +148,8 @@ namespace CloudNimble.BlazorEssentials.Merlin
         public ObservableCollection<OperationStep> Steps
         {
             get => steps;
-            private set
-            {
-                if (steps != value)
-                {
-                    steps = value;
-                    RaisePropertyChanged();
-                }
-            }
+            set => Set(() => Steps, ref steps, value);
+
         }
 
         /// <summary>
@@ -211,14 +158,8 @@ namespace CloudNimble.BlazorEssentials.Merlin
         public string Title
         {
             get => title;
-            set
-            {
-                if (title != value)
-                {
-                    title = value;
-                    RaisePropertyChanged();
-                }
-            }
+            set => Set(() => Title, ref title, value);
+
         }
 
         #endregion

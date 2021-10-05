@@ -30,14 +30,7 @@ namespace CloudNimble.BlazorEssentials.Merlin
         public WizardPane CurrentPane
         {
             get => currentPane;
-            private set
-            {
-                if (currentPane != value)
-                {
-                    currentPane = value;
-                    RaisePropertyChanged();
-                }
-            }
+            set => Set(() => CurrentPane, ref currentPane, value);
         }
 
         /// <summary>
@@ -46,14 +39,7 @@ namespace CloudNimble.BlazorEssentials.Merlin
         public bool IsBackVisible
         {
             get => isBackVisible;
-            private set
-            {
-                if (isBackVisible != value)
-                {
-                    isBackVisible = value;
-                    RaisePropertyChanged();
-                }
-            }
+            set => Set(() => IsBackVisible, ref isBackVisible, value);
         }
 
         /// <summary>
@@ -62,14 +48,7 @@ namespace CloudNimble.BlazorEssentials.Merlin
         public bool IsFinishVisible
         {
             get => isFinishVisible;
-            private set
-            {
-                if (isFinishVisible != value)
-                {
-                    isFinishVisible = value;
-                    RaisePropertyChanged();
-                }
-            }
+            set => Set(() => IsFinishVisible, ref isFinishVisible, value);
         }
 
         /// <summary>
@@ -78,14 +57,8 @@ namespace CloudNimble.BlazorEssentials.Merlin
         public bool IsOperationStartVisible
         {
             get => isOperationStartVisible;
-            private set
-            {
-                if (isOperationStartVisible != value)
-                {
-                    isOperationStartVisible = value;
-                    RaisePropertyChanged();
-                }
-            }
+            set => Set(() => IsOperationStartVisible, ref isOperationStartVisible, value);
+
         }
 
         /// <summary>
@@ -94,14 +67,7 @@ namespace CloudNimble.BlazorEssentials.Merlin
         public Operation Operation
         {
             get => operation;
-            private set
-            {
-                if (operation != value)
-                {
-                    operation = value;
-                    RaisePropertyChanged();
-                }
-            }
+            set => Set(() => Operation, ref operation, value);
         }
 
         /// <summary>
@@ -110,14 +76,7 @@ namespace CloudNimble.BlazorEssentials.Merlin
         public ObservableCollection<WizardPane> Panes
         {
             get => panes;
-            private set
-            {
-                if (panes != value)
-                {
-                    panes = value;
-                    RaisePropertyChanged();
-                }
-            }
+            set => Set(() => Panes, ref panes, value);
         }
 
         /// <summary>

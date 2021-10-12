@@ -13,15 +13,15 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
 
-    <LangVersion>9.0</LangVersion>
+    <LangVersion>10.0</LangVersion>
 
     <!-- .NET 6 kinda sucks. There is no good reason for doing this. -->
     <DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
     
     <!-- Working around Blazor issue https://github.com/dotnet/aspnetcore/issues/30427  -->
-    <DisableScopedCssBundling>none</DisableScopedCssBundling>
+    <!--<DisableScopedCssBundling>none</DisableScopedCssBundling>
     <EnableDefaultScopedCssItems>false</EnableDefaultScopedCssItems>
-    <ScopedCssEnabled>false</ScopedCssEnabled>
+    <ScopedCssEnabled>false</ScopedCssEnabled>-->
   </PropertyGroup>
 
   <PropertyGroup>
@@ -82,7 +82,7 @@
   <ItemGroup Condition=" $(IsTestProject) != 'true' and $(IsSampleProject) != 'true' ">
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
     <!-- RWM: The code quality on the unit tests right now is not awesome, so let's skip checking it for now. -->
-    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="5.0.3">
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="5.0.3" Condition="'$(TargetFramework)' != 'net6.0'">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
 

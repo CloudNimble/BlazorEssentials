@@ -1,0 +1,82 @@
+﻿@if (Parent.CurrentPane == this)
+{
+    @ChildContent
+}
+
+@code {
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [CascadingParameter]
+    public Wizard Parent { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [Parameter]
+    public string Description { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public bool IsNextEnabled { get; set; } = true;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [Parameter]
+    public string NextLabel { get; set; } = "NEXT";
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [Parameter]
+    public Action OnBackAction { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [Parameter]
+    public Func<Wizard, Task<bool>> OnNextAction { get; set; } = (wizard) => { return Task.FromResult(true); };
+
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public WizardPaneStatus Status { get; set; } = WizardPaneStatus.NotStarted;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [Parameter]
+    public string Title { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [Parameter]
+    public WizardPaneType Type { get; set; } = WizardPaneType.Normal;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <exception cref="ArgumentNullException"></exception>
+    protected override void OnInitialized()
+    {
+        if (Parent is null)
+        {
+            throw new ArgumentNullException(nameof(Parent), "WizardPage must exist within a Wizard");
+        }
+
+        base.OnInitialized();
+        Parent.AddPane(this);
+    }
+
+}

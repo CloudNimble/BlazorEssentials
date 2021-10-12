@@ -3,8 +3,6 @@
   <PropertyGroup>
     <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
     <DocumentationFile>$(DocumentationFile)\$(AssemblyName).xml</DocumentationFile>
-    
-    <RazorLangVersion>3.0</RazorLangVersion>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
   </PropertyGroup>
 
@@ -25,6 +23,12 @@
     <RepositoryType>git</RepositoryType>
     <NoWarn>$(NoWarn);CS1998;CS1591;CA1052;CA1801;CA1822;NU5104</NoWarn>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Merlin\Wizard.cs" />
+    <Compile Remove="Merlin\WizardConfirmationPane.cs" />
+    <Compile Remove="Merlin\WizardPane.cs" />
+  </ItemGroup>
 
 
   <ItemGroup>
@@ -67,7 +71,7 @@
     </AssemblyAttribute>
   </ItemGroup>
 
-  <Target Name="PrepareProjectReferences">
-  </Target>
+  <!--<Target Name="PrepareProjectReferences">
+  </Target>-->
 
 </Project>

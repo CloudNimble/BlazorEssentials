@@ -1,0 +1,262 @@
+﻿@using System.ComponentModel
+<CascadingValue Value="this">
+
+@if (ContainerTemplate is null)
+{
+    <div class="wizard d-flex">
+        @if (HeaderTemplate is null)
+        {
+            <div class="wizard-header">
+                <h5>@Title</h5>
+            </div>
+        }
+        else
+        {
+            @HeaderTemplate
+        }
+        <div class="wizard-body">
+            <div class="wizard-status">
+                <ol class="list-group">
+                    @foreach (var pane in Panes)
+                    {
+                        <li @key="pane" class="list-group-item d-flex justify-content-between align-items-start @(CurrentPane == pane ? "active" : "")">
+                            <span class="fa-layers fa-fw fa-2x align-self-center">
+                                <i class="fas fa-square"></i>
+                                <span class="fa-layers-text @(CurrentPane == pane ? "text-primary" : "text-light")" data-fa-transform="shrink-8" style="font-weight:900">@(Panes.IndexOf(pane) + 1)</span>
+                            </span>
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">@pane?.Title</div>
+                                @pane?.Description
+                            </div>
+                        </li>
+                    }
+                </ol>
+            </div>
+            <div class="wizard-panes">
+                @PanesContent
+            </div>
+        </div>
+        @if (FooterTemplate is null)
+        {
+            <div class="wizard-footer">
+                @if (!IsFinishVisible)
+                {
+                    <button class="btn btn-secondary" disabled="@(!IsBackEnabled)" onclick="@Back">Back</button>
+                }
+                @if (IsNextVisible)
+                {
+                    <button class="btn btn-primary" disabled="@(!IsNextEnabled)" onclick="@Next">Next</button>
+                }
+                @if (IsOperationStartVisible)
+                {
+                    <button class="btn btn-primary" onclick="@StartOperation">Start</button>
+                }
+                @if (IsFinishVisible)
+                {
+                    <button class="btn btn-primary" onclick="@Reset">Finished!</button>
+                }
+
+            </div>
+        }
+        else
+        {
+            @FooterTemplate
+        }
+    </div>
+}
+else
+{
+    @ContainerTemplate(
+        @:@{
+            @HeaderTemplate
+            @PanesContent
+            @FooterTemplate
+        }
+    )
+}
+
+</CascadingValue>
+
+@code
+{
+
+    /// <summary>
+    ///
+    /// </summary>
+    [Parameter]
+    public RenderFragment<RenderFragment> ContainerTemplate { get; set; }
+
+    /// <summary>
+    ///
+    /// </summary>
+    [Parameter]
+    public RenderFragment FooterTemplate { get; set; }
+
+    /// <summary>
+    ///
+    /// </summary>
+    [Parameter]
+    public RenderFragment HeaderTemplate { get; set; }
+
+    /// <summary>
+    ///
+    /// </summary>
+    [Parameter]
+    public Operation Operation { get; set; }
+
+    /// <summary>
+    ///
+    /// </summary>
+    [Parameter]
+    public RenderFragment PanesContent { get; set; }
+
+    /// <summary>
+    ///
+    /// </summary>
+    [Parameter]
+    public string Title { get; set; }
+
+    /// <summary>
+    ///
+    /// </summary>
+    public WizardPane CurrentPane { get; set; }
+
+    /// <summary>
+    ///
+    /// </summary>
+    public List<WizardPane> Panes { get; private set; } = new();
+
+    #region Computed Properties
+
+    /// <summary>
+    ///
+    /// </summary>
+    public bool IsBackEnabled => Panes.Any() && CurrentPane != Panes.First() && !IsFinishVisible;
+
+    /// <summary>
+    ///
+    /// </summary>
+    public bool IsNextEnabled => CurrentPane?.IsNextEnabled ?? true;
+
+    /// <summary>
+    ///
+    /// </summary>
+    public bool IsNextVisible => !IsOperationStartVisible && !IsFinishVisible;
+
+    /// <summary>
+    ///
+    /// </summary>
+    public bool IsOperationStartVisible => CurrentPane?.Type == WizardPaneType.Confirmation
+        && Panes.Where(c => c.Type == WizardPaneType.Normal).All(c => c.Status == WizardPaneStatus.Succeeded);
+
+    /// <summary>
+    ///
+    /// </summary>
+    public bool IsFinishVisible => CurrentPane == Panes?.LastOrDefault();
+
+    #endregion
+
+    #region Public Methods
+
+    /// <summary>
+    ///
+    /// </summary>
+    /// <returns></returns>
+    public async Task Back()
+    {
+        if (CurrentPane == null || CurrentPane == Panes.FirstOrDefault() || CurrentPane == Panes.LastOrDefault()) return;
+        CurrentPane.Status = WizardPaneStatus.NotStarted;
+        CurrentPane = Panes[Panes.IndexOf(CurrentPane) - 1];
+        //RWM: Gotta reset the page we just moved to also.
+        CurrentPane.Status = WizardPaneStatus.NotStarted;
+        StateHasChanged();
+    }
+
+    /// <summary>
+    ///
+    /// </summary>
+    /// <returns></returns>
+    public async Task Next()
+    {
+        if (IsFinishVisible) return;
+        if (CurrentPane is null) return;
+        if (CurrentPane.OnNextAction is not null)
+        {
+            CurrentPane.Status = WizardPaneStatus.InProgress;
+            var task = await CurrentPane.OnNextAction(this).ConfigureAwait(false);
+            CurrentPane.Status = task ? WizardPaneStatus.Succeeded : WizardPaneStatus.Failed;
+        }
+        else
+        {
+            CurrentPane.Status = WizardPaneStatus.Succeeded;
+        }
+
+        if (CurrentPane.Type == WizardPaneType.Confirmation) return;
+        var index = Panes.IndexOf(CurrentPane);
+        if (index == Panes.Count - 1) return;
+        CurrentPane = Panes[index + 1];
+        StateHasChanged();
+    }
+
+    /// <summary>
+    ///
+    /// </summary>
+    /// <returns></returns>
+    public async Task Reset()
+    {
+        foreach (var pane in Panes)
+        {
+            pane.Status = WizardPaneStatus.NotStarted;
+        }
+        CurrentPane = Panes[0];
+        if (Operation is not null)
+        {
+            Operation.Reset();
+        }
+    }
+
+    public async Task StartOperation()
+    {
+        Operation?.Start();
+    }
+
+    #endregion
+
+    internal void AddPane(WizardPane pane)
+    {
+        Panes.Add(pane);
+        if (Panes.Count == 1)
+        {
+            CurrentPane = pane;
+        }
+        StateHasChanged();
+    }
+
+    /// <summary>
+    ///
+    /// </summary>
+    /// <exception cref="ArgumentNullException"></exception>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        Operation.PropertyChanged += Operation_PropertyChanged;
+    }
+
+    protected void Operation_PropertyChanged(object sender, PropertyChangedEventArgs e)
+    {
+        switch (e.PropertyName)
+        {
+            case nameof(Operation.Status):
+                if (Operation.Status == OperationStatus.Succeeded)
+                {
+                    CurrentPane.Status = WizardPaneStatus.Succeeded;
+                    var index = Panes.IndexOf(CurrentPane);
+                    if (index == Panes.Count - 1) return;
+                    CurrentPane = Panes[index + 1];
+                    StateHasChanged();
+                }
+                break;
+        }
+    }
+
+}

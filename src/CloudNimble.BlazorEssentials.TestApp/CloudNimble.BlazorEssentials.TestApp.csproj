@@ -38,6 +38,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Content Update="Pages\MerlinWizard.razor">
+		  <Pack>$(IncludeRazorContentInPack)</Pack>
+		</Content>
 		<Content Update="Pages\LoadingContainerDemo.razor">
 			<Pack>$(IncludeRazorContentInPack)</Pack>
 		</Content>

@@ -1,0 +1,44 @@
+﻿@using CloudNimble.BlazorEssentials.TestApp.ViewModels;
+
+@page "/Merlin"
+
+@inject ConfigurationBase config
+@inject AppState appState
+@inject LoadingContainerViewModel viewModel
+
+<div>
+    <Wizard Title="Add a Role">
+        <PanesContent>
+            <WizardPane Title="Page 1" Description="Making some magic!" OnNextAction="async (wizard) => await Pane1Next(wizard)">
+                <span>Robert thinks this might work. it probably won't.</span>
+            </WizardPane>
+            <WizardPane Type="WizardPaneType.Confirmation" Title="Confirm" Description="Let's do this!">
+                - We're gonna do a bunch of stuff here.
+            </WizardPane>
+            <WizardPane Type="WizardPaneType.Completed" Title="Finished" Description="Now get back to work!" OnNextAction="async (wizard) => await Pane1Next(wizard)">
+                <span>You're all done!</span>
+            </WizardPane>
+        </PanesContent>
+    </Wizard>
+</div>
+
+@code
+{
+    protected override async Task OnInitializedAsync()
+    {
+        viewModel.StateHasChangedAction = StateHasChanged;
+        viewModel.PropertyChanged += (sender, e) =>
+        {
+            this.StateHasChanged();
+        };
+
+        await viewModel.Load();
+    }
+
+    private async Task<bool> Pane1Next(Wizard wizard)
+    {
+        //wizard.Operation.Steps.Add(new Step())
+        return await Task.FromResult(true);
+    }
+
+}

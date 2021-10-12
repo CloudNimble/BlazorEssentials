@@ -31,6 +31,14 @@
     width: 25% !important;
 }
 
+.fa-layers-text {
+    color: var(--bs-light);
+}
+
+.list-group-item.active .fa-layers .fa-layers-text {
+    color: var(--bs-blue);
+}
+
 .wizard-panes {
     padding-left: 1.5rem !important;
 }

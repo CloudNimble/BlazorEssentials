@@ -22,7 +22,7 @@
                         <li @key="pane" class="list-group-item d-flex justify-content-between align-items-start @(CurrentPane == pane ? "active" : "")">
                             <span class="fa-layers fa-fw fa-2x align-self-center">
                                 <i class="fas fa-square"></i>
-                                <span class="fa-layers-text @(CurrentPane == pane ? "text-primary" : "text-light")" data-fa-transform="shrink-8" style="font-weight:900">@(Panes.IndexOf(pane) + 1)</span>
+                                <span class="fa-layers-text" data-fa-transform="shrink-8" style="font-weight:900">@(Panes.IndexOf(pane) + 1)</span>
                             </span>
                             <div class="ms-2 me-auto">
                                 <div class="fw-bold">@pane?.Title</div>
@@ -55,7 +55,6 @@
                 {
                     <button class="btn btn-primary" onclick="@Reset">Finished!</button>
                 }
-
             </div>
         }
         else
@@ -131,7 +130,7 @@ else
     /// <summary>
     ///
     /// </summary>
-    public bool IsBackEnabled => Panes.Any() && CurrentPane != Panes.First() && !IsFinishVisible;
+    public bool IsBackEnabled => Panes.Any() && CurrentPane != Panes.First() && !IsFinishVisible && Operation?.Status != OperationStatus.InProgress;
 
     /// <summary>
     ///
@@ -218,6 +217,7 @@ else
     public async Task StartOperation()
     {
         Operation?.Start();
+
     }
 
     #endregion
@@ -239,7 +239,10 @@ else
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        Operation.PropertyChanged += Operation_PropertyChanged;
+        if (Operation is not null)
+        {
+            Operation.PropertyChanged += Operation_PropertyChanged;
+        }
     }
 
     protected void Operation_PropertyChanged(object sender, PropertyChangedEventArgs e)

@@ -26,9 +26,9 @@
     <button onclick="@(async () => await myModal.ShowAsync())">Open Modal Wizard</button>
 </div>
 
-<Wizard @ref="modalWizard" Title="Add a Role" Operation="viewModel.ModalOperation">
+<Wizard @ref="modalWizard" Title="Add a Role - Modal" Operation="viewModel.ModalOperation">
     <ContainerTemplate Context="wizard">
-        <HxModal @ref="myModal" Title="Add a Role - Modal" Centered="true" BodyCssClass="modal-body py-lg-10 px-lg-10" Size="ModalSize.Large" 
+        <HxModal @ref="myModal" Title="@modalWizard.Title" Centered="true" BodyCssClass="modal-body py-lg-10 px-lg-10" Size="ModalSize.Large" 
             OnClosed="async () => await modalWizard.Reset()">
             <BodyTemplate>
                 @wizard

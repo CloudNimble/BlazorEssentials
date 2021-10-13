@@ -90,7 +90,8 @@ namespace CloudNimble.BlazorEssentials.Merlin
                             break;
                     }
                     Label = $"<span class='label label-{className}'>{status}</span>";
-                    RaisePropertyChanged();
+                    RaisePropertyChanged(() => Status);
+                    RaisePropertyChanged(() => Label);
                 }
             }
         }

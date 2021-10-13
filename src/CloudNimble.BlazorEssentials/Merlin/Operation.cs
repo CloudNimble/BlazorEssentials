@@ -235,6 +235,7 @@ namespace CloudNimble.BlazorEssentials.Merlin
         public void Start()
         {
             //RWM: We want this to run out-of-band, don't await it.
+            Status = OperationStatus.InProgress;
             Task.Run(async () =>
             {
                 var shouldContinue = true;
@@ -245,11 +246,13 @@ namespace CloudNimble.BlazorEssentials.Merlin
                         await c.Start().ConfigureAwait(false);
                         if (c.Status == OperationStepStatus.Failed)
                         {
+                            Status = OperationStatus.Failed;
                             shouldContinue = false;
                         };
                     }
                 });
             });
+            Status = Steps.All(c => c.Status == OperationStepStatus.Succeeded) ? OperationStatus.Succeeded : OperationStatus.Failed;
         }
 
         /// <summary>
@@ -379,6 +382,7 @@ namespace CloudNimble.BlazorEssentials.Merlin
             CurrentProgressClass = DisplayProgressClass.Failure;
             ResultText = DisplayText.Failure;
             Status = OperationStatus.Failed;
+            BlazorStateChanged();
         }
 
         private void ShowInProgress()
@@ -388,6 +392,7 @@ namespace CloudNimble.BlazorEssentials.Merlin
             CurrentProgressClass = DisplayProgressClass.InProgress;
             ResultText = DisplayText.InProgress;
             Status = OperationStatus.InProgress;
+            BlazorStateChanged();
         }
 
         private void ShowNotStarted()
@@ -397,6 +402,7 @@ namespace CloudNimble.BlazorEssentials.Merlin
             CurrentProgressClass = DisplayProgressClass.NotStarted;
             ResultText = DisplayText.NotStarted;
             Status = OperationStatus.NotStarted;
+            BlazorStateChanged();
         }
 
         private void ShowSucceeded()
@@ -406,6 +412,7 @@ namespace CloudNimble.BlazorEssentials.Merlin
             CurrentProgressClass = DisplayProgressClass.Success;
             ResultText = DisplayText.Success;
             Status = OperationStatus.Succeeded;
+            BlazorStateChanged();
         }
 
         #endregion

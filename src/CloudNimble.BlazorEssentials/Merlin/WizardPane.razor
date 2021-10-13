@@ -1,71 +1,81 @@
 ﻿@if (Parent.CurrentPane == this)
 {
     @ChildContent
+
+    @if (Type == WizardPaneType.Confirmation && Parent.Operation?.Status == OperationStatus.InProgress)
+    {
+        <div class="operation-status">
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="@(Parent.Operation?.ProgressPercent ?? 0)" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <div>@Parent.Operation?.ProgressText</div>
+        </div>
+    }
 }
 
 @code {
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [Parameter]
     public RenderFragment ChildContent { get; set; }
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [CascadingParameter]
     public Wizard Parent { get; set; }
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [Parameter]
     public string Description { get; set; }
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public bool IsNextEnabled { get; set; } = true;
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [Parameter]
     public string NextLabel { get; set; } = "NEXT";
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [Parameter]
     public Action OnBackAction { get; set; }
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [Parameter]
     public Func<Wizard, Task<bool>> OnNextAction { get; set; } = (wizard) => { return Task.FromResult(true); };
 
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public WizardPaneStatus Status { get; set; } = WizardPaneStatus.NotStarted;
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [Parameter]
     public string Title { get; set; }
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [Parameter]
     public WizardPaneType Type { get; set; } = WizardPaneType.Normal;
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <exception cref="ArgumentNullException"></exception>
     protected override void OnInitialized()

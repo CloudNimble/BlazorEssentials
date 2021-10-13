@@ -1,8 +1,8 @@
 ﻿using CloudNimble.BlazorEssentials.TestApp.Models;
 using CloudNimble.BlazorEssentials.TestApp.ViewModels;
+using Havit.Blazor.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace CloudNimble.BlazorEssentials.TestApp
@@ -28,6 +28,9 @@ namespace CloudNimble.BlazorEssentials.TestApp
 
             builder.Services.AddSingleton<IndexViewModel>();
             builder.Services.AddSingleton<LoadingContainerViewModel>();
+            builder.Services.AddSingleton<WizardViewModel>();
+
+            builder.Services.AddHxServices();
 
             await builder.Build().RunAsync().ConfigureAwait(false);
         }

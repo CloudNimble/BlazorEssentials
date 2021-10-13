@@ -4,10 +4,10 @@
 
 @inject ConfigurationBase config
 @inject AppState appState
-@inject LoadingContainerViewModel viewModel
+@inject WizardViewModel viewModel
 
 <div>
-    <Wizard Title="Add a Role">
+    <Wizard Title="Add a Role" Operation="viewModel.Operation">
         <PanesContent>
             <WizardPane Title="Page 1" Description="Making some magic!" OnNextAction="async (wizard) => await Pane1Next(wizard)">
                 <span>Robert thinks this might work. it probably won't.</span>
@@ -22,8 +22,59 @@
     </Wizard>
 </div>
 
+<div class="mt-4">
+    <button onclick="@(async () => await myModal.ShowAsync())">Open Modal Wizard</button>
+</div>
+
+<Wizard @ref="modalWizard" Title="Add a Role" Operation="viewModel.ModalOperation">
+    <ContainerTemplate Context="wizard">
+        <HxModal @ref="myModal" Title="Add a Role - Modal" Centered="true" BodyCssClass="modal-body py-lg-10 px-lg-10" Size="ModalSize.Large" 
+            OnClosed="async () => await modalWizard.Reset()">
+            <BodyTemplate>
+                @wizard
+            </BodyTemplate>
+            <FooterTemplate>
+                @if (!modalWizard.IsFinishVisible)
+                {
+                    <HxButton Text="Back" OnClick="modalWizard.Back" Color="ThemeColor.Secondary" Enabled="modalWizard.IsBackEnabled" />
+                }
+                @if (modalWizard.IsNextVisible)
+                {
+                    <HxButton Text="Next" OnClick="modalWizard.Next" Color="ThemeColor.Primary" Enabled="modalWizard.IsNextEnabled" />
+                }
+                @if (modalWizard.IsOperationStartVisible)
+                {
+                    <HxButton Text="Start" OnClick="modalWizard.StartOperation" Color="ThemeColor.Primary" Enabled="modalWizard.Operation.Status != OperationStatus.InProgress" />
+                }
+                @if (modalWizard.IsFinishVisible)
+                {
+                    <HxButton Text="Finished!" OnClick="Reset" Color="ThemeColor.Primary" />
+                }
+            </FooterTemplate>
+        </HxModal>
+    </ContainerTemplate>
+    <PanesContent>
+        <WizardPane Title="Page 1" Description="Making some magic!" OnNextAction="async (wizard) => await Pane1Next(wizard)">
+            <span>Robert thinks this might work. it probably won't.</span>
+        </WizardPane>
+        <WizardPane Type="WizardPaneType.Confirmation" Title="Confirm" Description="Let's do this!">
+            - We're gonna do a bunch of stuff here.
+        </WizardPane>
+        <WizardPane Type="WizardPaneType.Completed" Title="Finished" Description="Now get back to work!" OnNextAction="async (wizard) => await Pane1Next(wizard)">
+            <span>You're all done!</span>
+        </WizardPane>
+    </PanesContent>
+</Wizard>
+
+
+
+
 @code
 {
+
+    private Wizard modalWizard;
+    private HxModal myModal;
+
     protected override async Task OnInitializedAsync()
     {
         viewModel.StateHasChangedAction = StateHasChanged;
@@ -31,14 +82,18 @@
         {
             this.StateHasChanged();
         };
-
-        await viewModel.Load();
     }
 
     private async Task<bool> Pane1Next(Wizard wizard)
     {
         //wizard.Operation.Steps.Add(new Step())
         return await Task.FromResult(true);
+    }
+
+    private async Task Reset()
+    {
+        modalWizard.Reset();
+        await myModal.HideAsync();
     }
 
 }

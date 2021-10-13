@@ -41,7 +41,7 @@
             <div class="wizard-footer">
                 @if (!IsFinishVisible)
                 {
-                    <button class="btn btn-secondary" disabled="@(!IsBackEnabled)" onclick="@Back">Back</button>
+                    <button class="btn btn-secondary me-2" disabled="@(!IsBackEnabled)" onclick="@Back">Back</button>
                 }
                 @if (IsNextVisible)
                 {
@@ -49,7 +49,7 @@
                 }
                 @if (IsOperationStartVisible)
                 {
-                    <button class="btn btn-primary" onclick="@StartOperation">Start</button>
+                    <button class="btn btn-primary" disabled="@(Operation?.Status == OperationStatus.InProgress)" onclick="@StartOperation">Start</button>
                 }
                 @if (IsFinishVisible)
                 {
@@ -130,7 +130,7 @@ else
     /// <summary>
     ///
     /// </summary>
-    public bool IsBackEnabled => Panes.Any() && CurrentPane != Panes.First() && !IsFinishVisible && Operation?.Status != OperationStatus.InProgress;
+    public bool IsBackEnabled => Panes.Any() && CurrentPane != Panes.First() && !IsFinishVisible;
 
     /// <summary>
     ///
@@ -151,7 +151,7 @@ else
     /// <summary>
     ///
     /// </summary>
-    public bool IsFinishVisible => CurrentPane == Panes?.LastOrDefault();
+    public bool IsFinishVisible => CurrentPane == Panes?.LastOrDefault() && Operation?.Status != OperationStatus.InProgress;
 
     #endregion
 
@@ -217,7 +217,7 @@ else
     public async Task StartOperation()
     {
         Operation?.Start();
-
+        StateHasChanged();
     }
 
     #endregion
@@ -241,6 +241,7 @@ else
         base.OnInitialized();
         if (Operation is not null)
         {
+            Operation.StateHasChangedAction = StateHasChanged;
             Operation.PropertyChanged += Operation_PropertyChanged;
         }
     }
@@ -256,10 +257,11 @@ else
                     var index = Panes.IndexOf(CurrentPane);
                     if (index == Panes.Count - 1) return;
                     CurrentPane = Panes[index + 1];
-                    StateHasChanged();
+                    //StateHasChanged();
                 }
                 break;
         }
+        StateHasChanged();
     }
 
 }

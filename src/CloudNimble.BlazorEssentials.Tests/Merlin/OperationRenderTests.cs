@@ -113,9 +113,12 @@ namespace CloudNimble.BlazorEssentials.Tests.Pages
 
             // start the operation
             component.Instance.Start();
-            SpinWait.SpinUntil(() => { return component.Instance.Status == OperationStatus.InProgress; }, 10000);
+
+            var hasStartedOperation = SpinWait.SpinUntil(() => { return component.Instance.Status == OperationStatus.InProgress; }, 30000);
+            hasStartedOperation.Should().BeTrue();
 
             // check for in-progress state (step 1)
+            Thread.Sleep(500);  // half-second pause for the properties to update before we check them
             component.Find("icon").GetAttribute("color").Should().Be("text-warning");
             component.Find("icon").GetAttribute("value").Should().Be("fa-hourglass fa-pulse");
             component.Find(".operationStatus").TextContent.Should().Be(OperationStatus.InProgress.ToString());
@@ -132,10 +135,11 @@ namespace CloudNimble.BlazorEssentials.Tests.Pages
             canCompleteStep2 = true;
 
             // wait until the operation has completed
-            var hasCompletedOperation = SpinWait.SpinUntil(() => { return component.Instance.Status > OperationStatus.InProgress; }, 10000);
+            var hasCompletedOperation = SpinWait.SpinUntil(() => { return component.Instance.Status > OperationStatus.InProgress; }, 30000);
             hasCompletedOperation.Should().BeTrue();
 
             // check the final state of the operation
+            Thread.Sleep(500);  // half-second pause for the properties to update before we check them
             component.Find("icon").GetAttribute("color").Should().Be("text-success");
             component.Find("icon").GetAttribute("value").Should().Be("fa-thumbs-up");
             component.Find(".operationStatus").TextContent.Should().Be(OperationStatus.Succeeded.ToString());

@@ -191,7 +191,6 @@ namespace CloudNimble.BlazorEssentials.Tests
             step.Status.Should().Be(OperationStepStatus.InProgress);
             step.ErrorText.Should().BeNullOrWhiteSpace();
 
-            monitor.OccurredEvents.Where(c => c.EventName == "PropertyChanged").Count().Should().Be(2);
             monitor.Should().RaisePropertyChangeFor(c => c.Status);
             monitor.Should().RaisePropertyChangeFor(c => c.Label);
             monitor.Clear();
@@ -204,7 +203,6 @@ namespace CloudNimble.BlazorEssentials.Tests
             hasCompleted.Should().BeTrue();
             step.ErrorText.Should().BeNullOrWhiteSpace();
 
-            monitor.OccurredEvents.Where(c => c.EventName == "PropertyChanged").Count().Should().Be(2);
             monitor.Should().RaisePropertyChangeFor(c => c.Status);
             monitor.Should().RaisePropertyChangeFor(c => c.Label);
         }

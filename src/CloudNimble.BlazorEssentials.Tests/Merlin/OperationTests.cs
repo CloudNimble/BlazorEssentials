@@ -106,9 +106,12 @@ namespace CloudNimble.BlazorEssentials.Tests
 
             // start the opreation and wait for it to move to the InProgress state
             operation.Start();
-            SpinWait.SpinUntil(() => { return operation.Status == OperationStatus.InProgress; }, 10000);
+
+            var hasStartedOperation = SpinWait.SpinUntil(() => { return operation.Status == OperationStatus.InProgress; }, 30000);
+            hasStartedOperation.Should().BeTrue();
 
             // check for in-progress state (step 1)
+            Thread.Sleep(500);  // half-second pause for the properties to update before we check them
             operation.CurrentIcon.Should().Be("fa-hourglass fa-pulse");
             operation.CurrentIconColor.Should().Be("text-warning");
             operation.CurrentProgressClass.Should().Be("bg-warning");
@@ -123,7 +126,7 @@ namespace CloudNimble.BlazorEssentials.Tests
             canCompleteStep1 = true;
 
             // whait for step 2 to get started
-            var hasStep2Started = SpinWait.SpinUntil(() => { return operation.Steps[1].Status > OperationStepStatus.NotStarted; }, 10000);
+            var hasStep2Started = SpinWait.SpinUntil(() => { return operation.Steps[1].Status > OperationStepStatus.NotStarted; }, 30000);
             hasStep2Started.Should().BeTrue();
 
             // check for in-progress state (step 2)
@@ -141,10 +144,12 @@ namespace CloudNimble.BlazorEssentials.Tests
             canCompleteStep2 = true;
 
             // wait until the operation has completed
-            var hasCompletedOperation = SpinWait.SpinUntil(() => { return operation.Status > OperationStatus.InProgress; }, 10000);
+            var hasCompletedOperation = SpinWait.SpinUntil(() => { return operation.Status > OperationStatus.InProgress; }, 30000);
             hasCompletedOperation.Should().BeTrue();
 
             // check the final state of the operation
+            operation.Status.Should().Be(OperationStatus.Succeeded);
+            Thread.Sleep(500);  // half-second pause for the properties to update before we check them
             operation.CurrentIcon.Should().Be("fa-thumbs-up");
             operation.CurrentIconColor.Should().Be("text-success");
             operation.CurrentProgressClass.Should().Be("bg-success");
@@ -196,9 +201,12 @@ namespace CloudNimble.BlazorEssentials.Tests
 
             // start the opreation and wait for it to move to the InProgress state
             operation.Start();
-            SpinWait.SpinUntil(() => { return operation.Status == OperationStatus.InProgress; }, 10000);
+
+            var hasStartedOperation = SpinWait.SpinUntil(() => { return operation.Status == OperationStatus.InProgress; }, 30000);
+            hasStartedOperation.Should().BeTrue();
 
             // check for in-progress state (step 1)
+            Thread.Sleep(500);  // half-second pause for the properties to update before we check them
             operation.CurrentIcon.Should().Be("fa-hourglass fa-pulse");
             operation.CurrentIconColor.Should().Be("text-warning");
             operation.CurrentProgressClass.Should().Be("bg-warning");
@@ -213,10 +221,11 @@ namespace CloudNimble.BlazorEssentials.Tests
             canCompleteStep1 = true;
 
             // whait for step 2 to get started
-            var hasStep2Started = SpinWait.SpinUntil(() => { return operation.Steps[1].Status > OperationStepStatus.NotStarted; }, 10000);
+            var hasStep2Started = SpinWait.SpinUntil(() => { return operation.Steps[1].Status > OperationStepStatus.NotStarted; }, 30000);
             hasStep2Started.Should().BeTrue();
 
             // check for in-progress state (step 2)
+            Thread.Sleep(500);  // half-second pause for the properties to update before we check them
             operation.CurrentIcon.Should().Be("fa-hourglass fa-pulse");
             operation.CurrentIconColor.Should().Be("text-warning");
             operation.CurrentProgressClass.Should().Be("bg-warning");
@@ -231,10 +240,12 @@ namespace CloudNimble.BlazorEssentials.Tests
             canCompleteStep2 = true;
 
             // wait until the operation has completed
-            var hasCompletedOperation = SpinWait.SpinUntil(() => { return operation.Status > OperationStatus.InProgress; }, 10000);
+            var hasCompletedOperation = SpinWait.SpinUntil(() => { return operation.Status > OperationStatus.InProgress; }, 30000);
             hasCompletedOperation.Should().BeTrue();
 
             // check the final state of the operation
+            operation.Status.Should().Be(OperationStatus.Failed);
+            Thread.Sleep(500);  // half-second pause for the properties to update before we check them
             operation.CurrentIcon.Should().Be("fa-thumbs-down");
             operation.CurrentIconColor.Should().Be("text-danger");
             operation.CurrentProgressClass.Should().Be("bg-danger");
@@ -285,9 +296,12 @@ namespace CloudNimble.BlazorEssentials.Tests
 
             // start the opreation and wait for it to move to the InProgress state
             operation.Start();
-            SpinWait.SpinUntil(() => { return operation.Status == OperationStatus.InProgress; }, 10000);
+
+            var hasStartedOperation = SpinWait.SpinUntil(() => { return operation.Status == OperationStatus.InProgress; }, 30000);
+            hasStartedOperation.Should().BeTrue();
 
             // check for in-progress state (step 1)
+            Thread.Sleep(500);  // half-second pause for the properties to update before we check them
             operation.CurrentIcon.Should().Be("fa-hourglass fa-pulse");
             operation.CurrentIconColor.Should().Be("text-warning");
             operation.CurrentProgressClass.Should().Be("bg-warning");
@@ -302,10 +316,12 @@ namespace CloudNimble.BlazorEssentials.Tests
             canCompleteStep1 = true;
 
             // wait until the operation has completed
-            var hasCompletedOperation = SpinWait.SpinUntil(() => { return operation.Status > OperationStatus.InProgress; }, 10000);
+            var hasCompletedOperation = SpinWait.SpinUntil(() => { return operation.Status > OperationStatus.InProgress; }, 30000);
             hasCompletedOperation.Should().BeTrue();
 
             // check the final state of the operation
+            operation.Status.Should().Be(OperationStatus.Failed);
+            Thread.Sleep(500);  // half-second pause for the properties to update before we check them
             operation.CurrentIcon.Should().Be("fa-thumbs-down");
             operation.CurrentIconColor.Should().Be("text-danger");
             operation.CurrentProgressClass.Should().Be("bg-danger");
@@ -362,6 +378,7 @@ namespace CloudNimble.BlazorEssentials.Tests
             hasCompletedOperation.Should().BeTrue();
 
             // check the final state of the operation
+            operation.Status.Should().Be(OperationStatus.Succeeded);
             operation.CurrentIcon.Should().Be("fa-thumbs-up");
             operation.CurrentIconColor.Should().Be("text-success");
             operation.CurrentProgressClass.Should().Be("bg-success");

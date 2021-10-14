@@ -254,8 +254,8 @@ namespace CloudNimble.BlazorEssentials.Merlin
                     }
                 }
 
+                Status = Steps.All(c => c.Status == OperationStepStatus.Succeeded) ? OperationStatus.Succeeded : OperationStatus.Failed;
             });
-            Status = Steps.All(c => c.Status == OperationStepStatus.Succeeded) ? OperationStatus.Succeeded : OperationStatus.Failed;
         }
 
         /// <summary>

@@ -22,11 +22,24 @@ namespace CloudNimble.BlazorEssentials.TestApp.ViewModels
 
         public WizardViewModel(ConfigurationBase configuration, AppState appState, NavigationManager navigationManager, IHttpClientFactory httpClientFactory) : base(navigationManager, httpClientFactory, configuration, appState)
         {
-            var step1 = new OperationStep(1, "Sample operation: Making you wait...", async () => { await Task.Delay(5000); return await Task.FromResult(true); });
-            var step2 = new OperationStep(1, "Sample operation: Making you wait...", async () => { await Task.Delay(5000); return await Task.FromResult(true); });
+            var operationSteps = new List<OperationStep> {
+                new OperationStep(1, "Sample operation: Making you wait...", async () => { await Task.Delay(2000); return await Task.FromResult(true); }),
+                new OperationStep(2, "Sample operation: Creating Randomly Generated Feature...", async () => { await Task.Delay(2000); return await Task.FromResult(true); }),
+                new OperationStep(3, "Sample operation: Ensuring Everything Works Perfektly...", async () => { await Task.Delay(2000); return await Task.FromResult(true); }),
+                new OperationStep(4, "Sample operation: Does Anyone Actually Read This?...", async () => { await Task.Delay(2000); return await Task.FromResult(true); }),
+                new OperationStep(5, "Sample operation: Hitting Your Keyboard Won't Make This Faster...", async () => { await Task.Delay(2000); return await Task.FromResult(true); }),
+            };
 
-            Operation = new Operation("Static Wizard Operation", new List<OperationStep> { step1 }, "You did it!", "Something went wrong :(");
-            ModalOperation = new Operation("Modal Wizard Operation", new List<OperationStep> { step2 }, "You did it!", "Something went wrong :(");
+            var modalOperationSteps = new List<OperationStep> {
+                new OperationStep(1, "Sample operation: Making you wait...", async () => { await Task.Delay(2000); return await Task.FromResult(true); }),
+                new OperationStep(2, "Sample operation: Creating Randomly Generated Feature...", async () => { await Task.Delay(2000); return await Task.FromResult(true); }),
+                new OperationStep(3, "Sample operation: Ensuring Everything Works Perfektly...", async () => { await Task.Delay(2000); return await Task.FromResult(true); }),
+                new OperationStep(4, "Sample operation: Does Anyone Actually Read This?...", async () => { await Task.Delay(2000); return await Task.FromResult(true); }),
+                new OperationStep(5, "Sample operation: Hitting Your Keyboard Won't Make This Faster...", async () => { await Task.Delay(2000); return await Task.FromResult(true); }),
+            };
+
+            Operation = new Operation("Static Wizard Operation", operationSteps, "You did it!", "Something went wrong :(");
+            ModalOperation = new Operation("Modal Wizard Operation", modalOperationSteps, "You did it!", "Something went wrong :(");
         }
 
         #endregion

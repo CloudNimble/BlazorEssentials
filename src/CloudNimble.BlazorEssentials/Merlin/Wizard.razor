@@ -130,7 +130,7 @@ else
     /// <summary>
     ///
     /// </summary>
-    public bool IsBackEnabled => Panes.Any() && CurrentPane != Panes.First() && !IsFinishVisible;
+    public bool IsBackEnabled => Panes.Any() && CurrentPane != Panes.First()  && Operation?.Status < OperationStatus.InProgress;
 
     /// <summary>
     ///
@@ -257,7 +257,6 @@ else
                     var index = Panes.IndexOf(CurrentPane);
                     if (index == Panes.Count - 1) return;
                     CurrentPane = Panes[index + 1];
-                    //StateHasChanged();
                 }
                 break;
         }

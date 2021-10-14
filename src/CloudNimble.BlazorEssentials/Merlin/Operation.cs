@@ -227,6 +227,7 @@ namespace CloudNimble.BlazorEssentials.Merlin
         public void Reset()
         {
             Steps.ToList().ForEach(c => c.Reset());
+            ShowNotStarted();
         }
 
         /// <summary>
@@ -239,20 +240,22 @@ namespace CloudNimble.BlazorEssentials.Merlin
             Task.Run(async () =>
             {
                 var shouldContinue = true;
-                Steps.ToList().ForEach(async c =>
+
+                foreach (var step in Steps)
                 {
                     if (shouldContinue)
                     {
-                        await c.Start().ConfigureAwait(false);
-                        if (c.Status == OperationStepStatus.Failed)
+                        await step.Start();
+                        if (step.Status == OperationStepStatus.Failed)
                         {
                             Status = OperationStatus.Failed;
                             shouldContinue = false;
                         };
                     }
-                });
+                }
+
+                Status = Steps.All(c => c.Status == OperationStepStatus.Succeeded) ? OperationStatus.Succeeded : OperationStatus.Failed;
             });
-            Status = Steps.All(c => c.Status == OperationStepStatus.Succeeded) ? OperationStatus.Succeeded : OperationStatus.Failed;
         }
 
         /// <summary>

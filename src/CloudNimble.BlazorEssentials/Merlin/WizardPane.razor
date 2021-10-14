@@ -2,15 +2,22 @@
 {
     @ChildContent
 
-    @if (Type == WizardPaneType.Confirmation && Parent.Operation?.Status == OperationStatus.InProgress)
-    {
-        <div class="operation-status">
-            <div class="progress">
-                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="@(Parent.Operation?.ProgressPercent ?? 0)" aria-valuemin="0" aria-valuemax="100"></div>
+        @if (Type == WizardPaneType.Confirmation && Parent.Operation?.Status == OperationStatus.InProgress)
+        {
+            <div class="operation-status">
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                         role="progressbar" 
+                         aria-valuenow="@(Parent.Operation?.ProgressPercent ?? 0)" 
+                         aria-valuemin="0" 
+                         aria-valuemax="100"
+                         style="width:@((Parent.Operation?.ProgressPercent ?? 0).ToString("p0"))">
+                        @((Parent.Operation?.ProgressPercent ?? 0).ToString("p0"))
+                    </div>
+                </div>
+                <div>@Parent.Operation?.ProgressText</div>
             </div>
-            <div>@Parent.Operation?.ProgressText</div>
-        </div>
-    }
+        }
 }
 
 @code {

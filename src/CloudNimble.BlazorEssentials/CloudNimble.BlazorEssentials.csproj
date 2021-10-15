@@ -25,13 +25,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Merlin\Wizard.cs" />
-    <Compile Remove="Merlin\WizardConfirmationPane.cs" />
-    <Compile Remove="Merlin\WizardPane.cs" />
-  </ItemGroup>
-
-
-  <ItemGroup>
     <SupportedPlatform Include="browser" />
     <None Include="..\.editorconfig" Link=".editorconfig" />
     <Folder Include="Forms\" />
@@ -71,7 +64,13 @@
     </AssemblyAttribute>
   </ItemGroup>
 
-  <!--<Target Name="PrepareProjectReferences">
-  </Target>-->
+  <ItemGroup>
+    <None Include="$(BaseIntermediateOutputPath)\$(Configuration)\net6.0\scopedcss\projectbundle\*.scp.css" Visible="false">
+      <PackagePath>staticwebassets</PackagePath>
+      <Pack>true</Pack>
+      <InProject>false</InProject>
+      <Visible>false</Visible>
+    </None>
+  </ItemGroup>
 
 </Project>

@@ -100,4 +100,11 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
   </ItemGroup>
 
+  <Target Name="AfterBuild">
+    <ItemGroup>
+      <ScopedCss Include="$(BaseIntermediateOutputPath)\$(Configuration)\$(TargetFramework)\scopedcss\projectbundle\*.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(ScopedCss)" DestinationFolder="$(TargetDir)\%(RecursiveDir)" SkipUnchangedFiles="true" />
+  </Target>
+  
 </Project>

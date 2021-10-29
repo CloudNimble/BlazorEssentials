@@ -43,6 +43,7 @@
     /// <summary>
     ///
     /// </summary>
+    [Parameter]
     public bool IsNextEnabled { get; set; } = true;
 
     /// <summary>
@@ -62,7 +63,6 @@
     /// </summary>
     [Parameter]
     public Func<Wizard, Task<bool>> OnNextAction { get; set; } = (wizard) => { return Task.FromResult(true); };
-
 
     /// <summary>
     ///

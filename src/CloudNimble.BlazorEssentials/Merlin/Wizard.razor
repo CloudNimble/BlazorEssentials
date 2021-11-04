@@ -130,7 +130,7 @@
     /// <summary>
     ///
     /// </summary>
-    public bool IsBackEnabled => Panes.Any() && CurrentPane != Panes.First() && Operation?.Status < OperationStatus.InProgress;
+    public bool IsBackEnabled => Panes.Any() && CurrentPane != Panes.First() && (Operation is null || Operation?.Status < OperationStatus.InProgress);
 
     /// <summary>
     ///

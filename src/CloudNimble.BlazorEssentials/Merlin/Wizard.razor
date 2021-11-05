@@ -249,11 +249,16 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        if (Operation is not null)
+
+        // JHC: always insure we have an Operation object, even if we have to initialize it with defaults
+        if (Operation is null)
         {
-            Operation.StateHasChangedAction = StateHasChanged;
-            Operation.PropertyChanged += Operation_PropertyChanged;
+            Operation = new Operation("Default Operation", null, "Operation succeeded.", "Operation failed.");
         }
+
+        // wire up the operation so that it can notify the wizard
+        Operation.StateHasChangedAction = StateHasChanged;
+        Operation.PropertyChanged += Operation_PropertyChanged;
     }
 
     protected void Operation_PropertyChanged(object sender, PropertyChangedEventArgs e)

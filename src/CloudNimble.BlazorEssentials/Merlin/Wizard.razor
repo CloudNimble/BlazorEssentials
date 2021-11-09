@@ -1,4 +1,6 @@
 ﻿@using System.ComponentModel
+@implements IDisposable
+
 <CascadingValue Value="this">
 
     @if (ContainerTemplate is null)
@@ -276,6 +278,12 @@
                 break;
         }
         StateHasChanged();
+    }
+
+    void IDisposable.Dispose()
+    {
+        Operation.PropertyChanged -= Operation_PropertyChanged;
+        Operation.StateHasChangedAction = null;
     }
 
 }

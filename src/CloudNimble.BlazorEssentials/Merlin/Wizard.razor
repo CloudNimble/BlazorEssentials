@@ -1,4 +1,6 @@
 ﻿@using System.ComponentModel
+@implements IDisposable
+
 <CascadingValue Value="this">
 
     @if (ContainerTemplate is null)
@@ -130,7 +132,7 @@
     /// <summary>
     ///
     /// </summary>
-    public bool IsBackEnabled => Panes.Any() && CurrentPane != Panes.First() && Operation?.Status < OperationStatus.InProgress;
+    public bool IsBackEnabled => Panes.Any() && CurrentPane != Panes.First() && (Operation is null || Operation?.Status < OperationStatus.InProgress);
 
     /// <summary>
     ///
@@ -249,11 +251,16 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        if (Operation is not null)
+
+        // JHC: always insure we have an Operation object, even if we have to initialize it with defaults
+        if (Operation is null)
         {
-            Operation.StateHasChangedAction = StateHasChanged;
-            Operation.PropertyChanged += Operation_PropertyChanged;
+            Operation = new Operation("Default Operation", null, "Operation succeeded.", "Operation failed.");
         }
+
+        // wire up the operation so that it can notify the wizard
+        Operation.StateHasChangedAction = StateHasChanged;
+        Operation.PropertyChanged += Operation_PropertyChanged;
     }
 
     protected void Operation_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -271,6 +278,12 @@
                 break;
         }
         StateHasChanged();
+    }
+
+    void IDisposable.Dispose()
+    {
+        Operation.PropertyChanged -= Operation_PropertyChanged;
+        Operation.StateHasChangedAction = null;
     }
 
 }

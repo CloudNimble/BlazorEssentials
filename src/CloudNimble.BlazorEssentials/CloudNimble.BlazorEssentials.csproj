@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
+    <TargetFrameworks>net6.0;net5.0</TargetFrameworks>
     <DocumentationFile>$(DocumentationFile)\$(AssemblyName).xml</DocumentationFile>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
   </PropertyGroup>
@@ -46,12 +46,12 @@
     <PackageReference Include="System.Net.Http.Json" Version="[5.0.0, 6.0.0)" Condition="'$(TargetFramework)'=='net5.0'" />
     <PackageReference Include="System.Collections" Version="[4.3.0, 6.0.0)" Condition="'$(TargetFramework)'=='net5.0'" />
     
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="[6.0.0-rc.2.*, 7.0.0)" Condition="'$(TargetFramework)'=='net6.0'" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="[6.0.0-rc.2.*, 7.0.0)" Condition="'$(TargetFramework)'=='net6.0'" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="[6.0.0-rc.2.*, 7.0.0)" Condition="'$(TargetFramework)'=='net6.0'" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="[6.0.0-rc.2.*, 7.0.0)" Condition="'$(TargetFramework)'=='net6.0'" />
-    <PackageReference Include="Microsoft.Extensions.Http" Version="[6.0.0-rc.2.*, 7.0.0)" Condition="'$(TargetFramework)'=='net6.0'" />
-    <PackageReference Include="System.Net.Http.Json" Version="[6.0.0-rc.2.*, 7.0.0)" Condition="'$(TargetFramework)'=='net6.0'" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="[6.0.0, 7.0.0)" Condition="'$(TargetFramework)'=='net6.0'" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="[6.0.0, 7.0.0)" Condition="'$(TargetFramework)'=='net6.0'" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="[6.0.0, 7.0.0)" Condition="'$(TargetFramework)'=='net6.0'" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="[6.0.0, 7.0.0)" Condition="'$(TargetFramework)'=='net6.0'" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="[6.0.0, 7.0.0)" Condition="'$(TargetFramework)'=='net6.0'" />
+    <PackageReference Include="System.Net.Http.Json" Version="[6.0.0, 7.0.0)" Condition="'$(TargetFramework)'=='net6.0'" />
     <PackageReference Include="System.Collections" Version="[4.3.0, 7.0.0)" Condition="'$(TargetFramework)'=='net6.0'" />
   </ItemGroup>
 
@@ -64,13 +64,14 @@
     </AssemblyAttribute>
   </ItemGroup>
 
-  <ItemGroup>
+  <!--<ItemGroup>
     <None Include="$(BaseIntermediateOutputPath)\$(Configuration)\net6.0\scopedcss\projectbundle\*.scp.css" Visible="false">
       <PackagePath>staticwebassets</PackagePath>
       <Pack>true</Pack>
       <InProject>false</InProject>
       <Visible>false</Visible>
     </None>
-  </ItemGroup>
+  </ItemGroup>-->
+
 
 </Project>

@@ -28,7 +28,7 @@
 
 <Wizard @ref="modalWizard" Title="Add a Role - Modal" Operation="viewModel.ModalOperation">
     <ContainerTemplate Context="wizard">
-        <HxModal @ref="myModal" Title="@modalWizard.Title" Centered="true" BodyCssClass="modal-body py-lg-10 px-lg-10" Size="ModalSize.Large">
+        <HxModal @ref="myModal" Title="@modalWizard.Title" Centered="true" BodyCssClass="modal-body py-lg-10 px-lg-10" Size="ModalSize.Large" OnClosed="async () => await Reset()">
             <BodyTemplate>
                 @wizard
             </BodyTemplate>
@@ -43,7 +43,7 @@
                 }
                 @if (modalWizard.IsOperationStartVisible)
                 {
-                    <HxButton Text="Start" OnClick="modalWizard.StartOperation" Color="ThemeColor.Primary" Enabled="modalWizard.Operation.Status != OperationStatus.InProgress" />
+                    <HxButton Text="Start" OnClick="modalWizard.StartOperation" Color="ThemeColor.Primary" Enabled="modalWizard.Operation?.Status != OperationStatus.InProgress" />
                 }
                 @if (modalWizard.IsFinishVisible)
                 {

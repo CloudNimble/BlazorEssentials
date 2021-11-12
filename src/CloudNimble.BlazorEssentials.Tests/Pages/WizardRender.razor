@@ -1,0 +1,41 @@
+﻿@using CloudNimble.BlazorEssentials.Merlin
+
+<Wizard Title="Add a Role" @ref="theWizard">
+    <PanesContent>
+        <WizardPane Title="Page 1" Description="Making some magic!">
+            <span>Let's get started!</span>
+        </WizardPane>
+        <WizardPane Type="WizardPaneType.Confirmation" Title="Confirm" Description="Let's do this!">
+            <span>Doing the work!</span>
+        </WizardPane>
+        <WizardPane Type="WizardPaneType.Completed" Title="Finished" Description="Now get back to work!">
+            <span>All done!</span>
+        </WizardPane>
+    </PanesContent>
+</Wizard>
+
+@code {
+
+    Wizard theWizard;
+
+    public Wizard Wizard
+    {
+        get { return theWizard; }
+    }
+
+    public void Next()
+    {
+        theWizard.Next();
+    }
+
+    public void Back()
+    {
+        theWizard.Back();
+    }
+
+    public void Reset()
+    {
+        theWizard.Reset();
+    }
+
+}

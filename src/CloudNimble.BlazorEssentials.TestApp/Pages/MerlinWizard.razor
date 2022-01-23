@@ -12,10 +12,10 @@
             <WizardPane Title="Page 1" Description="Making some magic!" OnNextAction="async (wizard) => await Pane1Next(wizard)">
                 <span>Robert thinks this might work. it probably won't.</span>
             </WizardPane>
-            <WizardPane Type="WizardPaneType.Confirmation" Title="Confirm" Description="Let's do this!">
+            <WizardPane Type="WizardPaneType.Confirmation" Title="Confirm" Description="Let's do this!" OnNextAction="async (wizard) => await ConfirmationNext(wizard)">
                 - We're gonna do a bunch of stuff here.
             </WizardPane>
-            <WizardPane Type="WizardPaneType.Completed" Title="Finished" Description="Now get back to work!" OnNextAction="async (wizard) => await Pane1Next(wizard)">
+            <WizardPane Type="WizardPaneType.Completed" Title="Finished" Description="Now get back to work!">
                 <span>You're all done!</span>
             </WizardPane>
         </PanesContent>
@@ -28,7 +28,7 @@
 
 <Wizard @ref="modalWizard" Title="Add a Role - Modal" Operation="viewModel.ModalOperation">
     <ContainerTemplate Context="wizard">
-        <HxModal @ref="myModal" Title="@modalWizard.Title" Centered="true" BodyCssClass="modal-body py-lg-10 px-lg-10" Size="ModalSize.Large" OnClosed="async () => await Reset()">
+        <HxModal @ref="myModal" Title="@modalWizard.Title" Centered="true" BodyCssClass="modal-body py-lg-10 px-lg-10" Size="ModalSize.Large">
             <BodyTemplate>
                 @wizard
             </BodyTemplate>
@@ -56,10 +56,10 @@
         <WizardPane Title="Page 1" Description="Making some magic!" OnNextAction="async (wizard) => await Pane1Next(wizard)">
             <span>Robert thinks this might work. it probably won't.</span>
         </WizardPane>
-        <WizardPane Type="WizardPaneType.Confirmation" Title="Confirm" Description="Let's do this!">
+        <WizardPane Type="WizardPaneType.Confirmation" Title="Confirm" Description="Let's do this!" OnNextAction="async (wizard) => await ConfirmationNext(wizard)">
             - We're gonna do a bunch of stuff here.
         </WizardPane>
-        <WizardPane Type="WizardPaneType.Completed" Title="Finished" Description="Now get back to work!" OnNextAction="async (wizard) => await Pane1Next(wizard)">
+        <WizardPane Type="WizardPaneType.Completed" Title="Finished" Description="Now get back to work!">
             <span>You're all done!</span>
         </WizardPane>
     </PanesContent>
@@ -87,10 +87,16 @@
         return await Task.FromResult(true);
     }
 
+    private async Task<bool> ConfirmationNext(Wizard wizard)
+    {
+        Console.WriteLine("Confimed step executed!");
+        return await Task.FromResult(true);
+    }
+
     private async Task Reset()
     {
         modalWizard.Reset();
-        await myModal.HideAsync();
+        await myModal?.HideAsync();
     }
 
 }

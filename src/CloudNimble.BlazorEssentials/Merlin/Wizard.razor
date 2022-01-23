@@ -192,7 +192,11 @@
             CurrentPane.Status = WizardPaneStatus.Succeeded;
         }
 
-        if (CurrentPane.Type == WizardPaneType.Confirmation) return;
+        if (CurrentPane.Type == WizardPaneType.Confirmation)
+        {
+            StateHasChanged();
+            return;
+        }
         var index = Panes.IndexOf(CurrentPane);
         if (index == Panes.Count - 1) return;
         CurrentPane = Panes[index + 1];
@@ -228,6 +232,12 @@
 
     public async Task StartOperation()
     {
+        if (CurrentPane.Type == WizardPaneType.Confirmation && CurrentPane.OnNextAction is not null)
+        {
+            CurrentPane.Status = WizardPaneStatus.InProgress;
+            var task = await CurrentPane.OnNextAction(this).ConfigureAwait(false);
+            CurrentPane.Status = task ? WizardPaneStatus.Succeeded : WizardPaneStatus.Failed;
+        }
         Operation?.Start();
         StateHasChanged();
     }

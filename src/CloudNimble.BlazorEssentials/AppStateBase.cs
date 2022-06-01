@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace CloudNimble.BlazorEssentials
 {
@@ -19,7 +21,10 @@ namespace CloudNimble.BlazorEssentials
 
         #region Private Members
 
+        private AuthenticationStateProvider authenticationStateProvider;
+        private ClaimsPrincipal claimsPrincipal;
         private NavigationItem currentNavItem;
+        private bool disposedValue;
 
         #endregion
 
@@ -28,22 +33,39 @@ namespace CloudNimble.BlazorEssentials
         /// <summary>
         /// The <see cref="AuthenticationStateProvider"/> for the app.
         /// </summary>
-        public AuthenticationStateProvider AuthenticationStateProvider { get; set; }
+        public AuthenticationStateProvider AuthenticationStateProvider
+        {
+            get => authenticationStateProvider;
+            set
+            {
+                if (authenticationStateProvider is not null && authenticationStateProvider != value)
+                {
+                    authenticationStateProvider.AuthenticationStateChanged -= AuthenticationStateProvider_AuthenticationStateChanged;
+                }
+
+                Set(() => AuthenticationStateProvider, ref authenticationStateProvider, value);
+
+                if (AuthenticationStateProvider is null) return;
+                AuthenticationStateProvider.AuthenticationStateChanged += AuthenticationStateProvider_AuthenticationStateChanged;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ClaimsPrincipal ClaimsPrincipal
+        {
+            get => claimsPrincipal;
+            set => Set(() => ClaimsPrincipal, ref claimsPrincipal, value);
+        }
 
         /// <summary>
         /// The <see cref="NavigationItem" /> from <see cref="NavItems" /> that corresponds to the current Route.
         /// </summary>
-        public NavigationItem CurrentNavItem 
+        public NavigationItem CurrentNavItem
         {
             get => currentNavItem;
-            set
-            {
-                if (currentNavItem != value)
-                {
-                    currentNavItem = value;
-                    RaisePropertyChanged(() => CurrentNavItem);
-                }
-            }
+            set => Set(() => CurrentNavItem, ref currentNavItem, value);
         }
 
         /// <summary>
@@ -104,6 +126,15 @@ namespace CloudNimble.BlazorEssentials
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public async Task RefreshClaimsPrincipal()
+        {
+            AuthenticationStateProvider_AuthenticationStateChanged(AuthenticationStateProvider.GetAuthenticationStateAsync());
+        }
+
+        /// <summary>
         /// Initilizes <see cref="CurrentNavItem" /> to the proper value based on the current route.
         /// </summary>
         public void SetCurrentNavItem()
@@ -130,6 +161,16 @@ namespace CloudNimble.BlazorEssentials
 
         #region Internal Methods
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="task"></param>
+        private async void AuthenticationStateProvider_AuthenticationStateChanged(Task<AuthenticationState> task)
+        {
+            var state = await task.ConfigureAwait(false);
+            ClaimsPrincipal = state.User;
+        }
+
         internal string ToRelativeUrl(string url)
         { 
             if (url == null) return string.Empty;
@@ -137,6 +178,24 @@ namespace CloudNimble.BlazorEssentials
             var baseRelative = NavigationManager.ToBaseRelativePath(absoluteUri.ToString());
             return baseRelative;
         }
+
+        #endregion
+
+        #region Interface Implementations
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    AuthenticationStateProvider.AuthenticationStateChanged -= AuthenticationStateProvider_AuthenticationStateChanged;
+                }
+                disposedValue = true;
+            }
+        }
+
 
         #endregion
 

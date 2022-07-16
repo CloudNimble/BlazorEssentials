@@ -1,19 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
+    <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
     <IsPackable>false</IsPackable>
     <NoWarn>$(NoWarn);NU5125;NU5105;NU5048;NU5014;CA1052;CA1801;CA1822;</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Breakdance.Blazor" Version="3.0.0-CI-20211112-045849" />
+    <PackageReference Include="Breakdance.Blazor" Version="4.0.1-CI-20220715-182403" />
     <PackageReference Include="bunit" Version="1.4.15" />
-    <PackageReference Include="coverlet.collector" Version="3.1.0">
+    <PackageReference Include="coverlet.collector" Version="3.*">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="[6.0.0, 7.0.0)" Condition="'$(TargetFramework)'=='net6.0'" />
+	<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="[7.0.0-preview.6.22324.4, 8.0.0)" Condition="'$(TargetFramework)'=='net7.0'" />
   </ItemGroup>
 
   <ItemGroup>

@@ -55,7 +55,7 @@
                     }
                     @if (IsFinishVisible)
                     {
-                        <button class="btn btn-primary" onclick="@Reset">Finished!</button>
+                        <button class="btn btn-primary" onclick="@(() => Reset())">Finished!</button>
                     }
                 </div>
             }

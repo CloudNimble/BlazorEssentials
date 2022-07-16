@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
+    <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
     <RazorLangVersion>3.0</RazorLangVersion>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
-    <LangVersion>9.0</LangVersion>
+    <LangVersion>10.0</LangVersion>
     <IsPackable>false</IsPackable>
     <NoWarn>$(NoWarn);NU5125;NU5105;NU5048;NU5014;CA1052;CA1801;CA1822;</NoWarn>
   </PropertyGroup>
@@ -14,9 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Breakdance.Blazor" Version="3.0.0-CI-20211112-045849" />
-    <PackageReference Include="bunit" Version="1.4.15" />
-    <PackageReference Include="coverlet.collector" Version="3.1.0">
+    <PackageReference Include="Breakdance.Blazor" Version="4.0.1-CI-20220715-182403" />
+    <PackageReference Include="bunit" Version="1.9.8" />
+    <PackageReference Include="coverlet.collector" Version="3.*">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

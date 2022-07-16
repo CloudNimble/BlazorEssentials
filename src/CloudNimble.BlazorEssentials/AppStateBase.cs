@@ -74,6 +74,11 @@ namespace CloudNimble.BlazorEssentials
         public IHttpClientFactory HttpClientFactory { get; private set; }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public bool IsClaimsPrincipalAuthenticated => ClaimsPrincipal?.Identity?.IsAuthenticated ?? false;
+
+        /// <summary>
         /// The instance of the <see cref="NavigationManager" /> injected by the DI system.
         /// </summary>
         public NavigationManager NavigationManager { get; private set; }
@@ -126,7 +131,7 @@ namespace CloudNimble.BlazorEssentials
         }
 
         /// <summary>
-        /// 
+        /// Tells the AuthenticationProcider to get the latest ClaimsPrincipal and run it through the internal AuthenticationStateChanged handler.
         /// </summary>
         /// <returns></returns>
         public async Task RefreshClaimsPrincipal()
@@ -168,9 +173,17 @@ namespace CloudNimble.BlazorEssentials
         private async void AuthenticationStateProvider_AuthenticationStateChanged(Task<AuthenticationState> task)
         {
             var state = await task.ConfigureAwait(false);
-            ClaimsPrincipal = state.User;
+            //if (state.User?.Identity?.IsAuthenticated == true)
+            //{
+                ClaimsPrincipal = state.User;
+            //}
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
         internal string ToRelativeUrl(string url)
         { 
             if (url == null) return string.Empty;
@@ -183,6 +196,10 @@ namespace CloudNimble.BlazorEssentials
 
         #region Interface Implementations
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="disposing"></param>
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
@@ -190,12 +207,14 @@ namespace CloudNimble.BlazorEssentials
             {
                 if (disposing)
                 {
-                    AuthenticationStateProvider.AuthenticationStateChanged -= AuthenticationStateProvider_AuthenticationStateChanged;
+                    if (AuthenticationStateProvider is not null)
+                    {
+                        AuthenticationStateProvider.AuthenticationStateChanged -= AuthenticationStateProvider_AuthenticationStateChanged;
+                    }
                 }
                 disposedValue = true;
             }
         }
-
 
         #endregion
 

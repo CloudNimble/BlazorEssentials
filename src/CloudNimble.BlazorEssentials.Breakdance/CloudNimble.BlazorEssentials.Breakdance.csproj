@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net6.0;net5.0</TargetFrameworks>
+    <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
     <DocumentationFile>$(DocumentationFile)\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
   
@@ -19,7 +19,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Breakdance.Blazor" Version="3.0.0-CI-20211112-045849" />
+    <PackageReference Include="Breakdance.Blazor" Version="[4.0.0, 5.0.0)" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="[5.0.0, 6.0.0)" Condition="'$(TargetFramework)'=='net5.0'" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="[5.0.0, 6.0.0)" Condition="'$(TargetFramework)'=='net5.0'" />
 

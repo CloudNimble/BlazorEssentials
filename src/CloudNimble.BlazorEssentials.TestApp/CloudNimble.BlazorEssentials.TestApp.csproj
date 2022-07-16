@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
-  <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-    <IsPackable>false</IsPackable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>net7.0;net6.0</TargetFrameworks>
+		<IsPackable>false</IsPackable>
+	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<NoWarn>$(NoWarn);CS1998;CS1591;CA1052;CA1801;CA1822;CS0618</NoWarn>
@@ -11,22 +11,33 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-	  <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+		<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<Content Remove="appSettings.json" />
 	</ItemGroup>
 
-	<ItemGroup>
-    <PackageReference Include="Havit.Blazor.Components.Web.Bootstrap" Version="2.7.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Components" Version="7.0.0-preview.6.22330.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.0-preview.6.22330.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.0-preview.6.22330.3" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="7.0.0-preview.6.22330.3" />
-    <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0-preview.6.22324.4" />
-  </ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)'=='net7.0'">
+		<PackageReference Include="Havit.Blazor.Components.Web.Bootstrap" Version="2.7.3" />
+		<PackageReference Include="Microsoft.AspNetCore.Components" Version="7.0.0-preview.6.22330.3" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.0-preview.6.22330.3" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.0-preview.6.22330.3" PrivateAssets="all" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="7.0.0-preview.6.22330.3" />
+		<PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
+		<PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0-preview.6.22324.4" />
+	</ItemGroup>
+
+
+	<ItemGroup Condition="'$(TargetFramework)'=='net6.0'">
+		<PackageReference Include="Havit.Blazor.Components.Web.Bootstrap" Version="2.7.3" />
+		<PackageReference Include="Microsoft.AspNetCore.Components" Version="6.*" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.*" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.*" PrivateAssets="all" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="6.*" />
+		<PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
+		<PackageReference Include="Microsoft.Extensions.Http" Version="6.*" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<EmbeddedResource Include="wwwroot\appsettings.json">
@@ -40,7 +51,7 @@
 
 	<ItemGroup>
 		<Content Update="Pages\MerlinWizard.razor">
-		  <Pack>$(IncludeRazorContentInPack)</Pack>
+			<Pack>$(IncludeRazorContentInPack)</Pack>
 		</Content>
 		<Content Update="Pages\LoadingContainerDemo.razor">
 			<Pack>$(IncludeRazorContentInPack)</Pack>
@@ -48,7 +59,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="wwwroot\images\" />
+		<Folder Include="wwwroot\images\" />
 	</ItemGroup>
 
 </Project>

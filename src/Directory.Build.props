@@ -26,7 +26,7 @@
 
   <PropertyGroup>
     <Product>BlazorEssentials</Product>
-    <PackageVersion>1.0.0</PackageVersion>
+    <PackageVersion>2.0.0</PackageVersion>
     <Authors>CloudNimble</Authors>
     <Company>CloudNimble Inc.</Company>
     <Copyright>Copyright © 2019-2022 CloudNimble, Inc. All rights reserved.</Copyright>
@@ -80,7 +80,7 @@
   </PropertyGroup>
 
   <ItemGroup Condition=" $(IsTestProject) != 'true' and $(IsSampleProject) != 'true' ">
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.*" PrivateAssets="All" />
     <!-- RWM: The code quality on the unit tests right now is not awesome, so let's skip checking it for now. -->
     <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.*">
       <PrivateAssets>all</PrivateAssets>

@@ -1,4 +1,5 @@
 ﻿using CloudNimble.BlazorEssentials.TestApp.Models;
+using CloudNimble.EasyAF.Configuration;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Net.Http;

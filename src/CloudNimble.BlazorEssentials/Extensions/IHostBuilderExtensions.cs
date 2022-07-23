@@ -1,5 +1,6 @@
 ﻿using CloudNimble.BlazorEssentials;
-using CloudNimble.BlazorEssentials.Authentication;
+using CloudNimble.EasyAF.Configuration;
+using CloudNimble.EasyAF.Core;
 using Microsoft.Extensions.DependencyInjection;
 using System.Net.Http;
 

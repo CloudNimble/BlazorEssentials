@@ -1,6 +1,7 @@
 using CloudNimble.BlazorEssentials.Breakdance;
 using CloudNimble.BlazorEssentials.TestApp.Models;
 using CloudNimble.BlazorEssentials.TestApp.ViewModels;
+using CloudNimble.EasyAF.Configuration;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

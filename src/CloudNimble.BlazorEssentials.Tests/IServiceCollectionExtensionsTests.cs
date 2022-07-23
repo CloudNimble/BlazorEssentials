@@ -1,6 +1,8 @@
 using CloudNimble.BlazorEssentials.Authentication;
 using CloudNimble.Breakdance.Assemblies;
 using CloudNimble.Breakdance.Blazor;
+using CloudNimble.EasyAF.Configuration;
+using CloudNimble.EasyAF.Core;
 using FluentAssertions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;

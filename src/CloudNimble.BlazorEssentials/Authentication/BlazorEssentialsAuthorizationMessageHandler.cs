@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using CloudNimble.EasyAF.Configuration;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using System;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace CloudNimble.BlazorEssentials.Authentication
             if (config == null) throw new ArgumentNullException(nameof(config));
 
             var authorizedUrls = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                .Where(c => c.GetCustomAttributes<AuthenticatedEndpointAttribute>().Any())
+                .Where(c => c.GetCustomAttributes<HttpEndpointAttribute>().Any())
                 .Select(c => c.GetValue(config))
                 .Where(c => !string.IsNullOrWhiteSpace(c as string))
                 .Select(c => c as string);

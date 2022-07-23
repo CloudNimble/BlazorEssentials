@@ -1,5 +1,6 @@
 ﻿using CloudNimble.BlazorEssentials.TestApp.Models;
 using CloudNimble.BlazorEssentials.TestApp.ViewModels;
+using CloudNimble.EasyAF.Configuration;
 using Havit.Blazor.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;

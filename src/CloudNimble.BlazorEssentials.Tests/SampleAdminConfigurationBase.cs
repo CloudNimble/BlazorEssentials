@@ -1,4 +1,5 @@
 ﻿using CloudNimble.BlazorEssentials.Authentication;
+using CloudNimble.EasyAF.Configuration;
 
 namespace CloudNimble.BlazorEssentials.Tests
 {
@@ -15,7 +16,7 @@ namespace CloudNimble.BlazorEssentials.Tests
         /// <summary>
         /// 
         /// </summary>
-        [AuthenticatedEndpoint(nameof(AdminApiClientName))]
+        [HttpEndpoint(nameof(AdminApiClientName))]
         public string AdminApiRoot => $"{ApiRoot}Admin";
 
     }

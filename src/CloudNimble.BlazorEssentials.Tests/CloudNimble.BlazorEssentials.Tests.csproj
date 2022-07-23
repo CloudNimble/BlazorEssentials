@@ -4,7 +4,6 @@
     <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
     <RazorLangVersion>3.0</RazorLangVersion>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
-    <LangVersion>10.0</LangVersion>
     <IsPackable>false</IsPackable>
     <NoWarn>$(NoWarn);NU5125;NU5105;NU5048;NU5014;CA1052;CA1801;CA1822;</NoWarn>
   </PropertyGroup>

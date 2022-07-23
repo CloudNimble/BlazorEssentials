@@ -1,4 +1,5 @@
 ﻿using CloudNimble.BlazorEssentials.Navigation;
+using CloudNimble.EasyAF.Configuration;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.ComponentModel;

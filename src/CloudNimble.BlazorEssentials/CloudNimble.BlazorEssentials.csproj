@@ -1,74 +1,79 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
-  <PropertyGroup>
-    <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
-    <DocumentationFile>$(DocumentationFile)\$(AssemblyName).xml</DocumentationFile>
-    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>net6.0;net7.0</TargetFrameworks>
+		<DocumentationFile>$(DocumentationFile)\$(AssemblyName).xml</DocumentationFile>
+		<AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+	</PropertyGroup>
 
-  <PropertyGroup>
-    <PackageId>BlazorEssentials</PackageId>
-    <Description>A set of utilities to make Blazor development easier than ever. Includes base classes for Application State, Configuration, and ViewModels, as well as an ODataResultList and a helper to pull configuration files out of embedded resources.</Description>
-    <RepositoryUrl>https://github.com/CloudNimble/BlazorEssentials</RepositoryUrl>
-    <PackageReleaseNotes>
-      Version 2.0.0
-      - Added support for Blazor on .NET 5.0
-      - Removed custom authentication solution in favor of OOB auth
-      - Added ApiAuthorizationMessageHandler to add tokens to the API specified in ConfigurationBase.ApiRoot.
-      - Injecting an IHttpClientFactory where necessary instead of an HttpClient.
-    </PackageReleaseNotes>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageTags>Blazor, RazorComponents, Razor Components</PackageTags>
-    <Authors>CloudNimble</Authors>
-    <RepositoryType>git</RepositoryType>
-    <NoWarn>$(NoWarn);CS1998;CS1591;CA1052;CA1801;CA1822;NU5104</NoWarn>
-  </PropertyGroup>
+	<PropertyGroup>
+		<PackageId>BlazorEssentials</PackageId>
+		<Description>A set of utilities to make Blazor development easier than ever. Includes base classes for Application State, Configuration, and ViewModels, as well as an ODataResultList and a helper to pull configuration files out of embedded resources.</Description>
+		<RepositoryUrl>https://github.com/CloudNimble/BlazorEssentials</RepositoryUrl>
+		<PackageReleaseNotes>
+			Version 2.0.0
+			- Updated support for Blazor on .NET 6 and .NET 7 Preview 6.
+			- Removed custom authentication solution in favor of OOB auth.
+			- Now injecting an IHttpClientFactory where necessary instead of an HttpClient.
+			- Added simplified registration into applications, thanks to EasyAF.Configuration and EasyAF.Http.
+			- Added Blazor unit testing support with Breakdance.
+		</PackageReleaseNotes>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageTags>blazor;razorcomponents;Razor Components, WebAssembly</PackageTags>
+		<Authors>CloudNimble</Authors>
+		<RepositoryType>git</RepositoryType>
+		<NoWarn>$(NoWarn);CS1998;CS1591;CA1052;CA1801;CA1822;NU5104</NoWarn>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <SupportedPlatform Include="browser" />
-    <None Include="..\.editorconfig" Link=".editorconfig" />
-    <Folder Include="Forms\" />
-  </ItemGroup>
+	<ItemGroup>
+		<SupportedPlatform Include="browser" />
+		<None Include="..\.editorconfig" Link=".editorconfig" />
+		<Folder Include="Forms\" />
+	</ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)'=='netstandard2.1'">
-	<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="[3.2.0, 4.0.0)" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="[3.2.1, 4.0.0)" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="[3.1.9, 4.0.0)" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="[3.1.9, 4.0.0)" />
-    <PackageReference Include="Microsoft.Extensions.Http" Version="[3.1.9, 4.0.0)" />
-    <PackageReference Include="System.Net.Http.Json" Version="[3.2.1, 4.0.0)" />
-  </ItemGroup>
-	  
-  <ItemGroup Condition="'$(TargetFramework)'=='net6.0'">
-	  <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="[6.0.0, 7.0.0)" />
-	  <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="[6.0.0, 7.0.0)" />
-	  <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="[6.0.0, 7.0.0)" />
-	  <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="[6.0.0, 7.0.0)" />
-	  <PackageReference Include="Microsoft.Extensions.Http" Version="[6.0.0, 7.0.0)" />
-	  <PackageReference Include="System.Net.Http.Json" Version="[6.0.0, 7.0.0)" />
-	  <PackageReference Include="System.Collections" Version="[4.3.0, 7.0.0)" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="EasyAF.Http" Version="2.0.0-CI-*" />
+	</ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)'=='net7.0'">
-	<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="[7.0.0-preview.6.22330.3, 8.0.0)" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="[7.0.0-preview.6.22330.3, 8.0.0)" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="[7.0.0-preview.6.22324.4, 8.0.0)" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="[7.0.0-preview.6.22324.4, 8.0.0)" />
-    <PackageReference Include="Microsoft.Extensions.Http" Version="[7.0.0-preview.6.22324.4, 8.0.0)" />
-    <PackageReference Include="System.Net.Http.Json" Version="[7.0.0-preview.6.22324.4, 8.0.0)" />
-    <PackageReference Include="System.Collections" Version="[4.3.0, 8.0.0)" />
-  </ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)'=='netstandard2.1'">
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="[3.2.0, 4.0.0)" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="[3.2.1, 4.0.0)" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="[3.1.9, 4.0.0)" />
+		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="[3.1.9, 4.0.0)" />
+		<PackageReference Include="Microsoft.Extensions.Http" Version="[3.1.9, 4.0.0)" />
+		<PackageReference Include="System.Net.Http.Json" Version="[3.2.1, 4.0.0)" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-      <_Parameter1>CloudNimble.BlazorEssentials.Breakdance</_Parameter1>
-    </AssemblyAttribute>
-    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-      <_Parameter1>CloudNimble.BlazorEssentials.Tests.Breakdance</_Parameter1>
-    </AssemblyAttribute>
-  </ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)'=='net6.0'">
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="[6.0.0, 7.0.0)" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="[6.0.0, 7.0.0)" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="[6.0.0, 7.0.0)" />
+		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="[6.0.0, 7.0.0)" />
+		<PackageReference Include="Microsoft.Extensions.Http" Version="[6.0.0, 7.0.0)" />
+		<PackageReference Include="System.Net.Http.Json" Version="[6.0.0, 7.0.0)" />
+		<PackageReference Include="System.Collections" Version="[4.3.0, 7.0.0)" />
+	</ItemGroup>
 
-  <!--<ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)'=='net7.0'">
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="[7.0.0-preview.6.22330.3, 8.0.0)" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="[7.0.0-preview.6.22330.3, 8.0.0)" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="[7.0.0-preview.6.22324.4, 8.0.0)" />
+		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="[7.0.0-preview.6.22324.4, 8.0.0)" />
+		<PackageReference Include="Microsoft.Extensions.Http" Version="[7.0.0-preview.6.22324.4, 8.0.0)" />
+		<PackageReference Include="System.Net.Http.Json" Version="[7.0.0-preview.6.22324.4, 8.0.0)" />
+		<PackageReference Include="System.Collections" Version="[4.3.0, 8.0.0)" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+			<_Parameter1>CloudNimble.BlazorEssentials.Breakdance</_Parameter1>
+		</AssemblyAttribute>
+		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+			<_Parameter1>CloudNimble.BlazorEssentials.Tests.Breakdance</_Parameter1>
+		</AssemblyAttribute>
+	</ItemGroup>
+
+	<!--<ItemGroup>
     <None Include="$(BaseIntermediateOutputPath)\$(Configuration)\net6.0\scopedcss\projectbundle\*.scp.css" Visible="false">
       <PackagePath>staticwebassets</PackagePath>
       <Pack>true</Pack>

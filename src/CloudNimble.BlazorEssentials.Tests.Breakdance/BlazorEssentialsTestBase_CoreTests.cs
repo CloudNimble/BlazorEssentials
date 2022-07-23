@@ -1,4 +1,5 @@
 ﻿using CloudNimble.BlazorEssentials.Breakdance;
+using CloudNimble.EasyAF.Configuration;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

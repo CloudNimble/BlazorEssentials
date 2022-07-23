@@ -1,5 +1,7 @@
 ﻿using CloudNimble.BlazorEssentials.Authentication;
 using CloudNimble.Breakdance.Blazor;
+using CloudNimble.EasyAF.Configuration;
+using CloudNimble.EasyAF.Core;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

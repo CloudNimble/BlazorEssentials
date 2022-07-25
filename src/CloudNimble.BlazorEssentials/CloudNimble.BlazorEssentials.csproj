@@ -32,7 +32,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="EasyAF.Http" Version="2.0.0-CI-*" />
+		<PackageReference Include="EasyAF.Http" Version="2.*-*" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)'=='netstandard2.1'">
@@ -55,21 +55,21 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)'=='net7.0'">
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="[7.0.0-preview.6.22330.3, 8.0.0)" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="[7.0.0-preview.6.22330.3, 8.0.0)" />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="[7.0.0-preview.6.22324.4, 8.0.0)" />
-		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="[7.0.0-preview.6.22324.4, 8.0.0)" />
-		<PackageReference Include="Microsoft.Extensions.Http" Version="[7.0.0-preview.6.22324.4, 8.0.0)" />
-		<PackageReference Include="System.Net.Http.Json" Version="[7.0.0-preview.6.22324.4, 8.0.0)" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="[7.0.0-preview.*, 8.0.0)" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="[7.0.0-preview.*, 8.0.0)" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="[7.0.0-preview.*, 8.0.0)" />
+		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="[7.0.0-preview.*, 8.0.0)" />
+		<PackageReference Include="Microsoft.Extensions.Http" Version="[7.0.0-preview.*, 8.0.0)" />
+		<PackageReference Include="System.Net.Http.Json" Version="[7.0.0-preview.*, 8.0.0)" />
 		<PackageReference Include="System.Collections" Version="[4.3.0, 8.0.0)" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-			<_Parameter1>CloudNimble.BlazorEssentials.Breakdance</_Parameter1>
+			<_Parameter1>CloudNimble.BlazorEssentials.Breakdance, $(StrongNamePublicKey)</_Parameter1>
 		</AssemblyAttribute>
 		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-			<_Parameter1>CloudNimble.BlazorEssentials.Tests.Breakdance</_Parameter1>
+			<_Parameter1>CloudNimble.BlazorEssentials.Tests.Breakdance, $(StrongNamePublicKey)</_Parameter1>
 		</AssemblyAttribute>
 	</ItemGroup>
 

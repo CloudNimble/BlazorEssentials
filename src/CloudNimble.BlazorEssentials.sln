@@ -18,6 +18,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6524F3C1-36E5-4F66-9658-0D5D764889F8}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		blazoressentials.snk = blazoressentials.snk
 		Directory.Build.props = Directory.Build.props
 		global.json = global.json
 	EndProjectSection

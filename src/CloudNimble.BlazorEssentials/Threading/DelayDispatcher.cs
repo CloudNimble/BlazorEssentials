@@ -25,7 +25,8 @@ namespace CloudNimble.BlazorEssentials.Threading
 
         private bool disposedValue;
         private Timer timer;
-        private DateTime TimerStarted { get; set; } = DateTime.UtcNow.AddYears(-1);
+        private Action<object> action;
+        private object param;
 
         #endregion
 
@@ -59,7 +60,7 @@ namespace CloudNimble.BlazorEssentials.Threading
             timer = new Timer(interval);
             timer.Elapsed += (s, e) =>
             {
-                if (timer == null)
+                if (timer is null)
                     return;
 
                 timer?.Stop();
@@ -82,32 +83,27 @@ namespace CloudNimble.BlazorEssentials.Threading
         /// <param name="param">optional parameter</param>
         public void Throttle(int interval, Action<object> action, object param = null)
         {
-            // kill pending timer and pending ticks
-            timer?.Stop();
-            timer = null;
+            // We update the action and param so that it is always the latest action parsed to Throttle that gets invoked.
+            this.action = action;
+            this.param = param;
 
-            var dispatcher = Dispatcher.CreateDefault();
-
-            var curTime = DateTime.UtcNow;
-
-            // if timeout is not up yet - adjust timeout to fire 
-            // with potentially new Action parameters           
-            if (curTime.Subtract(TimerStarted).TotalMilliseconds < interval)
-                interval -= (int)curTime.Subtract(TimerStarted).TotalMilliseconds;
-
-            timer = new Timer(interval);
-            timer.Elapsed += (s, e) =>
+            // We only create a new timer if the last one was done.
+            if (timer is null)
             {
-                if (timer == null)
-                    return;
+                timer = new Timer(interval);
+                timer.Elapsed += (s, e) =>
+                {
+                    if (timer is null)
+                        return;
 
-                timer?.Stop();
-                timer = null;
-                dispatcher.InvokeAsync(() => action.Invoke(param));
-            };
+                    timer?.Stop();
+                    timer = null;
+                    var dispatcher = Dispatcher.CreateDefault();
+                    dispatcher.InvokeAsync(() => this.action.Invoke(this.param));
+                };
 
-            timer.Start();
-            TimerStarted = curTime;
+                timer.Start();
+            }
         }
 
         #region IDisposable

@@ -1,0 +1,51 @@
+﻿@using CloudNimble.BlazorEssentials.TestApp.ViewModels;
+@using CloudNimble.BlazorEssentials.Controls;
+@using System.ComponentModel;
+
+@page "/Throttle"
+
+@inject DebounceViewModel viewModel
+
+<h1>Throttler</h1>
+
+<p>This page showcases the throttling that we have on the <code>StateHasChangedAction</code> so that rapid calls get ignored.</p>
+
+<hr />
+
+@if (rapidFire)
+{
+    <button class="btn btn-warning" @onclick="ToggleRapidFire">Press button to stop rapid firing StateHasChangedAction</button>
+}
+else
+{
+    <button class="btn btn-success" @onclick="ToggleRapidFire">Press button to start rapid firing StateHasChangedAction</button>
+}
+
+<hr />
+
+<textarea style="width:100%;height:300px;">@printOut</textarea>
+
+@code
+{
+    private string printOut = string.Empty;
+    private bool rapidFire;
+
+    protected override async Task OnInitializedAsync()
+    {
+        viewModel.StateHasChangedAction = () =>
+        {
+            printOut += $"StateHasChanged at {DateTime.UtcNow.Second.ToString("D2") + ":" + DateTime.UtcNow.Millisecond.ToString("D3")}\n";
+            StateHasChanged();
+        };
+    }
+
+    protected async Task ToggleRapidFire()
+    {
+        rapidFire = !rapidFire;
+        while (rapidFire)
+        {
+            await Task.Delay(1);
+            viewModel.StateHasChangedAction();
+        }
+    }
+}

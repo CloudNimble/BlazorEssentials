@@ -39,11 +39,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        //RWM: Make sure the NavMenu re-renders when the CurrentUser changes.
-        appState.PropertyChanged += (sender, e) =>
-        {
-            this.StateHasChanged();
-        };
+        appState.StateHasChangedAction = StateHasChanged;
 
         await Task.FromResult(true);
     }

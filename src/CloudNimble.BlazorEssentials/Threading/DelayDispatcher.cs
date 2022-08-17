@@ -30,6 +30,13 @@ namespace CloudNimble.BlazorEssentials.Threading
 
         #endregion
 
+        #region Public Properties
+
+        public int DelayCount { get; set; }
+        public DateTime TimerStarted { get; set; }
+
+        #endregion
+
         /// <summary>
         /// Debounce an event by resetting the event timeout every time the event is 
         /// fired. The behavior is that the Action passed is fired only after events
@@ -47,11 +54,16 @@ namespace CloudNimble.BlazorEssentials.Threading
         /// <param name="param">optional parameter</param>
         public void Debounce(int interval, Action<object> action, object param = null)
         {
+            DelayCount++;
             // kill pending timer and pending ticks
-            timer?.Stop();
-            timer = null;
-
-            var dispatcher = Dispatcher.CreateDefault();
+            if (timer != null)
+            {
+                timer.Stop();
+            }
+            else
+            {
+                TimerStarted = DateTime.UtcNow;
+            }
 
             // timer is recreated for each event and effectively
             // resets the timeout. Action only fires after timeout has fully
@@ -65,7 +77,9 @@ namespace CloudNimble.BlazorEssentials.Threading
 
                 timer?.Stop();
                 timer = null;
+                var dispatcher = Dispatcher.CreateDefault();
                 dispatcher.InvokeAsync(() => action.Invoke(param));
+                DelayCount = 0;
             };
 
             timer.Start();
@@ -83,6 +97,7 @@ namespace CloudNimble.BlazorEssentials.Threading
         /// <param name="param">optional parameter</param>
         public void Throttle(int interval, Action<object> action, object param = null)
         {
+            DelayCount++;
             // We update the action and param so that it is always the latest action parsed to Throttle that gets invoked.
             this.action = action;
             this.param = param;
@@ -100,9 +115,11 @@ namespace CloudNimble.BlazorEssentials.Threading
                     timer = null;
                     var dispatcher = Dispatcher.CreateDefault();
                     dispatcher.InvokeAsync(() => this.action.Invoke(this.param));
+                    DelayCount = 0;
                 };
 
                 timer.Start();
+                TimerStarted = DateTime.UtcNow;
             }
         }
 

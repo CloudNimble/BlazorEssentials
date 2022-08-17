@@ -37,7 +37,7 @@ namespace CloudNimble.BlazorEssentials.TestApp.Models
                 new NavigationItem("Dashboard",             "fad fa-fw fa-desktop", "/",                    "Main",             true, "Dashboard",              "fad fa-fw fa-2x fa-desktop", null, true),
                 new NavigationItem("LoadingContainer Demo", "fad fa-fw fa-desktop", "LoadingContainer",     "Controls",         true, "LoadingContainer Demo",  "fad fa-fw fa-2x fa-desktop", null, true),
                 new NavigationItem("Merlin Demo",           "fad fa-fw fa-desktop", "Merlin",               "Controls",         true, "Merlin Demo",            "fad fa-fw fa-2x fa-desktop", null, true),
-                new NavigationItem("Throttle Demo",         "fad fa-fw fa-desktop", "Throttle",             "Functionality",    true, "Throttle Demo",          "fad fa-fw fa-2x fa-desktop", null, true)
+                new NavigationItem("Delay StateHasChanged", "fad fa-fw fa-desktop", "DelayStateHasChanged", "Functionality",    true, "Delay StateHasChanged",  "fad fa-fw fa-2x fa-desktop", null, true)
             };
             LoadNavItems(nav);
 

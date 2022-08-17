@@ -1,0 +1,63 @@
+﻿@using CloudNimble.BlazorEssentials.TestApp.ViewModels;
+@using CloudNimble.BlazorEssentials.Controls;
+@using System.ComponentModel;
+
+@page "/DelayStateHasChanged"
+
+@inject DelayStateHasChangedViewModel viewModel
+
+
+<p>This page showcases the delay that we have on the <code>StateHasChangedAction</code> so that rapid calls get ignored.</p>
+
+<hr />
+
+@if (rapidFire)
+{
+    <button class="btn btn-warning" @onclick="ToggleRapidFire">Press button to stop rapid firing StateHasChangedAction</button>
+}
+else
+{
+    <button class="btn btn-success" @onclick="ToggleRapidFire">Press button to start rapid firing StateHasChangedAction</button>
+}
+<br />
+<br />
+<label class="form-label">Delay Mode (@viewModel.DelayMode.ToString())</label>
+<br />
+@foreach (DelayMode mode in Enum.GetValues(typeof(DelayMode)))
+{
+    <button class="btn btn-primary px-1" @onclick="()=>viewModel.DelayMode = mode">@mode.ToString()</button>
+}
+<br />
+<label for="delayInterval" class="form-label">Delay Interval (@viewModel.DelayInterval)</label>
+<input @bind-value=viewModel.DelayInterval id="delayInterval" type="range" class="form-range" min="10" max="4000" step="10" />
+<label for="updateInterval" class="form-label">Rapid Fire Interval (@fireInterval)</label>
+<input @bind-value=fireInterval id="updateInterval" type="range" class="form-range" min="1" max="2000" step="1" />
+<hr />
+
+<textarea style="width:100%;height:300px;">@printOut</textarea>
+
+@code
+{
+    private string printOut = string.Empty;
+    private bool rapidFire;
+    private int fireInterval = 1;
+
+    protected override async Task OnInitializedAsync()
+    {
+        viewModel.StateHasChangedAction = () =>
+        {
+            printOut = $"StateHasChanged at {DateTime.UtcNow.Second.ToString("D2") + ":" + DateTime.UtcNow.Millisecond.ToString("D3")}\n" + printOut;
+            StateHasChanged();
+        };
+    }
+
+    protected async Task ToggleRapidFire()
+    {
+        rapidFire = !rapidFire;
+        while (rapidFire)
+        {
+            await Task.Delay(fireInterval);
+            viewModel.StateHasChangedAction();
+        }
+    }
+}

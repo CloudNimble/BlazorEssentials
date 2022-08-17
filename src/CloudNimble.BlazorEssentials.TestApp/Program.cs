@@ -30,7 +30,7 @@ namespace CloudNimble.BlazorEssentials.TestApp
             builder.Services.AddSingleton<IndexViewModel>();
             builder.Services.AddSingleton<LoadingContainerViewModel>();
             builder.Services.AddSingleton<WizardViewModel>();
-            builder.Services.AddSingleton<DebounceViewModel>();
+            builder.Services.AddSingleton<DelayStateHasChangedViewModel>();
 
             builder.Services.AddHxServices();
 

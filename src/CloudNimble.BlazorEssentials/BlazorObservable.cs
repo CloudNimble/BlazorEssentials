@@ -79,7 +79,7 @@ namespace CloudNimble.BlazorEssentials
                                         Console.WriteLine("StateHasChanged was delayed by {0} miliseconds with a Debounce which is not a humanly perceivable delay as it is below 50.", diffMiliseconds);
                                         break;
                                     case > 2000:
-                                        Console.WriteLine("StateHasChanged was delayed by {0} miliseconds with a Debounce which will seem like a disruptive delay. Ensure that you have some sort loading message or animation here.", diffMiliseconds);
+                                        Console.WriteLine("StateHasChanged was delayed by {0} miliseconds with a Debounce which is a disruptive delay. Ensure that you have some a loading message or animation here.", diffMiliseconds);
                                         break;
                                 }
                             }
@@ -100,7 +100,7 @@ namespace CloudNimble.BlazorEssentials
                                         Console.WriteLine("You delayed with a Throttle larger than 1000 miliseconds with {0} invocations. You might want to use Debounce mode instead with a shorter interval.", delayDispatcher.DelayCount);
                                         break;
                                     case > 2000:
-                                        Console.WriteLine("You delayed with a Throttle larger than 2000 miliseconds which will seem like a disruptive delay. Consider using a shorter interval.");
+                                        Console.WriteLine("You delayed with a Throttle larger than 2000 miliseconds which is a disruptive delay. Consider using a shorter interval.");
                                         break;
                                 }
                             }

@@ -1,9 +1,11 @@
 ﻿using CloudNimble.BlazorEssentials.Threading;
 using CloudNimble.EasyAF.Core;
 using System;
+using System.Globalization;
 
 namespace CloudNimble.BlazorEssentials
 {
+
     /// <summary>
     /// A base class for Blazor ViewModels to implement INotifyPropertyChanged and IDisposable.
     /// </summary>
@@ -16,29 +18,11 @@ namespace CloudNimble.BlazorEssentials
         private LoadingStatus loadingStatus;
         private Action stateHasChangedAction = () => { };
         private DelayDispatcher delayDispatcher = new();
-        private int stateHasChangedCount = 0;
+        private Action stateHasChangedActionInternal;
 
         #endregion
 
         #region Properties
-
-        /// <summary>
-        /// Mode for delaying <see cref="StateHasChangedAction"/>.
-        /// Default is <see cref="DelayMode.Off"/>.
-        /// </summary>
-        public DelayMode DelayMode { get; set; } = DelayMode.Off;
-
-        /// <summary>
-        /// Interval for <see cref="DelayDispatcher"/> Debounce or Throttle if it is used on <see cref="StateHasChangedAction"/>.
-        /// Default is 100 miliseconds.
-        /// </summary>
-        public int DelayInterval { get; set; } = 100;
-
-        /// <summary>
-        /// Flag for whether or not the render count and helpful debug feedback/warnings should be logged to the <see cref="Console"/>.
-        /// Default is false.
-        /// </summary>
-        public bool DebugMode { get; set; }
 
         /// <summary>
         /// A <see cref="LoadingStatus"/> specifying the current state of the required data for this ViewModel.
@@ -46,76 +30,111 @@ namespace CloudNimble.BlazorEssentials
         public LoadingStatus LoadingStatus
         {
             get => loadingStatus;
-            set
-            {
-                if (loadingStatus != value)
-                {
-                    loadingStatus = value;
-                    RaisePropertyChanged();
-                }
-            }
+            set => Set(() => LoadingStatus, ref loadingStatus, value);
         }
 
         /// <summary>
-        /// Allows the current Blazor container to pass the StateHasChanged action back to the BlazorObservable so ViewModel operations can trigger state changes.
+        /// Allows the current Blazor container to pass the StateHasChanged action back to the BlazorObservable so ViewModel operations can 
+        /// trigger state changes.
         /// </summary>
+        /// <remarks>
+        /// Will optionally drop intermediate StateHasChanged calls in a rapidly-updating environment, based on <see cref="StateHasChangedDelayMode"/> 
+        /// and <see cref="StateHasChangedDelayInterval"/>.
+        /// </remarks>
         public Action StateHasChangedAction
         {
             get
             {
-                switch (DelayMode)
+                return StateHasChangedDelayMode switch
                 {
-                    case DelayMode.Debounce:
-                        return () => delayDispatcher.Debounce(DelayInterval, _ =>
-                        {
-                            stateHasChangedAction();
-                            if (DebugMode)
-                            {
-                                Console.WriteLine("{0} StateHasChanged {1} ({2} invocations) @ {3}", GetType().Name, ++stateHasChangedCount, delayDispatcher.DelayCount, DateTime.UtcNow.ToString());
-                                var diffMiliseconds = DateTime.UtcNow.Subtract(delayDispatcher.TimerStarted).TotalMilliseconds;
-                                switch (diffMiliseconds)
-                                {
-                                    case < 50:
-                                        Console.WriteLine("StateHasChanged was delayed by {0} miliseconds with a Debounce which is not a humanly perceivable delay as it is below 50.", diffMiliseconds);
-                                        break;
-                                    case > 2000:
-                                        Console.WriteLine("StateHasChanged was delayed by {0} miliseconds with a Debounce which is a disruptive delay. Ensure that you have some a loading message or animation here.", diffMiliseconds);
-                                        break;
-                                }
-                            }
-                        }, null);
-                    case DelayMode.Throttle:
-                        return () => delayDispatcher.Throttle(DelayInterval, _ =>
-                        {
-                            stateHasChangedAction();
-                            if (DebugMode)
-                            {
-                                Console.WriteLine("{0} StateHasChanged {1} ({2} invocations) @ {3}", GetType().Name, ++stateHasChangedCount, delayDispatcher.DelayCount, DateTime.UtcNow.ToString());
-                                switch (DelayInterval)
-                                {
-                                    case < 50:
-                                        Console.WriteLine("You delayed with a Throttle less than 50 miliseconds which is not a humanly perceivable delay.");
-                                        break;
-                                    case > 1000 when delayDispatcher.DelayCount <= 10:
-                                        Console.WriteLine("You delayed with a Throttle larger than 1000 miliseconds with {0} invocations. You might want to use Debounce mode instead with a shorter interval.", delayDispatcher.DelayCount);
-                                        break;
-                                    case > 2000:
-                                        Console.WriteLine("You delayed with a Throttle larger than 2000 miliseconds which is a disruptive delay. Consider using a shorter interval.");
-                                        break;
-                                }
-                            }
-                        }, null);
+                    StateHasChangedDelayMode.Debounce => () => delayDispatcher.Debounce(StateHasChangedDelayInterval, _ => stateHasChangedActionInternal()),
+                    StateHasChangedDelayMode.Throttle => () => delayDispatcher.Throttle(StateHasChangedDelayInterval, _ => stateHasChangedActionInternal()),
+                    _ => () => stateHasChangedActionInternal()
                 };
-                if (DebugMode)
-                {
-                    Console.WriteLine("{0} StateHasChanged {1} (1 invocations) @ {2}", GetType().Name, ++stateHasChangedCount, DateTime.UtcNow.ToString());
-                }
-                return stateHasChangedAction;
             }
             set
             {
                 stateHasChangedAction = value;
             }
+        }
+
+        public int StateHasChangedCount { get; set; }
+
+        /// <summary>
+        /// Flag for whether or not the render count and helpful debug feedback/warnings should be logged to the <see cref="Console"/>.
+        /// Default is false.
+        /// </summary>
+        public StateHasChangedDebugMode StateHasChangedDebugMode { get; set; }
+
+        /// <summary>
+        /// An <see cref="int"/> specifying the number of milliseconds this BlazorObservable should wait between 
+        /// <see cref="StateHasChangedAction"/> calls. Default is 100 miliseconds.
+        /// </summary>
+        /// <remarks>
+        /// <see cref="StateHasChangedDelayMode" /> must be set to <see cref="StateHasChangedDelayMode.Debounce" /> or 
+        /// <see cref="StateHasChangedDelayMode.Throttle" /> for this setting to take effect.
+        /// </remarks>
+        public int StateHasChangedDelayInterval { get; set; } = 100;
+
+        /// <summary>
+        /// A <see cref="StateHasChangedDelayMode" /> indicating whether or not this BlazorObservable should reduce the number of times
+        /// <see cref="StateHasChangedAction" /> should be called in a given <see cref="StateHasChangedDelayInterval" />
+        /// Default is <see cref="StateHasChangedDelayMode.Off"/>.
+        /// </summary>
+        public StateHasChangedDelayMode StateHasChangedDelayMode { get; set; } = StateHasChangedDelayMode.Off;
+
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// Creates a new instance of the BlazorObservable class.
+        /// </summary>
+        public BlazorObservable()
+        {
+            stateHasChangedActionInternal = () =>
+            {
+                ++StateHasChangedCount;
+                stateHasChangedAction();
+
+                if (StateHasChangedDebugMode == StateHasChangedDebugMode.Off) return;
+                LogDelay();
+            };
+        }
+
+
+        #endregion
+
+        #region Private Methods
+
+        /// <summary>
+        /// 
+        /// </summary>
+        internal void LogDelay()
+        {
+            Console.WriteLine($"{GetType().Name}: StateHasChanged #{StateHasChangedCount} called @ {DateTime.UtcNow.ToString("hh:mm:ss.fff", CultureInfo.InvariantCulture)} " +
+                $"{(StateHasChangedDebugMode != StateHasChangedDebugMode.Off ? $"after {delayDispatcher.DelayCount} dropped calls." : "")}");
+
+            if (StateHasChangedDebugMode != StateHasChangedDebugMode.Tuning) return;
+
+            var diffMiliseconds = DateTime.UtcNow.Subtract(delayDispatcher.TimerStarted).TotalMilliseconds;
+
+            // RWM: We're going to use a Tuple switch statement to simplify 
+            var entry = (StateHasChangedDelayMode, StateHasChangedDelayInterval, delayDispatcher.DelayCount, diffMiliseconds) switch
+            {
+                (StateHasChangedDelayMode.Debounce, _, _, < 50) => $"Performance: Debounce waited {diffMiliseconds} between calls. Delay was imperceptible.",
+
+                (StateHasChangedDelayMode.Debounce, _, _, < 2000) => $"Performance: Debounce waited {diffMiliseconds} between calls. Delay was noticeable.",
+
+                (StateHasChangedDelayMode.Throttle, < 50, _, _) => $"Performance: Throttle waited {StateHasChangedDelayInterval} between calls. Delay was imperceptible.",
+
+                (StateHasChangedDelayMode.Throttle, < 2000, < 10, _) => $"Performance: Throttle waited {StateHasChangedDelayInterval} between calls," +
+                    $" but there were fewer than 10 calls dropped. Delay was imperceptible, but consider using Debounce instead.",
+
+                _ => $"Performance: {StateHasChangedDelayMode} waited {(StateHasChangedDelayMode == StateHasChangedDelayMode.Debounce ? diffMiliseconds : StateHasChangedDelayInterval)} " +
+                    $"between calls. Delay was unacceptable. Consider adding a visual 'waiting' indicator for the end user."
+            };
+            Console.WriteLine(entry);
         }
 
         #endregion

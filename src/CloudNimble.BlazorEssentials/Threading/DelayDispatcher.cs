@@ -32,7 +32,14 @@ namespace CloudNimble.BlazorEssentials.Threading
 
         #region Public Properties
 
+        /// <summary>
+        /// 
+        /// </summary>
         public int DelayCount { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public DateTime TimerStarted { get; set; }
 
         #endregion

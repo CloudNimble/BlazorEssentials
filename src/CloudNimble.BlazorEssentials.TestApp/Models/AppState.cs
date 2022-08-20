@@ -40,7 +40,8 @@ namespace CloudNimble.BlazorEssentials.TestApp.Models
                 new NavigationItem("Delay StateHasChanged", "fad fa-fw fa-desktop", "DelayStateHasChanged", "Functionality",    true, "Delay StateHasChanged",  "fad fa-fw fa-2x fa-desktop", null, true)
             };
             LoadNavItems(nav);
-
+            StateHasChangedDelayMode = StateHasChangedDelayMode.Throttle;
+            StateHasChangedDebugMode = StateHasChangedDebugMode.Info;
             this.PropertyChanged += AppState_PropertyChanged;
         }
 
@@ -56,9 +57,6 @@ namespace CloudNimble.BlazorEssentials.TestApp.Models
                 //case nameof(AuthenticationStateProvider):
                 //    this.AuthenticationStateProvider.AuthenticationStateChanged += AuthenticationStateProvider_AuthenticationStateChanged;
                 //break;
-                //case nameof(SelectedCompany):
-                //    LoadCompanyDetails();
-                //    break;
             }
             //RWM: Can't do this here because the handler is not async.
             StateHasChangedAction();

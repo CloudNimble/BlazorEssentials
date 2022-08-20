@@ -35,12 +35,12 @@ namespace CloudNimble.BlazorEssentials.Threading
         /// <summary>
         /// 
         /// </summary>
-        public int DelayCount { get; set; }
+        public int DelayCount { get; internal set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public DateTime TimerStarted { get; set; }
+        public DateTime TimerStarted { get; internal set; }
 
         #endregion
 

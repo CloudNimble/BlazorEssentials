@@ -16,9 +16,8 @@ namespace CloudNimble.BlazorEssentials
 
         private bool disposedValue;
         private LoadingStatus loadingStatus;
-        private Action stateHasChangedAction = () => { };
-        private DelayDispatcher delayDispatcher = new();
-        private Action stateHasChangedActionInternal;
+        private Action stateHasChangedAction;
+        private readonly DelayDispatcher delayDispatcher = new();
 
         #endregion
 
@@ -47,9 +46,9 @@ namespace CloudNimble.BlazorEssentials
             {
                 return StateHasChangedDelayMode switch
                 {
-                    StateHasChangedDelayMode.Debounce => () => delayDispatcher.Debounce(StateHasChangedDelayInterval, _ => stateHasChangedActionInternal()),
-                    StateHasChangedDelayMode.Throttle => () => delayDispatcher.Throttle(StateHasChangedDelayInterval, _ => stateHasChangedActionInternal()),
-                    _ => () => stateHasChangedActionInternal()
+                    StateHasChangedDelayMode.Debounce => () => delayDispatcher.Debounce(StateHasChangedDelayInterval, _ => StateHasChangedInternal()),
+                    StateHasChangedDelayMode.Throttle => () => delayDispatcher.Throttle(StateHasChangedDelayInterval, _ => StateHasChangedInternal()),
+                    _ => () => { StateHasChangedInternal(); }
                 };
             }
             set
@@ -58,6 +57,12 @@ namespace CloudNimble.BlazorEssentials
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// This is public so 
+        /// </remarks>
         public int StateHasChangedCount { get; set; }
 
         /// <summary>
@@ -85,23 +90,21 @@ namespace CloudNimble.BlazorEssentials
 
         #endregion
 
-        #region Constructors
+        #region Constructor
 
         /// <summary>
-        /// Creates a new instance of the BlazorObservable class.
+        /// Creates a new instance of the <see cref="BlazorObservable" /> class.
         /// </summary>
         public BlazorObservable()
         {
-            stateHasChangedActionInternal = () =>
-            {
-                ++StateHasChangedCount;
-                stateHasChangedAction();
-
-                if (StateHasChangedDebugMode == StateHasChangedDebugMode.Off) return;
-                LogDelay();
-            };
+           stateHasChangedAction = () =>
+           {
+               if (StateHasChangedDebugMode != StateHasChangedDebugMode.Off)
+               {
+                   Console.WriteLine("Called empty StateHasChangedAction. Make sure to set `StateHasChangedAction = StateHasChanged;` in OnInitializedAsync()");
+               }
+           };
         }
-
 
         #endregion
 
@@ -115,26 +118,43 @@ namespace CloudNimble.BlazorEssentials
             Console.WriteLine($"{GetType().Name}: StateHasChanged #{StateHasChangedCount} called @ {DateTime.UtcNow.ToString("hh:mm:ss.fff", CultureInfo.InvariantCulture)} " +
                 $"{(StateHasChangedDebugMode != StateHasChangedDebugMode.Off ? $"after {delayDispatcher.DelayCount} dropped calls." : "")}");
 
-            if (StateHasChangedDebugMode != StateHasChangedDebugMode.Tuning) return;
+            if (StateHasChangedDebugMode != StateHasChangedDebugMode.Tuning || StateHasChangedDelayMode == StateHasChangedDelayMode.Off) return;
 
             var diffMiliseconds = DateTime.UtcNow.Subtract(delayDispatcher.TimerStarted).TotalMilliseconds;
 
             // RWM: We're going to use a Tuple switch statement to simplify 
             var entry = (StateHasChangedDelayMode, StateHasChangedDelayInterval, delayDispatcher.DelayCount, diffMiliseconds) switch
             {
-                (StateHasChangedDelayMode.Debounce, _, _, < 50) => $"Performance: Debounce waited {diffMiliseconds} between calls. Delay was imperceptible.",
+                (StateHasChangedDelayMode.Debounce, _, _, < 50) => $"Performance: Debounce waited {diffMiliseconds}ms between calls. Delay was imperceptible.",
 
-                (StateHasChangedDelayMode.Debounce, _, _, < 2000) => $"Performance: Debounce waited {diffMiliseconds} between calls. Delay was noticeable.",
+                (StateHasChangedDelayMode.Debounce, _, _, < 2000) => $"Performance: Debounce waited {diffMiliseconds}ms between calls. Delay was noticeable.",
 
-                (StateHasChangedDelayMode.Throttle, < 50, _, _) => $"Performance: Throttle waited {StateHasChangedDelayInterval} between calls. Delay was imperceptible.",
+                (StateHasChangedDelayMode.Throttle, < 50, _, _) => $"Performance: Throttle waited {StateHasChangedDelayInterval}ms between calls. Delay was imperceptible.",
 
-                (StateHasChangedDelayMode.Throttle, < 2000, < 10, _) => $"Performance: Throttle waited {StateHasChangedDelayInterval} between calls," +
+                (StateHasChangedDelayMode.Throttle, < 2000, < 10, _) => $"Performance: Throttle waited {StateHasChangedDelayInterval}ms between calls," +
                     $" but there were fewer than 10 calls dropped. Delay was imperceptible, but consider using Debounce instead.",
 
-                _ => $"Performance: {StateHasChangedDelayMode} waited {(StateHasChangedDelayMode == StateHasChangedDelayMode.Debounce ? diffMiliseconds : StateHasChangedDelayInterval)} " +
+                (StateHasChangedDelayMode.Throttle, < 2000, _, _) => $"Performance: Throttle waited {StateHasChangedDelayInterval}ms between calls." +
+                    $" If your goal is to reduce the number of repaints but fire them consistently, this is the right setting.",
+
+                _ => $"Performance: {StateHasChangedDelayMode} waited {(StateHasChangedDelayMode == StateHasChangedDelayMode.Debounce ? diffMiliseconds : StateHasChangedDelayInterval)}ms " +
                     $"between calls. Delay was unacceptable. Consider adding a visual 'waiting' indicator for the end user."
             };
+
+            //if (string.IsNullOrWhiteSpace(entry)) return;
             Console.WriteLine(entry);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        internal void StateHasChangedInternal()
+        {
+            ++StateHasChangedCount;
+            stateHasChangedAction();
+
+            if (StateHasChangedDebugMode == StateHasChangedDebugMode.Off) return;
+            LogDelay();
         }
 
         #endregion
@@ -152,7 +172,6 @@ namespace CloudNimble.BlazorEssentials
                 if (disposing)
                 {
                     delayDispatcher.Dispose();
-                    //PropertyChanged = null;
                 }
 
                 disposedValue = true;

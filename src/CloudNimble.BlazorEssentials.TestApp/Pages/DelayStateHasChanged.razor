@@ -21,15 +21,16 @@ else
 }
 <br />
 <br />
-<label class="form-label">Delay Mode (@viewModel.DelayMode.ToString())</label>
+<label class="form-label">Delay Mode (@viewModel.StateHasChangedDelayMode.ToString())</label>
 <br />
-@foreach (DelayMode mode in Enum.GetValues(typeof(DelayMode)))
+@foreach (StateHasChangedDelayMode mode in Enum.GetValues(typeof(StateHasChangedDelayMode)))
 {
-    <button class="btn btn-primary px-1" @onclick="()=>viewModel.DelayMode = mode">@mode.ToString()</button>
+    <button class="btn btn-primary px-1" @onclick="()=>viewModel.StateHasChangedDelayMode = mode">@mode.ToString()</button>
 }
 <br />
-<label for="delayInterval" class="form-label">Delay Interval (@viewModel.DelayInterval)</label>
-<input @bind-value=viewModel.DelayInterval id="delayInterval" type="range" class="form-range" min="10" max="4000" step="10" />
+
+<label for="delayInterval" class="form-label">Delay Interval (@viewModel.StateHasChangedDelayInterval)</label>
+<input @bind-value=viewModel.StateHasChangedDelayInterval id="delayInterval" type="range" class="form-range" min="10" max="4000" step="10" />
 <label for="updateInterval" class="form-label">Rapid Fire Interval (@fireInterval)</label>
 <input @bind-value=fireInterval id="updateInterval" type="range" class="form-range" min="1" max="2000" step="1" />
 <hr />

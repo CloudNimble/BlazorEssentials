@@ -11,8 +11,8 @@ namespace CloudNimble.BlazorEssentials.TestApp.ViewModels
 
         public DelayStateHasChangedViewModel(NavigationManager navigationManager, IHttpClientFactory httpClientFactory, ConfigurationBase configuration = null, AppState appState = null) : base(navigationManager, httpClientFactory, configuration, appState)
         {
-            DebugMode = true;
-            appState.DebugMode = true;
+            StateHasChangedDebugMode = StateHasChangedDebugMode.Tuning;
+            appState.StateHasChangedDebugMode = StateHasChangedDebugMode.Tuning;
         }
 
         #endregion

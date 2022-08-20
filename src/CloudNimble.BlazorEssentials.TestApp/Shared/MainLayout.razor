@@ -44,16 +44,17 @@
     //[CascadingParameter]
     //private Task<AuthenticationState> authenticationStateTask { get; set; }
 
-    protected override void OnParametersSet()
-    {
-        appState.SetCurrentNavItem();
-    }
-
     protected override async Task OnInitializedAsync()
     {
         appState.StateHasChangedAction += StateHasChanged;
+
         //appState.AuthenticationStateProvider = AuthenticationStateProvider;
         //await appState.RefreshClaimsPrincipal();
+    }
+
+    protected override void OnParametersSet()
+    {
+        appState.SetCurrentNavItem();
     }
 
     public void Dispose()

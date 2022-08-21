@@ -101,7 +101,7 @@ namespace CloudNimble.BlazorEssentials
            {
                if (StateHasChangedDebugMode != StateHasChangedDebugMode.Off)
                {
-                   Console.WriteLine("Called empty StateHasChangedAction. Make sure to set `StateHasChangedAction = StateHasChanged;` in OnInitializedAsync()");
+                   Console.WriteLine($"WARNING: {GetType().Name} called empty StateHasChangedAction. Make sure to set `[YourViewModel].StateHasChangedAction = StateHasChanged;` in OnInitializedAsync()");
                }
            };
         }

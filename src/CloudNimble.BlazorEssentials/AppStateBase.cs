@@ -31,8 +31,11 @@ namespace CloudNimble.BlazorEssentials
         #region Properties
 
         /// <summary>
-        /// The <see cref="AuthenticationStateProvider"/> for the app.
+        /// The <see cref="AuthenticationStateProvider"/> instance for the application. 
         /// </summary>
+        /// <remarks>
+        /// This property correctly registers for and de-registers from <see cref="AuthenticationStateProvider"/> events as the value is set.
+        /// </remarks>
         public AuthenticationStateProvider AuthenticationStateProvider
         {
             get => authenticationStateProvider;
@@ -74,7 +77,7 @@ namespace CloudNimble.BlazorEssentials
         public IHttpClientFactory HttpClientFactory { get; private set; }
 
         /// <summary>
-        /// 
+        /// Returns a value indicating whether or not the current <see cref="ClaimsPrincipal">ClaimsPrincipal's</see> Identity is authenticated.
         /// </summary>
         public bool IsClaimsPrincipalAuthenticated => ClaimsPrincipal?.Identity?.IsAuthenticated ?? false;
 
@@ -84,7 +87,7 @@ namespace CloudNimble.BlazorEssentials
         public NavigationManager NavigationManager { get; private set; }
 
         /// <summary>
-        /// 
+        /// An <see cref="ObservableCollection{NavigationItem}"/> containing the primary navigation details for the application.
         /// </summary>
         public ObservableCollection<NavigationItem> NavItems { get; internal set; }
 

@@ -34,12 +34,14 @@ namespace CloudNimble.BlazorEssentials.TestApp.Models
             this.config = config;
             var nav = new List<NavigationItem>
             {
-                new NavigationItem("Dashboard",             "fad fa-fw fa-desktop", "/",                    "Main",        true, "Dashboard",              "fad fa-fw fa-2x fa-desktop", null, true),
-                new NavigationItem("LoadingContainer Demo", "fad fa-fw fa-desktop", "LoadingContainer",     "Controls",    true, "LoadingContainer Demo",  "fad fa-fw fa-2x fa-desktop", null, true),
-                new NavigationItem("Merlin Demo",           "fad fa-fw fa-desktop", "Merlin",               "Controls",    true, "Merlin Demo",  "fad fa-fw fa-2x fa-desktop", null, true)
+                new NavigationItem("Dashboard",             "fad fa-fw fa-desktop", "/",                    "Main",             true, "Dashboard",              "fad fa-fw fa-2x fa-desktop", null, true),
+                new NavigationItem("LoadingContainer Demo", "fad fa-fw fa-desktop", "LoadingContainer",     "Controls",         true, "LoadingContainer Demo",  "fad fa-fw fa-2x fa-desktop", null, true),
+                new NavigationItem("Merlin Demo",           "fad fa-fw fa-desktop", "Merlin",               "Controls",         true, "Merlin Demo",            "fad fa-fw fa-2x fa-desktop", null, true),
+                new NavigationItem("Delay StateHasChanged", "fad fa-fw fa-desktop", "DelayStateHasChanged", "Functionality",    true, "Delay StateHasChanged",  "fad fa-fw fa-2x fa-desktop", null, true)
             };
             LoadNavItems(nav);
-
+            StateHasChangedDelayMode = StateHasChangedDelayMode.Throttle;
+            StateHasChangedDebugMode = StateHasChangedDebugMode.Info;
             this.PropertyChanged += AppState_PropertyChanged;
         }
 
@@ -55,9 +57,6 @@ namespace CloudNimble.BlazorEssentials.TestApp.Models
                 //case nameof(AuthenticationStateProvider):
                 //    this.AuthenticationStateProvider.AuthenticationStateChanged += AuthenticationStateProvider_AuthenticationStateChanged;
                 //break;
-                //case nameof(SelectedCompany):
-                //    LoadCompanyDetails();
-                //    break;
             }
             //RWM: Can't do this here because the handler is not async.
             StateHasChangedAction();

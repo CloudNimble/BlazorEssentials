@@ -48,7 +48,7 @@ namespace CloudNimble.BlazorEssentials
                 {
                     StateHasChangedDelayMode.Debounce => () => delayDispatcher.Debounce(StateHasChangedDelayInterval, _ => StateHasChangedInternal()),
                     StateHasChangedDelayMode.Throttle => () => delayDispatcher.Throttle(StateHasChangedDelayInterval, _ => StateHasChangedInternal()),
-                    _ => () => { StateHasChangedInternal(); }
+                    _ => () => StateHasChangedInternal()
                 };
             }
             set
@@ -148,13 +148,16 @@ namespace CloudNimble.BlazorEssentials
         /// <summary>
         /// 
         /// </summary>
-        internal void StateHasChangedInternal()
+        internal Action StateHasChangedInternal()
         {
             ++StateHasChangedCount;
-            stateHasChangedAction();
 
-            if (StateHasChangedDebugMode == StateHasChangedDebugMode.Off) return;
-            LogDelay();
+            if (StateHasChangedDebugMode != StateHasChangedDebugMode.Off)
+            {
+                LogDelay();
+            }
+
+            return stateHasChangedAction;
         }
 
         #endregion

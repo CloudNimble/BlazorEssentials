@@ -1,9 +1,12 @@
 ﻿using CloudNimble.BlazorEssentials.Navigation;
 using CloudNimble.EasyAF.Configuration;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net.Http;
+using System.Net.NetworkInformation;
 
 namespace CloudNimble.BlazorEssentials.TestApp.Models
 {
@@ -27,10 +30,16 @@ namespace CloudNimble.BlazorEssentials.TestApp.Models
         /// <param name="navigationManager"></param>
         /// <param name="httpClientFactory"></param>
         /// <param name="config"></param>
-        public AppState(NavigationManager navigationManager, IHttpClientFactory httpClientFactory, ConfigurationBase config) : base(navigationManager, httpClientFactory)
+        public AppState(NavigationManager navigationManager, IHttpClientFactory httpClientFactory, IWebAssemblyHostEnvironment environment, ConfigurationBase config)
+            : base(navigationManager, httpClientFactory, environment)
         {
-            //RWM: We don't do this here because this is Singleton scoped and the AuthProvider is not
-            //this.AuthenticationStateProvider = authStateProvider;
+            if (!Environment.IsProduction())
+            {
+                StateHasChangedDebugMode = StateHasChangedDebugMode.Info;
+            }
+            StateHasChangedDelayMode = StateHasChangedDelayMode.Throttle;
+            StateHasChangedDelayInterval = 100;
+
             this.config = config;
             var nav = new List<NavigationItem>
             {
@@ -40,9 +49,7 @@ namespace CloudNimble.BlazorEssentials.TestApp.Models
                 new NavigationItem("Delay StateHasChanged", "fad fa-fw fa-desktop", "DelayStateHasChanged", "Functionality",    true, "Delay StateHasChanged",  "fad fa-fw fa-2x fa-desktop", null, true)
             };
             LoadNavItems(nav);
-            StateHasChangedDelayMode = StateHasChangedDelayMode.Throttle;
-            StateHasChangedDebugMode = StateHasChangedDebugMode.Info;
-            this.PropertyChanged += AppState_PropertyChanged;
+            PropertyChanged += AppState_PropertyChanged;
         }
 
         #endregion
@@ -59,6 +66,7 @@ namespace CloudNimble.BlazorEssentials.TestApp.Models
                 //break;
             }
             //RWM: Can't do this here because the handler is not async.
+            Console.WriteLine($"AppState.{e.PropertyName} changed.");
             StateHasChangedAction();
         }
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed

@@ -2,6 +2,7 @@
 using CloudNimble.BlazorEssentials.Navigation;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -54,7 +55,7 @@ namespace CloudNimble.BlazorEssentials
         }
 
         /// <summary>
-        /// 
+        /// The <see cref="ClaimsPrincipal"/> returned from calling <see cref="AuthenticationState.User"/>.
         /// </summary>
         public ClaimsPrincipal ClaimsPrincipal
         {
@@ -70,6 +71,11 @@ namespace CloudNimble.BlazorEssentials
             get => currentNavItem;
             set => Set(() => CurrentNavItem, ref currentNavItem, value);
         }
+
+        /// <summary>
+        /// The <see cref="WebAssemblyHostEnvironment"/> injected from the DI container.
+        /// </summary>
+        public IWebAssemblyHostEnvironment Environment { get; set; }
 
         /// <summary>
         /// The instance of the <see cref="IHttpClientFactory" /> injected by the DI system.
@@ -98,12 +104,14 @@ namespace CloudNimble.BlazorEssentials
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="environment"></param>
         /// <param name="navigationManager"></param>
         /// <param name="httpClientFactory"></param>
-        public AppStateBase(NavigationManager navigationManager, IHttpClientFactory httpClientFactory)
+        public AppStateBase(NavigationManager navigationManager, IHttpClientFactory httpClientFactory, IWebAssemblyHostEnvironment environment = null)
         {
             HttpClientFactory = httpClientFactory;
             NavigationManager = navigationManager;
+            Environment = environment;
         }
 
         #endregion

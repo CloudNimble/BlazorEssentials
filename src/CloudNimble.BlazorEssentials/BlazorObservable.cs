@@ -148,6 +148,10 @@ namespace CloudNimble.BlazorEssentials
         /// <summary>
         /// 
         /// </summary>
+        /// <remarks>
+        /// RWM: DO NOT change this method. Doing anything other than returning the StateHasChangedAction
+        /// will cause an infinite loop!
+        /// </remarks>
         internal Action StateHasChangedInternal()
         {
             ++StateHasChangedCount;

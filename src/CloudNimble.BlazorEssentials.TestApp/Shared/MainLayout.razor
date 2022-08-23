@@ -46,7 +46,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        appState.StateHasChangedAction += StateHasChanged;
+        appState.StateHasChangedConfig.Action = StateHasChanged;
 
         //appState.AuthenticationStateProvider = AuthenticationStateProvider;
         //await appState.RefreshClaimsPrincipal();
@@ -59,7 +59,7 @@
 
     public void Dispose()
     {
-        appState.StateHasChangedAction -= StateHasChanged;
+        appState.StateHasChangedConfig.Action -= StateHasChanged;
     }
 
 }

@@ -269,7 +269,7 @@
         }
 
         // wire up the operation so that it can notify the wizard
-        Operation.StateHasChangedAction = StateHasChanged;
+        Operation.StateHasChangedConfig.Action = StateHasChanged;
         Operation.PropertyChanged += Operation_PropertyChanged;
     }
 
@@ -293,7 +293,7 @@
     void IDisposable.Dispose()
     {
         Operation.PropertyChanged -= Operation_PropertyChanged;
-        Operation.StateHasChangedAction = null;
+        Operation.StateHasChangedConfig.Action = null;
     }
 
 }

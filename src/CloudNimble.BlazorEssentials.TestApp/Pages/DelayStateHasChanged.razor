@@ -1,6 +1,7 @@
 ﻿@using CloudNimble.BlazorEssentials.TestApp.ViewModels;
 @using CloudNimble.BlazorEssentials.Controls;
 @using System.ComponentModel;
+@implements IDisposable
 
 @page "/DelayStateHasChanged"
 
@@ -60,5 +61,10 @@ else
             await Task.Delay(fireInterval);
             viewModel.StateHasChangedConfig.Action();
         }
+    }
+
+    public void Dispose()
+    {
+        rapidFire = false;
     }
 }

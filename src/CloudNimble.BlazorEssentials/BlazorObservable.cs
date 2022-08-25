@@ -34,7 +34,7 @@ namespace CloudNimble.BlazorEssentials
 
         #region Constructor
 
-        /// <summary>C# get calling typoe
+        /// <summary>
         /// Creates a new instance of the <see cref="BlazorObservable" /> class.
         /// </summary>
         public BlazorObservable(StateHasChangedConfig stateHasChangedConfig = null)

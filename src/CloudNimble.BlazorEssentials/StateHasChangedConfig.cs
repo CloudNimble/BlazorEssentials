@@ -1,10 +1,6 @@
 ﻿using CloudNimble.BlazorEssentials.Threading;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CloudNimble.BlazorEssentials
 {
@@ -55,9 +51,9 @@ namespace CloudNimble.BlazorEssentials
 
         /// <summary>
         /// Flag for whether or not the render count and helpful debug feedback/warnings should be logged to the <see cref="Console"/>.
-        /// Default is false.
+        /// Default is <see cref="StateHasChangedDebugMode.Off"/>.
         /// </summary>
-        public StateHasChangedDebugMode DebugMode { get; set; }
+        public StateHasChangedDebugMode DebugMode { get; set; } = StateHasChangedDebugMode.Off;
 
         /// <summary>
         /// An <see cref="int"/> specifying the number of milliseconds this BlazorObservable should wait between 
@@ -77,9 +73,37 @@ namespace CloudNimble.BlazorEssentials
         public StateHasChangedDelayMode DelayMode { get; set; } = StateHasChangedDelayMode.Off;
 
         /// <summary>
-        /// The <see cref="BlazorObservable"/> that this config is for.
+        /// The <see cref="BlazorObservable"/> <see cref="Type"/> associated with this Configuration instance.
         /// </summary>
-        public BlazorObservable BlazorObservable { get; set; }
+        public Type BlazorObservableType { get; set; }
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Copies the values from this <see cref="StateHasChangedConfig" /> instance into a new one.
+        /// </summary>
+        /// <param name="observable">The <see cref="BlazorObservable"/> instance the new <see cref="StateHasChangedConfig" /> instance will be used for.</param>
+        /// <returns>
+        /// A new <see cref="StateHasChangedConfig" /> instance with the values populated from this instance.
+        /// </returns>
+        /// <remarks>
+        /// This is required because if we used DI to inject a <see cref="StateHasChangedConfig" /> instance, we wouldn't be able to
+        /// have different configurations per <see cref="ViewModelBase{TConfig, TAppState}" />, AND we would end up overwriting the
+        /// <see cref="Action">Actions</see> from other Pages when the value was set.
+        /// </remarks>
+        public StateHasChangedConfig Clone(BlazorObservable observable)
+        {
+            return new()
+            {
+                Count = Count,
+                DebugMode = DebugMode,
+                DelayInterval = DelayInterval,
+                DelayMode = DelayMode,
+                BlazorObservableType = observable?.GetType()
+            };
+        }
 
         #endregion
 
@@ -90,7 +114,7 @@ namespace CloudNimble.BlazorEssentials
         /// </summary>
         internal void LogDelay()
         {
-            Console.WriteLine($"{BlazorObservable.GetType().Name}: StateHasChanged #{Count} called @ {DateTime.UtcNow.ToString("hh:mm:ss.fff", CultureInfo.InvariantCulture)} " +
+            Console.WriteLine($"{BlazorObservableType.Name}: StateHasChanged #{Count} called @ {DateTime.UtcNow.ToString("hh:mm:ss.fff", CultureInfo.InvariantCulture)} " +
                 $"{(DebugMode != StateHasChangedDebugMode.Off ? $"after {delayDispatcher.DelayCount} dropped calls." : "")}");
 
             if (DebugMode != StateHasChangedDebugMode.Tuning || DelayMode == StateHasChangedDelayMode.Off) return;
@@ -124,7 +148,7 @@ namespace CloudNimble.BlazorEssentials
         /// 
         /// </summary>
         /// <remarks>
-        /// RWM: DO NOT change this method. Doing anything other than returning the StateHasChangedConfig.Action
+        /// RWM: DO NOT change this method. Doing anything other than returning the StateHasChanged.Action
         /// will cause an infinite loop!
         /// </remarks>
         internal void InternalAction()

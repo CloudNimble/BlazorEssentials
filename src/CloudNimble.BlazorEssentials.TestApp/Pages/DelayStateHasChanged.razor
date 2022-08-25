@@ -1,37 +1,35 @@
 ﻿@using CloudNimble.BlazorEssentials.TestApp.ViewModels;
 @using CloudNimble.BlazorEssentials.Controls;
 @using System.ComponentModel;
-@implements IDisposable
 
 @page "/DelayStateHasChanged"
-
+@implements IDisposable
 @inject DelayStateHasChangedViewModel viewModel
 
-
-<p>This page showcases the delay that we have on the <code>StateHasChangedConfig.Action</code> so that rapid calls get ignored.</p>
+<p>This page showcases the delay that we have on the <code>StateHasChanged.Action</code> so that rapid calls get ignored.</p>
 
 <hr />
 
 @if (rapidFire)
 {
-    <button class="btn btn-warning" @onclick="ToggleRapidFire">Press button to stop rapid firing StateHasChangedConfig.Action</button>
+    <button class="btn btn-warning" @onclick="ToggleRapidFire">Press button to stop rapid firing StateHasChanged.Action</button>
 }
 else
 {
-    <button class="btn btn-success" @onclick="ToggleRapidFire">Press button to start rapid firing StateHasChangedConfig.Action</button>
+    <button class="btn btn-success" @onclick="ToggleRapidFire">Press button to start rapid firing StateHasChanged.Action</button>
 }
 <br />
 <br />
-<label class="form-label">Delay Mode (@viewModel.StateHasChangedConfig.DelayMode.ToString())</label>
+<label class="form-label">Delay Mode (@viewModel.StateHasChanged.DelayMode.ToString())</label>
 <br />
 @foreach (StateHasChangedDelayMode mode in Enum.GetValues(typeof(StateHasChangedDelayMode)))
 {
-    <button class="btn btn-primary px-1" @onclick="()=>viewModel.StateHasChangedConfig.DelayMode = mode">@mode.ToString()</button>
+    <button class="btn btn-primary px-1" @onclick="()=>viewModel.StateHasChanged.DelayMode = mode">@mode.ToString()</button>
 }
 <br />
 
-<label for="delayInterval" class="form-label">Delay Interval (@viewModel.StateHasChangedConfig.DelayInterval)</label>
-<input @bind-value=viewModel.StateHasChangedConfig.DelayInterval id="delayInterval" type="range" class="form-range" min="10" max="4000" step="10" />
+<label for="delayInterval" class="form-label">Delay Interval (@viewModel.StateHasChanged.DelayInterval)</label>
+<input @bind-value=viewModel.StateHasChanged.DelayInterval id="delayInterval" type="range" class="form-range" min="10" max="4000" step="10" />
 <label for="updateInterval" class="form-label">Rapid Fire Interval (@fireInterval)</label>
 <input @bind-value=fireInterval id="updateInterval" type="range" class="form-range" min="1" max="2000" step="1" />
 <hr />
@@ -46,7 +44,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        viewModel.StateHasChangedConfig.Action = () =>
+        viewModel.StateHasChanged.Action = () =>
         {
             printOut = $"StateHasChanged at {DateTime.UtcNow.Second.ToString("D2") + ":" + DateTime.UtcNow.Millisecond.ToString("D3")}\n" + printOut;
             StateHasChanged();
@@ -59,7 +57,7 @@ else
         while (rapidFire)
         {
             await Task.Delay(fireInterval);
-            viewModel.StateHasChangedConfig.Action();
+            viewModel.StateHasChanged.Action();
         }
     }
 

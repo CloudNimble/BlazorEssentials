@@ -136,7 +136,7 @@ namespace CloudNimble.BlazorEssentials.Merlin
                     RaisePropertyChanged(() => Status);
                     if (shouldObserveStatus)
                     {
-                        StateHasChangedConfig.Action();
+                        StateHasChanged.Action();
                     }
                 }
             }
@@ -374,7 +374,7 @@ namespace CloudNimble.BlazorEssentials.Merlin
         {
             if (shouldObserveStatus)
             {
-                StateHasChangedConfig.Action();
+                StateHasChanged.Action();
             }
         }
 

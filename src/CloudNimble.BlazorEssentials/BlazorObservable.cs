@@ -1,7 +1,5 @@
-﻿using CloudNimble.BlazorEssentials.Threading;
-using CloudNimble.EasyAF.Core;
+﻿using CloudNimble.EasyAF.Core;
 using System;
-using System.Globalization;
 
 namespace CloudNimble.BlazorEssentials
 {
@@ -30,24 +28,23 @@ namespace CloudNimble.BlazorEssentials
             set => Set(() => LoadingStatus, ref loadingStatus, value);
         }
 
-        public StateHasChangedConfig StateHasChangedConfig { get; set; }
+        public StateHasChangedConfig StateHasChanged { get; set; }
 
         #endregion
 
         #region Constructor
 
-        /// <summary>
+        /// <summary>C# get calling typoe
         /// Creates a new instance of the <see cref="BlazorObservable" /> class.
         /// </summary>
         public BlazorObservable(StateHasChangedConfig stateHasChangedConfig = null)
         {
-            StateHasChangedConfig = stateHasChangedConfig ?? new();
-            StateHasChangedConfig.BlazorObservable = this;
-            StateHasChangedConfig.Action = () =>
+            StateHasChanged = stateHasChangedConfig?.Clone(this) ?? new() { BlazorObservableType = GetType() };
+            StateHasChanged.Action = () =>
             {
-                if (StateHasChangedConfig.DebugMode != StateHasChangedDebugMode.Off)
+                if (StateHasChanged.DebugMode != StateHasChangedDebugMode.Off)
                 {
-                    Console.WriteLine($"WARNING: {GetType().Name} called empty StateHasChangedConfig.Action. Make sure to set `[YourViewModel].StateHasChangedConfig.Action = StateHasChanged;` in OnInitializedAsync()");
+                    Console.WriteLine($"WARNING: {GetType().Name} called the empty StateHasChanged.Action method. Make sure to set `[YourViewModel].StateHasChanged.Action = StateHasChanged;` in OnInitializedAsync()");
                 }
             };
         }

@@ -1,9 +1,5 @@
 ﻿using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CloudNimble.BlazorEssentials.Tests
@@ -19,13 +15,13 @@ namespace CloudNimble.BlazorEssentials.Tests
         {
             var blazorObservable = new BlazorObservable();
             var count = 0;
-            blazorObservable.StateHasChangedConfig.Action = () => count++;
-            blazorObservable.StateHasChangedConfig.DelayMode = StateHasChangedDelayMode.Off;
+            blazorObservable.StateHasChanged.Action = () => count++;
+            blazorObservable.StateHasChanged.DelayMode = StateHasChangedDelayMode.Off;
 
             for (int i = 0; i < 10; i++)
             {
                 await Task.Delay(20);
-                blazorObservable.StateHasChangedConfig.Action();
+                blazorObservable.StateHasChanged.Action();
             }
             count.Should().Be(10);
         }
@@ -35,16 +31,16 @@ namespace CloudNimble.BlazorEssentials.Tests
         {
             var blazorObservable = new BlazorObservable();
             var count = 0;
-            blazorObservable.StateHasChangedConfig.Action = () => count++;
-            blazorObservable.StateHasChangedConfig.DelayMode = StateHasChangedDelayMode.Debounce;
-            blazorObservable.StateHasChangedConfig.DelayInterval = 30;
+            blazorObservable.StateHasChanged.Action = () => count++;
+            blazorObservable.StateHasChanged.DelayMode = StateHasChangedDelayMode.Debounce;
+            blazorObservable.StateHasChanged.DelayInterval = 30;
 
             for (int i = 0; i < 10; i++)
             {
                 await Task.Delay(10);
-                blazorObservable.StateHasChangedConfig.Action();
+                blazorObservable.StateHasChanged.Action();
             }
-            await Task.Delay(40);
+            await Task.Delay(50);
             count.Should().Be(1);
         }
 
@@ -53,14 +49,14 @@ namespace CloudNimble.BlazorEssentials.Tests
         {
             var blazorObservable = new BlazorObservable();
             var count = 0;
-            blazorObservable.StateHasChangedConfig.Action = () => count++;
-            blazorObservable.StateHasChangedConfig.DelayMode = StateHasChangedDelayMode.Throttle;
-            blazorObservable.StateHasChangedConfig.DelayInterval = 30;
+            blazorObservable.StateHasChanged.Action = () => count++;
+            blazorObservable.StateHasChanged.DelayMode = StateHasChangedDelayMode.Throttle;
+            blazorObservable.StateHasChanged.DelayInterval = 30;
 
             for (int i = 0; i < 9; i++)
             {
                 await Task.Delay(10);
-                blazorObservable.StateHasChangedConfig.Action();
+                blazorObservable.StateHasChanged.Action();
             }
             await Task.Delay(20);
             count.Should().Be(3);

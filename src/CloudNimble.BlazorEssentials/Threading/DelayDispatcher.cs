@@ -29,6 +29,7 @@ namespace CloudNimble.BlazorEssentials.Threading
 
         private bool disposedValue;
         private Timer timer;
+        private Dispatcher dispatcher = Dispatcher.CreateDefault();
         private Action<object> action;
         private object param;
 
@@ -50,6 +51,8 @@ namespace CloudNimble.BlazorEssentials.Threading
         public DateTime TimerStarted { get; internal set; }
 
         #endregion
+
+        #region Public Methods
 
         /// <summary>
         /// Debounce an event by resetting the event timeout every time the event is 
@@ -90,7 +93,6 @@ namespace CloudNimble.BlazorEssentials.Threading
 
                 timer?.Stop();
                 timer = null;
-                var dispatcher = Dispatcher.CreateDefault();
                 dispatcher.InvokeAsync(() => action.Invoke(param));
                 DelayCount = 0;
             };
@@ -125,7 +127,6 @@ namespace CloudNimble.BlazorEssentials.Threading
 
                     timer?.Stop();
                     timer = null;
-                    var dispatcher = Dispatcher.CreateDefault();
                     dispatcher.InvokeAsync(() => this.action.Invoke(this.param));
                     DelayCount = 0;
                 };
@@ -134,6 +135,8 @@ namespace CloudNimble.BlazorEssentials.Threading
                 TimerStarted = DateTime.UtcNow;
             }
         }
+
+        #endregion
 
         #region IDisposable
 

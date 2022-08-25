@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net.Http;
-using System.Net.NetworkInformation;
 
 namespace CloudNimble.BlazorEssentials.TestApp.Models
 {
@@ -35,10 +34,10 @@ namespace CloudNimble.BlazorEssentials.TestApp.Models
         {
             if (!Environment.IsProduction())
             {
-                StateHasChangedDebugMode = StateHasChangedDebugMode.Info;
+                StateHasChanged.DebugMode = StateHasChangedDebugMode.Info;
             }
-            StateHasChangedDelayMode = StateHasChangedDelayMode.Throttle;
-            StateHasChangedDelayInterval = 100;
+            StateHasChanged.DelayMode = StateHasChangedDelayMode.Throttle;
+            StateHasChanged.DelayInterval = 100;
 
             this.config = config;
             var nav = new List<NavigationItem>
@@ -67,7 +66,7 @@ namespace CloudNimble.BlazorEssentials.TestApp.Models
             }
             //RWM: Can't do this here because the handler is not async.
             Console.WriteLine($"AppState.{e.PropertyName} changed.");
-            StateHasChangedAction();
+            StateHasChanged.Action();
         }
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 

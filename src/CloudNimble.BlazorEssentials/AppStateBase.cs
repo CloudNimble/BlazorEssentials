@@ -105,9 +105,11 @@ namespace CloudNimble.BlazorEssentials
         /// 
         /// </summary>
         /// <param name="environment"></param>
+        /// <param name="stateHasChangedConfig"></param>
         /// <param name="navigationManager"></param>
         /// <param name="httpClientFactory"></param>
-        public AppStateBase(NavigationManager navigationManager, IHttpClientFactory httpClientFactory, IWebAssemblyHostEnvironment environment = null)
+        public AppStateBase(NavigationManager navigationManager, IHttpClientFactory httpClientFactory, IWebAssemblyHostEnvironment environment = null, StateHasChangedConfig stateHasChangedConfig = null)
+            : base(stateHasChangedConfig)
         {
             HttpClientFactory = httpClientFactory;
             NavigationManager = navigationManager;

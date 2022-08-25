@@ -4,6 +4,7 @@ using CloudNimble.BlazorEssentials.TestApp.ViewModels;
 using CloudNimble.EasyAF.Configuration;
 using FluentAssertions;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -24,6 +25,7 @@ namespace CloudNimble.BlazorEssentials.Tests.TestApp
         public void Setup()
         {
             RegisterServices = services => {
+                services.AddSingleton<IWebAssemblyHostEnvironment, TestableWebAssemblyHostEnvironment>();
                 services.AddScoped<AuthenticationStateProvider, TestableAuthenticationStateProvider>();
             };
             TestSetup("TestApp");

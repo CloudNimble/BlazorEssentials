@@ -53,7 +53,9 @@ namespace CloudNimble.BlazorEssentials
         /// <param name="httpClientFactory">The <see cref="IHttpClientFactory"/> instance injected from the DI container.</param>
         /// <param name="configuration">The <typeparamref name="TConfig"/> instance injected from the DI container.</param>
         /// <param name="appState">The <typeparamref name="TAppState"/> instance injected from the DI container.</param>
-        public ViewModelBase(NavigationManager navigationManager, IHttpClientFactory httpClientFactory, TConfig configuration = null, TAppState appState = null)
+        /// <param name="stateHasChangedConfig"></param>
+        public ViewModelBase(NavigationManager navigationManager, IHttpClientFactory httpClientFactory, TConfig configuration = null, TAppState appState = null, StateHasChangedConfig stateHasChangedConfig = null)
+            : base(stateHasChangedConfig)
         {
             NavigationManager = navigationManager;
             HttpClientFactory = httpClientFactory;

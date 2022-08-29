@@ -3,6 +3,7 @@ using CloudNimble.Breakdance.Blazor;
 using CloudNimble.EasyAF.Configuration;
 using CloudNimble.EasyAF.Core;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -82,24 +83,27 @@ namespace CloudNimble.BlazorEssentials.Breakdance
         /// <summary>
         /// 
         /// </summary>
-        public void TestSetup(string configSectionName)
+        public void TestSetup(string configSectionName, string environment = "Development")
         {
             base.TestSetup();
             var config = BUnitTestContext.Services.AddConfigurationBase<TConfiguration>(TestHost.Services.GetService<IConfiguration>(), configSectionName);
             BUnitTestContext.Services.AddAppStateBase<TAppState>();
             BUnitTestContext.Services.AddHttpClients<TConfiguration, BlazorEssentialsAuthorizationMessageHandler<TConfiguration>>(config, config.HttpHandlerMode);
+            BUnitTestContext.Services.AddSingleton<IWebAssemblyHostEnvironment, TestableWebAssemblyHostEnvironment>(sp => new TestableWebAssemblyHostEnvironment(environment));
+
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public void TestSetup<TMessageHandler>(string configSectionName, HttpHandlerMode httpHandlerMode = HttpHandlerMode.Replace)
+        public void TestSetup<TMessageHandler>(string configSectionName, HttpHandlerMode httpHandlerMode = HttpHandlerMode.Replace, string environment = "Development")
             where TMessageHandler : DelegatingHandler
         {
             base.TestSetup();
             var config = BUnitTestContext.Services.AddConfigurationBase<TConfiguration>(TestHost.Services.GetService<IConfiguration>(), configSectionName);
             BUnitTestContext.Services.AddAppStateBase<TAppState>();
             BUnitTestContext.Services.AddHttpClients<TConfiguration, TMessageHandler>(config, httpHandlerMode);
+            BUnitTestContext.Services.AddSingleton<IWebAssemblyHostEnvironment, TestableWebAssemblyHostEnvironment>(sp => new TestableWebAssemblyHostEnvironment(environment));
         }
 
         #endregion

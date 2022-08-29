@@ -8,7 +8,7 @@
 
 	<PropertyGroup>
 		<PackageId>BlazorEssentials</PackageId>
-		<Description>A set of utilities to make Blazor development easier than ever. Includes base classes for Application State, Configuration, and ViewModels, as well as an ODataResultList and a helper to pull configuration files out of embedded resources.</Description>
+		<Description>A set of utilities to make Blazor WebAssembly development easier than ever. Includes base classes for Application State, Configuration, and ViewModels, as well as an ODataResultList and a helper to pull configuration files out of embedded resources.</Description>
 		<RepositoryUrl>https://github.com/CloudNimble/BlazorEssentials</RepositoryUrl>
 		<PackageReleaseNotes>
 			Version 2.0.0

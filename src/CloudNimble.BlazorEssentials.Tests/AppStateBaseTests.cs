@@ -32,7 +32,7 @@ namespace CloudNimble.BlazorEssentials.Tests
         [TestMethod]
         public void AppStateBase_CorrectInitialState()
         {
-            var state = new AppStateBase(null, null);
+            var state = new AppStateBase(null, null, null, null);
             state.LoadingStatus.Should().Be(LoadingStatus.NotLoaded);
             state.NavItems.Should().BeNull();
         }
@@ -43,7 +43,7 @@ namespace CloudNimble.BlazorEssentials.Tests
         [TestMethod]
         public void AppStateBase_SetCurrentNavItem_Nested_NoParameters()
         {
-            var state = new AppStateBase(new TestableNavigationManager(), null);
+            var state = new AppStateBase(new TestableNavigationManager(), null, null, null);
 
             var list = new List<NavigationItem>
             {
@@ -79,7 +79,7 @@ namespace CloudNimble.BlazorEssentials.Tests
         [TestMethod]
         public void AppStateBase_SetCurrentNavItem_Nested_Parameters()
         {
-            var state = new AppStateBase(new TestableNavigationManager(), null);
+            var state = new AppStateBase(new TestableNavigationManager(), null, null, null);
 
             var list = new List<NavigationItem>
             {
@@ -117,7 +117,7 @@ namespace CloudNimble.BlazorEssentials.Tests
         [TestMethod]
         public void AppStateBase_ToFixedUrl_Root_Slash()
         {
-            var state = new AppStateBase(new TestableNavigationManager("https://localhost/"), null);
+            var state = new AppStateBase(new TestableNavigationManager("https://localhost/"), null, null, null);
             state.ToRelativeUrl("/").Should().Be("");
         }
 
@@ -127,7 +127,7 @@ namespace CloudNimble.BlazorEssentials.Tests
         [TestMethod]
         public void AppStateBase_ToFixedUrl_Root_Blank()
         {
-            var state = new AppStateBase(new TestableNavigationManager("https://localhost/"), null);
+            var state = new AppStateBase(new TestableNavigationManager("https://localhost/"), null, null, null);
             state.ToRelativeUrl("").Should().Be("");
         }
 
@@ -137,7 +137,7 @@ namespace CloudNimble.BlazorEssentials.Tests
         [TestMethod]
         public void AppStateBase_ToFixedUrl_NotRoot_NoParameter_Slash()
         {
-            var state = new AppStateBase(new TestableNavigationManager("https://localhost/"), null);
+            var state = new AppStateBase(new TestableNavigationManager("https://localhost/"), null, null, null);
             state.ToRelativeUrl("/2").Should().Be("2");
         }
 
@@ -147,7 +147,7 @@ namespace CloudNimble.BlazorEssentials.Tests
         [TestMethod]
         public void AppStateBase_ToFixedUrl_NotRoot_NoParameter_NoSlash()
         {
-            var state = new AppStateBase(new TestableNavigationManager("https://localhost/"), null);
+            var state = new AppStateBase(new TestableNavigationManager("https://localhost/"), null, null, null);
             state.ToRelativeUrl("2").Should().Be("2");
         }
 
@@ -157,7 +157,7 @@ namespace CloudNimble.BlazorEssentials.Tests
         [TestMethod]
         public void AppStateBase_ToFixedUrl_NotRoot_Parameter_Slash()
         {
-            var state = new AppStateBase(new TestableNavigationManager("https://localhost/"), null);
+            var state = new AppStateBase(new TestableNavigationManager("https://localhost/"), null, null, null);
             state.ToRelativeUrl("/2/Hello").Should().Be("2/Hello");
         }
 
@@ -167,7 +167,7 @@ namespace CloudNimble.BlazorEssentials.Tests
         [TestMethod]
         public void AppStateBase_ToFixedUrl_NotRoot_Parameter_NoSlash()
         {
-            var state = new AppStateBase(new TestableNavigationManager("https://localhost/"), null);
+            var state = new AppStateBase(new TestableNavigationManager("https://localhost/"), null, null, null);
             state.ToRelativeUrl("2/Hello").Should().Be("2/Hello");
         }
 

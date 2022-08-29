@@ -32,9 +32,19 @@ namespace CloudNimble.BlazorEssentials.Breakdance
         /// 
         /// </summary>
         /// <param name="environment"></param>
-        /// <param name="baseAddress"></param>
-        public TestableWebAssemblyHostEnvironment(string environment, string baseAddress)
+        public TestableWebAssemblyHostEnvironment(string environment) : this()
         {
+            Environment = environment;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="environment"></param>
+        /// <param name="baseAddress"></param>
+        public TestableWebAssemblyHostEnvironment(string environment, string baseAddress) : this(environment)
+        {
+            BaseAddress = baseAddress;
         }
 
         #endregion

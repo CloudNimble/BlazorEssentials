@@ -2,6 +2,7 @@
 using CloudNimble.EasyAF.Configuration;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,8 +30,8 @@ namespace CloudNimble.BlazorEssentials.TestApp.Models
         /// <param name="navigationManager"></param>
         /// <param name="httpClientFactory"></param>
         /// <param name="config"></param>
-        public AppState(NavigationManager navigationManager, IHttpClientFactory httpClientFactory, IWebAssemblyHostEnvironment environment, ConfigurationBase config)
-            : base(navigationManager, httpClientFactory, environment)
+        public AppState(NavigationManager navigationManager, IHttpClientFactory httpClientFactory, IJSRuntime jsRuntime, IWebAssemblyHostEnvironment environment, ConfigurationBase config)
+            : base(navigationManager, httpClientFactory, jsRuntime, environment)
         {
             if (!Environment.IsProduction())
             {

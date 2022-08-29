@@ -3,6 +3,7 @@ using CloudNimble.BlazorEssentials.Navigation;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -35,7 +36,8 @@ namespace CloudNimble.BlazorEssentials
         /// The <see cref="AuthenticationStateProvider"/> instance for the application. 
         /// </summary>
         /// <remarks>
-        /// This property correctly registers for and de-registers from <see cref="AuthenticationStateProvider"/> events as the value is set.
+        /// This property correctly registers for and de-registers from <see cref="AuthenticationStateProvider"/> events as the 
+        /// value is set, and automatically calls <see cref="RefreshClaimsPrincipal"/> for you.
         /// </remarks>
         public AuthenticationStateProvider AuthenticationStateProvider
         {
@@ -51,6 +53,7 @@ namespace CloudNimble.BlazorEssentials
 
                 if (AuthenticationStateProvider is null) return;
                 AuthenticationStateProvider.AuthenticationStateChanged += AuthenticationStateProvider_AuthenticationStateChanged;
+                _ = RefreshClaimsPrincipal();
             }
         }
 
@@ -88,6 +91,11 @@ namespace CloudNimble.BlazorEssentials
         public bool IsClaimsPrincipalAuthenticated => ClaimsPrincipal?.Identity?.IsAuthenticated ?? false;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public IJSRuntime JSRuntime { get; set; }
+
+        /// <summary>
         /// The instance of the <see cref="NavigationManager" /> injected by the DI system.
         /// </summary>
         public NavigationManager NavigationManager { get; private set; }
@@ -105,14 +113,17 @@ namespace CloudNimble.BlazorEssentials
         /// 
         /// </summary>
         /// <param name="environment"></param>
+        /// <param name="jsRuntime"></param>
         /// <param name="stateHasChangedConfig"></param>
         /// <param name="navigationManager"></param>
         /// <param name="httpClientFactory"></param>
-        public AppStateBase(NavigationManager navigationManager, IHttpClientFactory httpClientFactory, IWebAssemblyHostEnvironment environment = null, StateHasChangedConfig stateHasChangedConfig = null)
+        public AppStateBase(NavigationManager navigationManager, IHttpClientFactory httpClientFactory, IJSRuntime jsRuntime, 
+            IWebAssemblyHostEnvironment environment, StateHasChangedConfig stateHasChangedConfig = null)
             : base(stateHasChangedConfig)
         {
-            HttpClientFactory = httpClientFactory;
             NavigationManager = navigationManager;
+            HttpClientFactory = httpClientFactory;
+            JSRuntime = jsRuntime;
             Environment = environment;
         }
 

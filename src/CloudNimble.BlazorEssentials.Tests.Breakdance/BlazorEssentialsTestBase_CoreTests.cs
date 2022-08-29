@@ -44,6 +44,11 @@ namespace CloudNimble.BlazorEssentials.Tests.Breakdance
             testClass.BUnitTestContext.Should().BeNull();
             testClass.RegisterServices.Should().BeNull();
 
+            testClass.TestSetup("TestApp");
+
+            testClass.BUnitTestContext.Should().NotBeNull();
+            testClass.RegisterServices.Should().BeNull();
+
             testClass.GetService<ConfigurationBase>().Should().NotBeNull();
             testClass.GetService<AppStateBase>().Should().NotBeNull();
         }

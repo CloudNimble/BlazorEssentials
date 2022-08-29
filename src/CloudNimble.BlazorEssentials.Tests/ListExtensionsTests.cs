@@ -1,6 +1,5 @@
 using CloudNimble.BlazorEssentials.Extensions;
 using CloudNimble.BlazorEssentials.Navigation;
-using CloudNimble.Breakdance.Blazor;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
@@ -44,70 +43,6 @@ namespace CloudNimble.BlazorEssentials.Tests
             result[3].Text.Should().Be("Inner2");
             result[4].Text.Should().Be("Inner3");
         }
-
-        #region ToFixedUrl
-
-        /// <summary>
-        /// Ensure
-        /// </summary>
-        [TestMethod]
-        public void AppStateBase_ToFixedUrl_Root_Slash()
-        {
-            var state = new AppStateBase(new TestableNavigationManager(), null);
-            state.ToRelativeUrl("/").Should().Be("");
-        }
-
-        /// <summary>
-        /// Make sure that the Step is initialized properly.
-        /// </summary>
-        [TestMethod]
-        public void AppStateBase_ToFixedUrl_Root_Blank()
-        {
-            var state = new AppStateBase(new TestableNavigationManager(), null);
-            state.ToRelativeUrl("").Should().Be("");
-        }
-
-        /// <summary>
-        /// Make sure that the Step is initialized properly.
-        /// </summary>
-        [TestMethod]
-        public void AppStateBase_ToFixedUrl_NotRoot_NoParameter_Slash()
-        {
-            var state = new AppStateBase(new TestableNavigationManager(), null);
-            state.ToRelativeUrl("/2").Should().Be("2");
-        }
-
-        /// <summary>
-        /// Make sure that the Step is initialized properly.
-        /// </summary>
-        [TestMethod]
-        public void AppStateBase_ToFixedUrl_NotRoot_NoParameter_NoSlash()
-        {
-            var state = new AppStateBase(new TestableNavigationManager(), null);
-            state.ToRelativeUrl("2").Should().Be("2");
-        }
-
-        /// <summary>
-        /// Make sure that the Step is initialized properly.
-        /// </summary>
-        [TestMethod]
-        public void AppStateBase_ToFixedUrl_NotRoot_Parameter_Slash()
-        {
-            var state = new AppStateBase(new TestableNavigationManager(), null);
-            state.ToRelativeUrl("/2/Hello").Should().Be("2/Hello");
-        }
-
-        /// <summary>
-        /// Make sure that the Step is initialized properly.
-        /// </summary>
-        [TestMethod]
-        public void AppStateBase_ToFixedUrl_NotRoot_Parameter_NoSlash()
-        {
-            var state = new AppStateBase(new TestableNavigationManager(), null);
-            state.ToRelativeUrl("2/Hello").Should().Be("2/Hello");
-        }
-
-        #endregion
 
     }
 

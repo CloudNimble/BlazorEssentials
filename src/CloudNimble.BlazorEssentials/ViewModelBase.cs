@@ -60,7 +60,7 @@ namespace CloudNimble.BlazorEssentials
             NavigationManager = navigationManager;
             HttpClientFactory = httpClientFactory;
             Configuration = configuration;
-            AppState = appState ?? (TAppState)new AppStateBase(navigationManager, httpClientFactory);
+            AppState = appState;
         }
 
         #endregion

@@ -3,7 +3,6 @@ using CloudNimble.BlazorEssentials.TestApp.Models;
 using CloudNimble.BlazorEssentials.TestApp.ViewModels;
 using CloudNimble.EasyAF.Configuration;
 using FluentAssertions;
-using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
@@ -19,16 +18,18 @@ namespace CloudNimble.BlazorEssentials.Tests.TestApp
     public class LoadingContainerViewModelTests : BlazorEssentialsTestBase<ConfigurationBase, AppState>
     {
 
+        public LoadingContainerViewModelTests()
+        {
+            ClassSetup("TestApp");
+        }
+
         #region Test Lifecycle
 
         [TestInitialize]
         public void Setup()
         {
-            RegisterServices = services => {
-                services.AddSingleton<IWebAssemblyHostEnvironment, TestableWebAssemblyHostEnvironment>();
-                services.AddSingleton<LoadingContainerViewModel>();
-            };
             TestSetup("TestApp");
+            BUnitTestContext.Services.AddSingleton<LoadingContainerViewModel>();
         }
 
         [TestCleanup]

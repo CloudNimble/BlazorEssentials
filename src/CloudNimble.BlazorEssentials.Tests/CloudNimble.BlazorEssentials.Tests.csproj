@@ -9,12 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <SupportedPlatform Include="browser" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Breakdance.Blazor" Version="4.0.1-CI-20220715-182403" />
-    <PackageReference Include="bunit" Version="1.9.8" />
+    <PackageReference Include="bunit" Version="1.*" />
     <PackageReference Include="coverlet.collector" Version="3.*">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -22,10 +17,22 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CloudNimble.BlazorEssentials.Breakdance\CloudNimble.BlazorEssentials.Breakdance.csproj" />
     <ProjectReference Include="..\CloudNimble.BlazorEssentials\CloudNimble.BlazorEssentials.csproj" />
   </ItemGroup>
 
-  <Target Name="PrepareProjectReferences">
-  </Target>
+	<ItemGroup>
+		<Content Remove="appsettings.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="appsettings.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<SupportedPlatform Include="browser" />
+	</ItemGroup>
 
 </Project>

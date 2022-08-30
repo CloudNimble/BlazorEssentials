@@ -7,14 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Breakdance.Blazor" Version="4.0.1-CI-20220715-182403" />
-    <PackageReference Include="bunit" Version="1.4.15" />
+    <PackageReference Include="bunit" Version="1.*" />
     <PackageReference Include="coverlet.collector" Version="3.*">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="[6.0.0, 7.0.0)" Condition="'$(TargetFramework)'=='net6.0'" />
-	<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="[7.0.0-preview.*, 8.0.0)" Condition="'$(TargetFramework)'=='net7.0'" />
+	<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="[7.*-*, 8.0.0)" Condition="'$(TargetFramework)'=='net7.0'" />
   </ItemGroup>
 
   <ItemGroup>

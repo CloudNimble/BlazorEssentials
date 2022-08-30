@@ -1,6 +1,7 @@
+using CloudNimble.BlazorEssentials.Breakdance;
 using CloudNimble.BlazorEssentials.Extensions;
 using CloudNimble.BlazorEssentials.Navigation;
-using CloudNimble.Breakdance.Blazor;
+using CloudNimble.EasyAF.Configuration;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -16,13 +17,31 @@ namespace CloudNimble.BlazorEssentials.Tests
     /// 
     /// </summary>
     [TestClass]
-    public class AppStateBaseTests
+    public class AppStateBaseTests : BlazorEssentialsTestBase<ConfigurationBase, AppStateBase>
     {
 
         #region Private Members
 
         Func<Task<bool>> trueAction = () => { Thread.Sleep(2000); return Task.FromResult(true); };
         Func<Task<bool>> falseAction = () => { Thread.Sleep(2000); return Task.FromResult(false); };
+
+        #endregion
+
+        public AppStateBaseTests()
+        {
+            ClassSetup("TestApp");
+        }
+
+        #region Test Lifecycle
+
+        [TestInitialize]
+        public void TestInitialize()
+        {
+            TestSetup("TestApp");
+        }
+
+        [TestCleanup]
+        public void TearDown() => TestTearDown();
 
         #endregion
 
@@ -43,7 +62,7 @@ namespace CloudNimble.BlazorEssentials.Tests
         [TestMethod]
         public void AppStateBase_SetCurrentNavItem_Nested_NoParameters()
         {
-            var state = new AppStateBase(new TestableNavigationManager(), null, null, null);
+            var state = GetService<AppStateBase>();
 
             var list = new List<NavigationItem>
             {
@@ -79,7 +98,7 @@ namespace CloudNimble.BlazorEssentials.Tests
         [TestMethod]
         public void AppStateBase_SetCurrentNavItem_Nested_Parameters()
         {
-            var state = new AppStateBase(new TestableNavigationManager(), null, null, null);
+            var state = GetService<AppStateBase>();
 
             var list = new List<NavigationItem>
             {
@@ -117,7 +136,7 @@ namespace CloudNimble.BlazorEssentials.Tests
         [TestMethod]
         public void AppStateBase_ToFixedUrl_Root_Slash()
         {
-            var state = new AppStateBase(new TestableNavigationManager("https://localhost/"), null, null, null);
+            var state = GetService<AppStateBase>();
             state.ToRelativeUrl("/").Should().Be("");
         }
 
@@ -127,7 +146,7 @@ namespace CloudNimble.BlazorEssentials.Tests
         [TestMethod]
         public void AppStateBase_ToFixedUrl_Root_Blank()
         {
-            var state = new AppStateBase(new TestableNavigationManager("https://localhost/"), null, null, null);
+            var state = GetService<AppStateBase>();
             state.ToRelativeUrl("").Should().Be("");
         }
 
@@ -137,7 +156,7 @@ namespace CloudNimble.BlazorEssentials.Tests
         [TestMethod]
         public void AppStateBase_ToFixedUrl_NotRoot_NoParameter_Slash()
         {
-            var state = new AppStateBase(new TestableNavigationManager("https://localhost/"), null, null, null);
+            var state = GetService<AppStateBase>();
             state.ToRelativeUrl("/2").Should().Be("2");
         }
 
@@ -147,7 +166,7 @@ namespace CloudNimble.BlazorEssentials.Tests
         [TestMethod]
         public void AppStateBase_ToFixedUrl_NotRoot_NoParameter_NoSlash()
         {
-            var state = new AppStateBase(new TestableNavigationManager("https://localhost/"), null, null, null);
+            var state = GetService<AppStateBase>();
             state.ToRelativeUrl("2").Should().Be("2");
         }
 
@@ -157,7 +176,7 @@ namespace CloudNimble.BlazorEssentials.Tests
         [TestMethod]
         public void AppStateBase_ToFixedUrl_NotRoot_Parameter_Slash()
         {
-            var state = new AppStateBase(new TestableNavigationManager("https://localhost/"), null, null, null);
+            var state = GetService<AppStateBase>();
             state.ToRelativeUrl("/2/Hello").Should().Be("2/Hello");
         }
 
@@ -167,7 +186,7 @@ namespace CloudNimble.BlazorEssentials.Tests
         [TestMethod]
         public void AppStateBase_ToFixedUrl_NotRoot_Parameter_NoSlash()
         {
-            var state = new AppStateBase(new TestableNavigationManager("https://localhost/"), null, null, null);
+            var state = GetService<AppStateBase>();
             state.ToRelativeUrl("2/Hello").Should().Be("2/Hello");
         }
 

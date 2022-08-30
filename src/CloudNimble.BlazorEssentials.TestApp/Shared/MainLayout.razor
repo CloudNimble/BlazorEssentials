@@ -47,9 +47,7 @@
     protected override async Task OnInitializedAsync()
     {
         appState.StateHasChanged.Action = StateHasChanged;
-
         //appState.AuthenticationStateProvider = AuthenticationStateProvider;
-        //await appState.RefreshClaimsPrincipal();
     }
 
     protected override void OnParametersSet()

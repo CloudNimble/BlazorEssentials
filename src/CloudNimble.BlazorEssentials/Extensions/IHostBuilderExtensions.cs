@@ -2,6 +2,7 @@
 using CloudNimble.EasyAF.Configuration;
 using CloudNimble.EasyAF.Core;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Net.Http;
 
 namespace Microsoft.Extensions.Hosting
@@ -45,8 +46,13 @@ namespace Microsoft.Extensions.Hosting
             where TAppState : AppStateBase
             where TMessageHandler : DelegatingHandler
         {
-            builder.ConfigureServices((builder, services) => {
+            builder.ConfigureServices((builder, services) => 
+            {
                 var config = services.AddConfigurationBase<TConfiguration>(builder.Configuration, configSectionName);
+                if (config is null)
+                {
+                    throw new ArgumentException($"The ConfigurationSection '{configSectionName}' could not be found.", nameof(configSectionName));
+                }
                 services.AddAppStateBase<TAppState>();
                 services.AddHttpClients<TConfiguration, TMessageHandler>(config, httpHandlerMode);
             });

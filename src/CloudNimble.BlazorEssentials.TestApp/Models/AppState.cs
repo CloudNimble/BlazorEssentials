@@ -59,13 +59,6 @@ namespace CloudNimble.BlazorEssentials.TestApp.Models
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
         private void AppState_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            switch (e.PropertyName)
-            {
-                //case nameof(AuthenticationStateProvider):
-                //    this.AuthenticationStateProvider.AuthenticationStateChanged += AuthenticationStateProvider_AuthenticationStateChanged;
-                //break;
-            }
-            //RWM: Can't do this here because the handler is not async.
             Console.WriteLine($"AppState.{e.PropertyName} changed.");
             StateHasChanged.Action();
         }

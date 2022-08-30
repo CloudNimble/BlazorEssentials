@@ -2,7 +2,6 @@
 using CloudNimble.Breakdance.Blazor;
 using CloudNimble.EasyAF.Configuration;
 using CloudNimble.EasyAF.Core;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -40,9 +39,9 @@ namespace CloudNimble.BlazorEssentials.Breakdance
         /// 
         /// </summary>
         /// <param name="configSectionName"></param>
-        public void AssemblySetup(string configSectionName)
+        public void ClassSetup(string configSectionName)
         {
-            AssemblySetup<BlazorEssentialsAuthorizationMessageHandler<TConfiguration>>(configSectionName);
+            ClassSetup<BlazorEssentialsAuthorizationMessageHandler<TConfiguration>>(configSectionName);
         }
 
         /// <summary>
@@ -50,16 +49,18 @@ namespace CloudNimble.BlazorEssentials.Breakdance
         /// </summary>
         /// <typeparam name="TMessageHandler"></typeparam>
         /// <param name="configSectionName"></param>
-        public void AssemblySetup<TMessageHandler>(string configSectionName)
+        /// <param name="environment"></param>
+        /// <param name="baseAddress"></param>
+        public void ClassSetup<TMessageHandler>(string configSectionName, string environment = "Development", string baseAddress = "https://localhost")
              where TMessageHandler : DelegatingHandler
         {
             TestHostBuilder.AddBlazorEssentials<TConfiguration, TAppState, TMessageHandler>(configSectionName);
 
             TestHostBuilder.ConfigureServices((builder, services) => {
-                services.AddSingleton<NavigationManager, TestableNavigationManager>();
+                services.AddSingleton<IWebAssemblyHostEnvironment, TestableWebAssemblyHostEnvironment>(sp => new TestableWebAssemblyHostEnvironment(environment, baseAddress));
             });
 
-            base.AssemblySetup();
+            base.ClassSetup();
         }
 
         /// <summary>
@@ -68,35 +69,54 @@ namespace CloudNimble.BlazorEssentials.Breakdance
         /// <typeparam name="TMessageHandler"></typeparam>
         /// <param name="configSectionName"></param>
         /// <param name="httpHandlerMode"></param>
-        public void AssemblySetup<TMessageHandler>(string configSectionName, HttpHandlerMode httpHandlerMode)
+        /// <param name="environment"></param>
+        /// <param name="baseAddress"></param>
+        public void ClassSetup<TMessageHandler>(string configSectionName, HttpHandlerMode httpHandlerMode, string environment = "Development", string baseAddress = "https://localhost")
              where TMessageHandler : DelegatingHandler
         {
             TestHostBuilder.AddBlazorEssentials<TConfiguration, TAppState, TMessageHandler>(configSectionName, httpHandlerMode);
 
             TestHostBuilder.ConfigureServices((builder, services) => {
-                services.AddSingleton<NavigationManager, TestableNavigationManager>();
+                services.AddSingleton<IWebAssemblyHostEnvironment, TestableWebAssemblyHostEnvironment>(sp => new TestableWebAssemblyHostEnvironment(environment, baseAddress));
             });
 
-            base.AssemblySetup();
+            base.ClassSetup();
         }
 
         /// <summary>
-        /// 
+        /// Configures the BlazorEssentials services into the BUnitTestContext IServiceProvider for the currently-executing test only.
         /// </summary>
-        public void TestSetup(string configSectionName, string environment = "Development")
+        /// <param name="configSectionName"></param>
+        /// <param name="environment"></param>
+        /// <param name="baseAddress"></param>
+        /// <remarks>
+        /// RWM: These methods exist because bUnit is configured per-test, and the BlazorEssentials configuration can change on a per-test basis.
+        /// bUnit will resolve from its own container first, then fall back to the TestHost's ServiceProvider if not found. This methods puts a new configuration in place
+        /// instead, to be used only for the currently-executing test.
+        /// </remarks>
+        public void TestSetup(string configSectionName, string environment = "Development", string baseAddress = "https://localhost")
         {
             base.TestSetup();
             var config = BUnitTestContext.Services.AddConfigurationBase<TConfiguration>(TestHost.Services.GetService<IConfiguration>(), configSectionName);
             BUnitTestContext.Services.AddAppStateBase<TAppState>();
             BUnitTestContext.Services.AddHttpClients<TConfiguration, BlazorEssentialsAuthorizationMessageHandler<TConfiguration>>(config, config.HttpHandlerMode);
-            BUnitTestContext.Services.AddSingleton<IWebAssemblyHostEnvironment, TestableWebAssemblyHostEnvironment>(sp => new TestableWebAssemblyHostEnvironment(environment));
-
+            BUnitTestContext.Services.AddSingleton<IWebAssemblyHostEnvironment, TestableWebAssemblyHostEnvironment>(sp => new TestableWebAssemblyHostEnvironment(environment, baseAddress));
         }
 
         /// <summary>
-        /// 
+        /// Configures the BlazorEssentials services into the BUnitTestContext IServiceProvider for the currently-executing test only.
         /// </summary>
-        public void TestSetup<TMessageHandler>(string configSectionName, HttpHandlerMode httpHandlerMode = HttpHandlerMode.Replace, string environment = "Development")
+        /// <typeparam name="TMessageHandler"></typeparam>
+        /// <param name="configSectionName"></param>
+        /// <param name="httpHandlerMode"></param>
+        /// <param name="environment"></param>
+        /// <param name="baseAddress"></param>
+        /// <remarks>
+        /// RWM: These methods exist because bUnit is configured per-test, and the BlazorEssentials configuration can change on a per-test basis.
+        /// bUnit will resolve from its own container first, then fall back to the TestHost's ServiceProvider if not found. This methods puts a new configuration in place
+        /// instead, to be used only for the currently-executing test.
+        /// </remarks>
+        public void TestSetup<TMessageHandler>(string configSectionName, HttpHandlerMode httpHandlerMode = HttpHandlerMode.Replace, string environment = "Development", string baseAddress = "https://localhost")
             where TMessageHandler : DelegatingHandler
         {
             base.TestSetup();
@@ -111,7 +131,8 @@ namespace CloudNimble.BlazorEssentials.Breakdance
         #region Private Methods
 
         /// <summary>
-        /// DO NOT USE THIS CONSTRUCTOR. Throws a <see cref="NotSupportedException"/> when called. You must call one of the other constructors instead.
+        /// DO NOT USE THIS METHOD. Throws a <see cref="NotSupportedException"/> when called. You must call <see cref="ClassSetup(string)"/> 
+        /// or <see cref="TestSetup()" /> instead.
         /// </summary>
         /// <exception cref="NotSupportedException">Throws a NotSupportedException when called.</exception>
         public override void AssemblySetup()
@@ -121,7 +142,8 @@ namespace CloudNimble.BlazorEssentials.Breakdance
         }
 
         /// <summary>
-        /// DO NOT USE THIS CONSTRUCTOR. Throws a <see cref="NotSupportedException"/> when called. You must call one of the other constructors instead.
+        /// DO NOT USE THIS METHOD. Throws a <see cref="NotSupportedException"/> when called. You must call <see cref="ClassSetup(string)"/> 
+        /// or <see cref="TestSetup()" /> instead.
         /// </summary>
         /// <exception cref="NotSupportedException">Throws a NotSupportedException when called.</exception>
         public override void TestSetup()

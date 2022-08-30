@@ -26,13 +26,7 @@ namespace CloudNimble.BlazorEssentials.Tests.Pages
         #region Test Lifecycle
 
         [TestInitialize]
-        public void Setup()
-        {
-            RegisterServices = services => {
-                //services.AddScoped<TestableNavigationManager>();
-            };
-            TestSetup();
-        }
+        public void Setup() => TestSetup();
 
         [TestCleanup]
         public void TearDown() => TestTearDown();

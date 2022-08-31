@@ -15,7 +15,7 @@ namespace CloudNimble.BlazorEssentials.Tests.TestApp
     /// </summary>
     /// <remarks>RWM: This is how developers should structure their tests.</remarks>
     [TestClass]
-    public class AppStateBaseTests : BlazorEssentialsTestBase<ConfigurationBase, AppState>
+    public class AppStateTests : BlazorEssentialsTestBase<ConfigurationBase, AppState>
     {
 
         #region Test Lifecycle
@@ -35,7 +35,7 @@ namespace CloudNimble.BlazorEssentials.Tests.TestApp
         #endregion
 
         /// <summary>
-        /// Checks to make sure the <see cref="LoadingContainerViewModel" /> is registered with the <see cref="BUnitTestContext"/>.
+        /// Checks to make sure the <see cref="AppState" /> is registered with the <see cref="BUnitTestContext"/>.
         /// </summary>
         [TestMethod]
         public void AppState_IsRegistered()
@@ -45,7 +45,7 @@ namespace CloudNimble.BlazorEssentials.Tests.TestApp
         }
 
         /// <summary>
-        /// Checks to make sure the <see cref="LoadingContainerViewModel" /> is registered with the <see cref="BUnitTestContext"/>.
+        /// Checks to make sure the <see cref="AuthenticationStateProvider" /> is registered with the <see cref="BUnitTestContext"/>.
         /// </summary>
         [TestMethod]
         public void AppState_AuthenticationStateProvider_IsRegistered()
@@ -55,7 +55,7 @@ namespace CloudNimble.BlazorEssentials.Tests.TestApp
         }
 
         /// <summary>
-        /// Checks to make sure the <see cref="LoadingContainerViewModel" /> is registered with the <see cref="BUnitTestContext"/>.
+        /// Checks to make sure the <see cref="AuthenticationStateProvider" /> is not set on the <see cref="AppState"/> initially.
         /// </summary>
         [TestMethod]
         public void AppState_AuthenticationStateProvider_IsNullInitially()
@@ -65,7 +65,7 @@ namespace CloudNimble.BlazorEssentials.Tests.TestApp
         }
 
         /// <summary>
-        /// Checks to make sure the <see cref="LoadingContainerViewModel" /> is registered with the <see cref="BUnitTestContext"/>.
+        /// Checks to make sure the <see cref="AppState.ClaimsPrincipal" /> is not set on the <see cref="AppState"/> initially.
         /// </summary>
         [TestMethod]
         public void AppState_ClaimsPrincipal_IsNullInitially()
@@ -75,7 +75,7 @@ namespace CloudNimble.BlazorEssentials.Tests.TestApp
         }
 
         /// <summary>
-        /// Checks to make sure the <see cref="LoadingContainerViewModel" /> is registered with the <see cref="BUnitTestContext"/>.
+        /// Checks to make sure the <see cref="AuthenticationStateProvider" /> of the <see cref="AppState"/> can be set.
         /// </summary>
         [TestMethod]
         public void AppState_AuthenticationStateProvider_CanBeSet()
@@ -88,7 +88,7 @@ namespace CloudNimble.BlazorEssentials.Tests.TestApp
         }
 
         /// <summary>
-        /// Checks to make sure the <see cref="LoadingContainerViewModel" /> is registered with the <see cref="BUnitTestContext"/>.
+        /// Checks to make sure the <see cref="AuthenticationStateProvider" /> does not get removed when <see cref="AppState.RefreshClaimsPrincipal"/> is called.
         /// </summary>
         [TestMethod]
         public void AppState_RefreshClaimsPrincipal_ClaimsPrincipalNotNull()
@@ -100,7 +100,6 @@ namespace CloudNimble.BlazorEssentials.Tests.TestApp
             appState.RefreshClaimsPrincipal();
             appState.ClaimsPrincipal.Should().NotBeNull();
         }
-
     }
 
 }

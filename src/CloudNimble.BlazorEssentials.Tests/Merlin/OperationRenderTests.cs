@@ -118,7 +118,7 @@ namespace CloudNimble.BlazorEssentials.Tests.Pages
             component.Find(".operationStatus").TextContent.Should().Be(OperationStatus.InProgress.ToString());
             component.Find("progress").GetAttribute("class").Should().Be("bg-warning");
             component.Find("progress").GetAttribute("displayText").Should().Be("Step 1");
-            component.Find("progress").GetAttribute("value").Should().Be("0.25");
+            component.Find("progress").GetAttribute("value").Should().Be((0.25).ToString());
             component.Find(".propertyChanges").TextContent.Should().Be($"{component.RenderCount - 1}");
             component.Find(".resultText").TextContent.Should().Be(component.Instance.DisplayText.InProgress);
             component.Find("ul").Children.FirstOrDefault(c => c.GetAttribute("id") == "step_1").TextContent.Contains(OperationStepStatus.InProgress.ToString());

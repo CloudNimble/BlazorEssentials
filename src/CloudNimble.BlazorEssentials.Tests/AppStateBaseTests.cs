@@ -3,6 +3,7 @@ using CloudNimble.BlazorEssentials.Extensions;
 using CloudNimble.BlazorEssentials.Navigation;
 using CloudNimble.EasyAF.Configuration;
 using FluentAssertions;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -37,7 +38,7 @@ namespace CloudNimble.BlazorEssentials.Tests
         [TestInitialize]
         public void TestInitialize()
         {
-            TestSetup("TestApp");
+            TestSetup("TestApp", environment: "Production");
         }
 
         [TestCleanup]
@@ -126,6 +127,19 @@ namespace CloudNimble.BlazorEssentials.Tests
 
             state.CurrentNavItem.Should().NotBeNull();
             state.CurrentNavItem.Text.Should().Be("Inner2");
+        }
+
+        /// <summary>
+        /// Tests that the <see cref="IWebAssemblyHostEnvironment" /> is set correctly on the <see cref="AppState"/>.
+        /// </summary>
+        [TestMethod]
+        public void AppStateBase_Environment_IsSetCorrectly()
+        {
+            var appState = GetService<AppStateBase>();
+
+            appState.Environment.Should().NotBeNull();
+            appState.Environment.Environment.Should().Be("Production");
+            appState.Environment.IsProduction().Should().BeTrue();
         }
 
         #region ToFixedUrl

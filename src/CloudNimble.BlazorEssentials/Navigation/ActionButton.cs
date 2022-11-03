@@ -13,6 +13,11 @@ namespace CloudNimble.BlazorEssentials.Navigation
         #region Properties
 
         /// <summary>
+        /// Test to be used for screen readers when this item is rendered.
+        /// </summary>
+        public string AccessibilityText { get; set; }
+
+        /// <summary>
         /// A lambda expression that will be executed when the button is clicked.
         /// </summary>
         public Action ActionMethod { get; set; } = () => { };

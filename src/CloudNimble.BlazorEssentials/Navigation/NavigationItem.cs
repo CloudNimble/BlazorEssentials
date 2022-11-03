@@ -21,6 +21,11 @@ namespace CloudNimble.BlazorEssentials.Navigation
         #region Properties
 
         /// <summary>
+        /// Test to be used for screen readers when this item is rendered.
+        /// </summary>
+        public string AccessibilityText { get; set; }
+
+        /// <summary>
         /// A string representing the parent category for this <see cref="NavigationItem" />. Can be left blank, but useful for grouping 
         /// <see cref="NavigationItem">NavigationItems</see> into caregories for display.
         /// </summary>

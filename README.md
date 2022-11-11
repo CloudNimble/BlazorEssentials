@@ -7,8 +7,8 @@
 
 [Releases](https://github.com/CloudNimble/BlazorEssentials/releases)&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Documentation&nbsp;&nbsp;&nbsp;
 
-[![Build Status](https://dev.azure.com/cloudnimble/BlazorEssentials/_apis/build/status/BlazorEssentials-CI)](https://dev.azure.com/cloudnimble/BlazorEssentials/_build/latest?definitionId=3)
-[![Release Status](https://vsrm.dev.azure.com/cloudnimble/_apis/public/Release/badge/780fcc73-6af6-4310-9bee-2a9d44708616/1/1)](https://dev.azure.com/cloudnimble/BlazorEssentials/_release?_a=releases&view=mine&definitionId=1)
+[![Build Status][devops-build-img]][devops-build]
+[![Release Status][devops-release-img]][devops-release]
 [![Twitter][twitter-img]][twitter-intent]
 
 </div>
@@ -53,5 +53,10 @@ Please take a look at the [contributing guidelines](./CONTRIBUTING.md) for a det
 Link References
 -->
 
+[devops-build]:https://dev.azure.com/cloudnimble/BlazorEssentials/_build/latest?definitionId=3
+[devops-release]:https://dev.azure.com/cloudnimble/BlazorEssentials/_release?view=all&definitionId=1
 [twitter-intent]:https://twitter.com/intent/tweet?via=cloud_nimble&text=Check%20out%20BlazorEssentials%2C%20it%20has%20everything%20you%20need%20to%20build%20great%20apps%20in%20Blazor.&hashtags=blazor
+
+[devops-build-img]:https://img.shields.io/azure-devops/build/cloudnimble/blazoressentials/3.svg?style=for-the-badge&logo=azuredevops
+[devops-release-img]:https://img.shields.io/azure-devops/release/cloudnimble/780fcc73-6af6-4310-9bee-2a9d44708616/1/1.svg?style=for-the-badge&logo=azuredevops
 [twitter-img]:https://img.shields.io/badge/share-on%20twitter-55acee.svg?style=for-the-badge&logo=twitter

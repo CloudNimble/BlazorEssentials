@@ -31,6 +31,13 @@ A few of the things you can do with BlazorEssentials:
 
 Feel free to send us feedback on [Twitter](https://twitter.com/cloud_nimble) or [file an issue](https://github.com/CloudNimble/BlazorEssentials/issues/new). Feature requests are always welcome. If you wish to contribute, please take a quick look at the [guidelines](./CONTRIBUTING.md)!
 
+## Code of Conduct
+
+Please adhere to our [Code of Conduct](./CODE_OF_CONDUCT.md) during any interactions with 
+CloudNimble team members and community members. It is strictly enforced on all official CloudNimble
+repositories, websites, and resources. If you encounter someone violating
+these terms, please let us know via email at opensource@nimbleapps.cloud and we will address it as soon as possible.
+
 ## Contributors
 
 Thank you to all the people who have contributed to the project.
@@ -42,6 +49,10 @@ Thank you to all the people who have contributed to the project.
 TBD
 
 Please take a look at the [contributing guidelines](./CONTRIBUTING.md) for a detailed process on how to build your application as well as troubleshooting information.
+
+## License
+
+MIT
 
 <!--
 Link References

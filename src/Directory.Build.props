@@ -31,9 +31,11 @@
 	<PropertyGroup>
 		<Product>BlazorEssentials</Product>
 		<PackageVersion>2.0.0</PackageVersion>
+		
 		<Authors>CloudNimble</Authors>
 		<Company>CloudNimble Inc.</Company>
-		<Copyright>Copyright © 2019-2022 CloudNimble, Inc. All rights reserved.</Copyright>
+		<RpmPackageVendor>CloudNimble</RpmPackageVendor>
+		<Copyright>Copyright © 2019-2023 CloudNimble, Inc. All rights reserved.</Copyright>
 		<NeutralLanguage>en-US</NeutralLanguage>
 		<!-- The SPDX name for the source license. See https://spdx.org/licenses/. -->
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -72,7 +74,7 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<StandardTestTfms>net6.0</StandardTestTfms>
+		<StandardTestTfms>net7.0;net6.0</StandardTestTfms>
 	</PropertyGroup>
 
 	<PropertyGroup Condition=" $(IsSampleProject) == 'true' ">

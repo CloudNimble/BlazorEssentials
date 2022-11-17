@@ -36,7 +36,7 @@ Feel free to send us feedback on [Twitter](https://twitter.com/cloud_nimble) or 
 Please adhere to our [Code of Conduct](./CODE_OF_CONDUCT.md) during any interactions with 
 CloudNimble team members and community members. It is strictly enforced on all official CloudNimble
 repositories, websites, and resources. If you encounter someone violating
-these terms, please let us know via email at opensource@nimbleapps.cloud and we will address it as soon as possible.
+these terms, please let us know via DM on [Twitter](https://twitter.com/cloud_nimble) or via email at opensource@nimbleapps.cloud and we will address it as soon as possible.
 
 ## Contributors
 

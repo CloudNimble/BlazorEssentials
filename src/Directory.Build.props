@@ -72,7 +72,7 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<StandardTestTfms>net6.0</StandardTestTfms>
+		<StandardTestTfms>net6.0;net7.0</StandardTestTfms>
 	</PropertyGroup>
 
 	<PropertyGroup Condition=" $(IsSampleProject) == 'true' ">

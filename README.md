@@ -30,7 +30,7 @@ A few of the things you can do with BlazorEssentials:
 
 ## Feedback
 
-Feel free to send us feedback on [Twitter][twitter-link] or [file an issue][issues-link]. Feature requests are always welcome. If you wish to contribute, please take a quick look at the [guidelines](./CONTRIBUTING.md)!
+Feel free to send us feedback on [Twitter][twitter-link] or [file an issue][issues-link]. Feature requests are always welcome. If you wish to contribute, please take a quick look at the [contribution guidelines](./.github/CONTRIBUTING.md).
 
 ## Code of Conduct
 

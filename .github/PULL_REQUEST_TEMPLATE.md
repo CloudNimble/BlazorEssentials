@@ -22,7 +22,7 @@ Feel free to included a bulleted list of the actual changes summarized*
 ### Checklist (Uncheck if it is not completed)
 *Add an 'X' to any  applicable Checklist items.*
 
-- [ ] - [ ] *N/A - Checklist review not required*
+- [ ] *N/A - Checklist review not required*
 - [ ] *Test cases added*
 - [ ] *Requires documentation updates*
 - [ ] *Build Validation Passed*

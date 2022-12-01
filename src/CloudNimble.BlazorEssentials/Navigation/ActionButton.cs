@@ -84,6 +84,8 @@ namespace CloudNimble.BlazorEssentials.Navigation
         public ActionButton()
         {
             Children = new();
+            ActionMethod = () => { };
+            IsDisabledFunc = () => false;
         }
 
         /// <summary>

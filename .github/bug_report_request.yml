@@ -1,0 +1,56 @@
+﻿name: Bug Report
+description: Report a bug that needs to get addressed 🐜
+title: "[BUG]: "
+labels: ["Bug Report"]
+assignees: ["robertmclaws"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for creating an issue with one of our CloudNimble, Inc. repos. 
+        Please ensure that any 
+        
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: Description of the Bug
+      description: Provide a brief description how the bug occurs and where the bug can be found.
+    validations:
+      required: true
+
+  - type: textarea
+    id: bug-expected-result
+    attributes:
+      label: Expected Result
+      description: What would happen if there wasn't a bug.
+    validations:
+      required: true
+
+  - type: textarea
+    id: bug-actual-result
+    attributes:
+      label: Actual Result
+      description: What is actually happening.
+    validations:
+      required: true
+      
+  - type: textarea
+    id: bug-reproduce-steps
+    attributes:
+      label: Reproduce steps
+      description: Steps to reproduce the behavior.
+      placeholder: |
+        1. Go to '...'
+        2. Click on '...'
+        3. Scroll down to '...'
+        4. Select '...'
+        5. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: bug-additional-info
+    attributes:
+      label: Additional Bug Details
+      description: |
+        Provide any additional information regarding the specific bug. This can include supporting information such as logs, screenshots or videos illsturate how the bug occurs so that we can facilitate resolving the issue.

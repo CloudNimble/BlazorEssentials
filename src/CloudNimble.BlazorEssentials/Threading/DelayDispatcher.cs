@@ -150,7 +150,7 @@ namespace CloudNimble.BlazorEssentials.Threading
             {
                 if (disposing)
                 {
-                    timer.Dispose();
+                    timer?.Dispose();
                     timer = null;
                 }
 

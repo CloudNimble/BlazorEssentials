@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 
 namespace CloudNimble.BlazorEssentials.Navigation
 {
@@ -8,7 +7,7 @@ namespace CloudNimble.BlazorEssentials.Navigation
     /// <summary>
     /// Defines a button that can be used to trigger an action in a User Interface. Useful for binding aq group of actions programmatically.
     /// </summary>
-    public class ActionButton : ActionButtonBase
+    public class ActionButton<T> : ActionButtonBase
     {
 
         #region Properties
@@ -16,7 +15,7 @@ namespace CloudNimble.BlazorEssentials.Navigation
         /// <summary>
         /// A lambda expression that will be executed when the button is clicked.
         /// </summary>
-        public Action ActionMethod { get; set; } = () => { };
+        public Action<T> ActionMethod { get; set; } = (args) => { };
 
         #endregion
 
@@ -24,7 +23,7 @@ namespace CloudNimble.BlazorEssentials.Navigation
 
         public ActionButton() : base()
         {
-            ActionMethod = () => { };
+            ActionMethod = (args) => { };
         }
 
         /// <summary>
@@ -34,9 +33,9 @@ namespace CloudNimble.BlazorEssentials.Navigation
         /// <param name="tooltip"></param>
         /// <param name="actionMethod"></param>
         /// <param name="isDisabledFunc"></param>
-        public ActionButton(string iconClass, string tooltip, Action actionMethod = null, Func<bool> isDisabledFunc = null) : base(iconClass, tooltip, isDisabledFunc)
+        public ActionButton(string iconClass, string tooltip, Action<T> actionMethod = null, Func<bool> isDisabledFunc = null) : base(iconClass, tooltip, isDisabledFunc)
         {
-            ActionMethod = actionMethod ?? (() => { });
+            ActionMethod = actionMethod ?? ((args) => { });
         }
 
         /// <summary>
@@ -65,10 +64,10 @@ namespace CloudNimble.BlazorEssentials.Navigation
         /// <param name="isDisabledFunc"></param>
         /// <param name="tooltip"></param>
         /// <param name="tooltipContainer"></param>
-        public ActionButton(string buttonText, string buttonClass, string iconClass, Action actionMethod = null, Func<bool> isDisabledFunc = null, string tooltip = null, string tooltipContainer = "body")
+        public ActionButton(string buttonText, string buttonClass, string iconClass, Action<T> actionMethod = null, Func<bool> isDisabledFunc = null, string tooltip = null, string tooltipContainer = "body")
             : base(buttonText, buttonClass, iconClass, isDisabledFunc, tooltip, tooltipContainer)
         {
-            ActionMethod = actionMethod ?? (() => { });
+            ActionMethod = actionMethod ?? ((args) => { });
         }
 
         #endregion

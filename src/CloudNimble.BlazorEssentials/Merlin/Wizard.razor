@@ -297,8 +297,10 @@
 
     void IDisposable.Dispose()
     {
+        if (Operation is null) return;
         Operation.PropertyChanged -= Operation_PropertyChanged;
         Operation.StateHasChanged.Action = null;
+        Operation = null;
     }
 
 }

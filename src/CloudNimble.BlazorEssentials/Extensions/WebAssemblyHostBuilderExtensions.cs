@@ -51,8 +51,8 @@ namespace Microsoft.AspNetCore.Components.WebAssembly.Hosting
             ArgumentNullException.ThrowIfNull(builder, nameof(builder));
             if (string.IsNullOrWhiteSpace(configSectionName)) throw new ArgumentNullException(nameof(configSectionName), "You must specify the name of the Configuration node in appsettings.json that specifies BlazorEssentials settings.");
 
-            var config = builder.Services.AddConfigurationBase<TConfiguration>(builder.Configuration, configSectionName);
             builder.Services.AddSingleton<NavigationHistory>();
+            var config = builder.Services.AddConfigurationBase<TConfiguration>(builder.Configuration, configSectionName);
             builder.Services.AddAppStateBase<TAppState>();
             builder.Services.AddHttpClients<TConfiguration, TMessageHandler>(config);
             return builder;

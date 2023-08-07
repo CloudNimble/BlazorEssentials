@@ -1,4 +1,5 @@
 ﻿using CloudNimble.BlazorEssentials.Authentication;
+using CloudNimble.BlazorEssentials.Navigation;
 using CloudNimble.Breakdance.Blazor;
 using CloudNimble.EasyAF.Configuration;
 using CloudNimble.EasyAF.Core;
@@ -97,6 +98,7 @@ namespace CloudNimble.BlazorEssentials.Breakdance
         public void TestSetup(string configSectionName, string environment = "Development", string baseAddress = "https://localhost")
         {
             base.TestSetup();
+            BUnitTestContext.Services.AddSingleton<NavigationHistory>();
             var config = BUnitTestContext.Services.AddConfigurationBase<TConfiguration>(TestHost.Services.GetService<IConfiguration>(), configSectionName);
             BUnitTestContext.Services.AddAppStateBase<TAppState>();
             BUnitTestContext.Services.AddHttpClients<TConfiguration, BlazorEssentialsAuthorizationMessageHandler<TConfiguration>>(config, config.HttpHandlerMode);
@@ -120,6 +122,7 @@ namespace CloudNimble.BlazorEssentials.Breakdance
             where TMessageHandler : DelegatingHandler
         {
             base.TestSetup();
+            BUnitTestContext.Services.AddSingleton<NavigationHistory>();
             var config = BUnitTestContext.Services.AddConfigurationBase<TConfiguration>(TestHost.Services.GetService<IConfiguration>(), configSectionName);
             BUnitTestContext.Services.AddAppStateBase<TAppState>();
             BUnitTestContext.Services.AddHttpClients<TConfiguration, TMessageHandler>(config, httpHandlerMode);

@@ -170,7 +170,7 @@ namespace CloudNimble.BlazorEssentials
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the completion state of the operation.</returns>
         /// <remarks>Will not throw an exception if you are at the bottom of the History stack.</remarks>
-        public async Task NavigateBack()
+        public async Task NavigateBackAsync()
         {
             await NavigationHistory.Back().ConfigureAwait(false);
             SetCurrentNavItem();
@@ -182,7 +182,7 @@ namespace CloudNimble.BlazorEssentials
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the completion state of the operation.</returns>
         /// <remarks>Will not throw an exception if you are at the top of the History stack.</remarks>
-        public async Task NavigateForward()
+        public async Task NavigateForwardAsync()
         {
             await NavigationHistory.Forward().ConfigureAwait(false);
             SetCurrentNavItem();

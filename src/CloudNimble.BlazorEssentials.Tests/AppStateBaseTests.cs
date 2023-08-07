@@ -52,7 +52,7 @@ namespace CloudNimble.BlazorEssentials.Tests
         [TestMethod]
         public void AppStateBase_CorrectInitialState()
         {
-            var state = new AppStateBase(null, null, null, null);
+            var state = new AppStateBase(null, null, null, null, null);
             state.LoadingStatus.Should().Be(LoadingStatus.NotLoaded);
             state.NavItems.Should().BeNull();
         }

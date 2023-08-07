@@ -1,16 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CloudNimble.BlazorEssentials.Navigation
+﻿namespace CloudNimble.BlazorEssentials.Navigation
 {
+
+    /// <summary>
+    /// Represents the scroll restoration behavior on history navigation.
+    /// </summary>
     public enum ScrollRestorationType
     {
 
+        /// <summary>
+        /// The location on the page to which the user has scrolled will be restored.
+        /// </summary>
         Auto,
+
+        /// <summary>
+        /// The location on the page is not restored. The user will have to scroll to the location manually.
+        /// </summary>
         Manual
 
     }
+
 }

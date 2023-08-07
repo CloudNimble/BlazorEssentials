@@ -96,6 +96,14 @@ namespace CloudNimble.BlazorEssentials
         public IJSRuntime JSRuntime { get; set; }
 
         /// <summary>
+        /// Allows the application to interact with the browser's History API.
+        /// </summary>
+        /// <remarks>
+        /// This really should be a part of the NavigationManager, but what do we know? ¯\_(ツ)_/¯
+        /// </remarks>
+        public NavigationHistory NavigationHistory { get; private set; }
+
+        /// <summary>
         /// The instance of the <see cref="NavigationManager" /> injected by the DI system.
         /// </summary>
         public NavigationManager NavigationManager { get; private set; }
@@ -112,19 +120,21 @@ namespace CloudNimble.BlazorEssentials
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="environment"></param>
-        /// <param name="jsRuntime"></param>
-        /// <param name="stateHasChangedConfig"></param>
-        /// <param name="navigationManager"></param>
-        /// <param name="httpClientFactory"></param>
+        /// <param name="navigationManager">The Blazor <see cref="NavigationManager" /> instance from the DI container.</param>
+        /// <param name="httpClientFactory">The <see cref="IHttpClientFactory"/> instance from the DI container.</param>
+        /// <param name="jsRuntime">The <see cref="IJSRuntime"/> instance from the DI container.</param>
+        /// <param name="environment">The <see cref="IWebAssemblyHostEnvironment"/> instance from the DI container.</param>
+        /// <param name="navHistory">The <see cref="NavigationHistory"/> instance from the DI container.</param>
+        /// <param name="stateHasChangedConfig">The <see cref="StateHasChangedConfig"/> instance from the DI container.</param>
         public AppStateBase(NavigationManager navigationManager, IHttpClientFactory httpClientFactory, IJSRuntime jsRuntime, 
-            IWebAssemblyHostEnvironment environment, StateHasChangedConfig stateHasChangedConfig = null)
+            IWebAssemblyHostEnvironment environment, NavigationHistory navHistory, StateHasChangedConfig stateHasChangedConfig = null)
             : base(stateHasChangedConfig)
         {
             NavigationManager = navigationManager;
             HttpClientFactory = httpClientFactory;
             JSRuntime = jsRuntime;
             Environment = environment;
+            NavigationHistory = navHistory;
         }
 
         #endregion
@@ -155,16 +165,40 @@ namespace CloudNimble.BlazorEssentials
         }
 
         /// <summary>
-        /// Tells the AuthenticationProcider to get the latest ClaimsPrincipal and run it through the internal AuthenticationStateChanged handler.
+        /// Utilizes the injected <see cref="NavigationHistory"/> History API to navigate to the last entry in the history stack, and attempts
+        /// to set the <see cref="CurrentNavItem"/>.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A <see cref="Task"/> representing the completion state of the operation.</returns>
+        /// <remarks>Will not throw an exception if you are at the bottom of the History stack.</remarks>
+        public async Task NavigateBack()
+        {
+            await NavigationHistory.Back().ConfigureAwait(false);
+            SetCurrentNavItem();
+        }
+
+        /// <summary>
+        /// Utilizes the injected <see cref="NavigationHistory"/> History API to navigate to the next entry in the history stack, and attempts
+        /// to set the <see cref="CurrentNavItem"/>.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the completion state of the operation.</returns>
+        /// <remarks>Will not throw an exception if you are at the top of the History stack.</remarks>
+        public async Task NavigateForward()
+        {
+            await NavigationHistory.Forward().ConfigureAwait(false);
+            SetCurrentNavItem();
+        }
+
+        /// <summary>
+        /// Tells the AuthenticationProvider to get the latest ClaimsPrincipal and run it through the internal AuthenticationStateChanged handler.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the completion state of the operation.</returns>
         public async Task RefreshClaimsPrincipal()
         {
             AuthenticationStateProvider_AuthenticationStateChanged(AuthenticationStateProvider.GetAuthenticationStateAsync());
         }
 
         /// <summary>
-        /// Initilizes <see cref="CurrentNavItem" /> to the proper value based on the current route.
+        /// Initializes <see cref="CurrentNavItem" /> to the proper value based on the current route.
         /// </summary>
         public void SetCurrentNavItem()
         {
@@ -173,7 +207,7 @@ namespace CloudNimble.BlazorEssentials
         }
 
         /// <summary>
-        /// Initilizes <see cref="CurrentNavItem" /> to the proper value based on the current route.
+        /// Initializes <see cref="CurrentNavItem" /> to the proper value based on the current route.
         /// </summary>
         /// <param name="url"></param>
         public void SetCurrentNavItem(string url)

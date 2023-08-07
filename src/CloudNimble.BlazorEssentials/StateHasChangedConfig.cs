@@ -4,6 +4,10 @@ using System.Globalization;
 
 namespace CloudNimble.BlazorEssentials
 {
+
+    /// <summary>
+    /// 
+    /// </summary>
     public class StateHasChangedConfig : IDisposable
     {
 

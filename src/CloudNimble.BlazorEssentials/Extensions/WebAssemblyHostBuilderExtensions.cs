@@ -1,5 +1,6 @@
 ﻿using CloudNimble.BlazorEssentials;
 using CloudNimble.BlazorEssentials.Authentication;
+using CloudNimble.BlazorEssentials.Navigation;
 using CloudNimble.EasyAF.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -51,6 +52,7 @@ namespace Microsoft.AspNetCore.Components.WebAssembly.Hosting
             if (string.IsNullOrWhiteSpace(configSectionName)) throw new ArgumentNullException(nameof(configSectionName), "You must specify the name of the Configuration node in appsettings.json that specifies BlazorEssentials settings.");
 
             var config = builder.Services.AddConfigurationBase<TConfiguration>(builder.Configuration, configSectionName);
+            builder.Services.AddSingleton<NavigationHistory>();
             builder.Services.AddAppStateBase<TAppState>();
             builder.Services.AddHttpClients<TConfiguration, TMessageHandler>(config);
             return builder;

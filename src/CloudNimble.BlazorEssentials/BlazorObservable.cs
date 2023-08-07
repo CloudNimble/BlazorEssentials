@@ -1,11 +1,12 @@
 ﻿using CloudNimble.EasyAF.Core;
 using System;
+using System.ComponentModel;
 
 namespace CloudNimble.BlazorEssentials
 {
 
     /// <summary>
-    /// A base class for Blazor ViewModels to implement INotifyPropertyChanged and IDisposable.
+    /// A base class for Blazor ViewModels to implement <see cref="INotifyPropertyChanged" /> and <see cref="IDisposable" />.
     /// </summary>
     public class BlazorObservable : EasyObservableObject
     {
@@ -20,7 +21,7 @@ namespace CloudNimble.BlazorEssentials
         #region Properties
 
         /// <summary>
-        /// A <see cref="LoadingStatus"/> specifying the current state of the required data for this ViewModel.
+        /// A <see cref="LoadingStatus"/> specifying the current state of the required data for this Observable.
         /// </summary>
         public LoadingStatus LoadingStatus
         {
@@ -28,6 +29,9 @@ namespace CloudNimble.BlazorEssentials
             set => Set(() => LoadingStatus, ref loadingStatus, value);
         }
 
+        /// <summary>
+        /// Determines how to trigger StateHasChanged events in a Blazor component.
+        /// </summary>
         public StateHasChangedConfig StateHasChanged { get; set; }
 
         #endregion
@@ -63,7 +67,7 @@ namespace CloudNimble.BlazorEssentials
             {
                 if (disposing)
                 {
-                    // Dispose here
+                    StateHasChanged?.Dispose();
                 }
 
                 disposedValue = true;

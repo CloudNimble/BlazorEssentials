@@ -30,8 +30,8 @@ namespace CloudNimble.BlazorEssentials.TestApp.Models
         /// <param name="navigationManager"></param>
         /// <param name="httpClientFactory"></param>
         /// <param name="config"></param>
-        public AppState(NavigationManager navigationManager, IHttpClientFactory httpClientFactory, IJSRuntime jsRuntime, IWebAssemblyHostEnvironment environment, ConfigurationBase config)
-            : base(navigationManager, httpClientFactory, jsRuntime, environment)
+        public AppState(NavigationManager navigationManager, IHttpClientFactory httpClientFactory, IJSRuntime jsRuntime, IWebAssemblyHostEnvironment environment, NavigationHistory navHistory, ConfigurationBase config)
+            : base(navigationManager, httpClientFactory, jsRuntime, environment, navHistory)
         {
             if (!Environment.IsProduction())
             {

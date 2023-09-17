@@ -90,9 +90,6 @@
 	<ItemGroup Condition=" $(IsTestProject) != 'true' and $(IsSampleProject) != 'true' ">
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.*" PrivateAssets="All" />
 		<!-- RWM: The code quality on the unit tests right now is not awesome, so let's skip checking it for now. -->
-		<PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="7.*-*">
-			<PrivateAssets>all</PrivateAssets>
-		</PackageReference>
 
 		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
 			<_Parameter1>$(AssemblyName.Replace("CloudNimble.BlazorEssentials", "CloudNimble.BlazorEssentials.Tests")), $(StrongNamePublicKey)</_Parameter1>

@@ -1,32 +1,33 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFrameworks>net7.0;net6.0</TargetFrameworks>
-    <IsPackable>false</IsPackable>
-    <NoWarn>$(NoWarn);NU5125;NU5105;NU5048;NU5014;CA1052;CA1801;CA1822;</NoWarn>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>net8.0;net7.0;net6.0</TargetFrameworks>
+		<IsPackable>false</IsPackable>
+		<NoWarn>$(NoWarn);NU5125;NU5105;NU5048;NU5014;CA1052;CA1801;CA1822;</NoWarn>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="bunit" Version="1.*" />
-    <PackageReference Include="coverlet.collector" Version="6.*">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="[6.0.0, 7.0.0)" Condition="'$(TargetFramework)'=='net6.0'" />
-	<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="[7.*-*, 8.0.0)" Condition="'$(TargetFramework)'=='net7.0'" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="bunit" Version="1.*" />
+		<PackageReference Include="coverlet.collector" Version="6.*">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.*-*" Condition="'$(TargetFramework)'=='net8.0'" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.*" Condition="'$(TargetFramework)'=='net7.0'" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.*" Condition="'$(TargetFramework)'=='net6.0'" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\CloudNimble.BlazorEssentials.Breakdance\CloudNimble.BlazorEssentials.Breakdance.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\CloudNimble.BlazorEssentials.Breakdance\CloudNimble.BlazorEssentials.Breakdance.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Update="appsettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Update="appsettings.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
 
-  <Target Name="PrepareProjectReferences">
-  </Target>
+	<Target Name="PrepareProjectReferences">
+	</Target>
 
 </Project>

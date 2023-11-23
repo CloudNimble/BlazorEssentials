@@ -7,6 +7,8 @@
     public class InterfaceElement
     {
 
+        #region Properties
+
         /// <summary>
         /// A string representing the CSS classes that will be applied to the element.
         /// </summary>
@@ -21,6 +23,32 @@
         /// A string representing the CSS class for the icon that will be rendered immediately before the <see cref="DisplayText" />.
         /// </summary>
         public string IconClass { get; set; }
+
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public InterfaceElement()
+        {
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="displayText"></param>
+        /// <param name="iconClass"></param>
+        /// <param name="cssClass"></param>
+        public InterfaceElement(string displayText, string iconClass, string cssClass)
+        {
+            DisplayText = displayText;
+            IconClass = iconClass;
+            CssClass = cssClass;
+        }
+
+        #endregion
 
     }
 

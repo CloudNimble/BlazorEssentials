@@ -21,7 +21,7 @@
                 if (!item.IsVisible) continue;
                 <li class="nav-item px-3">
                     <NavLink class="nav-link" href="@item.Url" @onclick="@(() => appState.CurrentNavItem = item)" Match="NavLinkMatch.All">
-                        <i class="@item.Icon"></i>@item.Text
+                        <i class="@item.IconClass"></i>@item.DisplayText
                     </NavLink>
                 </li>
             }

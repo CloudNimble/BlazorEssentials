@@ -85,12 +85,12 @@ namespace CloudNimble.BlazorEssentials.Tests
 
             var results = state.NavItems.Traverse(c => c.Children);
             results.Should().HaveCount(5);
-            results.First().Text.Should().Be("Test1");
+            results.First().DisplayText.Should().Be("Test1");
 
             state.SetCurrentNavItem("2");
 
             state.CurrentNavItem.Should().NotBeNull();
-            state.CurrentNavItem.Text.Should().Be("Inner2");
+            state.CurrentNavItem.DisplayText.Should().Be("Inner2");
         }
 
         /// <summary>
@@ -121,12 +121,12 @@ namespace CloudNimble.BlazorEssentials.Tests
 
             var results = state.NavItems.Traverse(c => c.Children);
             results.Should().HaveCount(5);
-            results.First().Text.Should().Be("Test1");
+            results.First().DisplayText.Should().Be("Test1");
 
             state.SetCurrentNavItem("2/SomeParameter");
 
             state.CurrentNavItem.Should().NotBeNull();
-            state.CurrentNavItem.Text.Should().Be("Inner2");
+            state.CurrentNavItem.DisplayText.Should().Be("Inner2");
         }
 
         /// <summary>

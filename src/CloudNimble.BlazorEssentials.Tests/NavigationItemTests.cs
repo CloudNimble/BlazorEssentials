@@ -34,8 +34,8 @@ namespace CloudNimble.BlazorEssentials.Tests
             item1.Roles.Should().NotBeNull();
             var item2 = new NavigationItem("Test", "Icon", "");
             item2.Roles.Should().NotBeNull();
-            item2.Text.Should().Be("Test");
-            item2.Icon.Should().Be("Icon");
+            item2.DisplayText.Should().Be("Test");
+            item2.IconClass.Should().Be("Icon");
             item2.Url.Should().Be("");
 
         }

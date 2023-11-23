@@ -37,11 +37,11 @@ namespace CloudNimble.BlazorEssentials.Tests
             list.Should().HaveCount(2);
             var result = list.Traverse(c => c.Children).ToList();
             result.Should().HaveCount(5);
-            result[0].Text.Should().Be("Test1");
-            result[1].Text.Should().Be("Inner1");
-            result[2].Text.Should().Be("Test2");
-            result[3].Text.Should().Be("Inner2");
-            result[4].Text.Should().Be("Inner3");
+            result[0].DisplayText.Should().Be("Test1");
+            result[1].DisplayText.Should().Be("Inner1");
+            result[2].DisplayText.Should().Be("Test2");
+            result[3].DisplayText.Should().Be("Inner2");
+            result[4].DisplayText.Should().Be("Inner3");
         }
 
     }

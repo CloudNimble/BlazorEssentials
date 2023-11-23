@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Security.Claims;
 
 namespace CloudNimble.BlazorEssentials.Navigation
@@ -10,7 +9,7 @@ namespace CloudNimble.BlazorEssentials.Navigation
     /// Defines an app navigation structure suitable for binding to navigation menus.
     /// </summary>
     [DebuggerDisplay("{DebuggerDisplay,nq}")]
-    public class NavigationItem
+    public class NavigationItem : InterfaceElement
     {
 
         #region Private Members
@@ -35,16 +34,6 @@ namespace CloudNimble.BlazorEssentials.Navigation
         /// 
         /// </summary>
         public List<NavigationItem> Children { get; set; }
-
-        /// <summary>
-        /// A string representing the CSS class(es) for the icon that can be displayed next to the <see cref="Text"/>.
-        /// </summary>
-        public string Icon { get; set; }
-
-        /// <summary>
-        /// A string representing the text that will be displayed in the NavBar.
-        /// </summary>
-        public string Text { get; set; }
 
         /// <summary>
         /// Specifies whether or not this <see cref="NavigationItem" /> is visible on the NavBar. Defaults to True.
@@ -90,7 +79,7 @@ namespace CloudNimble.BlazorEssentials.Navigation
         /// <remarks>http://blogs.msdn.com/b/jaredpar/archive/2011/03/18/debuggerdisplay-attribute-best-practices.aspx</remarks>
         private string DebuggerDisplay
         {
-            get { return $"Text: {Text} | Icon: {Icon} | Url: {Url}"; }
+            get { return $"Text: {DisplayText} | Icon: {IconClass} | Url: {Url}"; }
         }
 
         #endregion
@@ -110,12 +99,12 @@ namespace CloudNimble.BlazorEssentials.Navigation
         /// Creates a new instance with the minimum-required items to render a Blazor NavLink.
         /// </summary>
         /// <param name="text">A string representing the text that will be displayed in the NavBar.</param>
-        /// <param name="icon">A string representing the CSS class(es) for the icon that can be displayed next to the <see cref="Text"/>.</param>
+        /// <param name="icon">A string representing the CSS class(es) for the icon that can be displayed next to the <see cref="InterfaceElement.DisplayText"/>.</param>
         /// <param name="url">A string corresponding to the route for this <see cref="NavigationItem" />.</param>
         public NavigationItem(string text, string icon, string url) : this()
         {
-            Text = text;
-            Icon = icon;
+            DisplayText = text;
+            IconClass = icon;
             Url = url;
             IsVisible = true;
         }
@@ -124,7 +113,7 @@ namespace CloudNimble.BlazorEssentials.Navigation
         /// 
         /// </summary>
         /// <param name="text">A string representing the text that will be displayed in the NavBar.</param>
-        /// <param name="icon">A string representing the CSS class(es) for the icon that can be displayed next to the <see cref="Text"/>.</param>
+        /// <param name="icon">A string representing the CSS class(es) for the icon that can be displayed next to the <see cref="InterfaceElement.DisplayText"/>.</param>
         /// <param name="url">A string corresponding to the route for this <see cref="NavigationItem" />.</param>
         /// <param name="category">
         /// A string representing the parent category for this <see cref="NavigationItem" />. Can be useful for grouping 
@@ -139,7 +128,7 @@ namespace CloudNimble.BlazorEssentials.Navigation
         /// 
         /// </summary>
         /// <param name="text">A string representing the text that will be displayed in the NavBar.</param>
-        /// <param name="icon">A string representing the CSS class(es) for the icon that can be displayed next to the <see cref="Text"/>.</param>
+        /// <param name="icon">A string representing the CSS class(es) for the icon that can be displayed next to the <see cref="InterfaceElement.DisplayText"/>.</param>
         /// <param name="url">A string corresponding to the route for this <see cref="NavigationItem" />.</param>
         /// <param name="category">
         /// A string representing the parent category for this <see cref="NavigationItem" />. Can be useful for grouping 
@@ -155,7 +144,7 @@ namespace CloudNimble.BlazorEssentials.Navigation
         /// 
         /// </summary>
         /// <param name="text">A string representing the text that will be displayed in the NavBar.</param>
-        /// <param name="icon">A string representing the CSS class(es) for the icon that can be displayed next to the <see cref="Text"/>.</param>
+        /// <param name="icon">A string representing the CSS class(es) for the icon that can be displayed next to the <see cref="InterfaceElement.DisplayText"/>.</param>
         /// <param name="category">
         /// A string representing the parent category for this <see cref="NavigationItem" />. Can be useful for grouping 
         /// <see cref="NavigationItem">NavigationItems</see> into caregories for display.
@@ -171,7 +160,7 @@ namespace CloudNimble.BlazorEssentials.Navigation
         /// 
         /// </summary>
         /// <param name="text">A string representing the text that will be displayed in the NavBar.</param>
-        /// <param name="icon">A string representing the CSS class(es) for the icon that can be displayed next to the <see cref="Text"/>.</param>
+        /// <param name="icon">A string representing the CSS class(es) for the icon that can be displayed next to the <see cref="InterfaceElement.DisplayText"/>.</param>
         /// <param name="url">A string corresponding to the route for this <see cref="NavigationItem" />.</param>
         /// <param name="category">
         /// A string representing the parent category for this <see cref="NavigationItem" />. Can be useful for grouping 
@@ -190,7 +179,7 @@ namespace CloudNimble.BlazorEssentials.Navigation
         /// 
         /// </summary>
         /// <param name="text">A string representing the text that will be displayed in the NavBar.</param>
-        /// <param name="icon">A string representing the CSS class(es) for the icon that can be displayed next to the <see cref="Text"/>.</param>
+        /// <param name="icon">A string representing the CSS class(es) for the icon that can be displayed next to the <see cref="InterfaceElement.DisplayText"/>.</param>
         /// <param name="url">A string corresponding to the route for this <see cref="NavigationItem" />.</param>
         /// <param name="category">
         /// A string representing the parent category for this <see cref="NavigationItem" />. Can be useful for grouping 
@@ -231,7 +220,7 @@ namespace CloudNimble.BlazorEssentials.Navigation
             }
 
             //RWM: If user, but no roles. You're not anonymous, so you should see it.
-            if (!Roles.Any()) return true;
+            if (Roles.Count == 0) return true;
 
             //RWM: We have roles, and I'm here for it.
             foreach (var role in Roles)

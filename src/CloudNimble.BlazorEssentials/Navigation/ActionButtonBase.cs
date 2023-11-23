@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 
 namespace CloudNimble.BlazorEssentials.Navigation
 {
@@ -8,7 +7,7 @@ namespace CloudNimble.BlazorEssentials.Navigation
     /// <summary>
     /// Defines a button that can be used to trigger an action in a User Interface. Useful for binding aq group of actions programmatically.
     /// </summary>
-    public abstract class ActionButtonBase
+    public abstract class ActionButtonBase : InterfaceElement
     {
 
         #region Properties
@@ -19,24 +18,9 @@ namespace CloudNimble.BlazorEssentials.Navigation
         public string AccessibilityText { get; set; }
 
         /// <summary>
-        /// The CSS class(es) that will be applied to the button tag.
-        /// </summary>
-        public string ButtonClass { get; set; }
-
-        /// <summary>
-        /// The text that will be displayed inside the button.
-        /// </summary>
-        public string ButtonText { get; set; }
-
-        /// <summary>
         /// 
         /// </summary>
         public List<ActionButton> Children { get; set; }
-
-        /// <summary>
-        /// The CSS class(es) for the icon that will be displayed inside the button.
-        /// </summary>
-        public string IconClass { get; set; }
 
         /// <summary>
         /// 
@@ -109,8 +93,8 @@ namespace CloudNimble.BlazorEssentials.Navigation
         /// <param name="children"></param>
         public ActionButtonBase(string buttonText, string buttonClass, string iconClass,  string popoverName, string popoverHeader, string popoverPlacement, Func<bool> isDisabledFunc = null, List<ActionButton> children = null) : this()
         {
-            ButtonText = buttonText;
-            ButtonClass = buttonClass;
+            DisplayText = buttonText;
+            CssClass = buttonClass;
             IconClass = iconClass;
             PopoverName = popoverName;
             PopoverHeader = popoverHeader;
@@ -130,8 +114,8 @@ namespace CloudNimble.BlazorEssentials.Navigation
         /// <param name="tooltipContainer"></param>
         public ActionButtonBase(string buttonText, string buttonClass, string iconClass, Func<bool> isDisabledFunc = null, string tooltip = null, string tooltipContainer = "body") : this()
         {
-            ButtonText = buttonText;
-            ButtonClass = buttonClass;
+            DisplayText = buttonText;
+            CssClass = buttonClass;
             IconClass = iconClass;
             IsDisabledFunc = isDisabledFunc ?? (() => false);
             Tooltip = tooltip;

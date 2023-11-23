@@ -1,4 +1,4 @@
-﻿namespace CloudNimble.BlazorEssentials.Navigation
+﻿namespace CloudNimble.BlazorEssentials
 {
 
     /// <summary>

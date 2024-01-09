@@ -1,4 +1,5 @@
-﻿using CloudNimble.EasyAF.Configuration;
+﻿using CloudNimble.BlazorEssentials.Threading;
+using CloudNimble.EasyAF.Configuration;
 using Microsoft.AspNetCore.Components;
 using System.Net.Http;
 
@@ -15,6 +16,12 @@ namespace CloudNimble.BlazorEssentials
         where TAppState : AppStateBase
     {
 
+        #region Private Members
+
+        private DelayDispatcher delayDispatcher;
+
+        #endregion
+
         #region Properties
 
         /// <summary>
@@ -26,6 +33,21 @@ namespace CloudNimble.BlazorEssentials
         /// The injected <see cref="ConfigurationBase"/> instance for the ViewModel. 
         /// </summary>
         public TConfig Configuration { get; internal set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// This property is structured so that a new instance is not created unless specifically asked, to avoid unnecessary memory allocations.
+        /// </remarks>
+        public DelayDispatcher DelayDispatcher
+        {
+            get
+            {
+                delayDispatcher ??= new();
+                return delayDispatcher;
+            }
+        }
 
         /// <summary>
         /// Allows you to set any additional filtering criteria for this ViewModels' HTTP requests from inside the Page itself.

@@ -61,7 +61,7 @@ namespace CloudNimble.BlazorEssentials
 
         /// <summary>
         /// An <see cref="int"/> specifying the number of milliseconds this BlazorObservable should wait between 
-        /// <see cref="Action"/> calls. Default is 100 miliseconds.
+        /// <see cref="Action"/> calls. Default is 100 milliseconds.
         /// </summary>
         /// <remarks>
         /// <see cref="DelayMode" /> must be set to <see cref="StateHasChangedDelayMode.Debounce" /> or 

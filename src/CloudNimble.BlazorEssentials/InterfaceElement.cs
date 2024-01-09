@@ -41,7 +41,7 @@
         /// <param name="displayText"></param>
         /// <param name="iconClass"></param>
         /// <param name="cssClass"></param>
-        public InterfaceElement(string displayText, string iconClass, string cssClass)
+        public InterfaceElement(string displayText, string iconClass, string cssClass = null)
         {
             DisplayText = displayText;
             IconClass = iconClass;

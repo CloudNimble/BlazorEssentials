@@ -155,37 +155,60 @@ namespace CloudNimble.BlazorEssentials
         /// Navigates to the specified Uri and sets <see cref="CurrentNavItem" /> to the matching <see cref="NavigationItem" /> in <see cref="NavItems" />.
         /// </summary>
         /// <param name="uri"></param>
-        public void Navigate(string uri)
+        /// <param name="setCurrentNavItem">
+        /// Determines whether or not we should also set the CurrentNavItem. Usually this is no because the MainLayout should call 
+        /// AppState.SetCurrentNavItem in OnParametersSet. This parameter gives you flexibility without potentially calling it twice.
+        /// </param>
+        public void Navigate(string uri, bool setCurrentNavItem = false)
         {
+            // RWM: Navigating to null / whitespace should take you home? 
             if (!string.IsNullOrWhiteSpace(uri))
             {
                 NavigationManager.NavigateTo(uri);
             }
-            SetCurrentNavItem();
+
+            if (setCurrentNavItem)
+            {
+                SetCurrentNavItem();
+            }
         }
 
         /// <summary>
         /// Utilizes the injected <see cref="NavigationHistory"/> History API to navigate to the last entry in the history stack, and attempts
         /// to set the <see cref="CurrentNavItem"/>.
         /// </summary>
+        /// <param name="setCurrentNavItem">
+        /// Determines whether or not we should also set the CurrentNavItem. Usually this is no because the MainLayout should call 
+        /// AppState.SetCurrentNavItem in OnParametersSet. This parameter gives you flexibility without potentially calling it twice.
+        /// </param>
         /// <returns>A <see cref="Task"/> representing the completion state of the operation.</returns>
         /// <remarks>Will not throw an exception if you are at the bottom of the History stack.</remarks>
-        public async Task NavigateBackAsync()
+        public async Task NavigateBackAsync(bool setCurrentNavItem = false)
         {
             await NavigationHistory.Back().ConfigureAwait(false);
-            SetCurrentNavItem();
+            if (setCurrentNavItem)
+            {
+                SetCurrentNavItem();
+            }
         }
 
         /// <summary>
         /// Utilizes the injected <see cref="NavigationHistory"/> History API to navigate to the next entry in the history stack, and attempts
         /// to set the <see cref="CurrentNavItem"/>.
         /// </summary>
+        /// <param name="setCurrentNavItem">
+        /// Determines whether or not we should also set the CurrentNavItem. Usually this is no because the MainLayout should call 
+        /// AppState.SetCurrentNavItem in OnParametersSet. This parameter gives you flexibility without potentially calling it twice.
+        /// </param>
         /// <returns>A <see cref="Task"/> representing the completion state of the operation.</returns>
         /// <remarks>Will not throw an exception if you are at the top of the History stack.</remarks>
-        public async Task NavigateForwardAsync()
+        public async Task NavigateForwardAsync(bool setCurrentNavItem = false)
         {
             await NavigationHistory.Forward().ConfigureAwait(false);
-            SetCurrentNavItem();
+            if (setCurrentNavItem)
+            {
+                SetCurrentNavItem();
+            }
         }
 
         /// <summary>
@@ -202,7 +225,6 @@ namespace CloudNimble.BlazorEssentials
         /// </summary>
         public void SetCurrentNavItem()
         {
-            if (CurrentNavItem != null) return;
             SetCurrentNavItem(NavigationManager.ToBaseRelativePath(NavigationManager.Uri));
         }
 
@@ -212,12 +234,12 @@ namespace CloudNimble.BlazorEssentials
         /// <param name="url"></param>
         public void SetCurrentNavItem(string url)
         {
-            if (NavItems == null) return;
+            if (NavItems is null) return;
 
             var items = NavItems.Traverse(c => c.Children);
             var urlToSet = ToRelativeUrl(url);
 
-            CurrentNavItem = items.Where(c => c.Url != null).FirstOrDefault(c => (urlToSet == string.Empty && ToRelativeUrl(c.Url) == string.Empty) || (ToRelativeUrl(c.Url) != string.Empty && urlToSet.StartsWith(ToRelativeUrl(c.Url), StringComparison.InvariantCultureIgnoreCase)));
+            CurrentNavItem = items.Where(c => c.Url is not null).FirstOrDefault(c => (urlToSet == string.Empty && ToRelativeUrl(c.Url) == string.Empty) || (ToRelativeUrl(c.Url) != string.Empty && urlToSet.StartsWith(ToRelativeUrl(c.Url), StringComparison.InvariantCultureIgnoreCase)));
         }
 
         #endregion
@@ -231,10 +253,7 @@ namespace CloudNimble.BlazorEssentials
         private async void AuthenticationStateProvider_AuthenticationStateChanged(Task<AuthenticationState> task)
         {
             var state = await task.ConfigureAwait(false);
-            //if (state.User?.Identity?.IsAuthenticated == true)
-            //{
-                ClaimsPrincipal = state.User;
-            //}
+            ClaimsPrincipal = state.User;
         }
 
         /// <summary>
@@ -244,7 +263,7 @@ namespace CloudNimble.BlazorEssentials
         /// <returns></returns>
         internal string ToRelativeUrl(string url)
         { 
-            if (url == null) return string.Empty;
+            if (url is null) return string.Empty;
             var absoluteUri = NavigationManager.ToAbsoluteUri(url);
             var baseRelative = NavigationManager.ToBaseRelativePath(absoluteUri.ToString());
             return baseRelative;

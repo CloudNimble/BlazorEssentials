@@ -1,7 +1,6 @@
 ﻿using CloudNimble.BlazorEssentials.Merlin;
 using CloudNimble.BlazorEssentials.TestApp.Models;
 using CloudNimble.EasyAF.Configuration;
-using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -21,7 +20,7 @@ namespace CloudNimble.BlazorEssentials.TestApp.ViewModels
 
         #region Constructors
 
-        public WizardViewModel(ConfigurationBase configuration, AppState appState, NavigationManager navigationManager, IHttpClientFactory httpClientFactory) : base(navigationManager, httpClientFactory, configuration, appState)
+        public WizardViewModel(ConfigurationBase configuration, AppState appState, IHttpClientFactory httpClientFactory) : base(httpClientFactory, configuration, appState)
         {
             var operationSteps = new List<OperationStep> {
                 new OperationStep(1, "Sample operation: Making you wait...", async () => { await Task.Delay(2000); return await Task.FromResult(true); }),

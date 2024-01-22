@@ -212,6 +212,17 @@ namespace CloudNimble.BlazorEssentials
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        /// <remarks>https://stackoverflow.com/a/62769092</remarks>
+        public async Task OpenInNewTab(string url)
+        {
+             await JSRuntime.InvokeVoidAsync("open", url, "_blank");
+        }
+
+        /// <summary>
         /// Tells the AuthenticationProvider to get the latest ClaimsPrincipal and run it through the internal AuthenticationStateChanged handler.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the completion state of the operation.</returns>

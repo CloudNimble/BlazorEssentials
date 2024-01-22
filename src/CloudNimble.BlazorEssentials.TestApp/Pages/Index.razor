@@ -25,9 +25,9 @@
 History Length: @navHistoryCount<br />
 @* History ScrollRestoration: @navHistory.ScrollRestoration*@
 
-<HxButton Color="ThemeColor.Primary" OnClick="NavigateToMerlin"><i class="fad fa-pen-to-square pe-2" />Edit Journey</HxButton>
+<HxButton Color="ThemeColor.Primary" OnClick="NavigateToMerlin"><i class="fad fa-pen-to-square pe-2" />Go To Merlin</HxButton>
 
-
+<HxButton Color="ThemeColor.Primary" OnClick="NavigateToBurnRate"><i class="fad fa-pen-to-square pe-2" />Go To BurnRate</HxButton>
 
 @code
 {
@@ -55,4 +55,11 @@ History Length: @navHistoryCount<br />
     {
         appState.Navigate("/Merlin");
     }
+
+    protected async Task NavigateToBurnRate()
+    {
+        await appState.OpenInNewTab("https://burnrate.io");
+    }
+
+
 }

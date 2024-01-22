@@ -22,7 +22,7 @@ namespace CloudNimble.BlazorEssentials.TestApp.ViewModels
 
         #region Constructors
 
-        public LoadingContainerViewModel(ConfigurationBase configuration, AppState appState, NavigationManager navigationManager, IHttpClientFactory httpClientFactory) : base(navigationManager, httpClientFactory, configuration, appState)
+        public LoadingContainerViewModel(ConfigurationBase configuration, AppState appState, IHttpClientFactory httpClientFactory) : base(httpClientFactory, configuration, appState)
         {
         }
 

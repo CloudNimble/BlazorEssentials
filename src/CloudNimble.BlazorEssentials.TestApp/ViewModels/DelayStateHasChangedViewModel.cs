@@ -1,6 +1,5 @@
 ﻿using CloudNimble.BlazorEssentials.TestApp.Models;
 using CloudNimble.EasyAF.Configuration;
-using Microsoft.AspNetCore.Components;
 using System.Net.Http;
 
 namespace CloudNimble.BlazorEssentials.TestApp.ViewModels
@@ -11,7 +10,7 @@ namespace CloudNimble.BlazorEssentials.TestApp.ViewModels
 
         #region Constructors
 
-        public DelayStateHasChangedViewModel(NavigationManager navigationManager, IHttpClientFactory httpClientFactory, ConfigurationBase configuration = null, AppState appState = null) : base(navigationManager, httpClientFactory, configuration, appState)
+        public DelayStateHasChangedViewModel(IHttpClientFactory httpClientFactory, ConfigurationBase configuration = null, AppState appState = null) : base(httpClientFactory, configuration, appState)
         {
             StateHasChanged.DebugMode = StateHasChangedDebugMode.Tuning;
             appState.StateHasChanged.DebugMode = StateHasChangedDebugMode.Tuning;

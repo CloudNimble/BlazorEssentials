@@ -1,6 +1,7 @@
 ﻿using CloudNimble.BlazorEssentials.Threading;
 using CloudNimble.EasyAF.Configuration;
 using Microsoft.AspNetCore.Components;
+using System;
 using System.Net.Http;
 
 namespace CloudNimble.BlazorEssentials
@@ -62,13 +63,14 @@ namespace CloudNimble.BlazorEssentials
         /// <summary>
         /// The injected <see cref="NavigationManager"/> instance for the ViewModel.
         /// </summary>
+        [Obsolete("Use AppState.Navigate() and related methods instead. This will be removed in the final release of BlazorEssentials 3.0.", false)]
         public NavigationManager NavigationManager { get; internal set; }
 
         #endregion
 
         #region Constructors
 
-        /// <summary>
+            /// <summary>
         /// Creates a new instance of the <see cref="ViewModelBase{TConfig, TAppState}"/>.
         /// </summary>
         /// <param name="navigationManager">The <see cref="NavigationManager"/> instance injected from the DI container.</param>
@@ -76,10 +78,26 @@ namespace CloudNimble.BlazorEssentials
         /// <param name="configuration">The <typeparamref name="TConfig"/> instance injected from the DI container.</param>
         /// <param name="appState">The <typeparamref name="TAppState"/> instance injected from the DI container.</param>
         /// <param name="stateHasChangedConfig"></param>
+        [Obsolete("This consructor will be removed in the final release of BlazorEssentials 3.0.", false)]
         public ViewModelBase(NavigationManager navigationManager, IHttpClientFactory httpClientFactory, TConfig configuration = null, TAppState appState = null, StateHasChangedConfig stateHasChangedConfig = null)
             : base(stateHasChangedConfig)
         {
             NavigationManager = navigationManager;
+            HttpClientFactory = httpClientFactory;
+            Configuration = configuration;
+            AppState = appState;
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="ViewModelBase{TConfig, TAppState}"/>.
+        /// </summary>
+        /// <param name="httpClientFactory">The <see cref="IHttpClientFactory"/> instance injected from the DI container.</param>
+        /// <param name="configuration">The <typeparamref name="TConfig"/> instance injected from the DI container.</param>
+        /// <param name="appState">The <typeparamref name="TAppState"/> instance injected from the DI container.</param>
+        /// <param name="stateHasChangedConfig"></param>
+        public ViewModelBase(IHttpClientFactory httpClientFactory, TConfig configuration = null, TAppState appState = null, StateHasChangedConfig stateHasChangedConfig = null)
+            : base(stateHasChangedConfig)
+        {
             HttpClientFactory = httpClientFactory;
             Configuration = configuration;
             AppState = appState;

@@ -1,6 +1,5 @@
 ﻿using CloudNimble.BlazorEssentials.TestApp.Models;
 using CloudNimble.EasyAF.Configuration;
-using Microsoft.AspNetCore.Components;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -17,7 +16,7 @@ namespace CloudNimble.BlazorEssentials.TestApp.ViewModels
 
         #region Constructors
 
-        public IndexViewModel(ConfigurationBase configuration, AppState appState, NavigationManager navigationManager, IHttpClientFactory httpClientFactory) : base(navigationManager, httpClientFactory, configuration, appState)
+        public IndexViewModel(ConfigurationBase configuration, AppState appState, IHttpClientFactory httpClientFactory) : base(httpClientFactory, configuration, appState)
         {
         }
 
@@ -27,10 +26,18 @@ namespace CloudNimble.BlazorEssentials.TestApp.ViewModels
 
         public async Task Load()
         {
-            LoadingStatus = LoadingStatus.Loading;
-            var client = HttpClientFactory.CreateClient(Configuration.ApiClientName);
-            Console.WriteLine(await client.GetStringAsync(Configuration.ApiRoot));
-            LoadingStatus = LoadingStatus.Loaded;
+            try
+            {
+                LoadingStatus = LoadingStatus.Loading;
+                var client = HttpClientFactory.CreateClient(Configuration.ApiClientName);
+                Console.WriteLine(await client.GetStringAsync(Configuration.ApiRoot));
+                LoadingStatus = LoadingStatus.Loaded;
+            }
+            catch (Exception ex)
+            {
+                LoadingStatus = LoadingStatus.Failed;
+                Console.WriteLine(ex.Message);
+            }
         }
 
     }

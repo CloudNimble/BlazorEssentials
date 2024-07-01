@@ -23,7 +23,7 @@ namespace CloudNimble.BlazorEssentials.Authentication
         /// <param name="navigationManager"></param>
         public BlazorEssentialsAuthorizationMessageHandler(T config, IAccessTokenProvider provider, NavigationManager navigationManager) : base(provider, navigationManager)
         {
-            if (config == null) throw new ArgumentNullException(nameof(config));
+            if (config is null) throw new ArgumentNullException(nameof(config));
 
             var authorizedUrls = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance)
                 .Where(c => c.GetCustomAttributes<HttpEndpointAttribute>().Any())

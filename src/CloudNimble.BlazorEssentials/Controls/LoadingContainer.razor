@@ -12,7 +12,7 @@
         break;
 
     case LoadingStatus.Loaded:
-        if (Data == null || (Data != null && IsGenericList && (Data as IList).Count == 0))
+        if (Data is null || (Data is not null && IsGenericList && (Data as IList).Count == 0))
         {
             @NoResultsContent
         }

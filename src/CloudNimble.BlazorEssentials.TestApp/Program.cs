@@ -25,12 +25,16 @@ namespace CloudNimble.BlazorEssentials.TestApp
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
 
+            //builder.AddBlazorEssentialsApplicationInsights();
             builder.AddBlazorEssentials<ConfigurationBase, AppState>("TestApp");
 
             builder.Services.AddSingleton<IndexViewModel>();
             builder.Services.AddSingleton<LoadingContainerViewModel>();
             builder.Services.AddSingleton<WizardViewModel>();
             builder.Services.AddSingleton<DelayStateHasChangedViewModel>();
+            builder.Services.AddSingleton<IndexedDbViewModel>();
+
+            builder.Services.AddSingleton<ExampleDb>();
 
             builder.Services.AddHxServices();
 

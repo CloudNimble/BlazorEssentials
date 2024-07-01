@@ -1,11 +1,6 @@
-﻿@using CloudNimble.BlazorEssentials.TestApp.ViewModels;
-@using CloudNimble.BlazorEssentials.Controls;
-@using System.ComponentModel;
-
-@page "/"
+﻿@page "/"
 
 @inject ConfigurationBase config
-@inject AppState appState
 @inject IndexViewModel viewModel
 @inject IJSRuntime jsRuntime
 
@@ -48,17 +43,17 @@ History Length: @navHistoryCount<br />
 
     protected override async Task OnParametersSetAsync()
     {
-        navHistoryCount = await appState.NavigationHistory.Count();
+        navHistoryCount = await viewModel.AppState.NavigationHistory.Count();
     }
 
     protected void NavigateToMerlin()
     {
-        appState.Navigate("/Merlin");
+        viewModel.AppState.Navigate("/Merlin");
     }
 
     protected async Task NavigateToBurnRate()
     {
-        await appState.OpenInNewTab("https://burnrate.io");
+        await viewModel.AppState.OpenInNewTab("https://burnrate.io");
     }
 
 

@@ -165,7 +165,7 @@
     /// <returns></returns>
     public async Task Back()
     {
-        if (CurrentPane == null || CurrentPane == Panes.FirstOrDefault() || CurrentPane == Panes.LastOrDefault()) return;
+        if (CurrentPane is null || CurrentPane == Panes.FirstOrDefault() || CurrentPane == Panes.LastOrDefault()) return;
         if (CurrentPane.OnBackAction is not null)
         {
             CurrentPane.OnBackAction();

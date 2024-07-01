@@ -17,7 +17,7 @@
 		<AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)blazoressentials.snk</AssemblyOriginatorKeyFile>
 		<StrongNamePublicKey>PublicKey=00240000048000009400000006020000002400005253413100040000010001007984ebb1397d366339416a4c003b9a0e25dbbe933b08e0090ae77fe4cf780a8258ad356c9f2bc9a2f7f958e975063cd32be0ed5dd7b588e3360153db0cba435d69e46868c6927ead7aa43f71724a53714f9597a3396cc496dfc8086e7c1010f9f24ba6c0b5deacdbd04ecd40d3669a4797baff60c5e03968a1e84c40e64c00d3</StrongNamePublicKey>
 
-		<LangVersion>11.0</LangVersion>
+		<LangVersion>12.0</LangVersion>
 
 		<!-- .NET 6 kinda sucks. There is no good reason for doing this. -->
 		<DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
@@ -36,13 +36,15 @@
 		<Authors>CloudNimble</Authors>
 		<Company>CloudNimble Inc.</Company>
 		<RpmPackageVendor>CloudNimble</RpmPackageVendor>
-		<Copyright>Copyright © 2019-2023 CloudNimble, Inc. All rights reserved.</Copyright>
+		<Copyright>Copyright © 2019-2025 CloudNimble, Inc. All rights reserved.</Copyright>
 		<NeutralLanguage>en-US</NeutralLanguage>
 		<!-- The SPDX name for the source license. See https://spdx.org/licenses/. -->
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		
 		<!-- Suppress warnings about using SemVer 2.0. -->
 		<NoWarn>$(NoWarn);NU5048</NoWarn>
+
+		<NoWarn>$(NoWarn);CS8002;CS8632</NoWarn>
 
 		<!-- Contact email address for NuGet packages and Linux installers. -->
 		<MaintainerEmail>opensource@nimbleapps.cloud</MaintainerEmail>

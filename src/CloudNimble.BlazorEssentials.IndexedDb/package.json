@@ -1,0 +1,15 @@
+{
+  "name": "blazoressentials.indexeddb",
+  "version": "1.0.0",
+  "description": "idb wrapper for blazor",
+  "repository": "https://github.com/cloudnimble/BlazorEssentials",
+  "main": "index.js",
+  "author": "CloudNimble, Inc.",
+  "license": "ISC",
+  "devDependencies": {
+    "@microsoft/dotnet-js-interop": "8.0.0"
+  },
+  "dependencies": {
+    "idb": "8.0.0"
+  }
+}

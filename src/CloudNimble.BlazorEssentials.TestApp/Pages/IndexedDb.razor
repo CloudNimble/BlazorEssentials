@@ -1,0 +1,26 @@
+﻿@page "/IndexedDb"
+
+@inject IndexedDbViewModel viewModel
+
+<PageTitle>BlazorEssentials | IndexedDB Demo</PageTitle>
+
+<h1>IndexedDb Demo</h1>
+
+<QuickGrid TGridItem="ExampleEvent" Items="@viewModel.ExampleEvents">
+    <PropertyColumn Property="@(p => p.Id)" Sortable="true" />
+    <PropertyColumn Property="@(p => p.Name)" Sortable="true" />
+    <PropertyColumn Property="@(p => p.Description)" Sortable="true" />
+</QuickGrid>
+
+<HxButton Color="ThemeColor.Primary" OnClick="viewModel.AddEntry"><i class="far fa-plus pe-2" />Add Item to IndexedDb</HxButton>
+
+@code
+{
+
+    protected override async Task OnInitializedAsync()
+    {
+        viewModel.StateHasChanged.Action = StateHasChanged;
+        await viewModel.Load();
+    }
+
+}

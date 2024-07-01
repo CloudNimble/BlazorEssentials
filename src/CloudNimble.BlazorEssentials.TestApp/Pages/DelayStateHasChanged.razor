@@ -1,9 +1,6 @@
-﻿@using CloudNimble.BlazorEssentials.TestApp.ViewModels;
-@using CloudNimble.BlazorEssentials.Controls;
-@using System.ComponentModel;
-
-@page "/DelayStateHasChanged"
+﻿@page "/DelayStateHasChanged"
 @implements IDisposable
+
 @inject DelayStateHasChangedViewModel viewModel
 
 <p>This page showcases the delay that we have on the <code>StateHasChanged.Action</code> so that rapid calls get ignored.</p>

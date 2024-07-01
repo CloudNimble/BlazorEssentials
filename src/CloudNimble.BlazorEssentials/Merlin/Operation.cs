@@ -186,7 +186,7 @@ namespace CloudNimble.BlazorEssentials.Merlin
             Title = title;
 
             Steps.CollectionChanged += Steps_CollectionChanged;
-            if (steps == null) return;
+            if (steps is null) return;
             foreach (var step in steps)
             {
                 Steps.Add(step);
@@ -267,7 +267,7 @@ namespace CloudNimble.BlazorEssentials.Merlin
         public void UpdateStep(int id, OperationStepStatus status, string errorText)
         {
             var step = Steps.ToList().FirstOrDefault(c => c.Id == id);
-            if (step == null)
+            if (step is null)
             {
                 throw new ArgumentException($"The step with Id '{id}' could not be found in the Steps collection.", nameof(id));
             }

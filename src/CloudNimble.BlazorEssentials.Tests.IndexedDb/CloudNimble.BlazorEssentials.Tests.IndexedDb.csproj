@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CloudNimble.BlazorEssentials.Breakdance\CloudNimble.BlazorEssentials.Breakdance.csproj" />
+    <ProjectReference Include="..\CloudNimble.BlazorEssentials.IndexedDb\CloudNimble.BlazorEssentials.IndexedDb.csproj" />
+  </ItemGroup>
+
+</Project>

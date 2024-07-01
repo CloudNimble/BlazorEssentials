@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+	<PropertyGroup>
+		<TargetFrameworks>net8.0;</TargetFrameworks>
+		<DocumentationFile>$(DocumentationFile)\$(AssemblyName).xml</DocumentationFile>
+		<AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+	</PropertyGroup>
+	
+	<PropertyGroup>
+		<TypeScriptModuleKind>es6</TypeScriptModuleKind>
+		<TypeScriptTarget>es2015</TypeScriptTarget>
+		<TypeScriptOutDir>wwwroot</TypeScriptOutDir>
+		<TypeScriptModuleResolution>node</TypeScriptModuleResolution>
+		<TypeScriptESModuleInterop>false</TypeScriptESModuleInterop>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.TypeScript.MSBuild" Version="5.5.*">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
+		<PackageReference Include="Microsoft.JSInterop" Version="[8.*, 9.0.0]" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<TypeScriptCompile Remove="node_modules\**" />
+	</ItemGroup>
+
+</Project>

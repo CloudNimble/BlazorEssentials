@@ -38,7 +38,7 @@ namespace CloudNimble.BlazorEssentials.IndexedDb
         /// <summary>
         /// The name for the store
         /// </summary>
-        public string Name { get; internal set; } = "";
+        public string Name { get; init; } = "";
 
         #endregion
 

@@ -38,7 +38,7 @@ namespace CloudNimble.BlazorEssentials.IndexedDb
         /// <summary>
         /// The name for the store
         /// </summary>
-        public string Name { get; init; } = "";
+        public string Name { get; internal set; } = "";
 
         #endregion
 
@@ -56,6 +56,24 @@ namespace CloudNimble.BlazorEssentials.IndexedDb
             Name = !string.IsNullOrWhiteSpace(attribute?.Name) ? attribute.Name : GetType().Name;
             KeyPath = !string.IsNullOrWhiteSpace(attribute?.KeyPath) ? attribute.KeyPath : "id";
             AutoIncrement = attribute?.AutoIncrementKeys ?? false;
+
+            Database.ObjectStores.Add(this);
+        }
+
+        /// <summary>
+        /// Add new ObjectStore definition
+        /// </summary>
+        /// <param name="database"></param>
+        /// <param name="name"></param>
+        /// <param name="keyPath"></param>
+        /// <param name="autoIncrement"></param>
+        public IndexedDbObjectStore(IndexedDbDatabase database, string name, string keyPath = "id", bool autoIncrement = false)
+        {
+            Database = database;
+
+            Name = name;
+            KeyPath = keyPath;
+            AutoIncrement = autoIncrement;
 
             Database.ObjectStores.Add(this);
         }

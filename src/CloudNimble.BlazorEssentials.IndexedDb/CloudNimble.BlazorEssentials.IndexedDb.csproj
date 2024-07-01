@@ -5,6 +5,19 @@
 		<DocumentationFile>$(DocumentationFile)\$(AssemblyName).xml</DocumentationFile>
 		<AddRazorSupportForMvc>true</AddRazorSupportForMvc>
 	</PropertyGroup>
+
+	<PropertyGroup>
+		<PackageId>BlazorEssentials.IndexedDb</PackageId>
+		<Description>An IndexedDB provider for Blazor that makes working wit hthe built-in browser database magical.</Description>
+		<RepositoryUrl>https://github.com/CloudNimble/BlazorEssentials</RepositoryUrl>
+		<PackageReleaseNotes>
+		</PackageReleaseNotes>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageTags>blazor;razorcomponents;Razor Components, WebAssembly</PackageTags>
+		<Authors>CloudNimble</Authors>
+		<RepositoryType>git</RepositoryType>
+		<NoWarn>$(NoWarn);CS1998;CS1591;CA1052;CA1801;CA1822;NU5104</NoWarn>
+	</PropertyGroup>
 	
 	<PropertyGroup>
 		<TypeScriptModuleKind>es6</TypeScriptModuleKind>

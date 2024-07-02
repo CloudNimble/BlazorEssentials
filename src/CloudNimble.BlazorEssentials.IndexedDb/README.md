@@ -1,4 +1,4 @@
-![build Actions Status](https://github.com/kattunga/BlazorIndexedDbJs/workflows/build/badge.svg)
+[![Build status](https://dev.azure.com/cloudnimble/BlazorEssentials/_apis/build/status/BlazorEssentials-CI)](https://dev.azure.com/cloudnimble/BlazorEssentials/_build/latest?definitionId=3)
 
 [![Nuget](https://img.shields.io/nuget/v/BlazorEssentials.IndexedDb?style=flat-square)](https://www.nuget.org/packages/BlazorEssentials.IndexedDb/)
 
@@ -273,7 +273,7 @@ List<Person> result = await theFactoryDb.Store("people").Index("lastName").Query
 
 ## Demo
 
-Check simple Blazor WASM PWA demo in Demos [BlazorIndexedDbJsClientDemo](https://github.com/kattunga/BlazorIndexedDbJs/tree/master/Demos/BlazorIndexedDbJsClientDemo)
+You can see a demo of using `IndexedDbDatabase` and ViewModels together in our [Sample App](https://github.com/CloudNimble/BlazorEssentials/blob/main/src/CloudNimble.BlazorEssentials.TestApp/ViewModels/IndexedDbViewModel.cs).
 
 ## Using the library
 

@@ -6,7 +6,7 @@
 
 This is a [Blazor](https://dotnet.microsoft.com/apps/aspnet/web-apps/blazor) library for accessing IndexedDB, it uses Jake Archibald's [idb library](https://github.com/jakearchibald/idb) for handling access to [IndexedDB API](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API).
 
-It maps as closely to the browser IndexedDB API as possible, so you can use public [documentation](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)
+It maps as closely to the browser IndexedDB API as possible, but in a .NET way, so you can use public [documentation](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API).
 
 ## Features
 
@@ -38,6 +38,213 @@ The original library was licensed under the MIT License, and this library is as 
   - Uses MSBuild-based TypeScript compilation
   - Eliminates WebPack
   - Uses SkyPack to load third-party modules like `idb` remotely, resulting in smaller package sizes
+
+## Demo
+
+You can see a demo of using `IndexedDbDatabase` and ViewModels together in our [Sample App](https://github.com/CloudNimble/BlazorEssentials/blob/main/src/CloudNimble.BlazorEssentials.TestApp/ViewModels/IndexedDbViewModel.cs).
+
+## Using the library
+
+### requires
+NET 8.0 or newer
+
+### Step 1: Install NuGet package
+
+```
+Install-Package BlazorEssentials.IndexedDb
+```
+
+or
+
+```
+dotnet add package BlazorEssentials.IndexedDb
+```
+
+### Step 2: Make the necessary classes available in your Razor files
+
+Add the following to your _Imports.razor file:
+```CSharp
+@using CloudNimble.BlazorEssentials.IndexedDb
+```
+
+### Step 3: Create an `IndexedDBDatabase` class
+
+This file should feel very similar to a DbContext class. Here is a basic implementation, using one of my favorite childhood restaurants as an example:
+
+`Data/TheSpaghettiFactoryDb.cs`
+```CSharp
+using Microsoft.JSInterop;
+using CloudNimble.BlazorEssentials.IndexedDb;
+
+namespace BlazorEssentials.IndexedDb.Demo.Data
+{
+
+    public class TheFactoryDb: IndexedDbDatabase
+    {
+
+        public IndexedDbObjectStore Employees { get; }
+
+        public TheSpaghettiFactoryDb(IJSRuntime jsRuntime): base(jsRuntime)
+        {
+            Name = "TheSpaghettiFactory";
+            Version = 1;
+        }
+
+    }
+
+}
+```
+
+Or you can customize it with attributes. In the below example:
+- the database name will be "TheSpaghettiFactoryDb"
+- the table name will be "FiredEmployees"
+- the ID for the table is the "id" property
+- you wll be expected to manage your own keys
+- there will be an index on the `firstName` property for the FiredEmployees `IndexedDbObjectStore` (table)
+
+`Data/TheSpaghettiFactoryDb.cs`
+```CSharp
+using Microsoft.JSInterop;
+using CloudNimble.BlazorEssentials.IndexedDb;
+
+namespace BlazorEssentials.IndexedDb.Demo.Data
+{
+
+    public class TheSpaghettiFactoryDb: IndexedDbDatabase
+    {
+
+        [ObjectStore(Name = "FiredEmployees", AutoIncrementKeys = false)]
+        [Index(Name = "FirstName", KeyPath = "firstName")]]
+        public IndexedDbObjectStore Employees { get; }
+
+        public TheSpaghettiFactoryDb(IJSRuntime jsRuntime): base(jsRuntime)
+        {
+            Version = 1;
+        }
+
+    }
+
+}
+```
+
+### Step 4. Add each database to your Blazor application's Dependency Injection container
+
+For Blazor WebAssembly, in `program.cs`
+```CSharp
+    public class Program
+    {
+        public static async Task Main(string[] args)
+        {
+            var builder = WebAssemblyHostBuilder.CreateDefault(args);
+            builder.RootComponents.Add<App>("#app");
+
+            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+
+            // RWM: You can add this as a Singleton because a WebAssembly app runs in the browser and only has one "user".
+            builder.Services.AddSingleton<TheSpaghettiFactoryDb>();
+
+            await builder.Build().RunAsync();
+        }
+    }
+```
+
+For Blazor Web, in `startup.cs`
+```CSharp
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddRazorPages();
+            services.AddServerSideBlazor();
+            services.AddSingleton<WeatherForecastService>();
+
+            // RWM: Here the database is scoped because each user has their own session.
+            services.AddScoped<TheSpaghettiFactoryDb>();
+        }
+```
+
+
+## Step 5: Use the database in your Blazor components
+
+For the following examples we are going to assume that we have Person class which is defined as follows:
+
+```CSharp
+    public class Person
+    {
+        public long? Id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+
+    }
+```
+
+Mote that you DO NOT have to decorate your objects with any attributes. As IndexedDb is a NoSQL database, it is schema-less, so your object will be serialized and deserialized using the default JSON serializer.
+
+You can also mix types in the same ObjectStore (table), but be careful is you use numbers for keys or objects may collide.
+
+### Accessing the IndexedDbDatabase
+
+To use IndexedDB in a component or page, first inject the `IndexedDbDatabase` instance, in this case the `TheSpaghettifactoryDb` class.
+
+```CSharp
+@inject TheSpaghettiFactoryDb database
+```
+
+### Open database
+This will create the database if it not exists and will upgrade schema to new version if it is older.
+
+__NOTE:__ Query calls will do this automatically if the database is not already open.
+```CSharp
+await database.Open()
+```
+
+### Getting all records from a store
+```CSharp
+var people = await database.Employees.GetAllAsync<Person>();
+```
+
+### Get one record by Id
+```CSharp
+var person = await database.Employees.GetAsync<long, Person>(id);
+```
+
+### Getting one record using an index
+```CSharp
+var person = await database.Employees.FirstName.GetAsync<string, Person>("John");
+```
+
+### Getting all records from an index
+```CSharp
+var people = await database.Employees.FirstName.GetAllAsync<string, Person>("John");
+```
+
+### Adding a record to an IDBObjectStore
+```CSharp
+var newPerson = new Person() {
+    FirstName = "John",
+    LastName = "Doe"
+};
+
+await database.Employees.AddAsync(newPerson);
+```
+
+### Updating a record
+```CSharp
+await database.Employees.PutAsync<Person>(recordToUpdate)
+```
+
+### Deleting a record
+```CSharp
+await database.Employees.DeleteAsync<int>(id)
+```
+
+### Clear all records from a store
+```CSharp
+await database.Employees.ClearAsync()
+```
+
+### Deleting the database
+```CSharp
+await database.DeleteDatabaseAsync()
+```
 
 ## API
 
@@ -269,211 +476,4 @@ for example, return a list of objects that contains the world `"per"` in propert
 List<Person> result = await theFactoryDb.Store("people").Index("lastName").Query<Person>(
     "if (obj.firstName.toLowerCase().includes('per')) return obj;"
 );
-```
-
-## Demo
-
-You can see a demo of using `IndexedDbDatabase` and ViewModels together in our [Sample App](https://github.com/CloudNimble/BlazorEssentials/blob/main/src/CloudNimble.BlazorEssentials.TestApp/ViewModels/IndexedDbViewModel.cs).
-
-## Using the library
-
-### requires
-NET 8.0 or newer
-
-### Step 1: Install NuGet package
-
-```
-Install-Package BlazorEssentials.IndexedDb
-```
-
-or
-
-```
-dotnet add package BlazorEssentials.IndexedDb
-```
-
-### Step 2: Make the necessary classes available in your Razor files
-
-Add the following to your _Imports.razor file:
-```CSharp
-@using CloudNimble.BlazorEssentials.IndexedDb
-```
-
-### Step 3: Create an `IndexedDBDatabase` class
-
-This file should feel very similar to a DbContext class. Here is a basic implementation, using one of my favorite childhood restaurants as an example:
-
-`Data/TheSpaghettiFactoryDb.cs`
-```CSharp
-using Microsoft.JSInterop;
-using CloudNimble.BlazorEssentials.IndexedDb;
-
-namespace BlazorEssentials.IndexedDb.Demo.Data
-{
-
-    public class TheFactoryDb: IndexedDbDatabase
-    {
-
-        public IndexedDbObjectStore Employees { get; }
-
-        public TheSpaghettiFactoryDb(IJSRuntime jsRuntime): base(jsRuntime)
-        {
-            Name = "TheSpaghettiFactory";
-            Version = 1;
-        }
-
-    }
-
-}
-```
-
-Or you can customize it with attributes. In the below example:
-- the database name will be "TheSpaghettiFactoryDb"
-- the table name will be "FiredEmployees"
-- the ID for the table is the "id" property
-- you wll be expected to manage your own keys
-- there will be an index on the `firstName` property for the FiredEmployees ObjectSTore (table)
-
-`Data/TheSpaghettiFactoryDb.cs`
-```CSharp
-using Microsoft.JSInterop;
-using CloudNimble.BlazorEssentials.IndexedDb;
-
-namespace BlazorEssentials.IndexedDb.Demo.Data
-{
-
-    public class TheSpaghettiFactoryDb: IndexedDbDatabase
-    {
-
-        [ObjectStore(Name = "FiredEmployees", AutoIncrementKeys = false)]
-        [Index(Name = "FirstName", KeyPath = "firstName")]]
-        public IndexedDbObjectStore Employees { get; }
-
-        public TheSpaghettiFactoryDb(IJSRuntime jsRuntime): base(jsRuntime)
-        {
-            Version = 1;
-        }
-
-    }
-
-}
-```
-
-### Step 4. Add each database to your Blazor application's Dependency Injection container
-
-For Blazor WebAssembly, in `program.cs`
-```CSharp
-    public class Program
-    {
-        public static async Task Main(string[] args)
-        {
-            var builder = WebAssemblyHostBuilder.CreateDefault(args);
-            builder.RootComponents.Add<App>("#app");
-
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-
-            // RWM: You can add this as a Singleton because a WebAssembly app runs in the browser and only has one "user".
-            builder.Services.AddSingleton<TheSpaghettiFactoryDb>();
-
-            await builder.Build().RunAsync();
-        }
-    }
-```
-
-For Blazor Web, in `startup.cs`
-```CSharp
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddRazorPages();
-            services.AddServerSideBlazor();
-            services.AddSingleton<WeatherForecastService>();
-
-            // RWM: Here the database is scoped because each user has their own session.
-            services.AddScoped<TheSpaghettiFactoryDb>();
-        }
-```
-
-
-## Step 5: Use the database in your Blazor components
-
-For the following examples we are going to assume that we have Person class which is defined as follows:
-
-```CSharp
-    public class Person
-    {
-        public long? Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-
-    }
-```
-
-Mote that you DO NOT have to decorate your objects with any attributes. As IndexedDb is a NoSQL database, it is schema-less, so your object will be serialized and deserialized using the default JSON serializer.
-
-You can also mix types in the same ObjectStore (table), but be careful is you use numbers for keys or objects may collide.
-
-### Accessing the IndexedDbDatabase
-
-To use IndexedDB in a component or page, first inject the `IndexedDbDatabase` instance, in this case the `TheSpaghettifactoryDb` class.
-
-```CSharp
-@inject TheSpaghettiFactoryDb database
-```
-
-### Open database
-This will create the database if it not exists and will upgrade schema to new version if it is older.
-
-__NOTE:__ Query calls will do this automatically if the database is not already open.
-```CSharp
-await database.Open()
-```
-
-### Getting all records from a store
-```CSharp
-var people = await database.Employees.GetAllAsync<Person>();
-```
-
-### Get one record by Id
-```CSharp
-var person = await database.Employees.GetAsync<long, Person>(id);
-```
-
-### Getting one record using an index
-```CSharp
-var person = await database.Employees.FirstName.GetAsync<string, Person>("John");
-```
-
-### Getting all records from an index
-```CSharp
-var people = await database.Employees.FirstName.GetAllAsync<string, Person>("John");
-```
-
-### Adding a record to an IDBObjectStore
-```CSharp
-var newPerson = new Person() {
-    FirstName = "John",
-    LastName = "Doe"
-};
-
-await database.Employees.AddAsync(newPerson);
-```
-
-### Updating a record
-```CSharp
-await database.Employees.PutAsync<Person>(recordToUpdate)
-```
-
-### Deleting a record
-```CSharp
-await database.Employees.DeleteAsync<int>(id)
-```
-
-### Clear all records from a store
-```CSharp
-await database.Employees.ClearAsync()
-```
-
-### Deleting the database
-```CSharp
-await database.DeleteDatabaseAsync()
 ```

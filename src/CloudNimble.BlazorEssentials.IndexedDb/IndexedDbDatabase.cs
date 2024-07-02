@@ -68,7 +68,7 @@ namespace CloudNimble.BlazorEssentials.IndexedDb
                 }
                 else
                 {
-                    store = (IndexedDbObjectStore)Activator.CreateInstance(prop.PropertyType, this);
+                    store = (IndexedDbObjectStore)Activator.CreateInstance(prop.PropertyType, this, null);
                 }
 
                 // RWM: If the instance name is IndexedDbObjectStore, then we know we're not dealing with a subclass.

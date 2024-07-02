@@ -5,11 +5,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace CloudNimble.BlazorEssentials.Tests.IndexedDb
 {
 
-
     [TestClass]
     public class IndexedDbDatabaseTests
     {
-
 
         [TestMethod]
         public void Constructor_ShouldLoadObjectStores()

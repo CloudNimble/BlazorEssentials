@@ -11,8 +11,8 @@
         <NavMenu />
     </div>
 
-    <div class="main">
-        <div class="top-row px-4">
+    <main>
+        <div class="top-row px-4 pb-2">
             <h1>
                 @if (!string.IsNullOrWhiteSpace(appState.CurrentNavItem?.PageIcon))
                 {
@@ -32,10 +32,10 @@
             </div>
         </div>
 
-        <div class="content px-4">
+        <article class="content px-4">
             @Body
-        </div>
-    </div>
+        </article>
+    </main>
 </div>
 
 @code

@@ -55,7 +55,7 @@ namespace CloudNimble.BlazorEssentials.IndexedDb
         public IndexedDbDatabase(IJSRuntime jsRuntime)
         {
             _jsRuntime = jsRuntime;
-            _indexedDbModuleTask = new(() => jsRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/CloudNimble.BlazorEssentials.IndexedDB/CloudNimble.BlazorEssentials.IndexedDB.js").AsTask());
+            _indexedDbModuleTask = new(() => jsRuntime.InvokeAsync<IJSObjectReference>("import", "../_content/BlazorEssentials.IndexedDB/CloudNimble.BlazorEssentials.IndexedDB.js").AsTask());
             Name = GetType().Name;
 
             foreach (var prop in GetType().GetProperties().Where(c => typeof(IndexedDbObjectStore).IsAssignableFrom(c.PropertyType)))
@@ -90,7 +90,7 @@ namespace CloudNimble.BlazorEssentials.IndexedDb
             }
         }
 
-        #endregion
+#endregion
 
         /// <summary>
         /// Opens the IndexedDB defined in the DbDatabase. Under the covers will create the database if it does not exist

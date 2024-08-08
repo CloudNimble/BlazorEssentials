@@ -6,7 +6,7 @@ namespace CloudNimble.BlazorEssentials.IndexedDb
     /// <summary>
     /// 
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property)]
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
     public class IndexAttribute : Attribute
     {
 

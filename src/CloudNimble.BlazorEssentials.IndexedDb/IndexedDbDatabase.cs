@@ -18,7 +18,7 @@ namespace CloudNimble.BlazorEssentials.IndexedDb
 
         private bool _isOpen;
         private readonly IJSRuntime _jsRuntime;
-        private Lazy<Task<IJSObjectReference>> _indexedDbModuleTask;
+        private readonly JsModule _indexedDbModule;
 
         #endregion
 
@@ -55,7 +55,8 @@ namespace CloudNimble.BlazorEssentials.IndexedDb
         public IndexedDbDatabase(IJSRuntime jsRuntime)
         {
             _jsRuntime = jsRuntime;
-            _indexedDbModuleTask = new(() => jsRuntime.InvokeAsync<IJSObjectReference>("import", "../_content/BlazorEssentials.IndexedDB/CloudNimble.BlazorEssentials.IndexedDB.js").AsTask());
+            var assemblyName = typeof(IndexedDbDatabase).Assembly.GetName().Name;
+            _indexedDbModule = new(jsRuntime, assemblyName[(assemblyName.IndexOf('.') + 1)..], assemblyName);
             Name = GetType().Name;
 
             foreach (var prop in GetType().GetProperties().Where(c => typeof(IndexedDbObjectStore).IsAssignableFrom(c.PropertyType)))
@@ -90,7 +91,7 @@ namespace CloudNimble.BlazorEssentials.IndexedDb
             }
         }
 
-#endregion
+        #endregion
 
         /// <summary>
         /// Opens the IndexedDB defined in the DbDatabase. Under the covers will create the database if it does not exist
@@ -182,11 +183,9 @@ namespace CloudNimble.BlazorEssentials.IndexedDb
         /// <exception cref="IndexedDbException"></exception>
         public async Task CallJavaScriptAsync(string functionName, params object[] args)
         {
-            var module = await _indexedDbModuleTask.Value;
-
             try
             {
-                await module.InvokeVoidAsync(functionName, args);
+                await _indexedDbModule.InvokeVoidAsync(functionName, args);
             }
             catch (JSException e)
             {
@@ -204,11 +203,9 @@ namespace CloudNimble.BlazorEssentials.IndexedDb
         /// <exception cref="IndexedDbException"></exception>
         public async Task<TResult> CallJavaScriptAsync<TResult>(string functionName, params object?[] args)
         {
-            var module = await _indexedDbModuleTask.Value;
-
             try
             {
-                return await module.InvokeAsync<TResult>(functionName, args);
+                return await _indexedDbModule.InvokeAsync<TResult>(functionName, args);
             }
             catch (JSException e)
             {

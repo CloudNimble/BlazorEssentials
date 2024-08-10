@@ -107,7 +107,7 @@ namespace CloudNimble.BlazorEssentials
                 await ValueTask.FromCanceled<TValue>(cancellationToken);
             }
             var module = await Instance().Value;
-            return await module.InvokeAsync<TValue>(identifier, cancellationToken, args, );
+            return await module.InvokeAsync<TValue>(identifier, cancellationToken, args);
         }
 
         /// <summary>

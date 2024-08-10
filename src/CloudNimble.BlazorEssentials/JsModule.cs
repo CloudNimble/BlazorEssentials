@@ -86,7 +86,7 @@ namespace CloudNimble.BlazorEssentials
         /// <param name="identifier"></param>
         /// <param name="args"></param>
         /// <returns></returns>
-        public async ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>(string identifier, object[] args)
+        public async ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>(string identifier, object?[]? args = null)
         {
             var module = await Instance().Value;
             return await module.InvokeAsync<TValue>(identifier, args);
@@ -100,14 +100,28 @@ namespace CloudNimble.BlazorEssentials
         /// <param name="cancellationToken"></param>
         /// <param name="args"></param>
         /// <returns></returns>
-        public async ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>(string identifier, CancellationToken cancellationToken, object[] args)
+        public async ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>(string identifier, CancellationToken cancellationToken, object?[]? args = null)
         {
             if (cancellationToken.IsCancellationRequested)
             {
                 await ValueTask.FromCanceled<TValue>(cancellationToken);
             }
             var module = await Instance().Value;
-            return await module.InvokeAsync<TValue>(identifier, cancellationToken, args);
+            return await module.InvokeAsync<TValue>(identifier, cancellationToken, args, );
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="identifier"></param>
+        /// <param name="timeout"></param>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        public async ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>(string identifier, TimeSpan timeout, object?[]? args = null)
+        {
+            var module = await Instance().Value;
+            return await module.InvokeAsync<TValue>(identifier, timeout, args);
         }
 
         #endregion

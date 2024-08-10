@@ -11,6 +11,8 @@
 		<Description>A set of utilities to make Blazor WebAssembly development easier than ever. Includes base classes for Application State, Configuration, and ViewModels, as well as an ODataResultList and a helper to pull configuration files out of embedded resources.</Description>
 		<RepositoryUrl>https://github.com/CloudNimble/BlazorEssentials</RepositoryUrl>
 		<PackageReleaseNotes>
+			Version 3.0.0
+			
 			Version 2.0.0
 			- Updated support for Blazor on .NET 6 and .NET 7 Preview 6.
 			- Removed custom authentication solution in favor of OOB auth.
@@ -41,8 +43,9 @@
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="[8.*-*, 9.0.0)" />
 		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="[8.*-*, 9.0.0)" />
 		<PackageReference Include="Microsoft.Extensions.Http" Version="[8.*-*, 9.0.0)" />
-		<PackageReference Include="System.Net.Http.Json" Version="[8.*-*, 9.0.0)" />
 		<PackageReference Include="System.Collections" Version="[4.3.0, 9.0.0)" />
+		<PackageReference Include="System.Net.Http.Json" Version="[8.*-*, 9.0.0)" />
+		<PackageReference Include="System.Text.Json" Version="[8.*, 9.0.0)" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
@@ -50,9 +53,10 @@
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="[7.*-*, 9.0.0)" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="[7.*-*, 9.0.0)" />
 		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="[7.*-*, 9.0.0)" />
+		<PackageReference Include="System.Collections" Version="[4.3.0, 9.0.0)" />
 		<PackageReference Include="Microsoft.Extensions.Http" Version="[7.*-*, 9.0.0)" />
 		<PackageReference Include="System.Net.Http.Json" Version="[7.*-*, 9.0.0)" />
-		<PackageReference Include="System.Collections" Version="[4.3.0, 9.0.0)" />
+		<PackageReference Include="System.Text.Json" Version="[8.*, 9.0.0)" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
@@ -61,8 +65,9 @@
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="[6.0.0, 9.0.0)" />
 		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="[6.0.0, 9.0.0)" />
 		<PackageReference Include="Microsoft.Extensions.Http" Version="[6.0.0, 9.0.0)" />
-		<PackageReference Include="System.Net.Http.Json" Version="[6.0.0, 9.0.0)" />
 		<PackageReference Include="System.Collections" Version="[4.3.0, 9.0.0)" />
+		<PackageReference Include="System.Net.Http.Json" Version="[6.0.0, 9.0.0)" />
+		<PackageReference Include="System.Text.Json" Version="[8.*, 9.0.0)" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -28,13 +28,18 @@ namespace CloudNimble.BlazorEssentials
         #region Constructors
 
         /// <summary>
-        /// 
+        /// Creates a new instance of the <see cref="JsModule"/> class.
         /// </summary>
-        /// <param name="jsRuntime"></param>
-        /// <param name="modulePath"></param>
+        /// <param name="jsRuntime">
+        /// The <see cref="IJSRuntime" /> instance that was likely injected by the ViewModel / Page / Control this module is 
+        /// being used in.
+        /// </param>
+        /// <param name="modulePath">
+        /// The full path to the JS file to wrap. Should usually be in the format "../content/{packageName}/{pathFromWwwRoot}.js".
+        /// </param>
         /// <remarks>
         /// If you don't provide a <paramref name="modulePath"/>, the constructor will attempt to infer it from the calling 
-        /// assembly, in the format "../_content/{assemblyName}/{assemblyName}.js"
+        /// assembly, in the format "../_content/{callingAssemblyName}/{callingAssemblyName}.js".
         /// </remarks>
         public JsModule(IJSRuntime jsRuntime, string modulePath = "")
         {
@@ -45,14 +50,22 @@ namespace CloudNimble.BlazorEssentials
                 modulePath = $"../_content/{assemblyName}/{assemblyName}.js";
             }
             _modulePath = modulePath;
+            Instance = new(() => _jsRuntime.InvokeAsync<IJSObjectReference>("import", _modulePath).AsTask());
         }
 
         /// <summary>
-        /// 
+        /// Creates a new instance of the <see cref="JsModule"/> class.
         /// </summary>
-        /// <param name="jsRuntime"></param>
+        /// <param name="jsRuntime">
+        /// The <see cref="IJSRuntime" /> instance that was likely injected by the ViewModel / Page / Control this module is 
+        /// being used in.
+        /// </param>
         /// <param name="packageName"></param>
-        /// <param name="modulePath"></param>
+        /// <param name="modulePath">The path to the file, usually from the 'wwwroot' folder in the base of the project.</param>
+        /// <remarks>
+        /// The SDK-style project system actually does a really good job of knowing when the PackageId is different from the 
+        /// AssemblyName, so this constructor may not be necessary. 
+        /// </remarks>
         public JsModule(IJSRuntime jsRuntime, string packageName, string modulePath) :
             this(jsRuntime, $"../_content/{packageName}/{modulePath}.js")
         {
@@ -63,21 +76,29 @@ namespace CloudNimble.BlazorEssentials
         #region Public Properties
 
         /// <summary>
-        /// 
+        /// Returns a <see cref="Lazy{T}" /> reference to the <see cref="Task{TResult}" /> of importing the module through
+        /// <see cref="IJSRuntime"/>.
         /// </summary>
         /// <returns></returns>
-        public ValueTask DisposeAsync()
-        {
-            // RWM: Nothing to dispose since we're capturing lazy references.
-            return ValueTask.CompletedTask;
-        }
+        /// <remarks>
+        /// We're using <see cref="Lazy{T}" /> here to ensure that the module is imported exactly once and only when needed.
+        /// <see cref="Lazy{T}" /> manages the instance for us
+        /// </remarks>
+        public Lazy<Task<IJSObjectReference>> Instance { get; private set; }
+
+        #endregion
+
+        #region Public Methods
 
         /// <summary>
-        /// 
+        /// Disposes of 
         /// </summary>
         /// <returns></returns>
-        public Lazy<Task<IJSObjectReference>> Instance() => 
-            new(() => _jsRuntime.InvokeAsync<IJSObjectReference>("import", _modulePath).AsTask());
+        public async ValueTask DisposeAsync()
+        {
+            await (await Instance.Value).DisposeAsync();
+            Instance = null;
+        }
 
         /// <summary>
         /// 
@@ -88,8 +109,7 @@ namespace CloudNimble.BlazorEssentials
         /// <returns></returns>
         public async ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>(string identifier, object?[]? args = null)
         {
-            var module = await Instance().Value;
-            return await module.InvokeAsync<TValue>(identifier, args);
+            return await (await Instance.Value).InvokeAsync<TValue>(identifier, args);
         }
 
         /// <summary>
@@ -106,8 +126,7 @@ namespace CloudNimble.BlazorEssentials
             {
                 await ValueTask.FromCanceled<TValue>(cancellationToken);
             }
-            var module = await Instance().Value;
-            return await module.InvokeAsync<TValue>(identifier, cancellationToken, args);
+            return await (await Instance.Value).InvokeAsync<TValue>(identifier, cancellationToken, args);
         }
 
         /// <summary>
@@ -120,8 +139,7 @@ namespace CloudNimble.BlazorEssentials
         /// <returns></returns>
         public async ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>(string identifier, TimeSpan timeout, object?[]? args = null)
         {
-            var module = await Instance().Value;
-            return await module.InvokeAsync<TValue>(identifier, timeout, args);
+            return await (await Instance.Value).InvokeAsync<TValue>(identifier, timeout, args);
         }
 
         #endregion

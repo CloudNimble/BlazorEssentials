@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
-		<TargetFrameworks>net8.0;net7.0;net6.0;</TargetFrameworks>
+		<TargetFrameworks>net9.0;net8.0;net6.0;</TargetFrameworks>
 		<DocumentationFile>$(DocumentationFile)\$(AssemblyName).xml</DocumentationFile>
 		<AddRazorSupportForMvc>true</AddRazorSupportForMvc>
 	</PropertyGroup>
@@ -12,6 +12,20 @@
 		<RepositoryUrl>https://github.com/CloudNimble/BlazorEssentials</RepositoryUrl>
 		<PackageReleaseNotes>
 			Version 3.0.0
+			- Updated support for Blazor on .NET 9.0, 8.0, and 6.0.
+			- Added `JsModule` class to simplify loading JavaScript modules &amp; building .NET wrappers for JS libraries.
+			- Added 'InterfaceElement' UI abstraction to standardize the way BlazorEssentials references UI elements.
+			  - `ActionButtonBase` now inherits from `InterfaceElement`.
+			  - (Breaking) `ActionButtonBase.ButtonText` is now `ActionButtonBase.DisplayText`.
+			  - (Breaking) `ActionButtonBase.ButtonClass` is now `ActionButtonBase.CssClass`.
+			  - `NavigationItem` now inherits from `InterfaceElement`.
+			  - (Breaking) `NavigationItem.Text` is now `NavigationItem.DisplayText`.
+			  - (Breaking) `NavigationItem.Icon` is now `NavigationItem.IconClass`.
+			- `ViewModelBase` now has the DelayDispatcher built-in.
+			- Navigation Improvements:
+			  - (Breaking) Move NavigationManager injection from `ViewModelBase` to `AppStateBase` to centralize navigation handling.
+			  - Fixed a logic bug in `AppStateBase.Navigate()` and related codepaths to optionally specify whether to call `SetCurrentNavItem()`.
+			  - Added `AppStateBase.OpenInNewTab()`, which does what you would expect.
 			
 			Version 2.0.0
 			- Updated support for Blazor on .NET 6 and .NET 7 Preview 6.
@@ -34,7 +48,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="EasyAF.Http" Version="2.*-*" />
+		<PackageReference Include="EasyAF.Http" Version="3.*-*" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net9.0'">
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="[9.*-*, 10.0.0)" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="[9.*-*, 10.0.0)" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="[9.*-*, 10.0.0)" />
+		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="[9.*-*, 10.0.0)" />
+		<PackageReference Include="System.Collections" Version="[4.*, 10.0.0)" />
+		<PackageReference Include="Microsoft.Extensions.Http" Version="[9.*-*, 10.0.0)" />
+		<PackageReference Include="System.Net.Http.Json" Version="[9.*-*, 10.0.0)" />
+		<PackageReference Include="System.Text.Json" Version="[9.*-*, 10.0.0)" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
@@ -48,25 +73,14 @@
 		<PackageReference Include="System.Text.Json" Version="[8.*, 9.0.0)" />
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="[7.*-*, 9.0.0)" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="[7.*-*, 9.0.0)" />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="[7.*-*, 9.0.0)" />
-		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="[7.*-*, 9.0.0)" />
-		<PackageReference Include="System.Collections" Version="[4.3.0, 9.0.0)" />
-		<PackageReference Include="Microsoft.Extensions.Http" Version="[7.*-*, 9.0.0)" />
-		<PackageReference Include="System.Net.Http.Json" Version="[7.*-*, 9.0.0)" />
-		<PackageReference Include="System.Text.Json" Version="[8.*, 9.0.0)" />
-	</ItemGroup>
-
 	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="[6.0.0, 9.0.0)" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="[6.0.0, 9.0.0)" />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="[6.0.0, 9.0.0)" />
-		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="[6.0.0, 9.0.0)" />
-		<PackageReference Include="Microsoft.Extensions.Http" Version="[6.0.0, 9.0.0)" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="[6.*, 9.0.0)" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="[6.*, 9.0.0)" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="[6.*, 9.0.0)" />
+		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="[6.*, 9.0.0)" />
+		<PackageReference Include="Microsoft.Extensions.Http" Version="[6.*, 9.0.0)" />
 		<PackageReference Include="System.Collections" Version="[4.3.0, 9.0.0)" />
-		<PackageReference Include="System.Net.Http.Json" Version="[6.0.0, 9.0.0)" />
+		<PackageReference Include="System.Net.Http.Json" Version="[6.*, 9.0.0)" />
 		<PackageReference Include="System.Text.Json" Version="[8.*, 9.0.0)" />
 	</ItemGroup>
 

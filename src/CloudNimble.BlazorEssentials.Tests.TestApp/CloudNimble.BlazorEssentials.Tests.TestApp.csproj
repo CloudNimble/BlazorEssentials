@@ -1,26 +1,26 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFrameworks>net8.0</TargetFrameworks>
-    <IsPackable>false</IsPackable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>net9.0;</TargetFrameworks>
+		<IsPackable>false</IsPackable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Content Include="..\CloudNimble.BlazorEssentials.TestApp\wwwroot\appsettings.json" Link="appsettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
+	<ItemGroup>
+		<Content Include="..\CloudNimble.BlazorEssentials.TestApp\wwwroot\appsettings.json" Link="appsettings.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="coverlet.collector" Version="6.*">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="coverlet.collector" Version="6.*">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\CloudNimble.BlazorEssentials.Breakdance\CloudNimble.BlazorEssentials.Breakdance.csproj" />
-    <ProjectReference Include="..\CloudNimble.BlazorEssentials.TestApp\CloudNimble.BlazorEssentials.TestApp.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\CloudNimble.BlazorEssentials.Breakdance\CloudNimble.BlazorEssentials.Breakdance.csproj" />
+		<ProjectReference Include="..\CloudNimble.BlazorEssentials.TestApp\CloudNimble.BlazorEssentials.TestApp.csproj" />
+	</ItemGroup>
 
 </Project>

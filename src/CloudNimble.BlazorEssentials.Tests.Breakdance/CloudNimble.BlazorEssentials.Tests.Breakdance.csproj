@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net8.0;net7.0;net6.0</TargetFrameworks>
+		<TargetFrameworks>net9.0;net8.0;net6.0</TargetFrameworks>
 		<IsPackable>false</IsPackable>
 		<NoWarn>$(NoWarn);NU5125;NU5105;NU5048;NU5014;CA1052;CA1801;CA1822;</NoWarn>
 	</PropertyGroup>
@@ -12,8 +12,8 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.*-*" Condition="'$(TargetFramework)'=='net8.0'" />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.*" Condition="'$(TargetFramework)'=='net7.0'" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.*-*" Condition="'$(TargetFramework)'=='net9.0'" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.*" Condition="'$(TargetFramework)'=='net8.0'" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.*" Condition="'$(TargetFramework)'=='net6.0'" />
 	</ItemGroup>
 

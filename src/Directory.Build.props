@@ -32,7 +32,7 @@
 		<Product>BlazorEssentials</Product>
 		<Version>3.0.0</Version>
 		<PackageVersion>3.0.0</PackageVersion>
-		
+
 		<Authors>CloudNimble</Authors>
 		<Company>CloudNimble Inc.</Company>
 		<RpmPackageVendor>CloudNimble</RpmPackageVendor>
@@ -40,7 +40,7 @@
 		<NeutralLanguage>en-US</NeutralLanguage>
 		<!-- The SPDX name for the source license. See https://spdx.org/licenses/. -->
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		
+
 		<!-- Suppress warnings about using SemVer 2.0. -->
 		<NoWarn>$(NoWarn);NU5048</NoWarn>
 
@@ -100,6 +100,7 @@
 	</ItemGroup>
 
 	<ItemGroup Condition=" $(IsTestProject) == 'true' ">
+		<PackageReference Include="coverlet.collector" Version="*" />
 		<PackageReference Include="FluentAssertions" Version="6.*" PrivateAssets="All" />
 		<PackageReference Include="FluentAssertions.Analyzers" Version="0.*" PrivateAssets="All" />
 		<PackageReference Include="MSTest" Version="3.*" />

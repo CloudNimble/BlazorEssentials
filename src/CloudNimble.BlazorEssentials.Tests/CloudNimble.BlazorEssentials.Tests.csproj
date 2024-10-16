@@ -1,21 +1,29 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
-  <PropertyGroup>
-    <TargetFrameworks>net9.0;net8.0</TargetFrameworks>
-    <RazorLangVersion>3.0</RazorLangVersion>
-    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
-    <IsPackable>false</IsPackable>
-    <NoWarn>$(NoWarn);NU5125;NU5105;NU5048;NU5014;CA1052;CA1801;CA1822;</NoWarn>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>net9.0;net8.0</TargetFrameworks>
+		<RazorLangVersion>3.0</RazorLangVersion>
+		<AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+		<IsPackable>false</IsPackable>
+		<NoWarn>$(NoWarn);NU5125;NU5105;NU5048;NU5014;CA1052;CA1801;CA1822;</NoWarn>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="bunit" Version="1.*" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="bunit" Version="1.*" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\CloudNimble.BlazorEssentials.Breakdance\CloudNimble.BlazorEssentials.Breakdance.csproj" />
-    <ProjectReference Include="..\CloudNimble.BlazorEssentials\CloudNimble.BlazorEssentials.csproj" />
-  </ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'net9.0'">
+		<PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="[9.*-*, 10.0.0)" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
+		<PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="[8.*, 10.0.0)" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\CloudNimble.BlazorEssentials.Breakdance\CloudNimble.BlazorEssentials.Breakdance.csproj" />
+		<ProjectReference Include="..\CloudNimble.BlazorEssentials\CloudNimble.BlazorEssentials.csproj" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<Content Remove="appsettings.json" />

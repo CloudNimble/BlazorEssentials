@@ -8,8 +8,16 @@
 
 	<ItemGroup>
 		<PackageReference Include="bunit" Version="1.*" />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.*-*" Condition="'$(TargetFramework)'=='net9.0'" />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.*" Condition="'$(TargetFramework)'=='net8.0'" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net9.0'">
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="[9.*-*, 10.0.0)" />
+		<PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="[9.*-*, 10.0.0)" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="[8.*, 10.0.0)" />
+		<PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="[8.*, 10.0.0)" />
 	</ItemGroup>
 
 	<ItemGroup>

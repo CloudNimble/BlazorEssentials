@@ -8,7 +8,7 @@
 
 	<PropertyGroup>
 		<PackageId>BlazorEssentials.IndexedDb</PackageId>
-		<Description>An IndexedDB provider for Blazor that makes working wit hthe built-in browser database magical.</Description>
+		<Description>An IndexedDB provider for Blazor that makes working with the built-in browser database magical.</Description>
 		<RepositoryUrl>https://github.com/CloudNimble/BlazorEssentials</RepositoryUrl>
 		<PackageReleaseNotes>
 		</PackageReleaseNotes>
@@ -36,7 +36,7 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net9.0'">
-		<PackageReference Include="Microsoft.JSInterop" Version="[9.*-*, 10.0.0)" />
+		<PackageReference Include="Microsoft.JSInterop" Version="[9.*, 10.0.0)" />
 	</ItemGroup>
 	
 	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
@@ -48,7 +48,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Include="README.md" Pack="true" PackagePath="\" />
 		<TypeScriptCompile Remove="node_modules\**" />
 	</ItemGroup>
 

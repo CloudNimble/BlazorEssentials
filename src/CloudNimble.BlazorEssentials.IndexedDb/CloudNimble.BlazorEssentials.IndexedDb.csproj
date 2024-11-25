@@ -17,7 +17,6 @@
 		<Authors>CloudNimble</Authors>
 		<RepositoryType>git</RepositoryType>
 		<NoWarn>$(NoWarn);CS1998;CS1591;CA1052;CA1801;CA1822;NU5104</NoWarn>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 	
 	<PropertyGroup>

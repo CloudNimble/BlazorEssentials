@@ -31,7 +31,7 @@ namespace CloudNimble.BlazorEssentials.IndexedDb
         internal const string CountFromIndexByKeyRange = "countFromIndexByKeyRange";
         internal const string Add = "add";
         internal const string Put = "put";
-        internal const string Delete = "delete";
+        internal const string Delete = "deleteRecord";
         internal const string BatchAdd = "batchAdd";
         internal const string BatchPut = "batchPut";
         internal const string BatchDelete = "batchDelete";

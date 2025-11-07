@@ -1,0 +1,62 @@
+---
+title: IEnumerable
+description: "Extension methods for IEnumerable from System.Runtime"
+icon: file-brackets-curly
+keywords: ['IEnumerable', 'System.Collections.Generic.IEnumerable<T>', 'System.Collections.Generic', 'error']
+---
+
+import { DocsBadge } from '/snippets/DocsBadge.jsx';
+
+## Definition
+
+**Assembly:** System.Runtime.dll
+
+**Namespace:** System.Collections.Generic
+
+## Syntax
+
+```csharp
+System.Collections.Generic.IEnumerable<T>
+```
+
+## Summary
+
+This type is defined in System.Runtime.
+
+## Remarks
+
+See [Microsoft documentation](https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable{t}) for more information about the rest of the API.
+
+## Methods
+
+### <Icon icon="puzzle-piece" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Traverse <DocsBadge text="Extension" variant="success" />
+
+<Note>Extension method from `CloudNimble.BlazorEssentials.Extensions.ListExtensions`</Note>
+
+Return item and all children recursively.
+
+#### Syntax
+
+```csharp
+public static System.Collections.Generic.IEnumerable<T> Traverse<T>(System.Collections.Generic.IEnumerable<T> items, System.Func<T, System.Collections.Generic.IEnumerable<T>> childSelector)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `items` | `System.Collections.Generic.IEnumerable<T>` | - |
+| `childSelector` | `System.Func<T, System.Collections.Generic.IEnumerable<T>>` | - |
+
+#### Returns
+
+Type: `System.Collections.Generic.IEnumerable<T>`
+
+#### Type Parameters
+
+- `T` - 
+
+#### Remarks
+
+https://stackoverflow.com/a/32655815/403765
+

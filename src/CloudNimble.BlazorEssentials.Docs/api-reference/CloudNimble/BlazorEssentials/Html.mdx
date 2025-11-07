@@ -1,0 +1,56 @@
+---
+title: Html
+description: "A port of the ASP.NET MVC HtmlHelper class to Blazor."
+icon: bolt
+tag: "STATIC"
+keywords: ['Html', 'CloudNimble.BlazorEssentials.Html', 'CloudNimble.BlazorEssentials', 'class', 'System.Object']
+---
+
+import { DocsBadge } from '/snippets/DocsBadge.jsx';
+
+## Definition
+
+**Assembly:** CloudNimble.BlazorEssentials.dll
+
+**Namespace:** CloudNimble.BlazorEssentials
+
+**Inheritance:** System.Object
+
+## Syntax
+
+```csharp
+CloudNimble.BlazorEssentials.Html
+```
+
+## Summary
+
+A port of the ASP.NET MVC HtmlHelper class to Blazor.
+
+## Remarks
+
+https://github.com/aspnet/AspNetWebStack/blob/main/src/System.Web.Mvc/HtmlHelper.cs &amp;
+            https://github.com/dotnet/aspnetcore/tree/main/src/Mvc/Mvc.ViewFeatures/src/Rendering
+
+## Methods
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Raw
+
+Outputs HTML to the browser without encoding it.
+
+#### Syntax
+
+```csharp
+public static Microsoft.AspNetCore.Components.MarkupString Raw(string content)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `content` | `string` | - |
+
+#### Returns
+
+Type: `Microsoft.AspNetCore.Components.MarkupString`
+A [MarkupString](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.components.markupstring) containing the pre-encoded HTML.
+

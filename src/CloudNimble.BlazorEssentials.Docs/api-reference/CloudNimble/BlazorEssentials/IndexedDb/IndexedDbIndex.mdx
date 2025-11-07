@@ -1,0 +1,669 @@
+---
+title: IndexedDbIndex
+description: "Defines an Index for a given object store."
+icon: file-brackets-curly
+keywords: ['IndexedDbIndex', 'CloudNimble.BlazorEssentials.IndexedDb.IndexedDbIndex', 'CloudNimble.BlazorEssentials.IndexedDb', 'class', 'System.Object']
+---
+
+import { DocsBadge } from '/snippets/DocsBadge.jsx';
+
+## Definition
+
+**Assembly:** CloudNimble.BlazorEssentials.IndexedDb.dll
+
+**Namespace:** CloudNimble.BlazorEssentials.IndexedDb
+
+**Inheritance:** System.Object
+
+## Syntax
+
+```csharp
+CloudNimble.BlazorEssentials.IndexedDb.IndexedDbIndex
+```
+
+## Summary
+
+Defines an Index for a given object store.
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+
+#### Syntax
+
+```csharp
+public IndexedDbIndex(CloudNimble.BlazorEssentials.IndexedDb.IndexedDbObjectStore objectStore, string name, string keyPath, bool multiEntry = false, bool unique = false)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objectStore` | `CloudNimble.BlazorEssentials.IndexedDb.IndexedDbObjectStore` | - |
+| `name` | `string` | - |
+| `keyPath` | `string` | - |
+| `multiEntry` | `bool` | - |
+| `unique` | `bool` | - |
+
+#### Exceptions
+
+| Exception | Description |
+|-----------|-------------|
+| `IndexedDbException` |  |
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public Object()
+```
+
+## Properties
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Database
+
+#### Syntax
+
+```csharp
+public CloudNimble.BlazorEssentials.IndexedDb.IndexedDbDatabase Database { get; init; }
+```
+
+#### Property Value
+
+Type: `CloudNimble.BlazorEssentials.IndexedDb.IndexedDbDatabase`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  KeyPath
+
+the identifier for the property in the object/record that is saved and is to be indexed.
+            can be multiple properties separated by comma
+            if null will default to index name
+
+#### Syntax
+
+```csharp
+public string KeyPath { get; }
+```
+
+#### Property Value
+
+Type: `string`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  MultiEntry
+
+Affects how the index behaves when the result of evaluating the index's key path yields an array.
+            If true, there is one record in the index for each item in an array of keys.
+            If false, then there is one record for each key that is an array.
+
+#### Syntax
+
+```csharp
+public bool MultiEntry { get; }
+```
+
+#### Property Value
+
+Type: `bool`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Name
+
+The name of the index.
+
+#### Syntax
+
+```csharp
+public string Name { get; }
+```
+
+#### Property Value
+
+Type: `string`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ObjectStore
+
+Only use for indexes
+            If true, this index does not allow duplicate values for a key.
+
+#### Syntax
+
+```csharp
+public CloudNimble.BlazorEssentials.IndexedDb.IndexedDbObjectStore ObjectStore { get; init; }
+```
+
+#### Property Value
+
+Type: `CloudNimble.BlazorEssentials.IndexedDb.IndexedDbObjectStore`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Unique
+
+Only use for indexes
+            If true, this index does not allow duplicate values for a key.
+
+#### Syntax
+
+```csharp
+public bool Unique { get; }
+```
+
+#### Property Value
+
+Type: `bool`
+
+## Methods
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  CountAsync
+
+Count records in Index
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<int> CountAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<int>`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  CountAsync
+
+Count records in Index
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<int> CountAsync<TKey>(TKey key)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `key` | `TKey` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<int>`
+
+#### Type Parameters
+
+- `TKey` - 
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  CountAsync
+
+Count records in Index
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<int> CountAsync<TKey>(CloudNimble.BlazorEssentials.IndexedDb.KeyRange<TKey> key)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `key` | `CloudNimble.BlazorEssentials.IndexedDb.KeyRange<TKey>` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<int>`
+
+#### Type Parameters
+
+- `TKey` - 
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Equals <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual bool Equals(object obj)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `obj` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Equals <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool Equals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetAllAsync
+
+Gets all of the records that match a given query in the specified index.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>> GetAllAsync<TResult>(System.Nullable<int> count = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `count` | `System.Nullable<int>` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>>`
+
+#### Type Parameters
+
+- `TResult` - 
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetAllAsync
+
+Gets all of the records that match a given query in the specified index.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>> GetAllAsync<TKey, TResult>(TKey key, System.Nullable<int> count = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `key` | `TKey` | - |
+| `count` | `System.Nullable<int>` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>>`
+
+#### Type Parameters
+
+- `TKey` - 
+- `TResult` - 
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetAllAsync
+
+Gets all of the records that match a given query in the specified index.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>> GetAllAsync<TKey, TResult>(CloudNimble.BlazorEssentials.IndexedDb.KeyRange<TKey> key, System.Nullable<int> count = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `key` | `CloudNimble.BlazorEssentials.IndexedDb.KeyRange<TKey>` | - |
+| `count` | `System.Nullable<int>` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>>`
+
+#### Type Parameters
+
+- `TKey` - 
+- `TResult` - 
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetAllAsync
+
+Gets all of the records that match a given query in the specified index.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>> GetAllAsync<TKey, TResult>(TKey[] key)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `key` | `TKey[]` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>>`
+
+#### Type Parameters
+
+- `TKey` - 
+- `TResult` - 
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetAllKeysAsync
+
+Gets all of the records keys that match a given query in the specified index.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>> GetAllKeysAsync<TResult>(System.Nullable<int> count = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `count` | `System.Nullable<int>` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>>`
+
+#### Type Parameters
+
+- `TResult` - 
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetAllKeysAsync
+
+Gets all of the records keys that match a given query in the specified index.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>> GetAllKeysAsync<TKey, TResult>(TKey key, System.Nullable<int> count = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `key` | `TKey` | - |
+| `count` | `System.Nullable<int>` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>>`
+
+#### Type Parameters
+
+- `TKey` - 
+- `TResult` - 
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetAllKeysAsync
+
+Gets all of the records that match a given query in the specified index.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>> GetAllKeysAsync<TKey, TResult>(CloudNimble.BlazorEssentials.IndexedDb.KeyRange<TKey> key, System.Nullable<int> count = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `key` | `CloudNimble.BlazorEssentials.IndexedDb.KeyRange<TKey>` | - |
+| `count` | `System.Nullable<int>` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>>`
+
+#### Type Parameters
+
+- `TKey` - 
+- `TResult` - 
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetAllKeysAsync
+
+Gets all of the records that match a given query in the specified index.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>> GetAllKeysAsync<TKey, TResult>(TKey[] key)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `key` | `TKey[]` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>>`
+
+#### Type Parameters
+
+- `TKey` - 
+- `TResult` - 
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetAsync
+
+Returns the first record that matches a query against a given index
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<TResult> GetAsync<TKey, TResult>(TKey queryValue)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `queryValue` | `TKey` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<TResult>`
+
+#### Type Parameters
+
+- `TKey` - 
+- `TResult` - 
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetHashCode <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual int GetHashCode()
+```
+
+#### Returns
+
+Type: `int`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetKeyAsync
+
+Returns the first record keys that matches a query against a given index
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<TResult> GetKeyAsync<TKey, TResult>(TKey key)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `key` | `TKey` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<TResult>`
+
+#### Type Parameters
+
+- `TKey` - 
+- `TResult` - 
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetType <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public System.Type GetType()
+```
+
+#### Returns
+
+Type: `System.Type`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  MemberwiseClone <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+protected internal object MemberwiseClone()
+```
+
+#### Returns
+
+Type: `object`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  QueryAsync
+
+Gets all of the records using a filter expression
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>> QueryAsync<TResult>(string filter, System.Nullable<int> count = null, System.Nullable<int> skip = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `filter` | `string` | expression that evaluates to true/false, each record es passed to "obj" parameter |
+| `count` | `System.Nullable<int>` | - |
+| `skip` | `System.Nullable<int>` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>>`
+
+#### Type Parameters
+
+- `TResult` - 
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  QueryAsync
+
+Gets all of the records using a filter expression
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>> QueryAsync<TKey, TResult>(string filter, TKey key, System.Nullable<int> count = null, System.Nullable<int> skip = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `filter` | `string` | expression that evaluates to true/false, each record es passed to "obj" parameter |
+| `key` | `TKey` | - |
+| `count` | `System.Nullable<int>` | - |
+| `skip` | `System.Nullable<int>` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>>`
+
+#### Type Parameters
+
+- `TKey` - 
+- `TResult` - 
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  QueryAsync
+
+Gets all of the records using a filter expression
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>> QueryAsync<TKey, TResult>(string filter, CloudNimble.BlazorEssentials.IndexedDb.KeyRange<TKey> key, System.Nullable<int> count = null, System.Nullable<int> skip = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `filter` | `string` | expression that evaluates to true/false, each record es passed to "obj" parameter |
+| `key` | `CloudNimble.BlazorEssentials.IndexedDb.KeyRange<TKey>` | - |
+| `count` | `System.Nullable<int>` | - |
+| `skip` | `System.Nullable<int>` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>>`
+
+#### Type Parameters
+
+- `TKey` - 
+- `TResult` - 
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ReferenceEquals <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool ReferenceEquals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ToString <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual string ToString()
+```
+
+#### Returns
+
+Type: `string?`
+

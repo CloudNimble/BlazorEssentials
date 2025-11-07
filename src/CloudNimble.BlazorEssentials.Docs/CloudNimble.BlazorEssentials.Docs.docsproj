@@ -1,0 +1,43 @@
+<Project Sdk="DotNetDocs.Sdk/1.1.0-preview.1">
+
+	<PropertyGroup>
+		<DocumentationType>Mintlify</DocumentationType>
+		<GenerateDocumentation>true</GenerateDocumentation>
+		<NamespaceMode>Folder</NamespaceMode>
+		<ShowDocumentationStats>true</ShowDocumentationStats>
+
+		<ConceptualDocsEnabled>true</ConceptualDocsEnabled>
+		<ShowPlaceholders>false</ShowPlaceholders>
+		<MintlifyNavigationMode>Unified</MintlifyNavigationMode>
+
+		<MintlifyTemplate>
+			<Name>BlazorEssentials</Name>
+			<Theme>maple</Theme>
+			<Colors>
+				<Primary>#419AC5</Primary>
+				<Light>#419AC5</Light>
+				<Dark>#3CD0E2</Dark>
+			</Colors>
+            <Appearance>
+                <Default>dark</Default>
+            </Appearance>
+            <Styling>
+                <CodeBlocks>dark</CodeBlocks>
+            </Styling>
+            <Navigation>
+                <Pages>
+                    <Groups>
+                        <Group Name="Getting Started" Icon="stars">
+                            <Pages>index;</Pages>
+                        </Group>
+                        <Group Name="Guides" Icon="dog-leashed">
+                            <Pages>guides/index;guides/pipeline;guides/conceptual-docs;guides/deployment</Pages>
+                        </Group>
+                    </Groups>
+                </Pages>
+            </Navigation>
+
+        </MintlifyTemplate>
+	</PropertyGroup>
+
+</Project>

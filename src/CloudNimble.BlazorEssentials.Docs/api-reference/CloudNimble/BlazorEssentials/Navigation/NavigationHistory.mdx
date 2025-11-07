@@ -1,0 +1,332 @@
+---
+title: NavigationHistory
+icon: file-brackets-curly
+keywords: ['NavigationHistory', 'CloudNimble.BlazorEssentials.Navigation.NavigationHistory', 'CloudNimble.BlazorEssentials.Navigation', 'class', 'System.Object']
+---
+
+import { DocsBadge } from '/snippets/DocsBadge.jsx';
+
+## Definition
+
+**Assembly:** CloudNimble.BlazorEssentials.dll
+
+**Namespace:** CloudNimble.BlazorEssentials.Navigation
+
+**Inheritance:** System.Object
+
+## Syntax
+
+```csharp
+CloudNimble.BlazorEssentials.Navigation.NavigationHistory
+```
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+
+#### Syntax
+
+```csharp
+public NavigationHistory(Microsoft.JSInterop.IJSRuntime jsRuntime)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `jsRuntime` | `Microsoft.JSInterop.IJSRuntime` | - |
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public Object()
+```
+
+## Methods
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Back
+
+This asynchronous method goes to the previous page in session history.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.ValueTask Back()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.ValueTask`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Count
+
+Returns an Integer representing the number of elements in the session history, including the currently loaded page.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.ValueTask<int> Count()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.ValueTask<int>`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  CurrentState
+
+Returns an *T* type representing the state at the top of the history stack.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.ValueTask<T> CurrentState<T>()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.ValueTask<T>`
+
+#### Type Parameters
+
+- `T` - The type of the state data
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Equals <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual bool Equals(object obj)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `obj` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Equals <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool Equals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Forward
+
+This asynchronous method goes to the next page in session history.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.ValueTask Forward()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.ValueTask`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetHashCode <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual int GetHashCode()
+```
+
+#### Returns
+
+Type: `int`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetScrollRestoration
+
+Allows web applications to explicitly get default scroll restoration behavior on history navigation.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.ValueTask<CloudNimble.BlazorEssentials.Navigation.ScrollRestorationType> GetScrollRestoration()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.ValueTask<CloudNimble.BlazorEssentials.Navigation.ScrollRestorationType>`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetType <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public System.Type GetType()
+```
+
+#### Returns
+
+Type: `System.Type`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Go
+
+Asynchronously loads a page from the session history, identified by its relative location to the current page.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.ValueTask Go(int index)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `index` | `int` | The index to move back or forward |
+
+#### Returns
+
+Type: `System.Threading.Tasks.ValueTask`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  MemberwiseClone <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+protected internal object MemberwiseClone()
+```
+
+#### Returns
+
+Type: `object`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  PushState
+
+Pushes the given data onto the session history stack.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.ValueTask PushState<T>(T state, string url)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `state` | `T` | The state of the data |
+| `url` | `string` | The url to navigate |
+
+#### Returns
+
+Type: `System.Threading.Tasks.ValueTask`
+
+#### Type Parameters
+
+- `T` - The type of the state data
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ReferenceEquals <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool ReferenceEquals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ReplaceState
+
+Updates the most recent entry on the history stack.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.ValueTask ReplaceState<T>(T state, string url)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `state` | `T` | The state of the data |
+| `url` | `string` | The url to navigate |
+
+#### Returns
+
+Type: `System.Threading.Tasks.ValueTask`
+
+#### Type Parameters
+
+- `T` - The type of the state data
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  SetScrollRestoration
+
+Allows web applications to explicitly set default scroll restoration behavior on history navigation. This property can be either auto or manual.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.ValueTask SetScrollRestoration(CloudNimble.BlazorEssentials.Navigation.ScrollRestorationType scrollRestorationType)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `scrollRestorationType` | `CloudNimble.BlazorEssentials.Navigation.ScrollRestorationType` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.ValueTask`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ToString <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual string ToString()
+```
+
+#### Returns
+
+Type: `string?`
+

@@ -1,0 +1,377 @@
+---
+title: IndexedDbDatabase
+description: "Provides functionality for accessing IndexedDB from Blazor application"
+icon: shapes
+tag: "ABSTRACT"
+keywords: ['IndexedDbDatabase', 'CloudNimble.BlazorEssentials.IndexedDb.IndexedDbDatabase', 'CloudNimble.BlazorEssentials.IndexedDb', 'class', 'System.Object']
+---
+
+import { DocsBadge } from '/snippets/DocsBadge.jsx';
+
+## Definition
+
+**Assembly:** CloudNimble.BlazorEssentials.IndexedDb.dll
+
+**Namespace:** CloudNimble.BlazorEssentials.IndexedDb
+
+**Inheritance:** System.Object
+
+## Syntax
+
+```csharp
+CloudNimble.BlazorEssentials.IndexedDb.IndexedDbDatabase
+```
+
+## Summary
+
+Provides functionality for accessing IndexedDB from Blazor application
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+
+#### Syntax
+
+```csharp
+public IndexedDbDatabase(Microsoft.JSInterop.IJSRuntime jsRuntime)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `jsRuntime` | `Microsoft.JSInterop.IJSRuntime` | - |
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public Object()
+```
+
+## Properties
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  DatabaseDefinition
+
+#### Syntax
+
+```csharp
+public CloudNimble.BlazorEssentials.IndexedDb.Schema.IndexedDbDatabaseDefinition DatabaseDefinition { get; internal set; }
+```
+
+#### Property Value
+
+Type: `CloudNimble.BlazorEssentials.IndexedDb.Schema.IndexedDbDatabaseDefinition`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Name
+
+#### Syntax
+
+```csharp
+public string Name { get; init; }
+```
+
+#### Property Value
+
+Type: `string`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ObjectStores
+
+#### Syntax
+
+```csharp
+public System.Collections.Generic.List<CloudNimble.BlazorEssentials.IndexedDb.IndexedDbObjectStore> ObjectStores { get; private set; }
+```
+
+#### Property Value
+
+Type: `System.Collections.Generic.List<CloudNimble.BlazorEssentials.IndexedDb.IndexedDbObjectStore>`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Version
+
+#### Syntax
+
+```csharp
+public int Version { get; set; }
+```
+
+#### Property Value
+
+Type: `int`
+
+## Methods
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  CallJavaScriptAsync
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task CallJavaScriptAsync(string functionName, params object[] args)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `functionName` | `string` | - |
+| `args` | `object[]` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+
+#### Exceptions
+
+| Exception | Description |
+|-----------|-------------|
+| `IndexedDbException` |  |
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  CallJavaScriptAsync
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<TResult> CallJavaScriptAsync<TResult>(string functionName, params object[] args)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `functionName` | `string` | - |
+| `args` | `object?[]` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<TResult>`
+
+#### Type Parameters
+
+- `TResult` - 
+
+#### Exceptions
+
+| Exception | Description |
+|-----------|-------------|
+| `IndexedDbException` |  |
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ConsoleLog
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task ConsoleLog(params object[] args)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `args` | `object[]` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+
+#### Exceptions
+
+| Exception | Description |
+|-----------|-------------|
+| `IndexedDbException` |  |
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  CreateObjectStoreAsync
+
+This function provides the means to add a store to an existing database,
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task CreateObjectStoreAsync(CloudNimble.BlazorEssentials.IndexedDb.IndexedDbObjectStore objectStore)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objectStore` | `CloudNimble.BlazorEssentials.IndexedDb.IndexedDbObjectStore` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  DeleteDatabaseAsync
+
+Deletes this IndexedDb instance from the browser.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task DeleteDatabaseAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  EnsureIsOpenAsync
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task EnsureIsOpenAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Equals <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual bool Equals(object obj)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `obj` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Equals <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool Equals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetHashCode <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual int GetHashCode()
+```
+
+#### Returns
+
+Type: `int`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetType <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public System.Type GetType()
+```
+
+#### Returns
+
+Type: `System.Type`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  LoadSchemaAsync
+
+Load database schema from databaseName
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task LoadSchemaAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  MemberwiseClone <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+protected internal object MemberwiseClone()
+```
+
+#### Returns
+
+Type: `object`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  OpenAsync
+
+Opens the IndexedDB defined in the DbDatabase. Under the covers will create the database if it does not exist
+            and create the stores defined in DbDatabase.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task OpenAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ReferenceEquals <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool ReferenceEquals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ToString <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual string ToString()
+```
+
+#### Returns
+
+Type: `string?`
+

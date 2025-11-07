@@ -1,0 +1,977 @@
+---
+title: IndexedDbObjectStore
+description: "Defines a store to add to database"
+icon: file-brackets-curly
+keywords: ['IndexedDbObjectStore', 'CloudNimble.BlazorEssentials.IndexedDb.IndexedDbObjectStore', 'CloudNimble.BlazorEssentials.IndexedDb', 'class', 'System.Object']
+---
+
+import { DocsBadge } from '/snippets/DocsBadge.jsx';
+
+## Definition
+
+**Assembly:** CloudNimble.BlazorEssentials.IndexedDb.dll
+
+**Namespace:** CloudNimble.BlazorEssentials.IndexedDb
+
+**Inheritance:** System.Object
+
+## Syntax
+
+```csharp
+CloudNimble.BlazorEssentials.IndexedDb.IndexedDbObjectStore
+```
+
+## Summary
+
+Defines a store to add to database
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+
+Add new ObjectStore definition
+
+#### Syntax
+
+```csharp
+public IndexedDbObjectStore(CloudNimble.BlazorEssentials.IndexedDb.IndexedDbDatabase database, CloudNimble.BlazorEssentials.IndexedDb.ObjectStoreAttribute attribute = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `database` | `CloudNimble.BlazorEssentials.IndexedDb.IndexedDbDatabase` | - |
+| `attribute` | `CloudNimble.BlazorEssentials.IndexedDb.ObjectStoreAttribute` | - |
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+
+Add new ObjectStore definition
+
+#### Syntax
+
+```csharp
+public IndexedDbObjectStore(CloudNimble.BlazorEssentials.IndexedDb.IndexedDbDatabase database, string name, string keyPath = "id", bool autoIncrement = false)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `database` | `CloudNimble.BlazorEssentials.IndexedDb.IndexedDbDatabase` | - |
+| `name` | `string` | - |
+| `keyPath` | `string` | - |
+| `autoIncrement` | `bool` | - |
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public Object()
+```
+
+## Properties
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  AutoIncrement
+
+If true, the object store has a key generator. Defaults to false.
+            Note that every object store has its own separate auto increment counter.
+
+#### Syntax
+
+```csharp
+public bool AutoIncrement { get; init; }
+```
+
+#### Property Value
+
+Type: `bool`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Database
+
+IDMManager
+
+#### Syntax
+
+```csharp
+public CloudNimble.BlazorEssentials.IndexedDb.IndexedDbDatabase Database { get; init; }
+```
+
+#### Property Value
+
+Type: `CloudNimble.BlazorEssentials.IndexedDb.IndexedDbDatabase`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Indexes
+
+Provides a set of additional indexes if required.
+
+#### Syntax
+
+```csharp
+public System.Collections.Generic.List<CloudNimble.BlazorEssentials.IndexedDb.IndexedDbIndex> Indexes { get; init; }
+```
+
+#### Property Value
+
+Type: `System.Collections.Generic.List<CloudNimble.BlazorEssentials.IndexedDb.IndexedDbIndex>`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  KeyPath
+
+the identifier for the property in the object/record that is saved and is to be indexed.
+            can be multiple properties separated by comma
+            If this property is null, the application must provide a key for each modification operation.
+
+#### Syntax
+
+```csharp
+public string KeyPath { get; init; }
+```
+
+#### Property Value
+
+Type: `string?`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Name
+
+The name for the store
+
+#### Syntax
+
+```csharp
+public string Name { get; internal set; }
+```
+
+#### Property Value
+
+Type: `string`
+
+## Methods
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  AddAsync
+
+Adds a new record/object to the specified ObjectStore
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task AddAsync<TData>(TData data) where TData : notnull
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `data` | `TData` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+
+#### Type Parameters
+
+- `TData` - 
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  AddAsync
+
+Adds a new record/object to the specified ObjectStore
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<TKey> AddAsync<TData, TKey>(TData data)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `data` | `TData` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<TKey>`
+
+#### Type Parameters
+
+- `TData` - 
+- `TKey` - 
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  AddAsync
+
+Adds a new record/object to the specified ObjectStore
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<TKey> AddAsync<TData, TKey>(TData data, TKey key)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `data` | `TData` | - |
+| `key` | `TKey` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<TKey>`
+
+#### Type Parameters
+
+- `TData` - 
+- `TKey` - 
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  BatchAddAsync
+
+Add an array of new record/object in one transaction to the specified store
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task BatchAddAsync<TData>(TData[] data)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `data` | `TData[]` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+
+#### Type Parameters
+
+- `TData` - 
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  BatchAddAsync
+
+Add an array of new record/object in one transaction to the specified store
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<TKey[]> BatchAddAsync<TData, TKey>(TData[] data)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `data` | `TData[]` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<TKey[]>`
+
+#### Type Parameters
+
+- `TData` - 
+- `TKey` - 
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  BatchDeleteAsync
+
+Delete multiple records from the store based on the id
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task BatchDeleteAsync<TKey>(TKey[] ids)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `ids` | `TKey[]` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+
+#### Type Parameters
+
+- `TKey` - 
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  BatchPutAsync
+
+Put an array of new record/object in one transaction to the specified store
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task BatchPutAsync<TData>(TData[] data)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `data` | `TData[]` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+
+#### Type Parameters
+
+- `TData` - 
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  BatchPutAsync
+
+Put an array of new record/object in one transaction to the specified store
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<TKey[]> BatchPutAsync<TData, TKey>(TData[] data)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `data` | `TData[]` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<TKey[]>`
+
+#### Type Parameters
+
+- `TData` - 
+- `TKey` - 
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ClearStoreAsync
+
+Clears all of the records from a given store.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task ClearStoreAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  CountAsync
+
+Count records in ObjectStore
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<int> CountAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<int>`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  CountAsync
+
+Count records in ObjectStore
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<int> CountAsync<TKey>(TKey key)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `key` | `TKey` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<int>`
+
+#### Type Parameters
+
+- `TKey` - 
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  CountAsync
+
+Count records in ObjectStore
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<int> CountAsync<TKey>(CloudNimble.BlazorEssentials.IndexedDb.KeyRange<TKey> key)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `key` | `CloudNimble.BlazorEssentials.IndexedDb.KeyRange<TKey>` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<int>`
+
+#### Type Parameters
+
+- `TKey` - 
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  DeleteAsync
+
+Deletes a record from the store based on the id
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task DeleteAsync<TKey>(TKey key) where TKey : notnull
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `key` | `TKey` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+
+#### Type Parameters
+
+- `TKey` - 
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Equals <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual bool Equals(object obj)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `obj` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Equals <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool Equals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetAllAsync
+
+Gets all of the records in a given store.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>> GetAllAsync<TResult>(System.Nullable<int> count = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `count` | `System.Nullable<int>` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>>`
+
+#### Type Parameters
+
+- `TResult` - 
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetAllAsync
+
+Gets all of the records by Key in a given store.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>> GetAllAsync<TKey, TResult>(TKey key, System.Nullable<int> count = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `key` | `TKey` | - |
+| `count` | `System.Nullable<int>` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>>`
+
+#### Type Parameters
+
+- `TKey` - 
+- `TResult` - 
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetAllAsync
+
+Gets all of the records by KeyRange in a given store.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>> GetAllAsync<TKey, TResult>(CloudNimble.BlazorEssentials.IndexedDb.KeyRange<TKey> key, System.Nullable<int> count = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `key` | `CloudNimble.BlazorEssentials.IndexedDb.KeyRange<TKey>` | - |
+| `count` | `System.Nullable<int>` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>>`
+
+#### Type Parameters
+
+- `TKey` - 
+- `TResult` - 
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetAllAsync
+
+Gets all of the records by ArrayKey in a given store.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>> GetAllAsync<TKey, TResult>(TKey[] key)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `key` | `TKey[]` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>>`
+
+#### Type Parameters
+
+- `TKey` - 
+- `TResult` - 
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetAllKeysAsync
+
+Gets all of the records keys in a given store.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>> GetAllKeysAsync<TResult>(System.Nullable<int> count = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `count` | `System.Nullable<int>` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>>`
+
+#### Type Parameters
+
+- `TResult` - 
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetAllKeysAsync
+
+Gets all of the records keys by Key in a given store.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>> GetAllKeysAsync<TKey, TResult>(TKey key, System.Nullable<int> count = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `key` | `TKey` | - |
+| `count` | `System.Nullable<int>` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>>`
+
+#### Type Parameters
+
+- `TKey` - 
+- `TResult` - 
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetAllKeysAsync
+
+Gets all of the records by KeyRange in a given store.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>> GetAllKeysAsync<TKey, TResult>(CloudNimble.BlazorEssentials.IndexedDb.KeyRange<TKey> key, System.Nullable<int> count = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `key` | `CloudNimble.BlazorEssentials.IndexedDb.KeyRange<TKey>` | - |
+| `count` | `System.Nullable<int>` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>>`
+
+#### Type Parameters
+
+- `TKey` - 
+- `TResult` - 
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetAllKeysAsync
+
+Gets all of the records by ArrayKey in a given store.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>> GetAllKeysAsync<TKey, TResult>(TKey[] key)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `key` | `TKey[]` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>>`
+
+#### Type Parameters
+
+- `TKey` - 
+- `TResult` - 
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetAsync
+
+Retrieve a record by Key
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<TResult> GetAsync<TKey, TResult>(TKey key)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `key` | `TKey` | the key of the record |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<TResult?>`
+
+#### Type Parameters
+
+- `TKey` - 
+- `TResult` - 
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetHashCode <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual int GetHashCode()
+```
+
+#### Returns
+
+Type: `int`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetKeyAsync
+
+Retrieve a record key by Key
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<TResult> GetKeyAsync<TKey, TResult>(TKey key)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `key` | `TKey` | the key of the record |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<TResult?>`
+
+#### Type Parameters
+
+- `TKey` - 
+- `TResult` - 
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetType <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public System.Type GetType()
+```
+
+#### Returns
+
+Type: `System.Type`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  MemberwiseClone <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+protected internal object MemberwiseClone()
+```
+
+#### Returns
+
+Type: `object`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  PutAsync
+
+Updates and existing record
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task PutAsync<TData>(TData data) where TData : notnull
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `data` | `TData` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+
+#### Type Parameters
+
+- `TData` - 
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  PutAsync
+
+Updates and existing record
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<TKey> PutAsync<TData, TKey>(TData data)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `data` | `TData` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<TKey>`
+
+#### Type Parameters
+
+- `TData` - 
+- `TKey` - 
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  PutAsync
+
+Updates and existing record
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<TKey> PutAsync<TData, TKey>(TData data, TKey key)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `data` | `TData` | - |
+| `key` | `TKey` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<TKey>`
+
+#### Type Parameters
+
+- `TData` - 
+- `TKey` - 
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  QueryAsync
+
+Gets all of the records using a filter expression
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>> QueryAsync<TResult>(string filter, System.Nullable<int> count = null, System.Nullable<int> skip = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `filter` | `string` | expression that evaluates to true/false, each record es passed to "obj" parameter |
+| `count` | `System.Nullable<int>` | - |
+| `skip` | `System.Nullable<int>` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>>`
+
+#### Type Parameters
+
+- `TResult` - 
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  QueryAsync
+
+Gets all of the records using a filter expression
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>> QueryAsync<TKey, TResult>(string name, string filter, TKey key, System.Nullable<int> count = null, System.Nullable<int> skip = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | - |
+| `filter` | `string` | expression that evaluates to true/false, each record es passed to "obj" parameter |
+| `key` | `TKey` | - |
+| `count` | `System.Nullable<int>` | - |
+| `skip` | `System.Nullable<int>` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>>`
+
+#### Type Parameters
+
+- `TKey` - 
+- `TResult` - 
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  QueryAsync
+
+Gets all of the records using a filter expression
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>> QueryAsync<TKey, TResult>(string filter, CloudNimble.BlazorEssentials.IndexedDb.KeyRange<TKey> key, System.Nullable<int> count = null, System.Nullable<int> skip = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `filter` | `string` | expression that evaluates to true/false, each record es passed to "obj" parameter |
+| `key` | `CloudNimble.BlazorEssentials.IndexedDb.KeyRange<TKey>` | - |
+| `count` | `System.Nullable<int>` | - |
+| `skip` | `System.Nullable<int>` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>>`
+
+#### Type Parameters
+
+- `TKey` - 
+- `TResult` - 
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ReferenceEquals <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool ReferenceEquals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ToString <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual string ToString()
+```
+
+#### Returns
+
+Type: `string?`
+

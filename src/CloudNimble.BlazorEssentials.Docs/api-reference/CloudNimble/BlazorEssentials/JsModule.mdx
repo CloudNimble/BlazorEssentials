@@ -1,0 +1,323 @@
+---
+title: JsModule
+description: "A wrapper that makes it easier to dynamically import JavaScript modules in Blazor. Can be used as the foundation              to build strongly-typed .NET wr..."
+icon: file-brackets-curly
+keywords: ['JsModule', 'CloudNimble.BlazorEssentials.JsModule', 'CloudNimble.BlazorEssentials', 'class', 'System.Object', 'Microsoft.JSInterop.IJSObjectReference', 'System.IAsyncDisposable']
+---
+
+import { DocsBadge } from '/snippets/DocsBadge.jsx';
+
+## Definition
+
+**Assembly:** CloudNimble.BlazorEssentials.dll
+
+**Namespace:** CloudNimble.BlazorEssentials
+
+**Inheritance:** System.Object
+
+## Syntax
+
+```csharp
+CloudNimble.BlazorEssentials.JsModule
+```
+
+## Summary
+
+A wrapper that makes it easier to dynamically import JavaScript modules in Blazor. Can be used as the foundation 
+            to build strongly-typed .NET wrappers around JavaScript libraries.
+
+## Remarks
+
+I built this because trying to remember the same pattern for importing JS modules in Blazor was driving me nuts.
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+
+Creates a new instance of the [JsModule](/api-reference/CloudNimble/BlazorEssentials/JsModule) class.
+
+#### Syntax
+
+```csharp
+public JsModule(Microsoft.JSInterop.IJSRuntime jsRuntime, string modulePath = "")
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `jsRuntime` | `Microsoft.JSInterop.IJSRuntime` | The [IJSRuntime](https://learn.microsoft.com/dotnet/api/microsoft.jsinterop.ijsruntime) instance that was likely injected by the ViewModel / Page / Control this module is 
+            being used in. |
+| `modulePath` | `string` | The full path to the JS file to wrap. Should usually be in the format "../content/{packageName}/{pathFromWwwRoot}.js". |
+
+#### Remarks
+
+If you don't provide a *modulePath*, the constructor will attempt to infer it from the calling 
+            assembly, in the format "../_content/{callingAssemblyName}/{callingAssemblyName}.js".
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+
+Creates a new instance of the [JsModule](/api-reference/CloudNimble/BlazorEssentials/JsModule) class.
+
+#### Syntax
+
+```csharp
+public JsModule(Microsoft.JSInterop.IJSRuntime jsRuntime, string packageName, string modulePath)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `jsRuntime` | `Microsoft.JSInterop.IJSRuntime` | The [IJSRuntime](https://learn.microsoft.com/dotnet/api/microsoft.jsinterop.ijsruntime) instance that was likely injected by the ViewModel / Page / Control this module is 
+            being used in. |
+| `packageName` | `string` | - |
+| `modulePath` | `string` | The path to the file, usually from the 'wwwroot' folder in the base of the project. |
+
+#### Remarks
+
+The SDK-style project system actually does a really good job of knowing when the PackageId is different from the 
+            AssemblyName, so this constructor may not be necessary.
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public Object()
+```
+
+## Properties
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Instance
+
+Returns a [Lazy`1](https://learn.microsoft.com/dotnet/api/system.lazy-1) reference to the [Task`1](https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1) of importing the module through
+            [IJSRuntime](https://learn.microsoft.com/dotnet/api/microsoft.jsinterop.ijsruntime).
+
+#### Syntax
+
+```csharp
+public System.Lazy<System.Threading.Tasks.Task<Microsoft.JSInterop.IJSObjectReference>> Instance { get; private set; }
+```
+
+#### Property Value
+
+Type: `System.Lazy<System.Threading.Tasks.Task<Microsoft.JSInterop.IJSObjectReference>>`
+
+#### Remarks
+
+We're using [Lazy`1](https://learn.microsoft.com/dotnet/api/system.lazy-1) here to ensure that the module is imported exactly once and only when needed.
+            [Lazy`1](https://learn.microsoft.com/dotnet/api/system.lazy-1) manages the instance for us
+
+## Methods
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  DisposeAsync
+
+Disposes of
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.ValueTask DisposeAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.ValueTask`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Equals <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual bool Equals(object obj)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `obj` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Equals <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool Equals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetHashCode <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual int GetHashCode()
+```
+
+#### Returns
+
+Type: `int`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetType <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public System.Type GetType()
+```
+
+#### Returns
+
+Type: `System.Type`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  InvokeAsync
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.ValueTask<TValue> InvokeAsync<TValue>(string identifier, object[] args = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `identifier` | `string` | - |
+| `args` | `object?[]?` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.ValueTask<TValue>`
+
+#### Type Parameters
+
+- `TValue` - 
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  InvokeAsync
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.ValueTask<TValue> InvokeAsync<TValue>(string identifier, System.Threading.CancellationToken cancellationToken, object[] args = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `identifier` | `string` | - |
+| `cancellationToken` | `System.Threading.CancellationToken` | - |
+| `args` | `object?[]?` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.ValueTask<TValue>`
+
+#### Type Parameters
+
+- `TValue` - 
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  InvokeAsync
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.ValueTask<TValue> InvokeAsync<TValue>(string identifier, System.TimeSpan timeout, object[] args = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `identifier` | `string` | - |
+| `timeout` | `System.TimeSpan` | - |
+| `args` | `object?[]?` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.ValueTask<TValue>`
+
+#### Type Parameters
+
+- `TValue` - 
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  MemberwiseClone <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+protected internal object MemberwiseClone()
+```
+
+#### Returns
+
+Type: `object`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ReferenceEquals <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool ReferenceEquals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ToString <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual string ToString()
+```
+
+#### Returns
+
+Type: `string?`
+
+## Related APIs
+
+- Microsoft.JSInterop.IJSObjectReference
+- System.IAsyncDisposable
+

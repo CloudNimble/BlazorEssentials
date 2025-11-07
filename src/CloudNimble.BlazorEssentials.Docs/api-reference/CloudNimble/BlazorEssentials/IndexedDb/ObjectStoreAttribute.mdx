@@ -1,0 +1,81 @@
+---
+title: ObjectStoreAttribute
+description: "Helps define the structure of a [IndexedDbObjectStore](/api-reference/CloudNimble/BlazorEssentials/IndexedDb/IndexedDbObjectStore) so you don't have to subcl..."
+icon: file-brackets-curly
+keywords: ['ObjectStoreAttribute', 'CloudNimble.BlazorEssentials.IndexedDb.ObjectStoreAttribute', 'CloudNimble.BlazorEssentials.IndexedDb', 'class', 'System.Attribute']
+---
+
+import { DocsBadge } from '/snippets/DocsBadge.jsx';
+
+## Definition
+
+**Assembly:** CloudNimble.BlazorEssentials.IndexedDb.dll
+
+**Namespace:** CloudNimble.BlazorEssentials.IndexedDb
+
+**Inheritance:** System.Attribute
+
+## Syntax
+
+```csharp
+CloudNimble.BlazorEssentials.IndexedDb.ObjectStoreAttribute
+```
+
+## Summary
+
+Helps define the structure of a [IndexedDbObjectStore](/api-reference/CloudNimble/BlazorEssentials/IndexedDb/IndexedDbObjectStore) so you don't have to subclass one for every object store.
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+
+#### Syntax
+
+```csharp
+public ObjectStoreAttribute()
+```
+
+## Properties
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  AutoIncrementKeys
+
+Specifies if the keys for this [IndexedDbObjectStore](/api-reference/CloudNimble/BlazorEssentials/IndexedDb/IndexedDbObjectStore) should auto-increment. Defaults to false.
+
+#### Syntax
+
+```csharp
+public bool AutoIncrementKeys { get; set; }
+```
+
+#### Property Value
+
+Type: `bool`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  KeyPath
+
+Specifies the name of the Key for this [IndexedDbObjectStore](/api-reference/CloudNimble/BlazorEssentials/IndexedDb/IndexedDbObjectStore). Defaults to "id".
+
+#### Syntax
+
+```csharp
+public string KeyPath { get; set; }
+```
+
+#### Property Value
+
+Type: `string`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Name
+
+Specifies the name of the Object Store. Defaults to the the name of the property in the [IndexedDbDatabase](/api-reference/CloudNimble/BlazorEssentials/IndexedDb/IndexedDbDatabase).
+
+#### Syntax
+
+```csharp
+public string Name { get; set; }
+```
+
+#### Property Value
+
+Type: `string`
+

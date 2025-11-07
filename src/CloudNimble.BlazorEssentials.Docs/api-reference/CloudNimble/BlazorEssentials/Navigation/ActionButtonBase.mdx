@@ -1,0 +1,416 @@
+---
+title: ActionButtonBase
+description: "Defines a button that can be used to trigger an action in a User Interface. Useful for binding aq group of actions programmatically."
+icon: shapes
+tag: "ABSTRACT"
+keywords: ['ActionButtonBase', 'CloudNimble.BlazorEssentials.Navigation.ActionButtonBase', 'CloudNimble.BlazorEssentials.Navigation', 'class', 'CloudNimble.BlazorEssentials.InterfaceElement']
+---
+
+import { DocsBadge } from '/snippets/DocsBadge.jsx';
+
+## Definition
+
+**Assembly:** CloudNimble.BlazorEssentials.dll
+
+**Namespace:** CloudNimble.BlazorEssentials.Navigation
+
+**Inheritance:** CloudNimble.BlazorEssentials.InterfaceElement
+
+## Syntax
+
+```csharp
+CloudNimble.BlazorEssentials.Navigation.ActionButtonBase
+```
+
+## Summary
+
+Defines a button that can be used to trigger an action in a User Interface. Useful for binding aq group of actions programmatically.
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+
+#### Syntax
+
+```csharp
+public ActionButtonBase()
+```
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+
+Creates a new [ActionButton](/api-reference/CloudNimble/BlazorEssentials/Navigation/ActionButton) instance specifically for icon-only buttons, usually in the header or footer.
+
+#### Syntax
+
+```csharp
+public ActionButtonBase(string iconClass, string tooltip, System.Func<bool> isDisabledFunc = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `iconClass` | `string` | - |
+| `tooltip` | `string` | - |
+| `isDisabledFunc` | `System.Func<bool>` | - |
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+
+#### Syntax
+
+```csharp
+public ActionButtonBase(string buttonText, string buttonClass, string iconClass, string popoverName, string popoverHeader, string popoverPlacement, System.Func<bool> isDisabledFunc = null, System.Collections.Generic.List<CloudNimble.BlazorEssentials.Navigation.ActionButton> children = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `buttonText` | `string` | - |
+| `buttonClass` | `string` | - |
+| `iconClass` | `string` | - |
+| `popoverName` | `string` | - |
+| `popoverHeader` | `string` | - |
+| `popoverPlacement` | `string` | - |
+| `isDisabledFunc` | `System.Func<bool>` | - |
+| `children` | `System.Collections.Generic.List<CloudNimble.BlazorEssentials.Navigation.ActionButton>` | - |
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+
+#### Syntax
+
+```csharp
+public ActionButtonBase(string buttonText, string buttonClass, string iconClass, System.Func<bool> isDisabledFunc = null, string tooltip = null, string tooltipContainer = "body")
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `buttonText` | `string` | - |
+| `buttonClass` | `string` | - |
+| `iconClass` | `string` | - |
+| `isDisabledFunc` | `System.Func<bool>` | - |
+| `tooltip` | `string` | - |
+| `tooltipContainer` | `string` | - |
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `CloudNimble.BlazorEssentials.InterfaceElement`</Note>
+
+#### Syntax
+
+```csharp
+public InterfaceElement()
+```
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `CloudNimble.BlazorEssentials.InterfaceElement`</Note>
+
+#### Syntax
+
+```csharp
+public InterfaceElement(string displayText, string iconClass, string cssClass = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `displayText` | `string` | - |
+| `iconClass` | `string` | - |
+| `cssClass` | `string` | - |
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public Object()
+```
+
+## Properties
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  AccessibilityText
+
+Test to be used for screen readers when this item is rendered.
+
+#### Syntax
+
+```csharp
+public string AccessibilityText { get; set; }
+```
+
+#### Property Value
+
+Type: `string`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Children
+
+#### Syntax
+
+```csharp
+public System.Collections.Generic.List<CloudNimble.BlazorEssentials.Navigation.ActionButton> Children { get; set; }
+```
+
+#### Property Value
+
+Type: `System.Collections.Generic.List<CloudNimble.BlazorEssentials.Navigation.ActionButton>`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  CssClass <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `CloudNimble.BlazorEssentials.InterfaceElement`</Note>
+
+A string representing the CSS classes that will be applied to the element.
+
+#### Syntax
+
+```csharp
+public string CssClass { get; set; }
+```
+
+#### Property Value
+
+Type: `string`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  DisplayText <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `CloudNimble.BlazorEssentials.InterfaceElement`</Note>
+
+A string representing the text that will be displayed inside the element.
+
+#### Syntax
+
+```csharp
+public string DisplayText { get; set; }
+```
+
+#### Property Value
+
+Type: `string`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  IconClass <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `CloudNimble.BlazorEssentials.InterfaceElement`</Note>
+
+A string representing the CSS class for the icon that will be rendered immediately before the [InterfaceElement.DisplayText](/api-reference/CloudNimble/BlazorEssentials/InterfaceElement#displaytext).
+
+#### Syntax
+
+```csharp
+public string IconClass { get; set; }
+```
+
+#### Property Value
+
+Type: `string`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  IsDisabledFunc
+
+#### Syntax
+
+```csharp
+public System.Func<bool> IsDisabledFunc { get; set; }
+```
+
+#### Property Value
+
+Type: `System.Func<bool>`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ModalTarget
+
+#### Syntax
+
+```csharp
+public string ModalTarget { get; set; }
+```
+
+#### Property Value
+
+Type: `string`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  PopoverHeader
+
+#### Syntax
+
+```csharp
+public string PopoverHeader { get; set; }
+```
+
+#### Property Value
+
+Type: `string`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  PopoverName
+
+#### Syntax
+
+```csharp
+public string PopoverName { get; set; }
+```
+
+#### Property Value
+
+Type: `string`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  PopoverPlacement
+
+#### Syntax
+
+```csharp
+public string PopoverPlacement { get; set; }
+```
+
+#### Property Value
+
+Type: `string`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Tooltip
+
+The text that will be displayed to the end user when the cursor is hovered over the button.
+
+#### Syntax
+
+```csharp
+public string Tooltip { get; set; }
+```
+
+#### Property Value
+
+Type: `string`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  TooltipContainer
+
+#### Syntax
+
+```csharp
+public string TooltipContainer { get; set; }
+```
+
+#### Property Value
+
+Type: `string`
+
+## Methods
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Equals <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual bool Equals(object obj)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `obj` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Equals <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool Equals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetHashCode <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual int GetHashCode()
+```
+
+#### Returns
+
+Type: `int`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetType <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public System.Type GetType()
+```
+
+#### Returns
+
+Type: `System.Type`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  MemberwiseClone <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+protected internal object MemberwiseClone()
+```
+
+#### Returns
+
+Type: `object`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ReferenceEquals <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool ReferenceEquals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ToString <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual string ToString()
+```
+
+#### Returns
+
+Type: `string?`
+

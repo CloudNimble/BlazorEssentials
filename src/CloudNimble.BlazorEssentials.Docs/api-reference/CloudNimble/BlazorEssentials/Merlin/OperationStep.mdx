@@ -1,0 +1,218 @@
+---
+title: OperationStep
+icon: file-brackets-curly
+keywords: ['OperationStep', 'CloudNimble.BlazorEssentials.Merlin.OperationStep', 'CloudNimble.BlazorEssentials.Merlin', 'class', 'CloudNimble.BlazorEssentials.BlazorObservable']
+---
+
+import { DocsBadge } from '/snippets/DocsBadge.jsx';
+
+## Definition
+
+**Assembly:** CloudNimble.BlazorEssentials.dll
+
+**Namespace:** CloudNimble.BlazorEssentials.Merlin
+
+**Inheritance:** CloudNimble.BlazorEssentials.BlazorObservable
+
+## Syntax
+
+```csharp
+CloudNimble.BlazorEssentials.Merlin.OperationStep
+```
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+
+#### Syntax
+
+```csharp
+public OperationStep(int id, string displayText, System.Func<System.Threading.Tasks.Task<bool>> onAction)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `id` | `int` | - |
+| `displayText` | `string` | - |
+| `onAction` | `System.Func<System.Threading.Tasks.Task<bool>>` | - |
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `CloudNimble.BlazorEssentials.BlazorObservable`</Note>
+
+Creates a new instance of the [BlazorObservable](/api-reference/CloudNimble/BlazorEssentials/BlazorObservable) class.
+
+#### Syntax
+
+```csharp
+public BlazorObservable(CloudNimble.BlazorEssentials.StateHasChangedConfig stateHasChangedConfig = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `stateHasChangedConfig` | `CloudNimble.BlazorEssentials.StateHasChangedConfig` | - |
+
+## Properties
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  DisplayText
+
+The text to display to the end user regarding what is happening in this step.
+
+#### Syntax
+
+```csharp
+public string DisplayText { get; set; }
+```
+
+#### Property Value
+
+Type: `string`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ErrorText
+
+Any additional text you'd like to display to the end user when there is an error.
+
+#### Syntax
+
+```csharp
+public string ErrorText { get; set; }
+```
+
+#### Property Value
+
+Type: `string`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Id
+
+A zero-based index identifying this step in relation to other steps in the process.
+
+#### Syntax
+
+```csharp
+public int Id { get; set; }
+```
+
+#### Property Value
+
+Type: `int`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Label
+
+Returns a Bootstrap Label with the details of the a given [OperationStep.Status](/api-reference/CloudNimble/BlazorEssentials/Merlin/OperationStep#status).
+
+#### Syntax
+
+```csharp
+public string Label { get; set; }
+```
+
+#### Property Value
+
+Type: `string`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  LoadingStatus <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `CloudNimble.BlazorEssentials.BlazorObservable`</Note>
+
+A [BlazorObservable.LoadingStatus](/api-reference/CloudNimble/BlazorEssentials/BlazorObservable#loadingstatus) specifying the current state of the required data for this Observable.
+
+#### Syntax
+
+```csharp
+public CloudNimble.BlazorEssentials.LoadingStatus LoadingStatus { get; set; }
+```
+
+#### Property Value
+
+Type: `CloudNimble.BlazorEssentials.LoadingStatus`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  OnAction
+
+An async function that returns a boolean indicating whether or not the action succeeded.
+
+#### Syntax
+
+```csharp
+public System.Func<System.Threading.Tasks.Task<bool>> OnAction { get; set; }
+```
+
+#### Property Value
+
+Type: `System.Func<System.Threading.Tasks.Task<bool>>`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  StateHasChanged <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `CloudNimble.BlazorEssentials.BlazorObservable`</Note>
+
+Determines how to trigger StateHasChanged events in a Blazor component.
+
+#### Syntax
+
+```csharp
+public CloudNimble.BlazorEssentials.StateHasChangedConfig StateHasChanged { get; set; }
+```
+
+#### Property Value
+
+Type: `CloudNimble.BlazorEssentials.StateHasChangedConfig`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Status
+
+An OperationStepStatus where you can change the operation's status and the UI is re-rendered automatically.
+
+#### Syntax
+
+```csharp
+public CloudNimble.BlazorEssentials.Merlin.OperationStepStatus Status { get; set; }
+```
+
+#### Property Value
+
+Type: `CloudNimble.BlazorEssentials.Merlin.OperationStepStatus`
+
+## Methods
+
+### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Dispose <DocsBadge text="Override" variant="info" />
+
+<Note>Inherited from `CloudNimble.BlazorEssentials.BlazorObservable`</Note>
+
+#### Syntax
+
+```csharp
+protected override void Dispose(bool disposing)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `disposing` | `bool` | - |
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Reset
+
+Resets the status of the OperationStep in the event it needs to run again.
+
+#### Syntax
+
+```csharp
+public void Reset()
+```
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Start
+
+The Action that the Operation calls to trigger a Step. It wrapps the call to onAction with status update logic.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task Start()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+

@@ -1,0 +1,90 @@
+---
+title: IHostBuilder
+description: "Extension methods for IHostBuilder from Microsoft.Extensions.Hosting.Abstractions"
+icon: file-brackets-curly
+keywords: ['IHostBuilder', 'Microsoft.Extensions.Hosting.IHostBuilder', 'Microsoft.Extensions.Hosting', 'error']
+---
+
+import { DocsBadge } from '/snippets/DocsBadge.jsx';
+
+## Definition
+
+**Assembly:** Microsoft.Extensions.Hosting.Abstractions.dll
+
+**Namespace:** Microsoft.Extensions.Hosting
+
+## Syntax
+
+```csharp
+Microsoft.Extensions.Hosting.IHostBuilder
+```
+
+## Summary
+
+This type is defined in Microsoft.Extensions.Hosting.Abstractions.
+
+## Remarks
+
+See [Microsoft documentation](https://learn.microsoft.com/dotnet/api/microsoft.extensions.hosting.ihostbuilder) for more information about the rest of the API.
+
+## Methods
+
+### <Icon icon="puzzle-piece" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  AddBlazorEssentials <DocsBadge text="Extension" variant="success" />
+
+<Note>Extension method from `Microsoft.Extensions.Hosting.IHostBuilderExtensions`</Note>
+
+Adds Blazor capabilities to the provided [IHostBuilder](/api-reference/Microsoft/Extensions/Hosting/IHostBuilder).
+
+#### Syntax
+
+```csharp
+public static Microsoft.Extensions.Hosting.IHostBuilder AddBlazorEssentials<TConfiguration, TAppState, TMessageHandler>(Microsoft.Extensions.Hosting.IHostBuilder builder, string configSectionName) where TConfiguration : CloudNimble.EasyAF.Configuration.ConfigurationBase where TAppState : CloudNimble.BlazorEssentials.AppStateBase where TMessageHandler : System.Net.Http.DelegatingHandler
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `builder` | `Microsoft.Extensions.Hosting.IHostBuilder` | - |
+| `configSectionName` | `string` | - |
+
+#### Returns
+
+Type: `Microsoft.Extensions.Hosting.IHostBuilder`
+
+#### Type Parameters
+
+- `TConfiguration` - 
+- `TAppState` - 
+- `TMessageHandler` - 
+
+### <Icon icon="puzzle-piece" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  AddBlazorEssentials <DocsBadge text="Extension" variant="success" />
+
+<Note>Extension method from `Microsoft.Extensions.Hosting.IHostBuilderExtensions`</Note>
+
+Adds Blazor capabilities to the provided [IHostBuilder](/api-reference/Microsoft/Extensions/Hosting/IHostBuilder).
+
+#### Syntax
+
+```csharp
+public static Microsoft.Extensions.Hosting.IHostBuilder AddBlazorEssentials<TConfiguration, TAppState, TMessageHandler>(Microsoft.Extensions.Hosting.IHostBuilder builder, string configSectionName, CloudNimble.EasyAF.Core.HttpHandlerMode httpHandlerMode) where TConfiguration : CloudNimble.EasyAF.Configuration.ConfigurationBase where TAppState : CloudNimble.BlazorEssentials.AppStateBase where TMessageHandler : System.Net.Http.DelegatingHandler
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `builder` | `Microsoft.Extensions.Hosting.IHostBuilder` | - |
+| `configSectionName` | `string` | - |
+| `httpHandlerMode` | `CloudNimble.EasyAF.Core.HttpHandlerMode` | - |
+
+#### Returns
+
+Type: `Microsoft.Extensions.Hosting.IHostBuilder`
+
+#### Type Parameters
+
+- `TConfiguration` - 
+- `TAppState` - 
+- `TMessageHandler` - 
+

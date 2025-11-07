@@ -1,0 +1,250 @@
+---
+title: Wizard
+icon: file-brackets-curly
+keywords: ['Wizard', 'CloudNimble.BlazorEssentials.Merlin.Wizard', 'CloudNimble.BlazorEssentials.Merlin', 'class', 'Microsoft.AspNetCore.Components.ComponentBase', 'System.IDisposable']
+---
+
+import { DocsBadge } from '/snippets/DocsBadge.jsx';
+
+## Definition
+
+**Assembly:** CloudNimble.BlazorEssentials.dll
+
+**Namespace:** CloudNimble.BlazorEssentials.Merlin
+
+**Inheritance:** Microsoft.AspNetCore.Components.ComponentBase
+
+## Syntax
+
+```csharp
+CloudNimble.BlazorEssentials.Merlin.Wizard
+```
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+
+#### Syntax
+
+```csharp
+public Wizard()
+```
+
+## Properties
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ContainerTemplate
+
+#### Syntax
+
+```csharp
+public Microsoft.AspNetCore.Components.RenderFragment<Microsoft.AspNetCore.Components.RenderFragment> ContainerTemplate { get; set; }
+```
+
+#### Property Value
+
+Type: `Microsoft.AspNetCore.Components.RenderFragment<Microsoft.AspNetCore.Components.RenderFragment>`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  CurrentPane
+
+#### Syntax
+
+```csharp
+public CloudNimble.BlazorEssentials.Merlin.WizardPane CurrentPane { get; set; }
+```
+
+#### Property Value
+
+Type: `CloudNimble.BlazorEssentials.Merlin.WizardPane`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  FooterTemplate
+
+#### Syntax
+
+```csharp
+public Microsoft.AspNetCore.Components.RenderFragment FooterTemplate { get; set; }
+```
+
+#### Property Value
+
+Type: `Microsoft.AspNetCore.Components.RenderFragment`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  HeaderTemplate
+
+#### Syntax
+
+```csharp
+public Microsoft.AspNetCore.Components.RenderFragment HeaderTemplate { get; set; }
+```
+
+#### Property Value
+
+Type: `Microsoft.AspNetCore.Components.RenderFragment`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  IsBackEnabled
+
+#### Syntax
+
+```csharp
+public bool IsBackEnabled { get; }
+```
+
+#### Property Value
+
+Type: `bool`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  IsFinishVisible
+
+#### Syntax
+
+```csharp
+public bool IsFinishVisible { get; }
+```
+
+#### Property Value
+
+Type: `bool`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  IsNextEnabled
+
+#### Syntax
+
+```csharp
+public bool IsNextEnabled { get; }
+```
+
+#### Property Value
+
+Type: `bool`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  IsNextVisible
+
+#### Syntax
+
+```csharp
+public bool IsNextVisible { get; }
+```
+
+#### Property Value
+
+Type: `bool`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  IsOperationStartVisible
+
+#### Syntax
+
+```csharp
+public bool IsOperationStartVisible { get; }
+```
+
+#### Property Value
+
+Type: `bool`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Operation
+
+#### Syntax
+
+```csharp
+public CloudNimble.BlazorEssentials.Merlin.Operation Operation { get; set; }
+```
+
+#### Property Value
+
+Type: `CloudNimble.BlazorEssentials.Merlin.Operation`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Panes
+
+#### Syntax
+
+```csharp
+public System.Collections.Generic.List<CloudNimble.BlazorEssentials.Merlin.WizardPane> Panes { get; private set; }
+```
+
+#### Property Value
+
+Type: `System.Collections.Generic.List<CloudNimble.BlazorEssentials.Merlin.WizardPane>`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  PanesContent
+
+#### Syntax
+
+```csharp
+public Microsoft.AspNetCore.Components.RenderFragment PanesContent { get; set; }
+```
+
+#### Property Value
+
+Type: `Microsoft.AspNetCore.Components.RenderFragment`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Title
+
+#### Syntax
+
+```csharp
+public string Title { get; set; }
+```
+
+#### Property Value
+
+Type: `string`
+
+## Methods
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Back
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task Back()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Next
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task Next()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Reset
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task Reset(bool clearPanes = false)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `clearPanes` | `bool` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  StartOperation
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task StartOperation()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+
+## Related APIs
+
+- System.IDisposable
+

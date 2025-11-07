@@ -1,0 +1,168 @@
+---
+title: LoadingContainer
+icon: code-branch
+keywords: ['LoadingContainer', 'CloudNimble.BlazorEssentials.Controls.LoadingContainer<TItem>', 'CloudNimble.BlazorEssentials.Controls', 'class', 'Microsoft.AspNetCore.Components.ComponentBase']
+---
+
+import { DocsBadge } from '/snippets/DocsBadge.jsx';
+
+## Definition
+
+**Assembly:** CloudNimble.BlazorEssentials.dll
+
+**Namespace:** CloudNimble.BlazorEssentials.Controls
+
+**Inheritance:** Microsoft.AspNetCore.Components.ComponentBase
+
+## Syntax
+
+```csharp
+CloudNimble.BlazorEssentials.Controls.LoadingContainer<TItem>
+```
+
+## Type Parameters
+
+- `TItem` - 
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+
+#### Syntax
+
+```csharp
+public LoadingContainer()
+```
+
+## Properties
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Data
+
+The information you will be binding this control against. You should typically use the two-way binding syntax of '@bind-Data' to connect this 
+            information to the control.
+
+#### Syntax
+
+```csharp
+public TItem Data { get; set; }
+```
+
+#### Property Value
+
+Type: `TItem`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  DataChanged
+
+The event handler used to update the Parent control about `Data` changes during two-way binding.
+
+#### Syntax
+
+```csharp
+public Microsoft.AspNetCore.Components.EventCallback<TItem> DataChanged { get; set; }
+```
+
+#### Property Value
+
+Type: `Microsoft.AspNetCore.Components.EventCallback<TItem>`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  FailedContent
+
+The content to display when the `LoadingStatus` list set to [LoadingStatus.Failed](/api-reference/CloudNimble/BlazorEssentials/LoadingStatus#failed).
+
+#### Syntax
+
+```csharp
+public Microsoft.AspNetCore.Components.RenderFragment FailedContent { get; set; }
+```
+
+#### Property Value
+
+Type: `Microsoft.AspNetCore.Components.RenderFragment`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  LoadedContent
+
+The content to display when the `LoadingStatus` list set to [LoadingStatus.Loaded](/api-reference/CloudNimble/BlazorEssentials/LoadingStatus#loaded).
+
+#### Syntax
+
+```csharp
+public Microsoft.AspNetCore.Components.RenderFragment<TItem> LoadedContent { get; set; }
+```
+
+#### Property Value
+
+Type: `Microsoft.AspNetCore.Components.RenderFragment<TItem>`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  LoadingContent
+
+The content to display when the `LoadingStatus` list set to [LoadingStatus.Loading](/api-reference/CloudNimble/BlazorEssentials/LoadingStatus#loading).
+
+#### Syntax
+
+```csharp
+public Microsoft.AspNetCore.Components.RenderFragment LoadingContent { get; set; }
+```
+
+#### Property Value
+
+Type: `Microsoft.AspNetCore.Components.RenderFragment`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  LoadingStatus
+
+The particular property containing the LoadingStatus that you want to track.. You should typically use the two-way binding syntax of '@bind-Data' to 
+            connect this information to the control.
+
+#### Syntax
+
+```csharp
+public CloudNimble.BlazorEssentials.LoadingStatus LoadingStatus { get; set; }
+```
+
+#### Property Value
+
+Type: `CloudNimble.BlazorEssentials.LoadingStatus`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  LoadingStatusChanged
+
+The event handler used to update the Parent control about `LoadingStatus` changes during two-way binding.
+
+#### Syntax
+
+```csharp
+public Microsoft.AspNetCore.Components.EventCallback<CloudNimble.BlazorEssentials.LoadingStatus> LoadingStatusChanged { get; set; }
+```
+
+#### Property Value
+
+Type: `Microsoft.AspNetCore.Components.EventCallback<CloudNimble.BlazorEssentials.LoadingStatus>`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  NoResultsContent
+
+The content to display when the `LoadingStatus` list set to [LoadingStatus.Loaded](/api-reference/CloudNimble/BlazorEssentials/LoadingStatus#loaded) and `Data` list either null, 
+            or is a list that contains no objects.
+
+#### Syntax
+
+```csharp
+public Microsoft.AspNetCore.Components.RenderFragment NoResultsContent { get; set; }
+```
+
+#### Property Value
+
+Type: `Microsoft.AspNetCore.Components.RenderFragment`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  NotLoadedContent
+
+The content to display when the `LoadingStatus` list set to [LoadingStatus.NotLoaded](/api-reference/CloudNimble/BlazorEssentials/LoadingStatus#notloaded). This is typically the initial state 
+            for a ViewModel.
+
+#### Syntax
+
+```csharp
+public Microsoft.AspNetCore.Components.RenderFragment NotLoadedContent { get; set; }
+```
+
+#### Property Value
+
+Type: `Microsoft.AspNetCore.Components.RenderFragment`
+

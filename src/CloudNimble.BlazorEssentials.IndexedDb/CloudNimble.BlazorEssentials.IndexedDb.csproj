@@ -39,11 +39,11 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net9.0'">
-		<PackageReference Include="Microsoft.JSInterop" Version="[9.*, 10.0.0)" />
+		<PackageReference Include="Microsoft.JSInterop" Version="[9.*, 11.0.0)" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
-		<PackageReference Include="Microsoft.JSInterop" Version="[8.*, 10.0.0)" />
+		<PackageReference Include="Microsoft.JSInterop" Version="[8.*, 11.0.0)" />
 	</ItemGroup>
 
 	<ItemGroup>

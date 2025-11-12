@@ -8,8 +8,9 @@
 		<IsNetCore Condition=" '$(TargetFramework)' == 'netcoreapp3.1' OR '$(TargetFramework)' == 'net5.0' OR '$(TargetFramework)' == 'net6.0' ">true</IsNetCore>
 		<IsPrimaryProject Condition=" ('$(IsBenchmarkProject)' != 'true' And '$(IsTestProject)' != 'true' And '$(IsTestAssetProject)' != 'true' And '$(IsSampleProject)' != 'true' And '$(IsSampleProject)' != 'true') or '$(IsTemplatePackageProject)' == 'true' ">true</IsPrimaryProject>
 		<IncludeReadmeFile Condition="Exists('$(MSBuildProjectDirectory)\readme.md')">true</IncludeReadmeFile>
+        <IncludePackageIcon Condition="Exists('$(MSBuildThisFileDirectory)\blazoressentials-logo.png')">true</IncludePackageIcon>
 
-		<IncludeSource>false</IncludeSource>
+        <IncludeSource>false</IncludeSource>
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -31,28 +32,30 @@
 
 	<PropertyGroup>
 		<Product>BlazorEssentials</Product>
-		<Version>3.0.0</Version>
-		<PackageVersion>3.0.0</PackageVersion>
+		<Version>4.0.0</Version>
+		<PackageVersion>4.0.0</PackageVersion>
 
 		<Authors>CloudNimble</Authors>
 		<Company>CloudNimble Inc.</Company>
 		<RpmPackageVendor>CloudNimble</RpmPackageVendor>
-		<Copyright>Copyright © 2019-2025 CloudNimble, Inc. All rights reserved.</Copyright>
+		<Copyright>Copyright © 2019-2026 CloudNimble, Inc. All rights reserved.</Copyright>
 		<NeutralLanguage>en-US</NeutralLanguage>
 		<!-- The SPDX name for the source license. See https://spdx.org/licenses/. -->
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageReadmeFile Condition="$(IncludeReadmeFile) == 'true'">readme.md</PackageReadmeFile>
+        <PackageIcon Condition="$(IncludePackageIcon) == 'true'">blazoressentials-logo.png</PackageIcon>
 
-		<!-- Suppress warnings about using SemVer 2.0. -->
+        <!-- Suppress warnings about using SemVer 2.0. -->
 		<NoWarn>$(NoWarn);NU5048</NoWarn>
+		<!-- Suppress package version conflicts for .NET 10 until dependencies are updated -->
+		<NoWarn>$(NoWarn);NU1608;NU1510</NoWarn>
 
 		<NoWarn>$(NoWarn);CS8002;CS8632</NoWarn>
 
 		<!-- Contact email address for NuGet packages and Linux installers. -->
 		<MaintainerEmail>opensource@nimbleapps.cloud</MaintainerEmail>
 
-		<PackageIconUrl>https://go.microsoft.com/fwlink/?LinkID=288859</PackageIconUrl>
-		<PackageProjectUrl>https://github.com/CloudNimble/BlazorEssentials</PackageProjectUrl>
+		<PackageProjectUrl>https://easyaf.dev/blazoressentials</PackageProjectUrl>
 		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
 		<PackageTags>blazor</PackageTags>
 		<Serviceable>true</Serviceable>
@@ -88,6 +91,10 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition=" $(IsTestProject) == 'true' ">
+		<EnableMSTestRunner>true</EnableMSTestRunner>
+		<TestingPlatformShowTestsFailure>true</TestingPlatformShowTestsFailure>
+		<TestingPlatformCommandLineArguments>$(TestingPlatformCommandLineArguments) --ignore-exit-code 8</TestingPlatformCommandLineArguments>
+
 		<IsPackable>false</IsPackable>
 	</PropertyGroup>
 
@@ -100,11 +107,19 @@
 		<PackageReference Include="coverlet.collector" Version="*" />
 		<PackageReference Include="FluentAssertions" Version="6.*" PrivateAssets="All" />
 		<PackageReference Include="FluentAssertions.Analyzers" Version="0.*" PrivateAssets="All" />
-		<PackageReference Include="MSTest" Version="3.*" />
+		<PackageReference Include="MSTest" Version="4.*" />
+
+		<!-- Enable parallel test execution in MSTest 4 and later. -->
+		<AssemblyAttribute Include="Microsoft.VisualStudio.TestTools.UnitTesting.Parallelize">
+			<_Parameter1>Workers = 0</_Parameter1>
+			<_Parameter1_IsLiteral>true</_Parameter1_IsLiteral>
+			<_Parameter2>Scope = Microsoft.VisualStudio.TestTools.UnitTesting.ExecutionScope.MethodLevel</_Parameter2>
+			<_Parameter2_IsLiteral>true</_Parameter2_IsLiteral>
+		</AssemblyAttribute>
 	</ItemGroup>
 
 	<ItemGroup>
-		<!--<None Include="$(MSBuildThisFileDirectory)easyaf-logo.png" Pack="true" PackagePath="\" Condition="'$(IsTestProject)' != 'true'" />-->
+		<None Include="$(MSBuildThisFileDirectory)blazoressentials-logo.png" Pack="true" PackagePath="\" Condition="'$(IsTestProject)' != 'true'" />
 		<None Include="readme.md" Pack="true" PackagePath="\" Condition="$(IncludeReadmeFile) == 'true'" />
 	</ItemGroup>
 

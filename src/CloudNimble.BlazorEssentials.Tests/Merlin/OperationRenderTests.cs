@@ -121,8 +121,8 @@ namespace CloudNimble.BlazorEssentials.Tests.Pages
             component.Find("progress").GetAttribute("value").Should().Be((0.25).ToString());
             component.Find(".propertyChanges").TextContent.Should().Be($"{component.RenderCount - 1}");
             component.Find(".resultText").TextContent.Should().Be(component.Instance.DisplayText.InProgress);
-            component.Find("ul").Children.FirstOrDefault(c => c.GetAttribute("id") == "step_1").TextContent.Contains(OperationStepStatus.InProgress.ToString());
-            component.Find("ul").Children.FirstOrDefault(c => c.GetAttribute("id") == "step_2").TextContent.Contains(OperationStepStatus.NotStarted.ToString());
+            component.Find("ul").Children.FirstOrDefault(c => c.GetAttribute("id") == "step_1").TextContent.Should().Contain(OperationStepStatus.InProgress.ToString());
+            component.Find("ul").Children.FirstOrDefault(c => c.GetAttribute("id") == "step_2").TextContent.Should().Contain(OperationStepStatus.NotStarted.ToString());
 
             // allow step 1 to complete
             canCompleteStep1 = true;

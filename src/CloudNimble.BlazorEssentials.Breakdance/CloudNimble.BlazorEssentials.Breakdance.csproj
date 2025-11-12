@@ -19,7 +19,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Breakdance.Blazor" Version="7.*-*" />
+		<PackageReference Include="Breakdance.Blazor" Version="(8.*-*, 9.0.0]" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">

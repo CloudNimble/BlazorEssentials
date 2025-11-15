@@ -16,7 +16,7 @@ namespace CloudNimble.BlazorEssentials.TestApp.ViewModels
         #region Properties
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ExampleDb ExampleDb { get; set; }
 
@@ -31,7 +31,7 @@ namespace CloudNimble.BlazorEssentials.TestApp.ViewModels
         #region Constructors
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="exampleDb"></param>
         /// <param name="configuration"></param>
@@ -68,6 +68,20 @@ namespace CloudNimble.BlazorEssentials.TestApp.ViewModels
             }
         }
 
+        public async Task LoadLimited(int count, int skip)
+        {
+            try
+            {
+                LoadingStatus = LoadingStatus.Loading;
+                ExampleEvents = (await ExampleDb.Events.QueryAsync<ExampleEvent>("return obj;", count, skip)).AsQueryable();
+                LoadingStatus = LoadingStatus.Loaded;
+            }
+            catch (Exception ex)
+            {
+                LoadingStatus = LoadingStatus.Failed;
+                Console.WriteLine(ex.Message);
+            }
+        }
 
         public async Task AddEntry()
         {

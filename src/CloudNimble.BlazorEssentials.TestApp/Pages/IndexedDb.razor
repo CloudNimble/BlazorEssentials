@@ -1,4 +1,6 @@
 ﻿@page "/IndexedDb"
+@using CloudNimble.BlazorEssentials.TestApp.ViewModels
+@using CloudNimble.BlazorEssentials.TestApp.Models
 
 @inject IndexedDbViewModel viewModel
 
@@ -12,7 +14,10 @@
     <PropertyColumn Property="@(p => p.Description)" Sortable="true" />
 </QuickGrid>
 
-<HxButton Color="ThemeColor.Primary" OnClick="viewModel.AddEntry"><i class="far fa-plus pe-2" />Add Item to IndexedDb</HxButton>
+<div class="my-3">
+    <HxButton Color="ThemeColor.Primary" OnClick="viewModel.AddEntry"><i class="far fa-plus pe-2" />Add Item to IndexedDb</HxButton>
+    <HxButton Color="ThemeColor.Secondary" OnClick="FetchLimitedRecords" class="ms-2">Fetch 5 Records (Skip 2)</HxButton>
+</div>
 
 @code
 {
@@ -21,6 +26,11 @@
     {
         viewModel.StateHasChanged.Action = StateHasChanged;
         await viewModel.Load();
+    }
+
+    private async Task FetchLimitedRecords()
+    {
+        await viewModel.LoadLimited(5, 2);
     }
 
 }

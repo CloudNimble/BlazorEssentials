@@ -467,10 +467,10 @@ export class IndexedDbManager {
                 }
                 catch (error) {
                     errorMessage = `obj: ${JSON.stringify(cursor.value)}\nfilter: ${filter}\nerror: ${error.toString()}`;
-                    return;
+                    break;
                 }
                 if (count > 0 && results.length >= count) {
-                    return;
+                    break;
                 }
                 cursor = await cursor.continue();
             }

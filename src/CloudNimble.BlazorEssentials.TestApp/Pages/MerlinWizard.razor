@@ -91,7 +91,7 @@
 
     private async Task Reset()
     {
-        modalWizard.Reset();
+        _ = modalWizard.Reset();
         await myModal?.HideAsync();
     }
 

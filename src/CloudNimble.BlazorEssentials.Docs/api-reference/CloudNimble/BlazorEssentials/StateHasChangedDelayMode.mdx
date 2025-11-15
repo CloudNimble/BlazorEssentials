@@ -1,0 +1,36 @@
+---
+title: StateHasChangedDelayMode
+description: "Defines how BlazorObservables are monitored to reduce the number of times StateHasChanged is fired."
+icon: list-ol
+tag: "ENUM"
+keywords: ['StateHasChangedDelayMode', 'CloudNimble.BlazorEssentials.StateHasChangedDelayMode', 'CloudNimble.BlazorEssentials', 'class', 'System.Enum']
+---
+
+import { DocsBadge } from '/snippets/DocsBadge.jsx';
+
+## Definition
+
+**Assembly:** CloudNimble.BlazorEssentials.dll
+
+**Namespace:** CloudNimble.BlazorEssentials
+
+**Inheritance:** System.Enum
+
+## Syntax
+
+```csharp
+CloudNimble.BlazorEssentials.StateHasChangedDelayMode
+```
+
+## Summary
+
+Defines how BlazorObservables are monitored to reduce the number of times StateHasChanged is fired.
+
+## Values
+
+| Name | Value | Description |
+|------|-------|-------------|
+| `Off` | 0 | Does not reduce the number of times StateHasChanged is called. |
+| `Debounce` | 1 | Only fire StateHasChanged if it hasn't been called in X milliseconds. |
+| `Throttle` | 2 | Only fire StateHasChanged once every X milliseconds. |
+

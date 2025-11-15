@@ -1,0 +1,230 @@
+{
+  "appearance": {
+    "default": "dark"
+  },
+  "colors": {
+    "dark": "#3CD0E2",
+    "light": "#419AC5",
+    "primary": "#419AC5"
+  },
+  "name": "BlazorEssentials",
+  "navigation": {
+    "pages": [
+      {
+        "group": "Getting Started",
+        "icon": "stars",
+        "pages": [
+          "index"
+        ]
+      },
+      {
+        "group": "Guides",
+        "icon": "dog-leashed",
+        "pages": [
+          "guides/index",
+          "guides/pipeline",
+          "guides/conceptual-docs",
+          "guides/deployment"
+        ]
+      },
+      {
+        "group": "API Reference",
+        "icon": "code",
+        "pages": [
+          {
+            "group": "CloudNimble",
+            "icon": "folder-tree",
+            "pages": [
+              {
+                "group": "BlazorEssentials",
+                "icon": "folder-tree",
+                "pages": [
+                  "api-reference/CloudNimble/BlazorEssentials/index",
+                  "api-reference/CloudNimble/BlazorEssentials/_Imports",
+                  "api-reference/CloudNimble/BlazorEssentials/AppStateBase",
+                  "api-reference/CloudNimble/BlazorEssentials/BlazorObservable",
+                  "api-reference/CloudNimble/BlazorEssentials/Html",
+                  "api-reference/CloudNimble/BlazorEssentials/InterfaceElement",
+                  "api-reference/CloudNimble/BlazorEssentials/JsModule",
+                  "api-reference/CloudNimble/BlazorEssentials/LoadingStatus",
+                  "api-reference/CloudNimble/BlazorEssentials/StateHasChangedConfig",
+                  "api-reference/CloudNimble/BlazorEssentials/StateHasChangedDebugMode",
+                  "api-reference/CloudNimble/BlazorEssentials/StateHasChangedDelayMode",
+                  "api-reference/CloudNimble/BlazorEssentials/ViewModelBase",
+                  {
+                    "group": "Authentication",
+                    "icon": "folder-tree",
+                    "pages": [
+                      "api-reference/CloudNimble/BlazorEssentials/Authentication/index",
+                      "api-reference/CloudNimble/BlazorEssentials/Authentication/BlazorEssentialsAuthorizationMessageHandler"
+                    ]
+                  },
+                  {
+                    "group": "Breakdance",
+                    "icon": "folder-tree",
+                    "pages": [
+                      "api-reference/CloudNimble/BlazorEssentials/Breakdance/index",
+                      "api-reference/CloudNimble/BlazorEssentials/Breakdance/BlazorEssentialsTestBase",
+                      "api-reference/CloudNimble/BlazorEssentials/Breakdance/TestableAuthenticationStateProvider",
+                      "api-reference/CloudNimble/BlazorEssentials/Breakdance/TestableWebAssemblyHostEnvironment",
+                      "api-reference/CloudNimble/BlazorEssentials/Breakdance/ViewModelTestHelpers"
+                    ]
+                  },
+                  {
+                    "group": "Controls",
+                    "icon": "folder-tree",
+                    "pages": [
+                      "api-reference/CloudNimble/BlazorEssentials/Controls/index",
+                      "api-reference/CloudNimble/BlazorEssentials/Controls/LoadingContainer"
+                    ]
+                  },
+                  {
+                    "group": "IndexedDb",
+                    "icon": "folder-tree",
+                    "pages": [
+                      "api-reference/CloudNimble/BlazorEssentials/IndexedDb/index",
+                      "api-reference/CloudNimble/BlazorEssentials/IndexedDb/IndexAttribute",
+                      "api-reference/CloudNimble/BlazorEssentials/IndexedDb/IndexedDbDatabase",
+                      "api-reference/CloudNimble/BlazorEssentials/IndexedDb/IndexedDbException",
+                      "api-reference/CloudNimble/BlazorEssentials/IndexedDb/IndexedDbIndex",
+                      "api-reference/CloudNimble/BlazorEssentials/IndexedDb/IndexedDbNotFoundException",
+                      "api-reference/CloudNimble/BlazorEssentials/IndexedDb/IndexedDbObjectStore",
+                      "api-reference/CloudNimble/BlazorEssentials/IndexedDb/KeyRange",
+                      "api-reference/CloudNimble/BlazorEssentials/IndexedDb/ObjectStoreAttribute",
+                      {
+                        "group": "Schema",
+                        "icon": "folder-tree",
+                        "pages": [
+                          "api-reference/CloudNimble/BlazorEssentials/IndexedDb/Schema/index",
+                          "api-reference/CloudNimble/BlazorEssentials/IndexedDb/Schema/IndexedDbDatabaseDefinition",
+                          "api-reference/CloudNimble/BlazorEssentials/IndexedDb/Schema/IndexedDbIndexDefinition",
+                          "api-reference/CloudNimble/BlazorEssentials/IndexedDb/Schema/IndexedDbObjectStoreDefinition"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "group": "Merlin",
+                    "icon": "folder-tree",
+                    "pages": [
+                      "api-reference/CloudNimble/BlazorEssentials/Merlin/index",
+                      "api-reference/CloudNimble/BlazorEssentials/Merlin/Operation",
+                      "api-reference/CloudNimble/BlazorEssentials/Merlin/OperationStatus",
+                      "api-reference/CloudNimble/BlazorEssentials/Merlin/OperationStatusDisplay",
+                      "api-reference/CloudNimble/BlazorEssentials/Merlin/OperationStep",
+                      "api-reference/CloudNimble/BlazorEssentials/Merlin/OperationStepStatus",
+                      "api-reference/CloudNimble/BlazorEssentials/Merlin/Wizard",
+                      "api-reference/CloudNimble/BlazorEssentials/Merlin/WizardPane",
+                      "api-reference/CloudNimble/BlazorEssentials/Merlin/WizardPaneStatus",
+                      "api-reference/CloudNimble/BlazorEssentials/Merlin/WizardPaneType"
+                    ]
+                  },
+                  {
+                    "group": "Navigation",
+                    "icon": "folder-tree",
+                    "pages": [
+                      "api-reference/CloudNimble/BlazorEssentials/Navigation/index",
+                      "api-reference/CloudNimble/BlazorEssentials/Navigation/ActionButton",
+                      "api-reference/CloudNimble/BlazorEssentials/Navigation/ActionButton",
+                      "api-reference/CloudNimble/BlazorEssentials/Navigation/ActionButtonBase",
+                      "api-reference/CloudNimble/BlazorEssentials/Navigation/NavigationHistory",
+                      "api-reference/CloudNimble/BlazorEssentials/Navigation/NavigationItem",
+                      "api-reference/CloudNimble/BlazorEssentials/Navigation/ScrollRestorationType"
+                    ]
+                  },
+                  {
+                    "group": "Threading",
+                    "icon": "folder-tree",
+                    "pages": [
+                      "api-reference/CloudNimble/BlazorEssentials/Threading/index",
+                      "api-reference/CloudNimble/BlazorEssentials/Threading/DelayDispatcher"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Microsoft",
+            "icon": "folder-tree",
+            "pages": [
+              {
+                "group": "AspNetCore",
+                "icon": "folder-tree",
+                "pages": [
+                  {
+                    "group": "Components",
+                    "icon": "folder-tree",
+                    "pages": [
+                      {
+                        "group": "Forms",
+                        "icon": "folder-tree",
+                        "pages": [
+                          "api-reference/Microsoft/AspNetCore/Components/Forms/index",
+                          "api-reference/Microsoft/AspNetCore/Components/Forms/EditContext"
+                        ]
+                      },
+                      {
+                        "group": "WebAssembly",
+                        "icon": "folder-tree",
+                        "pages": [
+                          {
+                            "group": "Hosting",
+                            "icon": "folder-tree",
+                            "pages": [
+                              "api-reference/Microsoft/AspNetCore/Components/WebAssembly/Hosting/index",
+                              "api-reference/Microsoft/AspNetCore/Components/WebAssembly/Hosting/WebAssemblyHostBuilder"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "group": "Extensions",
+                "icon": "folder-tree",
+                "pages": [
+                  {
+                    "group": "Hosting",
+                    "icon": "folder-tree",
+                    "pages": [
+                      "api-reference/Microsoft/Extensions/Hosting/index",
+                      "api-reference/Microsoft/Extensions/Hosting/IHostBuilder"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "group": "System",
+            "icon": "folder-tree",
+            "pages": [
+              {
+                "group": "Collections",
+                "icon": "folder-tree",
+                "pages": [
+                  {
+                    "group": "Generic",
+                    "icon": "folder-tree",
+                    "pages": [
+                      "api-reference/System/Collections/Generic/index",
+                      "api-reference/System/Collections/Generic/IEnumerable"
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "$schema": "https://mintlify.com/docs.json",
+  "styling": {
+    "codeblocks": "dark"
+  },
+  "theme": "maple"
+}

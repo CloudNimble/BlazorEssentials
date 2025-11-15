@@ -1,0 +1,4 @@
+D:\GitHub\BlazorEssentials\src\CloudNimble.BlazorEssentials\bin\Debug\net10.0\CloudNimble.BlazorEssentials.dll
+D:\GitHub\BlazorEssentials\src\CloudNimble.BlazorEssentials.Breakdance\bin\Debug\net10.0\CloudNimble.BlazorEssentials.Breakdance.dll
+D:\GitHub\BlazorEssentials\src\CloudNimble.BlazorEssentials.IndexedDb\bin\Debug\net10.0\CloudNimble.BlazorEssentials.IndexedDb.dll
+D:\GitHub\BlazorEssentials\src\CloudNimble.BlazorEssentials.OpenTelemetry\bin\Debug\net8.0\CloudNimble.BlazorEssentials.OpenTelemetry.dll

@@ -1,0 +1,65 @@
+---
+title: EditContext
+description: "Extension methods for EditContext from Microsoft.AspNetCore.Components.Forms"
+icon: file-brackets-curly
+keywords: ['EditContext', 'Microsoft.AspNetCore.Components.Forms.EditContext', 'Microsoft.AspNetCore.Components.Forms', 'error']
+---
+
+import { DocsBadge } from '/snippets/DocsBadge.jsx';
+
+## Definition
+
+**Assembly:** Microsoft.AspNetCore.Components.Forms.dll
+
+**Namespace:** Microsoft.AspNetCore.Components.Forms
+
+## Syntax
+
+```csharp
+Microsoft.AspNetCore.Components.Forms.EditContext
+```
+
+## Summary
+
+This type is defined in Microsoft.AspNetCore.Components.Forms.
+
+## Remarks
+
+See [Microsoft documentation](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.components.forms.editcontext) for more information about the rest of the API.
+
+## Methods
+
+### <Icon icon="puzzle-piece" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  NotifyFieldChanged <DocsBadge text="Extension" variant="success" />
+
+<Note>Extension method from `Microsoft.AspNetCore.Components.Forms.EditContextExtensions`</Note>
+
+#### Syntax
+
+```csharp
+public static void NotifyFieldChanged(Microsoft.AspNetCore.Components.Forms.EditContext editContext, string field)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `editContext` | `Microsoft.AspNetCore.Components.Forms.EditContext` | - |
+| `field` | `string` | The field name that was changed in the process, typically specified using "nameof(YourObject.YourProperty"). |
+
+### <Icon icon="puzzle-piece" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  NotifyFieldsChanged <DocsBadge text="Extension" variant="success" />
+
+<Note>Extension method from `Microsoft.AspNetCore.Components.Forms.EditContextExtensions`</Note>
+
+#### Syntax
+
+```csharp
+public static void NotifyFieldsChanged(Microsoft.AspNetCore.Components.Forms.EditContext editContext, params string[] fields)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `editContext` | `Microsoft.AspNetCore.Components.Forms.EditContext` | - |
+| `fields` | `string[]` | An inline list of fields that were changed in the process, typically specified using "nameof(YourObject.YourProperty"). |
+

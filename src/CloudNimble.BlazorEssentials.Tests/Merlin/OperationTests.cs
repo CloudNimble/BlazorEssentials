@@ -1,7 +1,6 @@
 using CloudNimble.BlazorEssentials.Merlin;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -14,6 +13,7 @@ namespace CloudNimble.BlazorEssentials.Tests
     /// 
     /// </summary>
     [TestClass]
+    [DoNotParallelize]
     public class OperationTests
     {
 

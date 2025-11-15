@@ -1,0 +1,75 @@
+---
+title: BlazorObservable
+description: "A base class for Blazor ViewModels to implement [INotifyPropertyChanged](https://learn.microsoft.com/dotnet/api/system.componentmodel.inotifypropertychanged)..."
+icon: file-brackets-curly
+keywords: ['BlazorObservable', 'CloudNimble.BlazorEssentials.BlazorObservable', 'CloudNimble.BlazorEssentials', 'class', 'CloudNimble.EasyAF.Core.EasyObservableObject']
+---
+
+import { DocsBadge } from '/snippets/DocsBadge.jsx';
+
+## Definition
+
+**Assembly:** CloudNimble.BlazorEssentials.dll
+
+**Namespace:** CloudNimble.BlazorEssentials
+
+**Inheritance:** CloudNimble.EasyAF.Core.EasyObservableObject
+
+## Syntax
+
+```csharp
+CloudNimble.BlazorEssentials.BlazorObservable
+```
+
+## Summary
+
+A base class for Blazor ViewModels to implement [INotifyPropertyChanged](https://learn.microsoft.com/dotnet/api/system.componentmodel.inotifypropertychanged) and [IDisposable](https://learn.microsoft.com/dotnet/api/system.idisposable).
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+
+Creates a new instance of the [BlazorObservable](/api-reference/CloudNimble/BlazorEssentials/BlazorObservable) class.
+
+#### Syntax
+
+```csharp
+public BlazorObservable(CloudNimble.BlazorEssentials.StateHasChangedConfig stateHasChangedConfig = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `stateHasChangedConfig` | `CloudNimble.BlazorEssentials.StateHasChangedConfig` | - |
+
+## Properties
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  LoadingStatus
+
+A [BlazorObservable.LoadingStatus](/api-reference/CloudNimble/BlazorEssentials/BlazorObservable#loadingstatus) specifying the current state of the required data for this Observable.
+
+#### Syntax
+
+```csharp
+public CloudNimble.BlazorEssentials.LoadingStatus LoadingStatus { get; set; }
+```
+
+#### Property Value
+
+Type: `CloudNimble.BlazorEssentials.LoadingStatus`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  StateHasChanged
+
+Determines how to trigger StateHasChanged events in a Blazor component.
+
+#### Syntax
+
+```csharp
+public CloudNimble.BlazorEssentials.StateHasChangedConfig StateHasChanged { get; set; }
+```
+
+#### Property Value
+
+Type: `CloudNimble.BlazorEssentials.StateHasChangedConfig`
+

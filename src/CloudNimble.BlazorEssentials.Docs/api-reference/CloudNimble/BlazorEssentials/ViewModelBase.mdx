@@ -1,0 +1,195 @@
+---
+title: ViewModelBase
+description: "A base class for your Blazor MVVM implementation that gives you access to all the useful stuff Blazor and BlazorEssentials inject into the app."
+icon: code-branch
+keywords: ['ViewModelBase', 'CloudNimble.BlazorEssentials.ViewModelBase<TConfig, TAppState>', 'CloudNimble.BlazorEssentials', 'class', 'CloudNimble.BlazorEssentials.BlazorObservable']
+---
+
+import { DocsBadge } from '/snippets/DocsBadge.jsx';
+
+## Definition
+
+**Assembly:** CloudNimble.BlazorEssentials.dll
+
+**Namespace:** CloudNimble.BlazorEssentials
+
+**Inheritance:** CloudNimble.BlazorEssentials.BlazorObservable
+
+## Syntax
+
+```csharp
+CloudNimble.BlazorEssentials.ViewModelBase<TConfig, TAppState>
+```
+
+## Summary
+
+A base class for your Blazor MVVM implementation that gives you access to all the useful stuff Blazor and BlazorEssentials inject into the app.
+
+## Type Parameters
+
+- `TAppState` - 
+- `TConfig` - 
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+
+Creates a new instance of the `ViewModelBase`2`.
+
+#### Syntax
+
+```csharp
+public ViewModelBase(System.Net.Http.IHttpClientFactory httpClientFactory, TConfig configuration = default(TConfig), TAppState appState = null, CloudNimble.BlazorEssentials.StateHasChangedConfig stateHasChangedConfig = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `httpClientFactory` | `System.Net.Http.IHttpClientFactory` | The [IHttpClientFactory](https://learn.microsoft.com/dotnet/api/system.net.http.ihttpclientfactory) instance injected from the DI container. |
+| `configuration` | `TConfig` | The *TConfig* instance injected from the DI container. |
+| `appState` | `TAppState` | The *TAppState* instance injected from the DI container. |
+| `stateHasChangedConfig` | `CloudNimble.BlazorEssentials.StateHasChangedConfig` | - |
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `CloudNimble.BlazorEssentials.BlazorObservable`</Note>
+
+Creates a new instance of the [BlazorObservable](/api-reference/CloudNimble/BlazorEssentials/BlazorObservable) class.
+
+#### Syntax
+
+```csharp
+public BlazorObservable(CloudNimble.BlazorEssentials.StateHasChangedConfig stateHasChangedConfig = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `stateHasChangedConfig` | `CloudNimble.BlazorEssentials.StateHasChangedConfig` | - |
+
+## Properties
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  AppState
+
+The injected [AppStateBase](/api-reference/CloudNimble/BlazorEssentials/AppStateBase) instance for the ViewModel.
+
+#### Syntax
+
+```csharp
+public TAppState AppState { get; internal set; }
+```
+
+#### Property Value
+
+Type: `TAppState`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Configuration
+
+The injected `ConfigurationBase` instance for the ViewModel.
+
+#### Syntax
+
+```csharp
+public TConfig Configuration { get; internal set; }
+```
+
+#### Property Value
+
+Type: `TConfig`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  DelayDispatcher
+
+#### Syntax
+
+```csharp
+public CloudNimble.BlazorEssentials.Threading.DelayDispatcher DelayDispatcher { get; }
+```
+
+#### Property Value
+
+Type: `CloudNimble.BlazorEssentials.Threading.DelayDispatcher`
+
+#### Remarks
+
+This property is structured so that a new instance is not created unless specifically asked, to avoid unnecessary memory allocations.
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  FilterCriteria
+
+Allows you to set any additional filtering criteria for this ViewModels' HTTP requests from inside the Page itself.
+
+#### Syntax
+
+```csharp
+public string FilterCriteria { get; set; }
+```
+
+#### Property Value
+
+Type: `string`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  HttpClientFactory
+
+The injected [IHttpClientFactory](https://learn.microsoft.com/dotnet/api/system.net.http.ihttpclientfactory) instance for the ViewModel.
+
+#### Syntax
+
+```csharp
+public System.Net.Http.IHttpClientFactory HttpClientFactory { get; internal set; }
+```
+
+#### Property Value
+
+Type: `System.Net.Http.IHttpClientFactory`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  LoadingStatus <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `CloudNimble.BlazorEssentials.BlazorObservable`</Note>
+
+A [BlazorObservable.LoadingStatus](/api-reference/CloudNimble/BlazorEssentials/BlazorObservable#loadingstatus) specifying the current state of the required data for this Observable.
+
+#### Syntax
+
+```csharp
+public CloudNimble.BlazorEssentials.LoadingStatus LoadingStatus { get; set; }
+```
+
+#### Property Value
+
+Type: `CloudNimble.BlazorEssentials.LoadingStatus`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  StateHasChanged <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `CloudNimble.BlazorEssentials.BlazorObservable`</Note>
+
+Determines how to trigger StateHasChanged events in a Blazor component.
+
+#### Syntax
+
+```csharp
+public CloudNimble.BlazorEssentials.StateHasChangedConfig StateHasChanged { get; set; }
+```
+
+#### Property Value
+
+Type: `CloudNimble.BlazorEssentials.StateHasChangedConfig`
+
+## Methods
+
+### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Dispose <DocsBadge text="Override" variant="info" />
+
+<Note>Inherited from `CloudNimble.BlazorEssentials.BlazorObservable`</Note>
+
+#### Syntax
+
+```csharp
+protected override void Dispose(bool disposing)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `disposing` | `bool` | - |
+

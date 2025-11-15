@@ -1,0 +1,416 @@
+---
+title: AppStateBase
+description: "A base class to control application-wide state in a Blazor app."
+icon: file-brackets-curly
+keywords: ['AppStateBase', 'CloudNimble.BlazorEssentials.AppStateBase', 'CloudNimble.BlazorEssentials', 'class', 'CloudNimble.BlazorEssentials.BlazorObservable']
+---
+
+import { DocsBadge } from '/snippets/DocsBadge.jsx';
+
+## Definition
+
+**Assembly:** CloudNimble.BlazorEssentials.dll
+
+**Namespace:** CloudNimble.BlazorEssentials
+
+**Inheritance:** CloudNimble.BlazorEssentials.BlazorObservable
+
+## Syntax
+
+```csharp
+CloudNimble.BlazorEssentials.AppStateBase
+```
+
+## Summary
+
+A base class to control application-wide state in a Blazor app.
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+
+#### Syntax
+
+```csharp
+public AppStateBase(Microsoft.AspNetCore.Components.NavigationManager navigationManager, System.Net.Http.IHttpClientFactory httpClientFactory, Microsoft.JSInterop.IJSRuntime jsRuntime, Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment environment, CloudNimble.BlazorEssentials.Navigation.NavigationHistory navHistory, CloudNimble.BlazorEssentials.StateHasChangedConfig stateHasChangedConfig = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `navigationManager` | `Microsoft.AspNetCore.Components.NavigationManager` | The Blazor [AppStateBase.NavigationManager](/api-reference/CloudNimble/BlazorEssentials/AppStateBase#navigationmanager) instance from the DI container. |
+| `httpClientFactory` | `System.Net.Http.IHttpClientFactory` | The [IHttpClientFactory](https://learn.microsoft.com/dotnet/api/system.net.http.ihttpclientfactory) instance from the DI container. |
+| `jsRuntime` | `Microsoft.JSInterop.IJSRuntime` | The [IJSRuntime](https://learn.microsoft.com/dotnet/api/microsoft.jsinterop.ijsruntime) instance from the DI container. |
+| `environment` | `Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment` | The [IWebAssemblyHostEnvironment](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.components.webassembly.hosting.iwebassemblyhostenvironment) instance from the DI container. |
+| `navHistory` | `CloudNimble.BlazorEssentials.Navigation.NavigationHistory` | The [AppStateBase.NavigationHistory](/api-reference/CloudNimble/BlazorEssentials/AppStateBase#navigationhistory) instance from the DI container. |
+| `stateHasChangedConfig` | `CloudNimble.BlazorEssentials.StateHasChangedConfig` | The [StateHasChangedConfig](/api-reference/CloudNimble/BlazorEssentials/StateHasChangedConfig) instance from the DI container. |
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `CloudNimble.BlazorEssentials.BlazorObservable`</Note>
+
+Creates a new instance of the [BlazorObservable](/api-reference/CloudNimble/BlazorEssentials/BlazorObservable) class.
+
+#### Syntax
+
+```csharp
+public BlazorObservable(CloudNimble.BlazorEssentials.StateHasChangedConfig stateHasChangedConfig = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `stateHasChangedConfig` | `CloudNimble.BlazorEssentials.StateHasChangedConfig` | - |
+
+## Properties
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  AuthenticationStateProvider
+
+The [AppStateBase.AuthenticationStateProvider](/api-reference/CloudNimble/BlazorEssentials/AppStateBase#authenticationstateprovider) instance for the application.
+
+#### Syntax
+
+```csharp
+public Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider AuthenticationStateProvider { get; set; }
+```
+
+#### Property Value
+
+Type: `Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider`
+
+#### Remarks
+
+This property correctly registers for and de-registers from [AppStateBase.AuthenticationStateProvider](/api-reference/CloudNimble/BlazorEssentials/AppStateBase#authenticationstateprovider) events as the 
+            value is set, and automatically calls [AppStateBase.RefreshClaimsPrincipal](/api-reference/CloudNimble/BlazorEssentials/AppStateBase#refreshclaimsprincipal) for you.
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ClaimsPrincipal
+
+The [AppStateBase.ClaimsPrincipal](/api-reference/CloudNimble/BlazorEssentials/AppStateBase#claimsprincipal) returned from calling [User](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.components.authorization.authenticationstate.user).
+
+#### Syntax
+
+```csharp
+public System.Security.Claims.ClaimsPrincipal ClaimsPrincipal { get; set; }
+```
+
+#### Property Value
+
+Type: `System.Security.Claims.ClaimsPrincipal`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  CurrentNavItem
+
+The [NavigationItem](/api-reference/CloudNimble/BlazorEssentials/Navigation/NavigationItem) from [AppStateBase.NavItems](/api-reference/CloudNimble/BlazorEssentials/AppStateBase#navitems) that corresponds to the current Route.
+
+#### Syntax
+
+```csharp
+public CloudNimble.BlazorEssentials.Navigation.NavigationItem CurrentNavItem { get; set; }
+```
+
+#### Property Value
+
+Type: `CloudNimble.BlazorEssentials.Navigation.NavigationItem`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Environment
+
+The [WebAssemblyHostEnvironment](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.components.webassembly.hosting.webassemblyhostenvironment) injected from the DI container.
+
+#### Syntax
+
+```csharp
+public Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment Environment { get; set; }
+```
+
+#### Property Value
+
+Type: `Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  HttpClientFactory
+
+The instance of the [IHttpClientFactory](https://learn.microsoft.com/dotnet/api/system.net.http.ihttpclientfactory) injected by the DI system.
+
+#### Syntax
+
+```csharp
+public System.Net.Http.IHttpClientFactory HttpClientFactory { get; private set; }
+```
+
+#### Property Value
+
+Type: `System.Net.Http.IHttpClientFactory`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  IsClaimsPrincipalAuthenticated
+
+Returns a value indicating whether or not the current [AppStateBase.ClaimsPrincipal](/api-reference/CloudNimble/BlazorEssentials/AppStateBase#claimsprincipal)ClaimsPrincipal's&lt;/see&gt; Identity is authenticated.
+
+#### Syntax
+
+```csharp
+public bool IsClaimsPrincipalAuthenticated { get; }
+```
+
+#### Property Value
+
+Type: `bool`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  JSRuntime
+
+#### Syntax
+
+```csharp
+public Microsoft.JSInterop.IJSRuntime JSRuntime { get; set; }
+```
+
+#### Property Value
+
+Type: `Microsoft.JSInterop.IJSRuntime`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  LoadingStatus <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `CloudNimble.BlazorEssentials.BlazorObservable`</Note>
+
+A [BlazorObservable.LoadingStatus](/api-reference/CloudNimble/BlazorEssentials/BlazorObservable#loadingstatus) specifying the current state of the required data for this Observable.
+
+#### Syntax
+
+```csharp
+public CloudNimble.BlazorEssentials.LoadingStatus LoadingStatus { get; set; }
+```
+
+#### Property Value
+
+Type: `CloudNimble.BlazorEssentials.LoadingStatus`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  NavigationHistory
+
+Allows the application to interact with the browser's History API.
+
+#### Syntax
+
+```csharp
+public CloudNimble.BlazorEssentials.Navigation.NavigationHistory NavigationHistory { get; private set; }
+```
+
+#### Property Value
+
+Type: `CloudNimble.BlazorEssentials.Navigation.NavigationHistory`
+
+#### Remarks
+
+This really should be a part of the NavigationManager, but what do we know? ¯\_(ツ)_/¯
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  NavigationManager
+
+The instance of the [AppStateBase.NavigationManager](/api-reference/CloudNimble/BlazorEssentials/AppStateBase#navigationmanager) injected by the DI system.
+
+#### Syntax
+
+```csharp
+public Microsoft.AspNetCore.Components.NavigationManager NavigationManager { get; private set; }
+```
+
+#### Property Value
+
+Type: `Microsoft.AspNetCore.Components.NavigationManager`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  NavItems
+
+An [ObservableCollection`1](https://learn.microsoft.com/dotnet/api/system.collections.objectmodel.observablecollection-1) containing the primary navigation details for the application.
+
+#### Syntax
+
+```csharp
+public System.Collections.ObjectModel.ObservableCollection<CloudNimble.BlazorEssentials.Navigation.NavigationItem> NavItems { get; internal set; }
+```
+
+#### Property Value
+
+Type: `System.Collections.ObjectModel.ObservableCollection<CloudNimble.BlazorEssentials.Navigation.NavigationItem>`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  StateHasChanged <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `CloudNimble.BlazorEssentials.BlazorObservable`</Note>
+
+Determines how to trigger StateHasChanged events in a Blazor component.
+
+#### Syntax
+
+```csharp
+public CloudNimble.BlazorEssentials.StateHasChangedConfig StateHasChanged { get; set; }
+```
+
+#### Property Value
+
+Type: `CloudNimble.BlazorEssentials.StateHasChangedConfig`
+
+## Methods
+
+### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Dispose <DocsBadge text="Override" variant="info" />
+
+<Note>Inherited from `CloudNimble.BlazorEssentials.BlazorObservable`</Note>
+
+#### Syntax
+
+```csharp
+protected override void Dispose(bool disposing)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `disposing` | `bool` | - |
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  LoadNavItems
+
+Load the NavigationItems into [AppStateBase.NavItems](/api-reference/CloudNimble/BlazorEssentials/AppStateBase#navitems) and properly wire up the PropertyChanged event.
+
+#### Syntax
+
+```csharp
+public void LoadNavItems(System.Collections.Generic.List<CloudNimble.BlazorEssentials.Navigation.NavigationItem> items)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `items` | `System.Collections.Generic.List<CloudNimble.BlazorEssentials.Navigation.NavigationItem>` | - |
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Navigate
+
+Navigates to the specified Uri and sets [AppStateBase.CurrentNavItem](/api-reference/CloudNimble/BlazorEssentials/AppStateBase#currentnavitem) to the matching [NavigationItem](/api-reference/CloudNimble/BlazorEssentials/Navigation/NavigationItem) in [AppStateBase.NavItems](/api-reference/CloudNimble/BlazorEssentials/AppStateBase#navitems).
+
+#### Syntax
+
+```csharp
+public void Navigate(string uri, bool setCurrentNavItem = false)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `uri` | `string` | - |
+| `setCurrentNavItem` | `bool` | Determines whether or not we should also set the CurrentNavItem. Usually this is no because the MainLayout should call 
+            AppState.SetCurrentNavItem in OnParametersSet. This parameter gives you flexibility without potentially calling it twice. |
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  NavigateBackAsync
+
+Utilizes the injected [AppStateBase.NavigationHistory](/api-reference/CloudNimble/BlazorEssentials/AppStateBase#navigationhistory) History API to navigate to the last entry in the history stack, and attempts
+            to set the [AppStateBase.CurrentNavItem](/api-reference/CloudNimble/BlazorEssentials/AppStateBase#currentnavitem).
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task NavigateBackAsync(bool setCurrentNavItem = false)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `setCurrentNavItem` | `bool` | Determines whether or not we should also set the CurrentNavItem. Usually this is no because the MainLayout should call 
+            AppState.SetCurrentNavItem in OnParametersSet. This parameter gives you flexibility without potentially calling it twice. |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+A [Task](https://learn.microsoft.com/dotnet/api/system.threading.tasks.task) representing the completion state of the operation.
+
+#### Remarks
+
+Will not throw an exception if you are at the bottom of the History stack.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  NavigateForwardAsync
+
+Utilizes the injected [AppStateBase.NavigationHistory](/api-reference/CloudNimble/BlazorEssentials/AppStateBase#navigationhistory) History API to navigate to the next entry in the history stack, and attempts
+            to set the [AppStateBase.CurrentNavItem](/api-reference/CloudNimble/BlazorEssentials/AppStateBase#currentnavitem).
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task NavigateForwardAsync(bool setCurrentNavItem = false)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `setCurrentNavItem` | `bool` | Determines whether or not we should also set the CurrentNavItem. Usually this is no because the MainLayout should call 
+            AppState.SetCurrentNavItem in OnParametersSet. This parameter gives you flexibility without potentially calling it twice. |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+A [Task](https://learn.microsoft.com/dotnet/api/system.threading.tasks.task) representing the completion state of the operation.
+
+#### Remarks
+
+Will not throw an exception if you are at the top of the History stack.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  OpenInNewTab
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task OpenInNewTab(string url)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `url` | `string` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+
+#### Remarks
+
+https://stackoverflow.com/a/62769092
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  RefreshClaimsPrincipal
+
+Tells the AuthenticationProvider to get the latest ClaimsPrincipal and run it through the internal AuthenticationStateChanged handler.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task RefreshClaimsPrincipal()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+A [Task](https://learn.microsoft.com/dotnet/api/system.threading.tasks.task) representing the completion state of the operation.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  SetCurrentNavItem
+
+Initializes [AppStateBase.CurrentNavItem](/api-reference/CloudNimble/BlazorEssentials/AppStateBase#currentnavitem) to the proper value based on the current route.
+
+#### Syntax
+
+```csharp
+public void SetCurrentNavItem()
+```
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  SetCurrentNavItem
+
+Initializes [AppStateBase.CurrentNavItem](/api-reference/CloudNimble/BlazorEssentials/AppStateBase#currentnavitem) to the proper value based on the current route.
+
+#### Syntax
+
+```csharp
+public void SetCurrentNavItem(string url)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `url` | `string` | - |
+

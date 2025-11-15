@@ -1,0 +1,284 @@
+---
+title: DelayDispatcher
+description: "Provides methods to reduce the number of events that are fired, usually so that rapid,             imperceptible changes are ignored."
+icon: file-brackets-curly
+keywords: ['DelayDispatcher', 'CloudNimble.BlazorEssentials.Threading.DelayDispatcher', 'CloudNimble.BlazorEssentials.Threading', 'class', 'System.Object', 'System.IDisposable']
+---
+
+import { DocsBadge } from '/snippets/DocsBadge.jsx';
+
+## Definition
+
+**Assembly:** CloudNimble.BlazorEssentials.dll
+
+**Namespace:** CloudNimble.BlazorEssentials.Threading
+
+**Inheritance:** System.Object
+
+## Syntax
+
+```csharp
+CloudNimble.BlazorEssentials.Threading.DelayDispatcher
+```
+
+## Summary
+
+Provides methods to reduce the number of events that are fired, usually so that rapid,
+            imperceptible changes are ignored.
+
+## Remarks
+
+
+
+
+                Throttle() ensures that events are throttled by the interval specified.
+                Only the last event in the interval sequence of events fires.
+            
+
+
+
+
+                Debounce() fires an event only after the specified interval has passed
+                in which no other pending event has fired. Only the last event in the
+                sequence is fired.
+            
+
+
+            
+            Adapted from https://weblog.west-wind.com/posts/2017/Jul/02/Debouncing-and-Throttling-Dispatcher-Events.
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+
+#### Syntax
+
+```csharp
+public DelayDispatcher()
+```
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public Object()
+```
+
+## Properties
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  DelayCount
+
+The number of events that have been dropped in a given interval.
+
+#### Syntax
+
+```csharp
+public int DelayCount { get; internal set; }
+```
+
+#### Property Value
+
+Type: `int`
+
+#### Remarks
+
+This value is reset every time the built-in [Timer](https://learn.microsoft.com/dotnet/api/system.timers.timer) elapses.
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  TimerStarted
+
+The [DateTime](https://learn.microsoft.com/dotnet/api/system.datetime) that a new [Timer](https://learn.microsoft.com/dotnet/api/system.timers.timer) was started, in UTC.
+
+#### Syntax
+
+```csharp
+public System.DateTime TimerStarted { get; internal set; }
+```
+
+#### Property Value
+
+Type: `System.DateTime`
+
+## Methods
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Debounce
+
+Debounce an event by resetting the event timeout every time the event is 
+            fired. The behavior is that the Action passed is fired only after events
+            stop firing for the given timeout period.
+            
+            Use Debounce when you want events to fire only after events stop firing
+            after the given interval timeout period.
+            
+            Wrap the logic you would normally use in your event code into
+            the  Action you pass to this method to debounce the event.
+            Example: https://gist.github.com/RickStrahl/0519b678f3294e27891f4d4f0608519a
+
+#### Syntax
+
+```csharp
+public void Debounce(int interval, System.Action<object> action, object param = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `interval` | `int` | An [Int32](https://learn.microsoft.com/dotnet/api/system.int32) specifying the [Timer](https://learn.microsoft.com/dotnet/api/system.timers.timer) duration (in milliseconds). |
+| `action` | `System.Action<object>` | The [Action](https://learn.microsoft.com/dotnet/api/system.action) to fire when the [Timer](https://learn.microsoft.com/dotnet/api/system.timers.timer) elapses. |
+| `param` | `object` | Any optional parameters to pass to the *action*. |
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Dispose
+
+#### Syntax
+
+```csharp
+public void Dispose()
+```
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Equals <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual bool Equals(object obj)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `obj` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Equals <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool Equals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetHashCode <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual int GetHashCode()
+```
+
+#### Returns
+
+Type: `int`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetType <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public System.Type GetType()
+```
+
+#### Returns
+
+Type: `System.Type`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  MemberwiseClone <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+protected internal object MemberwiseClone()
+```
+
+#### Returns
+
+Type: `object`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ReferenceEquals <DocsBadge text="Inherited" variant="neutral" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool ReferenceEquals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Throttle
+
+This method throttles events by allowing only 1 event to fire for the given
+            timeout period. Only the last event fired is handled - all others are ignored.
+            Throttle will fire events every timeout ms even if additional events are pending.
+            
+            Use Throttle where you need to ensure that events fire at given intervals.
+
+#### Syntax
+
+```csharp
+public void Throttle(int interval, System.Action<object> action, object param = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `interval` | `int` | An [Int32](https://learn.microsoft.com/dotnet/api/system.int32) specifying the [Timer](https://learn.microsoft.com/dotnet/api/system.timers.timer) duration (in milliseconds). |
+| `action` | `System.Action<object>` | The [Action](https://learn.microsoft.com/dotnet/api/system.action) to fire when the [Timer](https://learn.microsoft.com/dotnet/api/system.timers.timer) elapses. |
+| `param` | `object` | Any optional parameters to pass to the *action*. |
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ToString <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual string ToString()
+```
+
+#### Returns
+
+Type: `string?`
+
+## Related APIs
+
+- System.IDisposable
+

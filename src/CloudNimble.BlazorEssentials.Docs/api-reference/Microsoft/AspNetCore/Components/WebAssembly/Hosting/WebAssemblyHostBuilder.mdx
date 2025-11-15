@@ -1,0 +1,92 @@
+---
+title: WebAssemblyHostBuilder
+description: "Extension methods for WebAssemblyHostBuilder from Microsoft.AspNetCore.Components.WebAssembly"
+icon: file-brackets-curly
+keywords: ['WebAssemblyHostBuilder', 'Microsoft.AspNetCore.Components.WebAssembly.Hosting.WebAssemblyHostBuilder', 'Microsoft.AspNetCore.Components.WebAssembly.Hosting', 'error']
+---
+
+import { DocsBadge } from '/snippets/DocsBadge.jsx';
+
+## Definition
+
+**Assembly:** Microsoft.AspNetCore.Components.WebAssembly.dll
+
+**Namespace:** Microsoft.AspNetCore.Components.WebAssembly.Hosting
+
+## Syntax
+
+```csharp
+Microsoft.AspNetCore.Components.WebAssembly.Hosting.WebAssemblyHostBuilder
+```
+
+## Summary
+
+This type is defined in Microsoft.AspNetCore.Components.WebAssembly.
+
+## Remarks
+
+See [Microsoft documentation](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.components.webassembly.hosting.webassemblyhostbuilder) for more information about the rest of the API.
+
+## Methods
+
+### <Icon icon="puzzle-piece" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  AddBlazorEssentials <DocsBadge text="Extension" variant="success" />
+
+<Note>Extension method from `Microsoft.AspNetCore.Components.WebAssembly.Hosting.WebAssemblyHostBuilderExtensions`</Note>
+
+Registers the necessary services to bootstrap BlazorEssentials, including a `ConfigurationBase`, [AppStateBase](/api-reference/CloudNimble/BlazorEssentials/AppStateBase), and 
+            [HttpClient](https://learn.microsoft.com/dotnet/api/system.net.http.httpclient)HttpClients&lt;/see&gt; for interacting with both the
+
+#### Syntax
+
+```csharp
+public static Microsoft.AspNetCore.Components.WebAssembly.Hosting.WebAssemblyHostBuilder AddBlazorEssentials<TConfiguration, TAppState>(Microsoft.AspNetCore.Components.WebAssembly.Hosting.WebAssemblyHostBuilder builder, string configSectionName) where TConfiguration : CloudNimble.EasyAF.Configuration.ConfigurationBase where TAppState : CloudNimble.BlazorEssentials.AppStateBase
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `builder` | `Microsoft.AspNetCore.Components.WebAssembly.Hosting.WebAssemblyHostBuilder` | The [WebAssemblyHostBuilder](/api-reference/Microsoft/AspNetCore/Components/WebAssembly/Hosting/WebAssemblyHostBuilder) instance to configure. |
+| `configSectionName` | `string` | The name of the Configuration node in appsettings.json that specifies BlazorEssentials settings. |
+
+#### Returns
+
+Type: `Microsoft.AspNetCore.Components.WebAssembly.Hosting.WebAssemblyHostBuilder`
+The
+
+#### Type Parameters
+
+- `TConfiguration` - The `ConfigurationBase`-derived type to register in the DI container.
+- `TAppState` - The [AppStateBase](/api-reference/CloudNimble/BlazorEssentials/AppStateBase)-derived type to register in the DI container.
+
+### <Icon icon="puzzle-piece" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  AddBlazorEssentials <DocsBadge text="Extension" variant="success" />
+
+<Note>Extension method from `Microsoft.AspNetCore.Components.WebAssembly.Hosting.WebAssemblyHostBuilderExtensions`</Note>
+
+#### Syntax
+
+```csharp
+public static Microsoft.AspNetCore.Components.WebAssembly.Hosting.WebAssemblyHostBuilder AddBlazorEssentials<TConfiguration, TAppState, TMessageHandler>(Microsoft.AspNetCore.Components.WebAssembly.Hosting.WebAssemblyHostBuilder builder, string configSectionName) where TConfiguration : CloudNimble.EasyAF.Configuration.ConfigurationBase where TAppState : CloudNimble.BlazorEssentials.AppStateBase where TMessageHandler : System.Net.Http.DelegatingHandler
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `builder` | `Microsoft.AspNetCore.Components.WebAssembly.Hosting.WebAssemblyHostBuilder` | The [WebAssemblyHostBuilder](/api-reference/Microsoft/AspNetCore/Components/WebAssembly/Hosting/WebAssemblyHostBuilder) instance to configure. |
+| `configSectionName` | `string` | The name of the Configuration node in appsettings.json that specifies BlazorEssentials settings. |
+
+#### Returns
+
+Type: `Microsoft.AspNetCore.Components.WebAssembly.Hosting.WebAssemblyHostBuilder`
+
+#### Type Parameters
+
+- `TConfiguration` - The `ConfigurationBase`-derived type to register in the DI container.
+- `TAppState` - The [AppStateBase](/api-reference/CloudNimble/BlazorEssentials/AppStateBase)-derived type to register in the DI container.
+- `TMessageHandler` - The [DelegatingHandler](https://learn.microsoft.com/dotnet/api/system.net.http.delegatinghandler)-derived type to register for the built-in HttpClients. Defaults to `BlazorEssentialsAuthorizationMessageHandler`1`.
+
+#### Remarks
+
+If your *TMessageHandler* needs a constructor, register it before making this call.
+

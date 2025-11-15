@@ -1,0 +1,181 @@
+---
+title: BlazorEssentialsTestBase
+icon: code-branch
+keywords: ['BlazorEssentialsTestBase', 'CloudNimble.BlazorEssentials.Breakdance.BlazorEssentialsTestBase<TConfiguration, TAppState>', 'CloudNimble.BlazorEssentials.Breakdance', 'class', 'CloudNimble.Breakdance.Blazor.BlazorBreakdanceTestBase']
+---
+
+import { DocsBadge } from '/snippets/DocsBadge.jsx';
+
+## Definition
+
+**Assembly:** CloudNimble.BlazorEssentials.Breakdance.dll
+
+**Namespace:** CloudNimble.BlazorEssentials.Breakdance
+
+**Inheritance:** CloudNimble.Breakdance.Blazor.BlazorBreakdanceTestBase
+
+## Syntax
+
+```csharp
+CloudNimble.BlazorEssentials.Breakdance.BlazorEssentialsTestBase<TConfiguration, TAppState>
+```
+
+## Type Parameters
+
+- `TConfiguration` - 
+- `TAppState` - 
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+
+#### Syntax
+
+```csharp
+public BlazorEssentialsTestBase()
+```
+
+## Methods
+
+### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  AssemblySetup <DocsBadge text="Override" variant="info" />
+
+DO NOT USE THIS METHOD. Throws a [NotSupportedException](https://learn.microsoft.com/dotnet/api/system.notsupportedexception) when called. You must call `String)` 
+            or `TestSetup` instead.
+
+#### Syntax
+
+```csharp
+public override void AssemblySetup()
+```
+
+#### Exceptions
+
+| Exception | Description |
+|-----------|-------------|
+| `NotSupportedException` | Throws a NotSupportedException when called. |
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ClassSetup
+
+#### Syntax
+
+```csharp
+public void ClassSetup(string configSectionName)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `configSectionName` | `string` | - |
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ClassSetup
+
+#### Syntax
+
+```csharp
+public void ClassSetup<TMessageHandler>(string configSectionName, string environment = "Development", string baseAddress = "https://localhost") where TMessageHandler : System.Net.Http.DelegatingHandler
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `configSectionName` | `string` | - |
+| `environment` | `string` | - |
+| `baseAddress` | `string` | - |
+
+#### Type Parameters
+
+- `TMessageHandler` - 
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ClassSetup
+
+#### Syntax
+
+```csharp
+public void ClassSetup<TMessageHandler>(string configSectionName, CloudNimble.EasyAF.Core.HttpHandlerMode httpHandlerMode, string environment = "Development", string baseAddress = "https://localhost") where TMessageHandler : System.Net.Http.DelegatingHandler
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `configSectionName` | `string` | - |
+| `httpHandlerMode` | `CloudNimble.EasyAF.Core.HttpHandlerMode` | - |
+| `environment` | `string` | - |
+| `baseAddress` | `string` | - |
+
+#### Type Parameters
+
+- `TMessageHandler` - 
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  TestSetup
+
+Configures the BlazorEssentials services into the BUnitTestContext IServiceProvider for the currently-executing test only.
+
+#### Syntax
+
+```csharp
+public void TestSetup(string configSectionName, string environment = "Development", string baseAddress = "https://localhost")
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `configSectionName` | `string` | - |
+| `environment` | `string` | - |
+| `baseAddress` | `string` | - |
+
+#### Remarks
+
+RWM: These methods exist because bUnit is configured per-test, and the BlazorEssentials configuration can change on a per-test basis.
+            bUnit will resolve from its own container first, then fall back to the TestHost's ServiceProvider if not found. This methods puts a new configuration in place
+            instead, to be used only for the currently-executing test.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  TestSetup
+
+Configures the BlazorEssentials services into the BUnitTestContext IServiceProvider for the currently-executing test only.
+
+#### Syntax
+
+```csharp
+public void TestSetup<TMessageHandler>(string configSectionName, CloudNimble.EasyAF.Core.HttpHandlerMode httpHandlerMode = 2, string environment = "Development", string baseAddress = "https://localhost") where TMessageHandler : System.Net.Http.DelegatingHandler
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `configSectionName` | `string` | - |
+| `httpHandlerMode` | `CloudNimble.EasyAF.Core.HttpHandlerMode` | - |
+| `environment` | `string` | - |
+| `baseAddress` | `string` | - |
+
+#### Type Parameters
+
+- `TMessageHandler` - 
+
+#### Remarks
+
+RWM: These methods exist because bUnit is configured per-test, and the BlazorEssentials configuration can change on a per-test basis.
+            bUnit will resolve from its own container first, then fall back to the TestHost's ServiceProvider if not found. This methods puts a new configuration in place
+            instead, to be used only for the currently-executing test.
+
+### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  TestSetup <DocsBadge text="Override" variant="info" />
+
+DO NOT USE THIS METHOD. Throws a [NotSupportedException](https://learn.microsoft.com/dotnet/api/system.notsupportedexception) when called. You must call `String)` 
+            or `TestSetup` instead.
+
+#### Syntax
+
+```csharp
+public override void TestSetup()
+```
+
+#### Exceptions
+
+| Exception | Description |
+|-----------|-------------|
+| `NotSupportedException` | Throws a NotSupportedException when called. |
+

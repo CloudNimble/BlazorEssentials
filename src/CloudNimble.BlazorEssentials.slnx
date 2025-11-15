@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Solution>
+  <Folder Name="/Core/">
+    <Project Path="CloudNimble.BlazorEssentials.Breakdance/CloudNimble.BlazorEssentials.Breakdance.csproj" />
+    <Project Path="CloudNimble.BlazorEssentials.IndexedDb/CloudNimble.BlazorEssentials.IndexedDb.csproj" />
+    <Project Path="CloudNimble.BlazorEssentials/CloudNimble.BlazorEssentials.csproj" />
+  </Folder>
+  <Folder Name="/Docs/">
+    <Project Path="CloudNimble.BlazorEssentials.Docs/CloudNimble.BlazorEssentials.Docs.docsproj" Type="C#" />
+  </Folder>
+  <Folder Name="/Samples/">
+    <Project Path="CloudNimble.BlazorEssentials.TestApp/CloudNimble.BlazorEssentials.TestApp.csproj" />
+    <Project Path="CloudNimble.BlazorEssentials.Tests.TestApp/CloudNimble.BlazorEssentials.Tests.TestApp.csproj" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path="blazoressentials.snk" />
+    <File Path="Directory.Build.props" />
+    <File Path="global.json" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="CloudNimble.BlazorEssentials.Tests.Breakdance/CloudNimble.BlazorEssentials.Tests.Breakdance.csproj" />
+    <Project Path="CloudNimble.BlazorEssentials.Tests.IndexedDb/CloudNimble.BlazorEssentials.Tests.IndexedDb.csproj" />
+    <Project Path="CloudNimble.BlazorEssentials.Tests/CloudNimble.BlazorEssentials.Tests.csproj" />
+  </Folder>
+</Solution>

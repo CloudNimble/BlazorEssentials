@@ -1,14 +1,4 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-//@ts-ignore
-import { openDB, deleteDB } from 'https://cdn.skypack.dev/idb';
+import { getOpenDB, getDeleteDB } from './idb-loader';
 /**
  * Allows for managing multiple instances of the IndexedDbManager, one for each database name.
  */
@@ -166,7 +156,7 @@ export class IndexedDbManager {
     constructor() {
         this.dbInstance = undefined;
         this.databaseName = "";
-        this.open = (database) => __awaiter(this, void 0, void 0, function* () {
+        this.open = async (database) => {
             var upgradeError = "";
             try {
                 if (!this.dbInstance || this.dbInstance.version < database.version) {
@@ -174,7 +164,8 @@ export class IndexedDbManager {
                         this.dbInstance.close();
                         this.dbInstance = undefined;
                     }
-                    this.dbInstance = yield openDB(database.name, database.version, {
+                    const openDB = await getOpenDB();
+                    this.dbInstance = await openDB(database.name, database.version, {
                         upgrade(db, oldVersion, newVersion, transaction) {
                             try {
                                 IndexedDbManager.upgradeDatabase(db, oldVersion, newVersion, database);
@@ -192,27 +183,27 @@ export class IndexedDbManager {
                 throw error.toString() + ' ' + upgradeError;
             }
             return false;
-        });
+        };
         this.close = () => {
-            var _a;
             try {
-                (_a = this.dbInstance) === null || _a === void 0 ? void 0 : _a.close();
+                this.dbInstance?.close();
                 this.dbInstance = undefined;
             }
             catch (error) {
                 throw error.toString();
             }
         };
-        this.deleteDatabase = () => __awaiter(this, void 0, void 0, function* () {
+        this.deleteDatabase = async () => {
             try {
                 this.close();
-                yield deleteDB(this.databaseName);
+                const deleteDB = await getDeleteDB();
+                await deleteDB(this.databaseName);
             }
             catch (error) {
                 throw `Database ${this.databaseName}, ${error.toString()}`;
             }
-        });
-        this.getDbSchema = () => __awaiter(this, void 0, void 0, function* () {
+        };
+        this.getDbSchema = async () => {
             try {
                 if (!this.dbInstance)
                     throw IndexedDbManager.E_DB_CLOSED;
@@ -247,66 +238,66 @@ export class IndexedDbManager {
             catch (error) {
                 throw `Database ${this.databaseName}, ${error.toString()}`;
             }
-        });
+        };
         // IDBObjectStore
-        this.count = (storeName, key) => __awaiter(this, void 0, void 0, function* () {
+        this.count = async (storeName, key) => {
             try {
                 if (!this.dbInstance)
                     throw IndexedDbManager.E_DB_CLOSED;
                 const tx = this.dbInstance.transaction(storeName, 'readonly');
-                let result = yield tx.store.count(key !== null && key !== void 0 ? key : undefined);
-                yield tx.done;
+                let result = await tx.store.count(key ?? undefined);
+                await tx.done;
                 return result;
             }
             catch (error) {
                 throw `Store ${storeName}, ${error.toString()}`;
             }
-        });
-        this.countByKeyRange = (storeName, lower, upper, lowerOpen, upperOpen) => __awaiter(this, void 0, void 0, function* () {
+        };
+        this.countByKeyRange = async (storeName, lower, upper, lowerOpen, upperOpen) => {
             try {
-                return yield this.count(storeName, IDBKeyRange.bound(lower, upper, lowerOpen, upperOpen));
+                return await this.count(storeName, IDBKeyRange.bound(lower, upper, lowerOpen, upperOpen));
             }
             catch (error) {
                 throw `Store ${storeName}, ${error.toString()}`;
             }
-        });
-        this.get = (storeName, key) => __awaiter(this, void 0, void 0, function* () {
+        };
+        this.get = async (storeName, key) => {
             try {
                 if (!this.dbInstance)
                     throw IndexedDbManager.E_DB_CLOSED;
                 const tx = this.dbInstance.transaction(storeName, 'readonly');
-                let result = yield tx.store.get(key);
-                yield tx.done;
+                let result = await tx.store.get(key);
+                await tx.done;
                 return result;
             }
             catch (error) {
                 throw `Store ${storeName}, ${error.toString()}`;
             }
-        });
-        this.getAll = (storeName, key, count) => __awaiter(this, void 0, void 0, function* () {
+        };
+        this.getAll = async (storeName, key, count) => {
             try {
                 if (!this.dbInstance)
                     throw IndexedDbManager.E_DB_CLOSED;
                 const tx = this.dbInstance.transaction(storeName, 'readonly');
-                let results = yield tx.store.getAll(key !== null && key !== void 0 ? key : undefined, count !== null && count !== void 0 ? count : undefined);
-                yield tx.done;
+                let results = await tx.store.getAll(key ?? undefined, count ?? undefined);
+                await tx.done;
                 return results;
             }
             catch (error) {
                 throw `Store ${storeName}, ${error.toString()}`;
             }
-        });
-        this.getAllByKeyRange = (storeName, lower, upper, lowerOpen, upperOpen, count) => __awaiter(this, void 0, void 0, function* () {
+        };
+        this.getAllByKeyRange = async (storeName, lower, upper, lowerOpen, upperOpen, count) => {
             try {
                 if (!this.dbInstance)
                     throw IndexedDbManager.E_DB_CLOSED;
-                return yield this.getAll(storeName, IDBKeyRange.bound(lower, upper, lowerOpen, upperOpen), count);
+                return await this.getAll(storeName, IDBKeyRange.bound(lower, upper, lowerOpen, upperOpen), count);
             }
             catch (error) {
                 throw `Store ${storeName}, ${error.toString()}`;
             }
-        });
-        this.getAllByArrayKey = (storeName, key) => __awaiter(this, void 0, void 0, function* () {
+        };
+        this.getAllByArrayKey = async (storeName, key) => {
             try {
                 if (!this.dbInstance)
                     throw IndexedDbManager.E_DB_CLOSED;
@@ -314,52 +305,52 @@ export class IndexedDbManager {
                 let results = [];
                 for (let index = 0; index < key.length; index++) {
                     const element = key[index];
-                    results = results.concat(yield tx.store.getAll(element));
+                    results = results.concat(await tx.store.getAll(element));
                 }
-                yield tx.done;
+                await tx.done;
                 return results;
             }
             catch (error) {
                 throw `Store ${storeName}, ${error.toString()}`;
             }
-        });
-        this.getKey = (storeName, key) => __awaiter(this, void 0, void 0, function* () {
+        };
+        this.getKey = async (storeName, key) => {
             try {
                 if (!this.dbInstance)
                     throw IndexedDbManager.E_DB_CLOSED;
                 const tx = this.dbInstance.transaction(storeName, 'readonly');
-                let result = yield tx.store.getKey(key);
-                yield tx.done;
+                let result = await tx.store.getKey(key);
+                await tx.done;
                 return result;
             }
             catch (error) {
                 throw `Store ${storeName}, ${error.toString()}`;
             }
-        });
-        this.getAllKeys = (storeName, key, count) => __awaiter(this, void 0, void 0, function* () {
+        };
+        this.getAllKeys = async (storeName, key, count) => {
             try {
                 if (!this.dbInstance)
                     throw IndexedDbManager.E_DB_CLOSED;
                 const tx = this.dbInstance.transaction(storeName, 'readonly');
-                let results = yield tx.store.getAllKeys(key !== null && key !== void 0 ? key : undefined, count !== null && count !== void 0 ? count : undefined);
-                yield tx.done;
+                let results = await tx.store.getAllKeys(key ?? undefined, count ?? undefined);
+                await tx.done;
                 return results;
             }
             catch (error) {
                 throw `Store ${storeName}, ${error.toString()}`;
             }
-        });
-        this.getAllKeysByKeyRange = (storeName, lower, upper, lowerOpen, upperOpen, count) => __awaiter(this, void 0, void 0, function* () {
+        };
+        this.getAllKeysByKeyRange = async (storeName, lower, upper, lowerOpen, upperOpen, count) => {
             try {
                 if (!this.dbInstance)
                     throw IndexedDbManager.E_DB_CLOSED;
-                return yield this.getAllKeys(storeName, IDBKeyRange.bound(lower, upper, lowerOpen, upperOpen), count);
+                return await this.getAllKeys(storeName, IDBKeyRange.bound(lower, upper, lowerOpen, upperOpen), count);
             }
             catch (error) {
                 throw `Store ${storeName}, ${error.toString()}`;
             }
-        });
-        this.getAllKeysByArrayKey = (storeName, key) => __awaiter(this, void 0, void 0, function* () {
+        };
+        this.getAllKeysByArrayKey = async (storeName, key) => {
             try {
                 if (!this.dbInstance)
                     throw IndexedDbManager.E_DB_CLOSED;
@@ -367,16 +358,16 @@ export class IndexedDbManager {
                 let results = [];
                 for (let index = 0; index < key.length; index++) {
                     const element = key[index];
-                    results = results.concat(yield tx.store.getAllKeys(element));
+                    results = results.concat(await tx.store.getAllKeys(element));
                 }
-                yield tx.done;
+                await tx.done;
                 return results;
             }
             catch (error) {
                 throw `Store ${storeName}, ${error.toString()}`;
             }
-        });
-        this.query = (storeName_1, key_1, filter_1, ...args_1) => __awaiter(this, [storeName_1, key_1, filter_1, ...args_1], void 0, function* (storeName, key, filter, count = 0, skip = 0) {
+        };
+        this.query = async (storeName, key, filter, count = 0, skip = 0) => {
             try {
                 if (!this.dbInstance)
                     throw IndexedDbManager.E_DB_CLOSED;
@@ -390,7 +381,7 @@ export class IndexedDbManager {
                 var errorMessage = "";
                 let results = [];
                 const tx = this.dbInstance.transaction(storeName, 'readonly');
-                let cursor = yield tx.store.openCursor(key !== null && key !== void 0 ? key : undefined);
+                let cursor = await tx.store.openCursor(key ?? undefined);
                 while (cursor) {
                     if (!cursor) {
                         return;
@@ -411,9 +402,9 @@ export class IndexedDbManager {
                     if (count > 0 && results.length >= count) {
                         break;
                     }
-                    cursor = yield cursor.continue();
+                    cursor = await cursor.continue();
                 }
-                yield tx.done;
+                await tx.done;
                 if (errorMessage) {
                     throw errorMessage;
                 }
@@ -422,120 +413,66 @@ export class IndexedDbManager {
             catch (error) {
                 throw `Store ${storeName} ${error.toString()}`;
             }
-        });
+        };
         // IDBIndex functions
-        this.countFromIndex = (storeName, indexName, key) => __awaiter(this, void 0, void 0, function* () {
+        this.countFromIndex = async (storeName, indexName, key) => {
             try {
                 if (!this.dbInstance)
                     throw IndexedDbManager.E_DB_CLOSED;
                 const tx = this.dbInstance.transaction(storeName, 'readonly');
-                let result = yield tx.store.index(indexName).count(key !== null && key !== void 0 ? key : undefined);
-                yield tx.done;
+                let result = await tx.store.index(indexName).count(key ?? undefined);
+                await tx.done;
                 return result;
             }
             catch (error) {
                 throw `Store ${storeName}, Index ${indexName}, ${error.toString()}`;
             }
-        });
-        this.countFromIndexByKeyRange = (storeName, indexName, lower, upper, lowerOpen, upperOpen) => __awaiter(this, void 0, void 0, function* () {
+        };
+        this.countFromIndexByKeyRange = async (storeName, indexName, lower, upper, lowerOpen, upperOpen) => {
             try {
-                return yield this.countFromIndex(storeName, indexName, IDBKeyRange.bound(lower, upper, lowerOpen, upperOpen));
+                return await this.countFromIndex(storeName, indexName, IDBKeyRange.bound(lower, upper, lowerOpen, upperOpen));
             }
             catch (error) {
                 throw `Store ${storeName}, Index ${indexName}, ${error.toString()}`;
             }
-        });
-        this.getFromIndex = (storeName, indexName, key) => __awaiter(this, void 0, void 0, function* () {
+        };
+        this.getFromIndex = async (storeName, indexName, key) => {
             try {
                 if (!this.dbInstance)
                     throw IndexedDbManager.E_DB_CLOSED;
                 const tx = this.dbInstance.transaction(storeName, 'readonly');
-                const results = yield tx.store.index(indexName).get(key);
-                yield tx.done;
+                const results = await tx.store.index(indexName).get(key);
+                await tx.done;
                 return results;
             }
             catch (error) {
                 throw `Store ${storeName}, Index ${indexName}, ${error.toString()}`;
             }
-        });
-        this.getAllFromIndex = (storeName, indexName, key, count) => __awaiter(this, void 0, void 0, function* () {
+        };
+        this.getAllFromIndex = async (storeName, indexName, key, count) => {
             try {
                 if (!this.dbInstance)
                     throw IndexedDbManager.E_DB_CLOSED;
                 const tx = this.dbInstance.transaction(storeName, 'readonly');
-                const results = yield tx.store.index(indexName).getAll(key !== null && key !== void 0 ? key : undefined, count !== null && count !== void 0 ? count : undefined);
-                yield tx.done;
+                const results = await tx.store.index(indexName).getAll(key ?? undefined, count ?? undefined);
+                await tx.done;
                 return results;
             }
             catch (error) {
                 throw `Store ${storeName}, Index ${indexName}, ${error.toString()}`;
             }
-        });
-        this.getAllFromIndexByKeyRange = (storeName, indexName, lower, upper, lowerOpen, upperOpen, count) => __awaiter(this, void 0, void 0, function* () {
+        };
+        this.getAllFromIndexByKeyRange = async (storeName, indexName, lower, upper, lowerOpen, upperOpen, count) => {
             try {
                 if (!this.dbInstance)
                     throw IndexedDbManager.E_DB_CLOSED;
-                return yield this.getAllFromIndex(storeName, indexName, IDBKeyRange.bound(lower, upper, lowerOpen, upperOpen), count);
+                return await this.getAllFromIndex(storeName, indexName, IDBKeyRange.bound(lower, upper, lowerOpen, upperOpen), count);
             }
             catch (error) {
                 throw `Store ${storeName}, Index ${indexName}, ${error.toString()}`;
             }
-        });
-        this.getAllFromIndexByArrayKey = (storeName, indexName, key) => __awaiter(this, void 0, void 0, function* () {
-            try {
-                if (!this.dbInstance)
-                    throw IndexedDbManager.E_DB_CLOSED;
-                const tx = this.dbInstance.transaction(storeName, 'readonly');
-                const dx = tx.store.index(indexName);
-                let results = [];
-                for (let index = 0; index < key.length; index++) {
-                    const element = key[index];
-                    results = results.concat(yield dx.getAll(element));
-                }
-                yield tx.done;
-                return results;
-            }
-            catch (error) {
-                throw `Store ${storeName}, Index ${indexName}, ${error.toString()}`;
-            }
-        });
-        this.getKeyFromIndex = (storeName, indexName, key) => __awaiter(this, void 0, void 0, function* () {
-            try {
-                if (!this.dbInstance)
-                    throw IndexedDbManager.E_DB_CLOSED;
-                const tx = this.dbInstance.transaction(storeName, 'readonly');
-                const results = yield tx.store.index(indexName).getKey(key);
-                yield tx.done;
-                return results;
-            }
-            catch (error) {
-                throw `Store ${storeName}, Index ${indexName}, ${error.toString()}`;
-            }
-        });
-        this.getAllKeysFromIndex = (storeName, indexName, key, count) => __awaiter(this, void 0, void 0, function* () {
-            try {
-                if (!this.dbInstance)
-                    throw IndexedDbManager.E_DB_CLOSED;
-                const tx = this.dbInstance.transaction(storeName, 'readonly');
-                const results = yield tx.store.index(indexName).getAllKeys(key !== null && key !== void 0 ? key : undefined, count !== null && count !== void 0 ? count : undefined);
-                yield tx.done;
-                return results;
-            }
-            catch (error) {
-                throw `Store ${storeName}, Index ${indexName}, ${error.toString()}`;
-            }
-        });
-        this.getAllKeysFromIndexByKeyRange = (storeName, indexName, lower, upper, lowerOpen, upperOpen, count) => __awaiter(this, void 0, void 0, function* () {
-            try {
-                if (!this.dbInstance)
-                    throw IndexedDbManager.E_DB_CLOSED;
-                return yield this.getAllKeysFromIndex(storeName, indexName, IDBKeyRange.bound(lower, upper, lowerOpen, upperOpen), count);
-            }
-            catch (error) {
-                throw `Store ${storeName}, Index ${indexName}, ${error.toString()}`;
-            }
-        });
-        this.getAllKeysFromIndexByArrayKey = (storeName, indexName, key) => __awaiter(this, void 0, void 0, function* () {
+        };
+        this.getAllFromIndexByArrayKey = async (storeName, indexName, key) => {
             try {
                 if (!this.dbInstance)
                     throw IndexedDbManager.E_DB_CLOSED;
@@ -544,16 +481,70 @@ export class IndexedDbManager {
                 let results = [];
                 for (let index = 0; index < key.length; index++) {
                     const element = key[index];
-                    results = results.concat(yield dx.getAllKeys(element));
+                    results = results.concat(await dx.getAll(element));
                 }
-                yield tx.done;
+                await tx.done;
                 return results;
             }
             catch (error) {
                 throw `Store ${storeName}, Index ${indexName}, ${error.toString()}`;
             }
-        });
-        this.queryFromIndex = (storeName_1, indexName_1, key_1, filter_1, ...args_1) => __awaiter(this, [storeName_1, indexName_1, key_1, filter_1, ...args_1], void 0, function* (storeName, indexName, key, filter, count = 0, skip = 0) {
+        };
+        this.getKeyFromIndex = async (storeName, indexName, key) => {
+            try {
+                if (!this.dbInstance)
+                    throw IndexedDbManager.E_DB_CLOSED;
+                const tx = this.dbInstance.transaction(storeName, 'readonly');
+                const results = await tx.store.index(indexName).getKey(key);
+                await tx.done;
+                return results;
+            }
+            catch (error) {
+                throw `Store ${storeName}, Index ${indexName}, ${error.toString()}`;
+            }
+        };
+        this.getAllKeysFromIndex = async (storeName, indexName, key, count) => {
+            try {
+                if (!this.dbInstance)
+                    throw IndexedDbManager.E_DB_CLOSED;
+                const tx = this.dbInstance.transaction(storeName, 'readonly');
+                const results = await tx.store.index(indexName).getAllKeys(key ?? undefined, count ?? undefined);
+                await tx.done;
+                return results;
+            }
+            catch (error) {
+                throw `Store ${storeName}, Index ${indexName}, ${error.toString()}`;
+            }
+        };
+        this.getAllKeysFromIndexByKeyRange = async (storeName, indexName, lower, upper, lowerOpen, upperOpen, count) => {
+            try {
+                if (!this.dbInstance)
+                    throw IndexedDbManager.E_DB_CLOSED;
+                return await this.getAllKeysFromIndex(storeName, indexName, IDBKeyRange.bound(lower, upper, lowerOpen, upperOpen), count);
+            }
+            catch (error) {
+                throw `Store ${storeName}, Index ${indexName}, ${error.toString()}`;
+            }
+        };
+        this.getAllKeysFromIndexByArrayKey = async (storeName, indexName, key) => {
+            try {
+                if (!this.dbInstance)
+                    throw IndexedDbManager.E_DB_CLOSED;
+                const tx = this.dbInstance.transaction(storeName, 'readonly');
+                const dx = tx.store.index(indexName);
+                let results = [];
+                for (let index = 0; index < key.length; index++) {
+                    const element = key[index];
+                    results = results.concat(await dx.getAllKeys(element));
+                }
+                await tx.done;
+                return results;
+            }
+            catch (error) {
+                throw `Store ${storeName}, Index ${indexName}, ${error.toString()}`;
+            }
+        };
+        this.queryFromIndex = async (storeName, indexName, key, filter, count = 0, skip = 0) => {
             try {
                 if (!this.dbInstance)
                     throw IndexedDbManager.E_DB_CLOSED;
@@ -567,7 +558,7 @@ export class IndexedDbManager {
                 var errorMessage = "";
                 let results = [];
                 const tx = this.dbInstance.transaction(storeName, 'readonly');
-                let cursor = yield tx.store.index(indexName).openCursor(key !== null && key !== void 0 ? key : undefined);
+                let cursor = await tx.store.index(indexName).openCursor(key ?? undefined);
                 while (cursor) {
                     if (!cursor) {
                         return;
@@ -583,14 +574,14 @@ export class IndexedDbManager {
                     }
                     catch (error) {
                         errorMessage = `obj: ${JSON.stringify(cursor.value)}\nfilter: ${filter}\nerror: ${error.toString()}`;
-                        return;
+                        break;
                     }
                     if (count > 0 && results.length >= count) {
-                        return;
+                        break;
                     }
-                    cursor = yield cursor.continue();
+                    cursor = await cursor.continue();
                 }
-                yield tx.done;
+                await tx.done;
                 if (errorMessage) {
                     throw errorMessage;
                 }
@@ -599,105 +590,107 @@ export class IndexedDbManager {
             catch (error) {
                 throw `Store ${storeName}, Index ${indexName}, ${error.toString()}`;
             }
-        });
-        this.add = (storeName, data, key) => __awaiter(this, void 0, void 0, function* () {
+        };
+        this.add = async (storeName, data, key) => {
             try {
                 if (!this.dbInstance)
                     throw IndexedDbManager.E_DB_CLOSED;
                 const tx = this.dbInstance.transaction(storeName, 'readwrite');
+                // @ts-ignore - Type mismatch between readwrite and readonly store types
                 data = this.checkForKeyPath(tx.store, data);
-                const result = yield tx.store.add(data, key !== null && key !== void 0 ? key : undefined);
-                yield tx.done;
+                const result = await tx.store.add(data, key ?? undefined);
+                await tx.done;
                 return result;
             }
             catch (error) {
                 throw `Store ${storeName}, ${error.toString()}`;
             }
-        });
-        this.put = (storeName, data, key) => __awaiter(this, void 0, void 0, function* () {
+        };
+        this.put = async (storeName, data, key) => {
             try {
                 if (!this.dbInstance)
                     throw IndexedDbManager.E_DB_CLOSED;
                 const tx = this.dbInstance.transaction(storeName, 'readwrite');
-                const result = yield tx.store.put(data, key !== null && key !== void 0 ? key : undefined);
-                yield tx.done;
+                const result = await tx.store.put(data, key ?? undefined);
+                await tx.done;
                 return result;
             }
             catch (error) {
                 throw `Store ${storeName}, ${error.toString()}`;
             }
-        });
-        this.delete = (storeName, id) => __awaiter(this, void 0, void 0, function* () {
+        };
+        this.delete = async (storeName, id) => {
             try {
                 if (!this.dbInstance)
                     throw IndexedDbManager.E_DB_CLOSED;
                 const tx = this.dbInstance.transaction(storeName, 'readwrite');
-                yield tx.store.delete(id);
-                yield tx.done;
+                await tx.store.delete(id);
+                await tx.done;
             }
             catch (error) {
                 throw `Store ${storeName}, ${error.toString()}`;
             }
-        });
-        this.batchAdd = (storeName, data) => __awaiter(this, void 0, void 0, function* () {
+        };
+        this.batchAdd = async (storeName, data) => {
             try {
                 if (!this.dbInstance)
                     throw IndexedDbManager.E_DB_CLOSED;
                 const tx = this.dbInstance.transaction(storeName, 'readwrite');
                 let result = [];
-                data.forEach((element) => __awaiter(this, void 0, void 0, function* () {
+                data.forEach(async (element) => {
+                    // @ts-ignore - Type mismatch between readwrite and readonly store types
                     let item = this.checkForKeyPath(tx.store, element);
-                    result.push(yield tx.store.add(item));
-                }));
-                yield tx.done;
+                    result.push(await tx.store.add(item));
+                });
+                await tx.done;
                 return result;
             }
             catch (error) {
                 throw `Store ${storeName}, ${error.toString()}`;
             }
-        });
-        this.batchPut = (storeName, data) => __awaiter(this, void 0, void 0, function* () {
+        };
+        this.batchPut = async (storeName, data) => {
             try {
                 if (!this.dbInstance)
                     throw IndexedDbManager.E_DB_CLOSED;
                 const tx = this.dbInstance.transaction(storeName, 'readwrite');
                 let result = [];
-                data.forEach((element) => __awaiter(this, void 0, void 0, function* () {
-                    result.push(yield tx.store.put(element));
-                }));
-                yield tx.done;
+                data.forEach(async (element) => {
+                    result.push(await tx.store.put(element));
+                });
+                await tx.done;
                 return result;
             }
             catch (error) {
                 throw `Store ${storeName}, ${error.toString()}`;
             }
-        });
-        this.batchDelete = (storeName, ids) => __awaiter(this, void 0, void 0, function* () {
+        };
+        this.batchDelete = async (storeName, ids) => {
             try {
                 if (!this.dbInstance)
                     throw IndexedDbManager.E_DB_CLOSED;
                 const tx = this.dbInstance.transaction(storeName, 'readwrite');
-                ids.forEach((element) => __awaiter(this, void 0, void 0, function* () {
-                    yield tx.store.delete(element);
-                }));
-                yield tx.done;
+                ids.forEach(async (element) => {
+                    await tx.store.delete(element);
+                });
+                await tx.done;
             }
             catch (error) {
                 throw `Store ${storeName}, ${error.toString()}`;
             }
-        });
-        this.clearStore = (storeName) => __awaiter(this, void 0, void 0, function* () {
+        };
+        this.clearStore = async (storeName) => {
             try {
                 if (!this.dbInstance)
                     throw IndexedDbManager.E_DB_CLOSED;
                 const tx = this.dbInstance.transaction(storeName, 'readwrite');
-                yield tx.store.clear();
-                yield tx.done;
+                await tx.store.clear();
+                await tx.done;
             }
             catch (error) {
                 throw `Store ${storeName}, ${error.toString()}`;
             }
-        });
+        };
     }
     checkForKeyPath(objectStore, data) {
         if (!objectStore.autoIncrement || !objectStore.keyPath) {
@@ -733,7 +726,6 @@ export class IndexedDbManager {
         }
     }
     static addNewStore(upgradeDB, store) {
-        var _a;
         try {
             const newStore = upgradeDB.createObjectStore(store.name, {
                 keyPath: this.getKeyPath(store.keyPath),
@@ -741,7 +733,7 @@ export class IndexedDbManager {
             });
             for (var index of store.indexes) {
                 try {
-                    newStore.createIndex(index.name, (_a = this.getKeyPath(index.keyPath)) !== null && _a !== void 0 ? _a : index.name, {
+                    newStore.createIndex(index.name, this.getKeyPath(index.keyPath) ?? index.name, {
                         multiEntry: index.multiEntry,
                         unique: index.unique
                     });

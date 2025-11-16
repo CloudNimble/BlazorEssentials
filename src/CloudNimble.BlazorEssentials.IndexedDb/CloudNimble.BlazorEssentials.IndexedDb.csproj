@@ -19,12 +19,15 @@
 		<NoWarn>$(NoWarn);CS1998;CS1591;CA1052;CA1801;CA1822;NU5104</NoWarn>
 	</PropertyGroup>
 	
+	<!-- TypeScript compilation - only for net10.0 to avoid parallel build conflicts -->
 	<PropertyGroup>
-		<TypeScriptModuleKind>es6</TypeScriptModuleKind>
-		<TypeScriptTarget>es2015</TypeScriptTarget>
+		<TypeScriptModuleKind>es2020</TypeScriptModuleKind>
+		<TypeScriptTarget>es2020</TypeScriptTarget>
 		<TypeScriptOutDir>wwwroot</TypeScriptOutDir>
 		<TypeScriptModuleResolution>node</TypeScriptModuleResolution>
 		<TypeScriptESModuleInterop>false</TypeScriptESModuleInterop>
+		<!-- Ensure TypeScript compiles before static web assets are resolved -->
+		<!--<PrepareForBuildDependsOn>CompileTypeScript;$(PrepareForBuildDependsOn)</PrepareForBuildDependsOn>-->
 	</PropertyGroup>
 
 	<ItemGroup>

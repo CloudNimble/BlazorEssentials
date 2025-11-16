@@ -79,31 +79,6 @@
                     ]
                   },
                   {
-                    "group": "IndexedDb",
-                    "icon": "folder-tree",
-                    "pages": [
-                      "api-reference/CloudNimble/BlazorEssentials/IndexedDb/index",
-                      "api-reference/CloudNimble/BlazorEssentials/IndexedDb/IndexAttribute",
-                      "api-reference/CloudNimble/BlazorEssentials/IndexedDb/IndexedDbDatabase",
-                      "api-reference/CloudNimble/BlazorEssentials/IndexedDb/IndexedDbException",
-                      "api-reference/CloudNimble/BlazorEssentials/IndexedDb/IndexedDbIndex",
-                      "api-reference/CloudNimble/BlazorEssentials/IndexedDb/IndexedDbNotFoundException",
-                      "api-reference/CloudNimble/BlazorEssentials/IndexedDb/IndexedDbObjectStore",
-                      "api-reference/CloudNimble/BlazorEssentials/IndexedDb/KeyRange",
-                      "api-reference/CloudNimble/BlazorEssentials/IndexedDb/ObjectStoreAttribute",
-                      {
-                        "group": "Schema",
-                        "icon": "folder-tree",
-                        "pages": [
-                          "api-reference/CloudNimble/BlazorEssentials/IndexedDb/Schema/index",
-                          "api-reference/CloudNimble/BlazorEssentials/IndexedDb/Schema/IndexedDbDatabaseDefinition",
-                          "api-reference/CloudNimble/BlazorEssentials/IndexedDb/Schema/IndexedDbIndexDefinition",
-                          "api-reference/CloudNimble/BlazorEssentials/IndexedDb/Schema/IndexedDbObjectStoreDefinition"
-                        ]
-                      }
-                    ]
-                  },
-                  {
                     "group": "Merlin",
                     "icon": "folder-tree",
                     "pages": [

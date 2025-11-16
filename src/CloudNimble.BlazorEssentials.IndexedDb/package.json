@@ -7,9 +7,9 @@
   "author": "CloudNimble, Inc.",
   "license": "ISC",
   "devDependencies": {
-    "@microsoft/dotnet-js-interop": "8.0.0"
+    "@microsoft/dotnet-js-interop": "10.0.0"
   },
   "dependencies": {
-    "idb": "8.0.0"
+    "idb": "8.0.3"
   }
 }

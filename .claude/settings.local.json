@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__github__issue_read",
+      "WebFetch(domain:stackoverflow.com)",
+      "WebFetch(domain:devblogs.microsoft.com)",
+      "WebFetch(domain:github.com)",
+      "Bash(unzip:*)",
+      "WebSearch",
+      "Bash(cat:*)",
+      "Bash(dotnet:*)",
+      "Bash(find:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

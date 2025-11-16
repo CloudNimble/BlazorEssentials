@@ -1,5 +1,4 @@
-﻿//@ts-ignore
-import { openDB, deleteDB, IDBPDatabase, IDBPObjectStore } from 'https://cdn.skypack.dev/idb';
+﻿import { getOpenDB, getDeleteDB, IDBPDatabase, IDBPObjectStore } from './idb-loader';
 
 /**
  * Allows for managing multiple instances of the IndexedDbManager, one for each database name.
@@ -207,6 +206,7 @@ export class IndexedDbManager {
                     this.dbInstance.close();
                     this.dbInstance = undefined;
                 }
+                const openDB = await getOpenDB();
                 this.dbInstance = await openDB(database.name, database.version, {
                     upgrade(db, oldVersion, newVersion, transaction) {
                         try {
@@ -237,6 +237,7 @@ export class IndexedDbManager {
     public deleteDatabase = async(): Promise<void> => {
         try {
             this.close();
+            const deleteDB = await getDeleteDB();
             await deleteDB(this.databaseName);
 
         } catch (error) {
@@ -673,10 +674,10 @@ export class IndexedDbManager {
                 }
                 catch (error) {
                     errorMessage = `obj: ${JSON.stringify(cursor.value)}\nfilter: ${filter}\nerror: ${error.toString()}`;
-                    return;
+                    break;
                 }
                 if (count > 0 && results.length >= count) {
-                    return;
+                    break;
                 }
                 cursor = await cursor.continue();
             }
@@ -699,6 +700,7 @@ export class IndexedDbManager {
 
             const tx = this.dbInstance.transaction(storeName, 'readwrite');
 
+            // @ts-ignore - Type mismatch between readwrite and readonly store types
             data = this.checkForKeyPath(tx.store, data);
 
             const result = await tx.store.add(data, key ?? undefined);
@@ -750,6 +752,7 @@ export class IndexedDbManager {
             let result: any[] = [];
 
             data.forEach(async element => {
+                // @ts-ignore - Type mismatch between readwrite and readonly store types
                 let item = this.checkForKeyPath(tx.store, element);
                 result.push(await tx.store.add(item));
             });

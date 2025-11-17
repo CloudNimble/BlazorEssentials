@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+<Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
 		<TargetFrameworks>net10.0;net9.0;net8.0;</TargetFrameworks>
@@ -7,54 +7,63 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<PackageId>BlazorEssentials.IndexedDb</PackageId>
 		<Description>An IndexedDB provider for Blazor that makes working with the built-in browser database magical.</Description>
-		<RepositoryUrl>https://github.com/CloudNimble/BlazorEssentials</RepositoryUrl>
 		<PackageReleaseNotes>
 		</PackageReleaseNotes>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageTags>blazor;razorcomponents;Razor Components, WebAssembly</PackageTags>
-		<Authors>CloudNimble</Authors>
-		<RepositoryType>git</RepositoryType>
 		<NoWarn>$(NoWarn);CS1998;CS1591;CA1052;CA1801;CA1822;NU5104</NoWarn>
 	</PropertyGroup>
+
+    <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
+        <PackageReference Include="Microsoft.JSInterop" Version="[10.*, 11.0.0)" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(TargetFramework)' == 'net9.0'">
+        <PackageReference Include="Microsoft.JSInterop" Version="[9.*, 11.0.0)" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
+        <PackageReference Include="Microsoft.JSInterop" Version="[8.*, 11.0.0)" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\CloudNimble.BlazorEssentials\CloudNimble.BlazorEssentials.csproj" />
+    </ItemGroup>
 	
-	<!-- TypeScript compilation - only for net10.0 to avoid parallel build conflicts -->
-	<PropertyGroup>
-		<TypeScriptModuleKind>es2020</TypeScriptModuleKind>
-		<TypeScriptTarget>es2020</TypeScriptTarget>
-		<TypeScriptOutDir>wwwroot</TypeScriptOutDir>
-		<TypeScriptModuleResolution>node</TypeScriptModuleResolution>
-		<TypeScriptESModuleInterop>false</TypeScriptESModuleInterop>
-		<!-- Ensure TypeScript compiles before static web assets are resolved -->
-		<!--<PrepareForBuildDependsOn>CompileTypeScript;$(PrepareForBuildDependsOn)</PrepareForBuildDependsOn>-->
+	<!-- npm-based TypeScript compilation -->
+	<PropertyGroup Condition="'$(TargetFramework)' == 'net10.0'">
+		<!-- Ensure npm packages are restored and TypeScript compiles before static web assets are resolved -->
+        <PrepareForBuildDependsOn>
+            NpmInstall;
+            NpmBuild;
+            $(PrepareForBuildDependsOn)
+        </PrepareForBuildDependsOn>
 	</PropertyGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Microsoft.TypeScript.MSBuild" Version="5.9.*">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
-	</ItemGroup>
+	<!-- Check for npm and restore packages -->
+	<Target Name="NpmInstall">
+		<Exec Command="npm --version" ContinueOnError="true" IgnoreExitCode="true">
+			<Output TaskParameter="ExitCode" PropertyName="NpmExitCode" />
+		</Exec>
+		<Error Condition="'$(NpmExitCode)' != '0'" Text="npm is not installed or not in PATH. Please install Node.js from https://nodejs.org/" />
+		<Message Importance="high" Text="Restoring npm packages..." />
+		<Exec Command="npm install" WorkingDirectory="$(MSBuildProjectDirectory)" />
+	</Target>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
-		<PackageReference Include="Microsoft.JSInterop" Version="[10.*, 11.0.0)" />
-	</ItemGroup>
+    <!-- Copy idb library from node_modules to wwwroot before TypeScript compilation -->
+    <Target Name="CopyIdbLibrary" BeforeTargets="NpmBuild">
+        <ItemGroup>
+            <IdbFiles Include="node_modules\idb\build\index.js" />
+        </ItemGroup>
+        <Copy SourceFiles="@(IdbFiles)" DestinationFolder="wwwroot\lib\" SkipUnchangedFiles="true" />
+        <Message Importance="high" Text="Copied idb library to wwwroot\lib\" />
+    </Target>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'net9.0'">
-		<PackageReference Include="Microsoft.JSInterop" Version="[9.*, 11.0.0)" />
-	</ItemGroup>
-
-	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
-		<PackageReference Include="Microsoft.JSInterop" Version="[8.*, 11.0.0)" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\CloudNimble.BlazorEssentials\CloudNimble.BlazorEssentials.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<TypeScriptCompile Remove="node_modules\**" />
-	</ItemGroup>
+	<!-- Build TypeScript using npm -->
+	<Target Name="NpmBuild" DependsOnTargets="NpmInstall">
+		<Message Importance="high" Text="Building TypeScript files..." />
+		<Exec Command="npm run build" WorkingDirectory="$(MSBuildProjectDirectory)" />
+	</Target>
 
 </Project>

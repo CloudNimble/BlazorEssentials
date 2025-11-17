@@ -7,9 +7,7 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<PackageId>BlazorEssentials</PackageId>
 		<Description>A set of utilities to make Blazor WebAssembly development easier than ever. Includes base classes for Application State, Configuration, and ViewModels, as well as an ODataResultList and a helper to pull configuration files out of embedded resources.</Description>
-		<RepositoryUrl>https://github.com/CloudNimble/BlazorEssentials</RepositoryUrl>
 		<PackageReleaseNotes>
             Version 4.0.0
             - Updated support for Blazor on .NET 10, 9, 8.
@@ -41,8 +39,6 @@
 		</PackageReleaseNotes>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageTags>blazor;razorcomponents;Razor Components, WebAssembly</PackageTags>
-		<Authors>CloudNimble</Authors>
-		<RepositoryType>git</RepositoryType>
 		<NoWarn>$(NoWarn);CS1998;CS1591;CA1052;CA1801;CA1822;NU5104</NoWarn>
 	</PropertyGroup>
 

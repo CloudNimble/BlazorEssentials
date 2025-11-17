@@ -1,15 +1,21 @@
 {
   "permissions": {
     "allow": [
+      "Bash(cat:*)",
+      "Bash(dotnet:*)",
+      "Bash(find:*)",
+      "Bash(npm run build:*)",
+      "Bash(unzip:*)",
       "mcp__github__issue_read",
+      "mcp__playwright__browser_navigate",
+      "mcp__playwright__browser_console_messages",
+      "mcp__playwright__browser_wait_for",
+      "mcp__playwright__browser_take_screenshot",
       "WebFetch(domain:stackoverflow.com)",
       "WebFetch(domain:devblogs.microsoft.com)",
       "WebFetch(domain:github.com)",
-      "Bash(unzip:*)",
       "WebSearch",
-      "Bash(cat:*)",
-      "Bash(dotnet:*)",
-      "Bash(find:*)"
+      "WebFetch(domain:roxeem.com)"
     ],
     "deny": [],
     "ask": []

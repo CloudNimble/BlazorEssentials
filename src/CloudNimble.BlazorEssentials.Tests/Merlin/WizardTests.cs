@@ -30,7 +30,7 @@ namespace CloudNimble.BlazorEssentials.Tests.Merlin
         [TestMethod]
         public void Wizard_InitialState_HasExpectedDefaults()
         {
-            var component = BUnitTestContext.RenderComponent<Wizard>();
+            var component = BUnitTestContext.Render<Wizard>();
             var wizard = component.Instance;
 
             wizard.Panes.Should().NotBeNull();
@@ -50,12 +50,12 @@ namespace CloudNimble.BlazorEssentials.Tests.Merlin
         public void Wizard_CanCreateDefaultOperation()
         {
 
-            var componentWithOperationParam = BUnitTestContext.RenderComponent<Wizard>(parameters => parameters
+            var componentWithOperationParam = BUnitTestContext.Render<Wizard>(parameters => parameters
                 .Add(c => c.Operation, new Operation("Operation Provided", null, "Success!", "Failure!"))
             );
             componentWithOperationParam.Instance.Operation.Title.Should().Be("Operation Provided");
 
-            var componentWithNoOperationParam = BUnitTestContext.RenderComponent<Wizard>();
+            var componentWithNoOperationParam = BUnitTestContext.Render<Wizard>();
             componentWithNoOperationParam.Instance.Operation.Title.Should().Be("Default Operation");
 
         }
@@ -66,7 +66,7 @@ namespace CloudNimble.BlazorEssentials.Tests.Merlin
         [TestMethod]
         public void Wizard_PaneMovement_HasExpectedProperties()
         {
-            var component = BUnitTestContext.RenderComponent<WizardRender>();
+            var component = BUnitTestContext.Render<WizardRender>();
             var wizard = component.Instance.Wizard;
 
             wizard.Panes.Should().NotBeEmpty();

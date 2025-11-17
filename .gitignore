@@ -330,3 +330,4 @@ ASALocalRun/
 .mfractor/
 /src/package-lock.json
 /src/CloudNimble.BlazorEssentials.OpenTelemetry
+/.playwright-mcp

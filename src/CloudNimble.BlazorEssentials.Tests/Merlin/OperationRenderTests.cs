@@ -40,9 +40,9 @@ namespace CloudNimble.BlazorEssentials.Tests.Pages
         public void RenderComponent_InitialState_HasExpectedValues()
         {
             var title = "Operation Render Test Component";
-            var operationSteps = new List<OperationStep> { new OperationStep(1, "Step1", () => { return Task.FromResult(true); }) };
+            var operationSteps = new List<OperationStep> { new(1, "Step1", () => { return Task.FromResult(true); }) };
 
-            var component = BUnitTestContext.RenderComponent<OperationRender>(parameters => parameters
+            var component = BUnitTestContext.Render<OperationRender>(parameters => parameters
                 .Add(c => c.OperationSteps, operationSteps)
                 .Add(c => c.DisplayName, title)
             );
@@ -82,7 +82,7 @@ namespace CloudNimble.BlazorEssentials.Tests.Pages
                 new OperationStep(2, "Step 2", () => { SpinWait.SpinUntil(() => { return canCompleteStep2; }, 30000); return Task.FromResult(true); })
             };
 
-            var component = BUnitTestContext.RenderComponent<OperationRender>(parameters => parameters
+            var component = BUnitTestContext.Render<OperationRender>(parameters => parameters
                 .Add(c => c.OperationSteps, operationSteps)
                 .Add(c => c.DisplayName, title)
             );

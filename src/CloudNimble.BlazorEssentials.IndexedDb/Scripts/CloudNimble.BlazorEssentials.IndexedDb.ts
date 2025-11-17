@@ -1,4 +1,8 @@
-﻿import { getOpenDB, getDeleteDB, IDBPDatabase, IDBPObjectStore } from './idb-loader';
+import { getOpenDB, getDeleteDB } from './idb-loader.js';
+
+// Type definitions since we're no longer importing directly
+type IDBPDatabase = any;
+type IDBPObjectStore = any;
 
 /**
  * Allows for managing multiple instances of the IndexedDbManager, one for each database name.
@@ -815,7 +819,7 @@ export class IndexedDbManager {
         }
     }
 
-    private checkForKeyPath(objectStore: IDBPObjectStore<any, any>, data: any) {
+    private checkForKeyPath(objectStore: IDBPObjectStore, data: any) {
         if (!objectStore.autoIncrement || !objectStore.keyPath) {
             return data;
         }

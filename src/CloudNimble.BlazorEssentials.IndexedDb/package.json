@@ -6,8 +6,15 @@
   "main": "index.js",
   "author": "CloudNimble, Inc.",
   "license": "ISC",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "clean": "rimraf wwwroot/*.js wwwroot/*.js.map"
+  },
   "devDependencies": {
-    "@microsoft/dotnet-js-interop": "10.0.0"
+    "@microsoft/dotnet-js-interop": "10.0.0",
+    "typescript": "^5.7.2",
+    "rimraf": "^6.0.1"
   },
   "dependencies": {
     "idb": "8.0.3"

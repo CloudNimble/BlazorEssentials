@@ -1,4 +1,4 @@
-import { getOpenDB, getDeleteDB } from './idb-loader';
+import { getOpenDB, getDeleteDB } from './idb-loader.js';
 /**
  * Allows for managing multiple instances of the IndexedDbManager, one for each database name.
  */

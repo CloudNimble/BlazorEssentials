@@ -13,7 +13,7 @@ namespace CloudNimble.BlazorEssentials.TestApp.Models
         /// <summary>
         /// 
         /// </summary>
-        [ObjectStore(AutoIncrementKeys = true)]
+        [ObjectStore(KeyPath = "Id", AutoIncrementKeys = true)]
         public IndexedDbObjectStore Events { get; set; }
 
         /// <summary>

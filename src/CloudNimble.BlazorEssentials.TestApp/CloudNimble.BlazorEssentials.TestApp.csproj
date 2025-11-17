@@ -3,6 +3,8 @@
 	<PropertyGroup>
 		<TargetFramework>net10.0</TargetFramework>
 		<IsPackable>false</IsPackable>
+        <RequiresAspNetWebAssets>true</RequiresAspNetWebAssets>
+        <OverrideHtmlAssetPlaceholders>true</OverrideHtmlAssetPlaceholders>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -13,10 +15,6 @@
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
 		<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
 	</PropertyGroup>
-
-	<ItemGroup>
-		<Content Remove="appSettings.json" />
-	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)'=='net10.0'">
 		<PackageReference Include="Havit.Blazor.Components.Web.Bootstrap" Version="4.*" />
@@ -30,20 +28,9 @@
 		<PackageReference Include="System.Private.Uri" Version="4.*" />
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)'=='net9.0'">
-		<PackageReference Include="Havit.Blazor.Components.Web.Bootstrap" Version="4.*" />
-		<PackageReference Include="Microsoft.AspNetCore.Components" Version="9.*-*" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid" Version="9.*-*" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.*-*" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="9.*-*" PrivateAssets="all" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="9.*-*" />
-		<PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="9.*-*" />
-		<PackageReference Include="Microsoft.Extensions.Http" Version="9.*-*" />
-		<PackageReference Include="System.Private.Uri" Version="4.*" />
-	</ItemGroup>
-
 	<ItemGroup>
-		<EmbeddedResource Include="wwwroot\appsettings.json">
+        <Content Remove="appSettings.json" />
+        <EmbeddedResource Include="wwwroot\appsettings.json">
 			<LogicalName>appSettings.json</LogicalName>
 		</EmbeddedResource>
 	</ItemGroup>

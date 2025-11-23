@@ -49,7 +49,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="EasyAF.Http" Version="(3.*-*, 5.0.0]" />
+		<PackageReference Include="EasyAF.Http" Version="(4.*-*, 5.0.0]" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">

@@ -5,8 +5,6 @@ icon: file-brackets-curly
 keywords: ['JsModule', 'CloudNimble.BlazorEssentials.JsModule', 'CloudNimble.BlazorEssentials', 'class', 'System.Object', 'Microsoft.JSInterop.IJSObjectReference', 'System.IAsyncDisposable']
 ---
 
-import { DocsBadge } from '/snippets/DocsBadge.jsx';
-
 ## Definition
 
 **Assembly:** CloudNimble.BlazorEssentials.dll
@@ -32,7 +30,7 @@ I built this because trying to remember the same pattern for importing JS module
 
 ## Constructors
 
-### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor
 
 Creates a new instance of the [JsModule](/api-reference/CloudNimble/BlazorEssentials/JsModule) class.
 
@@ -55,7 +53,7 @@ public JsModule(Microsoft.JSInterop.IJSRuntime jsRuntime, string modulePath = ""
 If you don't provide a *modulePath*, the constructor will attempt to infer it from the calling 
             assembly, in the format "../_content/{callingAssemblyName}/{callingAssemblyName}.js".
 
-### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor
 
 Creates a new instance of the [JsModule](/api-reference/CloudNimble/BlazorEssentials/JsModule) class.
 
@@ -79,7 +77,7 @@ public JsModule(Microsoft.JSInterop.IJSRuntime jsRuntime, string packageName, st
 The SDK-style project system actually does a really good job of knowing when the PackageId is different from the 
             AssemblyName, so this constructor may not be necessary.
 
-### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor <Badge color="gray">Inherited</Badge>
 
 <Note>Inherited from `object`</Note>
 
@@ -91,7 +89,7 @@ public Object()
 
 ## Properties
 
-### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Instance
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Instance
 
 Returns a [Lazy`1](https://learn.microsoft.com/dotnet/api/system.lazy-1) reference to the [Task`1](https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1) of importing the module through
             [IJSRuntime](https://learn.microsoft.com/dotnet/api/microsoft.jsinterop.ijsruntime).
@@ -113,7 +111,7 @@ We're using [Lazy`1](https://learn.microsoft.com/dotnet/api/system.lazy-1) here 
 
 ## Methods
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  DisposeAsync
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> DisposeAsync
 
 Disposes of
 
@@ -127,7 +125,7 @@ public System.Threading.Tasks.ValueTask DisposeAsync()
 
 Type: `System.Threading.Tasks.ValueTask`
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Equals <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
 
 <Note>Inherited from `object`</Note>
 
@@ -147,7 +145,7 @@ public virtual bool Equals(object obj)
 
 Type: `bool`
 
-### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Equals <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge>
 
 <Note>Inherited from `object`</Note>
 
@@ -168,7 +166,7 @@ public static bool Equals(object objA, object objB)
 
 Type: `bool`
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetHashCode <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetHashCode <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
 
 <Note>Inherited from `object`</Note>
 
@@ -182,7 +180,7 @@ public virtual int GetHashCode()
 
 Type: `int`
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetType <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetType <Badge color="gray">Inherited</Badge>
 
 <Note>Inherited from `object`</Note>
 
@@ -196,7 +194,7 @@ public System.Type GetType()
 
 Type: `System.Type`
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  InvokeAsync
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> InvokeAsync
 
 #### Syntax
 
@@ -219,7 +217,7 @@ Type: `System.Threading.Tasks.ValueTask<TValue>`
 
 - `TValue` - 
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  InvokeAsync
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> InvokeAsync
 
 #### Syntax
 
@@ -243,7 +241,7 @@ Type: `System.Threading.Tasks.ValueTask<TValue>`
 
 - `TValue` - 
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  InvokeAsync
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> InvokeAsync
 
 #### Syntax
 
@@ -267,7 +265,7 @@ Type: `System.Threading.Tasks.ValueTask<TValue>`
 
 - `TValue` - 
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  MemberwiseClone <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> MemberwiseClone <Badge color="gray">Inherited</Badge>
 
 <Note>Inherited from `object`</Note>
 
@@ -281,7 +279,7 @@ protected internal object MemberwiseClone()
 
 Type: `object`
 
-### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ReferenceEquals <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ReferenceEquals <Badge color="gray">Inherited</Badge>
 
 <Note>Inherited from `object`</Note>
 
@@ -302,7 +300,7 @@ public static bool ReferenceEquals(object objA, object objB)
 
 Type: `bool`
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ToString <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ToString <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
 
 <Note>Inherited from `object`</Note>
 

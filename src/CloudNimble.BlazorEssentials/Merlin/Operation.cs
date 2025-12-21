@@ -208,10 +208,7 @@ namespace CloudNimble.BlazorEssentials.Merlin
         /// <param name="steps"></param>
         public void ReplaceSteps(List<OperationStep> steps)
         {
-            if (steps is null)
-            {
-                throw new ArgumentNullException(nameof(steps));
-            }
+            ArgumentNullException.ThrowIfNull(steps);
 
             Steps.Clear();
             foreach (var step in steps)
@@ -266,12 +263,8 @@ namespace CloudNimble.BlazorEssentials.Merlin
         /// <param name="errorText">New value for the ErrorText property on the <see cref="OperationStep"/>.</param>
         public void UpdateStep(int id, OperationStepStatus status, string errorText)
         {
-            var step = Steps.ToList().FirstOrDefault(c => c.Id == id);
-            if (step is null)
-            {
-                throw new ArgumentException($"The step with Id '{id}' could not be found in the Steps collection.", nameof(id));
-            }
-
+            var step = Steps.ToList().FirstOrDefault(c => c.Id == id) 
+                ?? throw new ArgumentException($"The step with Id '{id}' could not be found in the Steps collection.", nameof(id));
             step.Status = status;
             step.ErrorText = errorText;
         }

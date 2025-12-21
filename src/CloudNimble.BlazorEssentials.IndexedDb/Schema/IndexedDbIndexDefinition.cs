@@ -1,5 +1,3 @@
-using System;
-
 namespace CloudNimble.BlazorEssentials.IndexedDb.Schema
 {
 

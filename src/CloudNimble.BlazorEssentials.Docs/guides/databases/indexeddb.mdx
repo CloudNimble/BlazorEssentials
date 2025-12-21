@@ -1,0 +1,229 @@
+---
+title: IndexedDB
+description: "NoSQL key-value storage for Blazor WebAssembly applications"
+icon: box-archive
+---
+
+IndexedDB provides a powerful NoSQL database API built into every modern browser.
+BlazorEssentials.IndexedDb makes it easy to use from your Blazor WebAssembly applications
+with a strongly-typed C# API.
+
+<CardGroup cols={2}>
+  <Card title="No Setup Required" icon="plug">
+    Uses the browser's built-in IndexedDB - no server or external dependencies.
+  </Card>
+  <Card title="Offline Ready" icon="wifi-slash">
+    Data persists locally, enabling full offline functionality.
+  </Card>
+  <Card title="Type-Safe" icon="shield-check">
+    Object stores are strongly typed with compile-time safety.
+  </Card>
+  <Card title="Indexed Queries" icon="magnifying-glass">
+    Create indexes for fast lookups on any property.
+  </Card>
+</CardGroup>
+
+## Installation
+
+```bash
+dotnet add package BlazorEssentials.IndexedDb
+```
+
+## Quick Start
+
+### Define Your Entities
+
+Use attributes to configure how entities are stored:
+
+```csharp Models/TodoItem.cs
+using CloudNimble.BlazorEssentials.IndexedDb;
+
+[ObjectStore("todos")]
+public class TodoItem
+{
+    public int Id { get; set; }
+
+    public string Title { get; set; } = "";
+
+    public bool IsCompleted { get; set; }
+
+    [Index]
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+}
+```
+
+### Create Your Database
+
+Inherit from `IndexedDbDatabase` and add `IndexedDbObjectStore<T>` properties:
+
+```csharp Data/AppDatabase.cs
+using CloudNimble.BlazorEssentials.IndexedDb;
+using Microsoft.JSInterop;
+
+public class AppDatabase : IndexedDbDatabase
+{
+    public IndexedDbObjectStore<TodoItem> Todos { get; set; }
+
+    public AppDatabase(IJSRuntime jsRuntime) : base(jsRuntime)
+    {
+        Name = "MyAppDb";
+        Version = 1;
+    }
+}
+```
+
+### Register and Use
+
+<CodeGroup>
+```csharp Program.cs
+builder.Services.AddScoped<AppDatabase>();
+```
+
+```razor MyComponent.razor
+@inject AppDatabase Database
+
+@code {
+    private List<TodoItem> todos = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Database.OpenAsync();
+        todos = await Database.Todos.GetAllAsync();
+    }
+}
+```
+</CodeGroup>
+
+## CRUD Operations
+
+### Create
+
+```csharp
+var todo = new TodoItem
+{
+    Id = 1,
+    Title = "Learn Blazor",
+    IsCompleted = false
+};
+
+await Database.Todos.AddAsync(todo);
+```
+
+### Read
+
+<CodeGroup>
+```csharp Get All
+var allTodos = await Database.Todos.GetAllAsync();
+```
+
+```csharp Get by Key
+var todo = await Database.Todos.GetAsync(1);
+```
+
+```csharp Get by Index
+var recentTodos = await Database.Todos
+    .GetByIndexAsync("CreatedAt", KeyRange.LowerBound(DateTime.Today));
+```
+</CodeGroup>
+
+### Update
+
+```csharp
+var todo = await Database.Todos.GetAsync(1);
+todo.IsCompleted = true;
+
+await Database.Todos.PutAsync(todo);
+```
+
+### Delete
+
+<CodeGroup>
+```csharp Delete by Key
+await Database.Todos.DeleteAsync(1);
+```
+
+```csharp Clear All
+await Database.Todos.ClearAsync();
+```
+</CodeGroup>
+
+## Indexes
+
+Create indexes for fast lookups on frequently queried properties:
+
+```csharp
+[ObjectStore("users")]
+public class User
+{
+    public int Id { get; set; }
+
+    [Index]
+    public string Email { get; set; } = "";
+
+    [Index(Unique = false)]
+    public string Department { get; set; } = "";
+}
+```
+
+Query using indexes:
+
+```csharp
+// Find user by email
+var user = await Database.Users
+    .GetByIndexAsync("Email", "john@example.com")
+    .FirstOrDefaultAsync();
+
+// Find all users in a department
+var engineers = await Database.Users
+    .GetByIndexAsync("Department", "Engineering");
+```
+
+## Key Ranges
+
+Use `KeyRange` for range queries on indexed properties:
+
+```csharp
+// Items created today
+var todayItems = await Database.Todos
+    .GetByIndexAsync("CreatedAt", KeyRange.LowerBound(DateTime.Today));
+
+// Items in a date range
+var rangeItems = await Database.Todos
+    .GetByIndexAsync("CreatedAt", KeyRange.Bound(startDate, endDate));
+```
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Use meaningful key paths">
+    Choose key paths that uniquely identify your entities. Auto-incrementing integers
+    or GUIDs work well for most cases.
+  </Accordion>
+
+  <Accordion title="Create indexes strategically">
+    Only create indexes on properties you'll query frequently. Each index adds
+    storage overhead and slows down writes.
+  </Accordion>
+
+  <Accordion title="Handle version upgrades">
+    When changing your schema, increment the `Version` property. IndexedDB will
+    trigger an upgrade event to migrate existing data.
+  </Accordion>
+</AccordionGroup>
+
+## API Reference
+
+<CardGroup cols={2}>
+  <Card title="IndexedDbDatabase" icon="database" href="/api-reference/CloudNimble/BlazorEssentials/IndexedDb/IndexedDbDatabase">
+    Base class for IndexedDB databases
+  </Card>
+  <Card title="IndexedDbObjectStore" icon="box-archive" href="/api-reference/CloudNimble/BlazorEssentials/IndexedDb/IndexedDbObjectStore">
+    Typed object store for CRUD operations
+  </Card>
+  <Card title="KeyRange" icon="arrows-left-right" href="/api-reference/CloudNimble/BlazorEssentials/IndexedDb/KeyRange">
+    Range queries for indexed lookups
+  </Card>
+  <Card title="IndexAttribute" icon="tag" href="/api-reference/CloudNimble/BlazorEssentials/IndexedDb/IndexAttribute">
+    Define indexes on properties
+  </Card>
+</CardGroup>

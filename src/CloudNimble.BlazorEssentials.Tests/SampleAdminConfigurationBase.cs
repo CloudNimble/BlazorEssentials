@@ -1,5 +1,4 @@
-﻿using CloudNimble.BlazorEssentials.Authentication;
-using CloudNimble.EasyAF.Configuration;
+﻿using CloudNimble.EasyAF.Configuration;
 
 namespace CloudNimble.BlazorEssentials.Tests
 {

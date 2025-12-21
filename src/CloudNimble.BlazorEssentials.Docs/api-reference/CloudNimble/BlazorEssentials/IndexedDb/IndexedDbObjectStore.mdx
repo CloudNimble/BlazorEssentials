@@ -5,8 +5,6 @@ icon: file-brackets-curly
 keywords: ['IndexedDbObjectStore', 'CloudNimble.BlazorEssentials.IndexedDb.IndexedDbObjectStore', 'CloudNimble.BlazorEssentials.IndexedDb', 'class', 'System.Object']
 ---
 
-import { DocsBadge } from '/snippets/DocsBadge.jsx';
-
 ## Definition
 
 **Assembly:** CloudNimble.BlazorEssentials.IndexedDb.dll
@@ -27,7 +25,7 @@ Defines a store to add to database
 
 ## Constructors
 
-### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor
 
 Add new ObjectStore definition
 
@@ -44,7 +42,7 @@ public IndexedDbObjectStore(CloudNimble.BlazorEssentials.IndexedDb.IndexedDbData
 | `database` | `CloudNimble.BlazorEssentials.IndexedDb.IndexedDbDatabase` | - |
 | `attribute` | `CloudNimble.BlazorEssentials.IndexedDb.ObjectStoreAttribute` | - |
 
-### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor
 
 Add new ObjectStore definition
 
@@ -63,7 +61,7 @@ public IndexedDbObjectStore(CloudNimble.BlazorEssentials.IndexedDb.IndexedDbData
 | `keyPath` | `string` | - |
 | `autoIncrement` | `bool` | - |
 
-### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor <Badge color="gray">Inherited</Badge>
 
 <Note>Inherited from `object`</Note>
 
@@ -75,7 +73,7 @@ public Object()
 
 ## Properties
 
-### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  AutoIncrement
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> AutoIncrement
 
 If true, the object store has a key generator. Defaults to false.
             Note that every object store has its own separate auto increment counter.
@@ -90,7 +88,7 @@ public bool AutoIncrement { get; init; }
 
 Type: `bool`
 
-### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Database
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Database
 
 IDMManager
 
@@ -104,7 +102,7 @@ public CloudNimble.BlazorEssentials.IndexedDb.IndexedDbDatabase Database { get; 
 
 Type: `CloudNimble.BlazorEssentials.IndexedDb.IndexedDbDatabase`
 
-### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Indexes
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Indexes
 
 Provides a set of additional indexes if required.
 
@@ -118,7 +116,7 @@ public System.Collections.Generic.List<CloudNimble.BlazorEssentials.IndexedDb.In
 
 Type: `System.Collections.Generic.List<CloudNimble.BlazorEssentials.IndexedDb.IndexedDbIndex>`
 
-### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  KeyPath
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> KeyPath
 
 the identifier for the property in the object/record that is saved and is to be indexed.
             can be multiple properties separated by comma
@@ -134,7 +132,7 @@ public string KeyPath { get; init; }
 
 Type: `string?`
 
-### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Name
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Name
 
 The name for the store
 
@@ -150,7 +148,7 @@ Type: `string`
 
 ## Methods
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  AddAsync
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> AddAsync
 
 Adds a new record/object to the specified ObjectStore
 
@@ -174,7 +172,7 @@ Type: `System.Threading.Tasks.Task`
 
 - `TData` - 
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  AddAsync
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> AddAsync
 
 Adds a new record/object to the specified ObjectStore
 
@@ -199,7 +197,7 @@ Type: `System.Threading.Tasks.Task<TKey>`
 - `TData` - 
 - `TKey` - 
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  AddAsync
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> AddAsync
 
 Adds a new record/object to the specified ObjectStore
 
@@ -225,7 +223,7 @@ Type: `System.Threading.Tasks.Task<TKey>`
 - `TData` - 
 - `TKey` - 
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  BatchAddAsync
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> BatchAddAsync
 
 Add an array of new record/object in one transaction to the specified store
 
@@ -249,7 +247,7 @@ Type: `System.Threading.Tasks.Task`
 
 - `TData` - 
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  BatchAddAsync
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> BatchAddAsync
 
 Add an array of new record/object in one transaction to the specified store
 
@@ -274,7 +272,7 @@ Type: `System.Threading.Tasks.Task<TKey[]>`
 - `TData` - 
 - `TKey` - 
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  BatchDeleteAsync
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> BatchDeleteAsync
 
 Delete multiple records from the store based on the id
 
@@ -298,7 +296,7 @@ Type: `System.Threading.Tasks.Task`
 
 - `TKey` - 
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  BatchPutAsync
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> BatchPutAsync
 
 Put an array of new record/object in one transaction to the specified store
 
@@ -322,7 +320,7 @@ Type: `System.Threading.Tasks.Task`
 
 - `TData` - 
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  BatchPutAsync
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> BatchPutAsync
 
 Put an array of new record/object in one transaction to the specified store
 
@@ -347,7 +345,7 @@ Type: `System.Threading.Tasks.Task<TKey[]>`
 - `TData` - 
 - `TKey` - 
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ClearStoreAsync
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ClearStoreAsync
 
 Clears all of the records from a given store.
 
@@ -361,7 +359,7 @@ public System.Threading.Tasks.Task ClearStoreAsync()
 
 Type: `System.Threading.Tasks.Task`
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  CountAsync
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> CountAsync
 
 Count records in ObjectStore
 
@@ -375,7 +373,7 @@ public System.Threading.Tasks.Task<int> CountAsync()
 
 Type: `System.Threading.Tasks.Task<int>`
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  CountAsync
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> CountAsync
 
 Count records in ObjectStore
 
@@ -399,7 +397,7 @@ Type: `System.Threading.Tasks.Task<int>`
 
 - `TKey` - 
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  CountAsync
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> CountAsync
 
 Count records in ObjectStore
 
@@ -423,7 +421,7 @@ Type: `System.Threading.Tasks.Task<int>`
 
 - `TKey` - 
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  DeleteAsync
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> DeleteAsync
 
 Deletes a record from the store based on the id
 
@@ -447,7 +445,7 @@ Type: `System.Threading.Tasks.Task`
 
 - `TKey` - 
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Equals <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
 
 <Note>Inherited from `object`</Note>
 
@@ -467,7 +465,7 @@ public virtual bool Equals(object obj)
 
 Type: `bool`
 
-### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Equals <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge>
 
 <Note>Inherited from `object`</Note>
 
@@ -488,7 +486,7 @@ public static bool Equals(object objA, object objB)
 
 Type: `bool`
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetAllAsync
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetAllAsync
 
 Gets all of the records in a given store.
 
@@ -512,7 +510,7 @@ Type: `System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>>`
 
 - `TResult` - 
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetAllAsync
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetAllAsync
 
 Gets all of the records by Key in a given store.
 
@@ -538,7 +536,7 @@ Type: `System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>>`
 - `TKey` - 
 - `TResult` - 
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetAllAsync
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetAllAsync
 
 Gets all of the records by KeyRange in a given store.
 
@@ -564,7 +562,7 @@ Type: `System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>>`
 - `TKey` - 
 - `TResult` - 
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetAllAsync
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetAllAsync
 
 Gets all of the records by ArrayKey in a given store.
 
@@ -589,7 +587,7 @@ Type: `System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>>`
 - `TKey` - 
 - `TResult` - 
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetAllKeysAsync
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetAllKeysAsync
 
 Gets all of the records keys in a given store.
 
@@ -613,7 +611,7 @@ Type: `System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>>`
 
 - `TResult` - 
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetAllKeysAsync
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetAllKeysAsync
 
 Gets all of the records keys by Key in a given store.
 
@@ -639,7 +637,7 @@ Type: `System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>>`
 - `TKey` - 
 - `TResult` - 
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetAllKeysAsync
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetAllKeysAsync
 
 Gets all of the records by KeyRange in a given store.
 
@@ -665,7 +663,7 @@ Type: `System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>>`
 - `TKey` - 
 - `TResult` - 
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetAllKeysAsync
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetAllKeysAsync
 
 Gets all of the records by ArrayKey in a given store.
 
@@ -690,7 +688,7 @@ Type: `System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>>`
 - `TKey` - 
 - `TResult` - 
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetAsync
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetAsync
 
 Retrieve a record by Key
 
@@ -715,7 +713,7 @@ Type: `System.Threading.Tasks.Task<TResult?>`
 - `TKey` - 
 - `TResult` - 
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetHashCode <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetHashCode <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
 
 <Note>Inherited from `object`</Note>
 
@@ -729,7 +727,7 @@ public virtual int GetHashCode()
 
 Type: `int`
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetKeyAsync
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetKeyAsync
 
 Retrieve a record key by Key
 
@@ -754,7 +752,7 @@ Type: `System.Threading.Tasks.Task<TResult?>`
 - `TKey` - 
 - `TResult` - 
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetType <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetType <Badge color="gray">Inherited</Badge>
 
 <Note>Inherited from `object`</Note>
 
@@ -768,7 +766,7 @@ public System.Type GetType()
 
 Type: `System.Type`
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  MemberwiseClone <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> MemberwiseClone <Badge color="gray">Inherited</Badge>
 
 <Note>Inherited from `object`</Note>
 
@@ -782,7 +780,7 @@ protected internal object MemberwiseClone()
 
 Type: `object`
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  PutAsync
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> PutAsync
 
 Updates and existing record
 
@@ -806,7 +804,7 @@ Type: `System.Threading.Tasks.Task`
 
 - `TData` - 
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  PutAsync
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> PutAsync
 
 Updates and existing record
 
@@ -831,7 +829,7 @@ Type: `System.Threading.Tasks.Task<TKey>`
 - `TData` - 
 - `TKey` - 
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  PutAsync
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> PutAsync
 
 Updates and existing record
 
@@ -857,7 +855,7 @@ Type: `System.Threading.Tasks.Task<TKey>`
 - `TData` - 
 - `TKey` - 
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  QueryAsync
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> QueryAsync
 
 Gets all of the records using a filter expression
 
@@ -883,7 +881,7 @@ Type: `System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>>`
 
 - `TResult` - 
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  QueryAsync
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> QueryAsync
 
 Gets all of the records using a filter expression
 
@@ -912,7 +910,7 @@ Type: `System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>>`
 - `TKey` - 
 - `TResult` - 
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  QueryAsync
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> QueryAsync
 
 Gets all of the records using a filter expression
 
@@ -940,7 +938,7 @@ Type: `System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>>`
 - `TKey` - 
 - `TResult` - 
 
-### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ReferenceEquals <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ReferenceEquals <Badge color="gray">Inherited</Badge>
 
 <Note>Inherited from `object`</Note>
 
@@ -961,7 +959,7 @@ public static bool ReferenceEquals(object objA, object objB)
 
 Type: `bool`
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ToString <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ToString <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
 
 <Note>Inherited from `object`</Note>
 

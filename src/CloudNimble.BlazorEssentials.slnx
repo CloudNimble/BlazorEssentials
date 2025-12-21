@@ -3,6 +3,8 @@
   <Folder Name="/Core/">
     <Project Path="CloudNimble.BlazorEssentials.Breakdance/CloudNimble.BlazorEssentials.Breakdance.csproj" />
     <Project Path="CloudNimble.BlazorEssentials.IndexedDb/CloudNimble.BlazorEssentials.IndexedDb.csproj" />
+    <Project Path="CloudNimble.BlazorEssentials.Server/CloudNimble.BlazorEssentials.Server.csproj" />
+    <Project Path="CloudNimble.BlazorEssentials.TursoDb/CloudNimble.BlazorEssentials.TursoDb.csproj" />
     <Project Path="CloudNimble.BlazorEssentials/CloudNimble.BlazorEssentials.csproj" />
   </Folder>
   <Folder Name="/Docs/">
@@ -21,6 +23,7 @@
   <Folder Name="/Tests/">
     <Project Path="CloudNimble.BlazorEssentials.Tests.Breakdance/CloudNimble.BlazorEssentials.Tests.Breakdance.csproj" />
     <Project Path="CloudNimble.BlazorEssentials.Tests.IndexedDb/CloudNimble.BlazorEssentials.Tests.IndexedDb.csproj" />
+    <Project Path="CloudNimble.BlazorEssentials.Tests.TursoDb/CloudNimble.BlazorEssentials.Tests.TursoDb.csproj" />
     <Project Path="CloudNimble.BlazorEssentials.Tests/CloudNimble.BlazorEssentials.Tests.csproj" />
   </Folder>
 </Solution>

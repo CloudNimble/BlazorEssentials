@@ -1,0 +1,362 @@
+---
+title: ColumnMetadata
+description: "Contains metadata about a column in a table."
+icon: file-brackets-curly
+keywords: ['ColumnMetadata', 'CloudNimble.BlazorEssentials.TursoDb.Schema.ColumnMetadata', 'CloudNimble.BlazorEssentials.TursoDb.Schema', 'class', 'System.Object']
+---
+
+## Definition
+
+**Assembly:** CloudNimble.BlazorEssentials.TursoDb.dll
+
+**Namespace:** CloudNimble.BlazorEssentials.TursoDb.Schema
+
+**Inheritance:** System.Object
+
+## Syntax
+
+```csharp
+CloudNimble.BlazorEssentials.TursoDb.Schema.ColumnMetadata
+```
+
+## Summary
+
+Contains metadata about a column in a table.
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor
+
+Initializes a new instance of the [ColumnMetadata](/api-reference/CloudNimble/BlazorEssentials/TursoDb/Schema/ColumnMetadata) class.
+
+#### Syntax
+
+```csharp
+public ColumnMetadata(System.Reflection.PropertyInfo property, string columnName, string sqliteType, bool isPrimaryKey, bool autoIncrement, bool isNullable, string defaultValue, bool hasIndex, bool isUniqueIndex, string indexName)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `property` | `System.Reflection.PropertyInfo` | - |
+| `columnName` | `string` | - |
+| `sqliteType` | `string` | - |
+| `isPrimaryKey` | `bool` | - |
+| `autoIncrement` | `bool` | - |
+| `isNullable` | `bool` | - |
+| `defaultValue` | `string?` | - |
+| `hasIndex` | `bool` | - |
+| `isUniqueIndex` | `bool` | - |
+| `indexName` | `string?` | - |
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public Object()
+```
+
+## Properties
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> AutoIncrement
+
+Gets whether the primary key auto-increments.
+
+#### Syntax
+
+```csharp
+public bool AutoIncrement { get; }
+```
+
+#### Property Value
+
+Type: `bool`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ColumnName
+
+Gets the column name in the database.
+
+#### Syntax
+
+```csharp
+public string ColumnName { get; }
+```
+
+#### Property Value
+
+Type: `string`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> DefaultValue
+
+Gets the default value for the column, or null if none.
+
+#### Syntax
+
+```csharp
+public string DefaultValue { get; }
+```
+
+#### Property Value
+
+Type: `string?`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> HasIndex
+
+Gets whether this column has an index.
+
+#### Syntax
+
+```csharp
+public bool HasIndex { get; }
+```
+
+#### Property Value
+
+Type: `bool`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> IndexName
+
+Gets the index name, if any.
+
+#### Syntax
+
+```csharp
+public string IndexName { get; }
+```
+
+#### Property Value
+
+Type: `string?`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> IsNullable
+
+Gets whether the column allows NULL values.
+
+#### Syntax
+
+```csharp
+public bool IsNullable { get; }
+```
+
+#### Property Value
+
+Type: `bool`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> IsPrimaryKey
+
+Gets whether this column is the primary key.
+
+#### Syntax
+
+```csharp
+public bool IsPrimaryKey { get; }
+```
+
+#### Property Value
+
+Type: `bool`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> IsUniqueIndex
+
+Gets whether the index is unique.
+
+#### Syntax
+
+```csharp
+public bool IsUniqueIndex { get; }
+```
+
+#### Property Value
+
+Type: `bool`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Property
+
+Gets the property info for this column.
+
+#### Syntax
+
+```csharp
+public System.Reflection.PropertyInfo Property { get; }
+```
+
+#### Property Value
+
+Type: `System.Reflection.PropertyInfo`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> SqliteType
+
+Gets the SQLite type for this column.
+
+#### Syntax
+
+```csharp
+public string SqliteType { get; }
+```
+
+#### Property Value
+
+Type: `string`
+
+## Methods
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual bool Equals(object obj)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `obj` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool Equals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetHashCode <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual int GetHashCode()
+```
+
+#### Returns
+
+Type: `int`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetType <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public System.Type GetType()
+```
+
+#### Returns
+
+Type: `System.Type`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetValue
+
+Gets the value of this column from an entity instance.
+
+#### Syntax
+
+```csharp
+public object GetValue(object entity)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `entity` | `object` | The entity instance. |
+
+#### Returns
+
+Type: `object?`
+The column value.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> MemberwiseClone <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+protected internal object MemberwiseClone()
+```
+
+#### Returns
+
+Type: `object`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ReferenceEquals <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool ReferenceEquals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> SetValue
+
+Sets the value of this column on an entity instance.
+
+#### Syntax
+
+```csharp
+public void SetValue(object entity, object value)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `entity` | `object` | The entity instance. |
+| `value` | `object?` | The value to set. |
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ToString <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual string ToString()
+```
+
+#### Returns
+
+Type: `string?`
+

@@ -4,8 +4,6 @@ icon: code-branch
 keywords: ['BlazorEssentialsTestBase', 'CloudNimble.BlazorEssentials.Breakdance.BlazorEssentialsTestBase<TConfiguration, TAppState>', 'CloudNimble.BlazorEssentials.Breakdance', 'class', 'CloudNimble.Breakdance.Blazor.BlazorBreakdanceTestBase']
 ---
 
-import { DocsBadge } from '/snippets/DocsBadge.jsx';
-
 ## Definition
 
 **Assembly:** CloudNimble.BlazorEssentials.Breakdance.dll
@@ -27,7 +25,7 @@ CloudNimble.BlazorEssentials.Breakdance.BlazorEssentialsTestBase<TConfiguration,
 
 ## Constructors
 
-### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor
 
 #### Syntax
 
@@ -37,7 +35,7 @@ public BlazorEssentialsTestBase()
 
 ## Methods
 
-### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  AssemblySetup <DocsBadge text="Override" variant="info" />
+### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> AssemblySetup <Badge color="blue">Override</Badge>
 
 DO NOT USE THIS METHOD. Throws a [NotSupportedException](https://learn.microsoft.com/dotnet/api/system.notsupportedexception) when called. You must call `String)` 
             or `TestSetup` instead.
@@ -54,7 +52,7 @@ public override void AssemblySetup()
 |-----------|-------------|
 | `NotSupportedException` | Throws a NotSupportedException when called. |
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ClassSetup
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ClassSetup
 
 #### Syntax
 
@@ -68,7 +66,7 @@ public void ClassSetup(string configSectionName)
 |------|------|-------------|
 | `configSectionName` | `string` | - |
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ClassSetup
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ClassSetup
 
 #### Syntax
 
@@ -88,7 +86,7 @@ public void ClassSetup<TMessageHandler>(string configSectionName, string environ
 
 - `TMessageHandler` - 
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ClassSetup
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ClassSetup
 
 #### Syntax
 
@@ -109,7 +107,7 @@ public void ClassSetup<TMessageHandler>(string configSectionName, CloudNimble.Ea
 
 - `TMessageHandler` - 
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  TestSetup
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> TestSetup
 
 Configures the BlazorEssentials services into the BUnitTestContext IServiceProvider for the currently-executing test only.
 
@@ -133,7 +131,7 @@ RWM: These methods exist because bUnit is configured per-test, and the BlazorEss
             bUnit will resolve from its own container first, then fall back to the TestHost's ServiceProvider if not found. This methods puts a new configuration in place
             instead, to be used only for the currently-executing test.
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  TestSetup
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> TestSetup
 
 Configures the BlazorEssentials services into the BUnitTestContext IServiceProvider for the currently-executing test only.
 
@@ -162,7 +160,7 @@ RWM: These methods exist because bUnit is configured per-test, and the BlazorEss
             bUnit will resolve from its own container first, then fall back to the TestHost's ServiceProvider if not found. This methods puts a new configuration in place
             instead, to be used only for the currently-executing test.
 
-### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  TestSetup <DocsBadge text="Override" variant="info" />
+### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> TestSetup <Badge color="blue">Override</Badge>
 
 DO NOT USE THIS METHOD. Throws a [NotSupportedException](https://learn.microsoft.com/dotnet/api/system.notsupportedexception) when called. You must call `String)` 
             or `TestSetup` instead.

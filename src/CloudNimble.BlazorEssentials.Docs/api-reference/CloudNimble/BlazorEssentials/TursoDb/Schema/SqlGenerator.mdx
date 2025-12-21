@@ -1,0 +1,220 @@
+---
+title: SqlGenerator
+description: "Generates SQL DDL statements from entity metadata."
+icon: bolt
+tag: "STATIC"
+keywords: ['SqlGenerator', 'CloudNimble.BlazorEssentials.TursoDb.Schema.SqlGenerator', 'CloudNimble.BlazorEssentials.TursoDb.Schema', 'class', 'System.Object']
+---
+
+## Definition
+
+**Assembly:** CloudNimble.BlazorEssentials.TursoDb.dll
+
+**Namespace:** CloudNimble.BlazorEssentials.TursoDb.Schema
+
+**Inheritance:** System.Object
+
+## Syntax
+
+```csharp
+CloudNimble.BlazorEssentials.TursoDb.Schema.SqlGenerator
+```
+
+## Summary
+
+Generates SQL DDL statements from entity metadata.
+
+## Methods
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GenerateAllDdl
+
+Generates all DDL statements needed to create the table and indexes.
+
+#### Syntax
+
+```csharp
+public static System.Collections.Generic.IEnumerable<string> GenerateAllDdl(CloudNimble.BlazorEssentials.TursoDb.Schema.EntityMetadata metadata)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `metadata` | `CloudNimble.BlazorEssentials.TursoDb.Schema.EntityMetadata` | The entity metadata. |
+
+#### Returns
+
+Type: `System.Collections.Generic.IEnumerable<string>`
+All SQL DDL statements.
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GenerateCount
+
+Generates a SELECT COUNT(*) statement.
+
+#### Syntax
+
+```csharp
+public static string GenerateCount(CloudNimble.BlazorEssentials.TursoDb.Schema.EntityMetadata metadata)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `metadata` | `CloudNimble.BlazorEssentials.TursoDb.Schema.EntityMetadata` | The entity metadata. |
+
+#### Returns
+
+Type: `string`
+The SQL COUNT statement.
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GenerateCreateIndexes
+
+Generates CREATE INDEX statements for all indexed columns.
+
+#### Syntax
+
+```csharp
+public static System.Collections.Generic.IEnumerable<string> GenerateCreateIndexes(CloudNimble.BlazorEssentials.TursoDb.Schema.EntityMetadata metadata)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `metadata` | `CloudNimble.BlazorEssentials.TursoDb.Schema.EntityMetadata` | The entity metadata. |
+
+#### Returns
+
+Type: `System.Collections.Generic.IEnumerable<string>`
+The SQL CREATE INDEX statements.
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GenerateCreateTable
+
+Generates a CREATE TABLE IF NOT EXISTS statement for the entity.
+
+#### Syntax
+
+```csharp
+public static string GenerateCreateTable(CloudNimble.BlazorEssentials.TursoDb.Schema.EntityMetadata metadata)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `metadata` | `CloudNimble.BlazorEssentials.TursoDb.Schema.EntityMetadata` | The entity metadata. |
+
+#### Returns
+
+Type: `string`
+The SQL CREATE TABLE statement.
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GenerateDelete
+
+Generates a DELETE statement for the entity.
+
+#### Syntax
+
+```csharp
+public static string GenerateDelete(CloudNimble.BlazorEssentials.TursoDb.Schema.EntityMetadata metadata)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `metadata` | `CloudNimble.BlazorEssentials.TursoDb.Schema.EntityMetadata` | The entity metadata. |
+
+#### Returns
+
+Type: `string`
+The SQL DELETE statement.
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GenerateInsert
+
+Generates an INSERT statement for the entity.
+
+#### Syntax
+
+```csharp
+public static string GenerateInsert(CloudNimble.BlazorEssentials.TursoDb.Schema.EntityMetadata metadata, string columns, string placeholders)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `metadata` | `CloudNimble.BlazorEssentials.TursoDb.Schema.EntityMetadata` | The entity metadata. |
+| `columns` | `string` | The column names. |
+| `placeholders` | `string` | The parameter placeholders. |
+
+#### Returns
+
+Type: `string`
+The SQL INSERT statement.
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GenerateSelectAll
+
+Generates a SELECT * statement for the entity.
+
+#### Syntax
+
+```csharp
+public static string GenerateSelectAll(CloudNimble.BlazorEssentials.TursoDb.Schema.EntityMetadata metadata)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `metadata` | `CloudNimble.BlazorEssentials.TursoDb.Schema.EntityMetadata` | The entity metadata. |
+
+#### Returns
+
+Type: `string`
+The SQL SELECT statement.
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GenerateSelectByKey
+
+Generates a SELECT statement to find by primary key.
+
+#### Syntax
+
+```csharp
+public static string GenerateSelectByKey(CloudNimble.BlazorEssentials.TursoDb.Schema.EntityMetadata metadata)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `metadata` | `CloudNimble.BlazorEssentials.TursoDb.Schema.EntityMetadata` | The entity metadata. |
+
+#### Returns
+
+Type: `string`
+The SQL SELECT statement.
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GenerateUpdate
+
+Generates an UPDATE statement for the entity.
+
+#### Syntax
+
+```csharp
+public static string GenerateUpdate(CloudNimble.BlazorEssentials.TursoDb.Schema.EntityMetadata metadata, string setClause)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `metadata` | `CloudNimble.BlazorEssentials.TursoDb.Schema.EntityMetadata` | The entity metadata. |
+| `setClause` | `string` | The SET clause. |
+
+#### Returns
+
+Type: `string`
+The SQL UPDATE statement.
+

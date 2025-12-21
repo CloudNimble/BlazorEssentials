@@ -15,7 +15,10 @@
       "WebFetch(domain:devblogs.microsoft.com)",
       "WebFetch(domain:github.com)",
       "WebSearch",
-      "WebFetch(domain:roxeem.com)"
+      "WebFetch(domain:roxeem.com)",
+      "mcp__playwright__browser_snapshot",
+      "mcp__playwright__browser_evaluate",
+      "mcp__Mintlify__SearchMintlify"
     ],
     "deny": [],
     "ask": []

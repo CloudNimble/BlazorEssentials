@@ -1,0 +1,111 @@
+---
+title: ColumnAttribute
+description: "Specifies the column name and optional type for a property.             If not specified, the property name is used as the column name."
+icon: lock
+tag: "SEALED"
+keywords: ['ColumnAttribute', 'CloudNimble.BlazorEssentials.TursoDb.ColumnAttribute', 'CloudNimble.BlazorEssentials.TursoDb', 'class', 'System.Attribute']
+---
+
+## Definition
+
+**Assembly:** CloudNimble.BlazorEssentials.TursoDb.dll
+
+**Namespace:** CloudNimble.BlazorEssentials.TursoDb
+
+**Inheritance:** System.Attribute
+
+## Syntax
+
+```csharp
+CloudNimble.BlazorEssentials.TursoDb.ColumnAttribute
+```
+
+## Summary
+
+Specifies the column name and optional type for a property.
+            If not specified, the property name is used as the column name.
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor
+
+Initializes a new instance of the [ColumnAttribute](/api-reference/CloudNimble/BlazorEssentials/TursoDb/ColumnAttribute) class.
+
+#### Syntax
+
+```csharp
+public ColumnAttribute(string name)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | The column name in the database. |
+
+#### Exceptions
+
+| Exception | Description |
+|-----------|-------------|
+| `ArgumentException` | Thrown when name is null or whitespace. |
+
+## Properties
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> DefaultValue
+
+Gets or sets the default value for the column.
+
+#### Syntax
+
+```csharp
+public string DefaultValue { get; set; }
+```
+
+#### Property Value
+
+Type: `string?`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Name
+
+Gets the column name in the database.
+
+#### Syntax
+
+```csharp
+public string Name { get; }
+```
+
+#### Property Value
+
+Type: `string`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Nullable
+
+Gets or sets whether the column allows NULL values.
+            If not specified, nullability is inferred from the property type.
+
+#### Syntax
+
+```csharp
+public System.Nullable<bool> Nullable { get; set; }
+```
+
+#### Property Value
+
+Type: `System.Nullable<bool>?`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Type
+
+Gets or sets the SQLite column type (e.g., "TEXT", "INTEGER", "REAL", "BLOB").
+            If not specified, the type is inferred from the property type.
+
+#### Syntax
+
+```csharp
+public string Type { get; set; }
+```
+
+#### Property Value
+
+Type: `string?`
+

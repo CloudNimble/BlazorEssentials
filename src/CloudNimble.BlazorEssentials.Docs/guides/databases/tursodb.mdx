@@ -1,0 +1,570 @@
+---
+title: TursoDb
+description: "Build local-first Blazor applications with SQLite and optional Turso Cloud sync"
+icon: database
+---
+
+TursoDb provides a powerful, type-safe wrapper around [libSQL](https://turso.tech/libsql) for Blazor WebAssembly applications.
+It enables local-first development with SQLite stored in the browser, with optional synchronization to [Turso Cloud](https://turso.tech/).
+
+<CardGroup cols={2}>
+  <Card title="Local-First" icon="hard-drive">
+    Data is stored locally in the browser using SQLite, ensuring your app works offline.
+  </Card>
+  <Card title="Cloud Sync" icon="cloud">
+    Optionally sync with Turso Cloud for multi-device and real-time collaboration.
+  </Card>
+  <Card title="Type-Safe" icon="shield-check">
+    Entity attributes and strongly-typed DbSets provide compile-time safety.
+  </Card>
+  <Card title="Auto Schema" icon="wand-magic-sparkles">
+    Tables and indexes are automatically created from your entity definitions.
+  </Card>
+</CardGroup>
+
+## Installation
+
+<Steps>
+  <Step title="Install the NuGet package">
+    ```bash
+    dotnet add package BlazorEssentials.TursoDb
+    ```
+  </Step>
+
+  <Step title="Install the Server package (required)">
+    TursoDb requires Cross-Origin Isolation headers for SharedArrayBuffer support.
+
+    ```bash
+    dotnet add package BlazorEssentials.Server
+    ```
+  </Step>
+
+  <Step title="Configure middleware">
+    Add the Cross-Origin Isolation middleware to your server's `Program.cs`:
+
+    ```csharp Program.cs
+    var app = builder.Build();
+
+    // Add before other middleware
+    app.UseCrossOriginIsolation();
+
+    app.UseBlazorFrameworkFiles();
+    app.UseStaticFiles();
+    // ... rest of your middleware
+    ```
+
+    <Warning>
+      Cross-Origin Isolation may break third-party scripts, iframes, and CDN resources
+      that aren't configured for isolated contexts. Test thoroughly before deploying.
+    </Warning>
+  </Step>
+</Steps>
+
+## Quick Start
+
+### Define Your Entities
+
+Use attributes to define how your C# classes map to SQLite tables:
+
+```csharp Models/User.cs
+using CloudNimble.BlazorEssentials.TursoDb;
+
+[Table("users")]
+public class User
+{
+    [PrimaryKey(AutoIncrement = true)]
+    public long Id { get; set; }
+
+    [Column("name")]
+    public string Name { get; set; } = "";
+
+    [Column("email")]
+    [Index(Unique = true)]
+    public string Email { get; set; } = "";
+
+    [Column("age")]
+    public int Age { get; set; }
+
+    [Column("is_active")]
+    public bool IsActive { get; set; } = true;
+
+    [Column("created_at")]
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+}
+```
+
+<Tip>
+  Use `[NotMapped]` on properties you don't want persisted to the database.
+</Tip>
+
+### Create Your Database
+
+Inherit from `TursoDatabase` and add `TursoDbSet<T>` properties for each entity:
+
+```csharp Data/AppDatabase.cs
+using CloudNimble.BlazorEssentials.TursoDb;
+using Microsoft.JSInterop;
+
+public class AppDatabase : TursoDatabase
+{
+    public TursoDbSet<User> Users { get; }
+    public TursoDbSet<Post> Posts { get; }
+
+    public AppDatabase(IJSRuntime jsRuntime) : base(jsRuntime)
+    {
+        Name = "myapp.db";
+        Users = new TursoDbSet<User>(this);
+        Posts = new TursoDbSet<Post>(this);
+    }
+}
+```
+
+### Register and Use
+
+<CodeGroup>
+```csharp Program.cs
+builder.Services.AddScoped<AppDatabase>();
+```
+
+```csharp MyComponent.razor
+@inject AppDatabase Database
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await Database.ConnectAsync();
+
+        var users = await Database.Users.ToListAsync();
+    }
+}
+```
+</CodeGroup>
+
+## Entity Attributes
+
+<AccordionGroup>
+  <Accordion title="[Table] - Define table name">
+    Maps a class to a specific table name in SQLite.
+
+    ```csharp
+    [Table("users")]
+    public class User { }
+    ```
+
+    If omitted, the class name is used as the table name.
+  </Accordion>
+
+  <Accordion title="[PrimaryKey] - Define primary key">
+    Marks a property as the primary key. Use `AutoIncrement = true` for auto-generated IDs.
+
+    ```csharp
+    [PrimaryKey(AutoIncrement = true)]
+    public long Id { get; set; }
+    ```
+  </Accordion>
+
+  <Accordion title="[Column] - Define column name">
+    Maps a property to a specific column name. Use snake_case for SQLite conventions.
+
+    ```csharp
+    [Column("created_at")]
+    public DateTime CreatedAt { get; set; }
+    ```
+  </Accordion>
+
+  <Accordion title="[Index] - Create an index">
+    Creates an index on the column for faster queries. Use `Unique = true` for unique constraints.
+
+    ```csharp
+    [Column("email")]
+    [Index(Unique = true)]
+    public string Email { get; set; }
+    ```
+  </Accordion>
+
+  <Accordion title="[NotMapped] - Exclude from database">
+    Excludes a property from database persistence.
+
+    ```csharp
+    [NotMapped]
+    public string FullName => $"{FirstName} {LastName}";
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## CRUD Operations
+
+### Create
+
+```csharp
+var user = new User
+{
+    Name = "John Doe",
+    Email = "john@example.com",
+    Age = 30
+};
+
+await Database.Users.AddAsync(user);
+// user.Id is now populated with the auto-generated ID
+```
+
+### Read
+
+<CodeGroup>
+```csharp Get All
+var allUsers = await Database.Users.ToListAsync();
+```
+
+```csharp Find by ID
+var user = await Database.Users.FindAsync(1);
+```
+
+```csharp Count
+var count = await Database.Users.CountAsync();
+```
+</CodeGroup>
+
+### Update
+
+```csharp
+var user = await Database.Users.FindAsync(1);
+user.Name = "Jane Doe";
+user.Age = 31;
+
+await Database.Users.UpdateAsync(user);
+```
+
+### Delete
+
+<CodeGroup>
+```csharp Delete Entity
+var user = await Database.Users.FindAsync(1);
+await Database.Users.RemoveAsync(user);
+```
+
+```csharp Delete by ID
+await Database.Users.RemoveByKeyAsync(1);
+```
+</CodeGroup>
+
+## Query Builder
+
+Build complex queries with the fluent query API:
+
+```csharp
+var activeAdults = await Database.Users
+    .Where("age >= ? AND is_active = ?", 18, true)
+    .OrderBy("name")
+    .Take(10)
+    .ToListAsync();
+```
+
+### Available Methods
+
+| Method | Description |
+|--------|-------------|
+| `Where(clause, params)` | Filter results with a SQL WHERE clause |
+| `OrderBy(column)` | Sort ascending by column |
+| `OrderByDescending(column)` | Sort descending by column |
+| `Take(count)` | Limit results to count |
+| `Skip(count)` | Skip first count results |
+| `ToListAsync()` | Execute and return all results |
+| `FirstOrDefaultAsync()` | Execute and return first result or null |
+| `CountAsync()` | Return count of matching results |
+
+<Tip>
+  Use `?` placeholders for parameters to prevent SQL injection. Parameters are passed
+  in order after the SQL clause.
+</Tip>
+
+## Transactions
+
+Use transactions for atomic operations that should succeed or fail together:
+
+```csharp
+await using var transaction = await Database.BeginTransactionAsync();
+try
+{
+    await Database.Users.AddAsync(new User { Name = "User 1" });
+    await Database.Users.AddAsync(new User { Name = "User 2" });
+
+    await transaction.CommitAsync();
+}
+catch
+{
+    await transaction.RollbackAsync();
+    throw;
+}
+```
+
+<Note>
+  If you dispose the transaction without calling `CommitAsync()`, it automatically rolls back.
+</Note>
+
+## Prepared Statements
+
+For frequently executed queries, use prepared statements for better performance:
+
+<CodeGroup>
+```csharp Query Statement
+var statement = Database.Prepare<User>("SELECT * FROM users WHERE age > ?");
+
+var youngUsers = await statement.QueryAsync(18);
+var olderUsers = await statement.QueryAsync(65);
+
+await statement.DisposeAsync();
+```
+
+```csharp Execute Statement
+var statement = Database.Prepare("UPDATE users SET is_active = ? WHERE age < ?");
+
+await statement.ExecuteAsync(false, 13);
+await statement.ExecuteAsync(true, 18);
+
+await statement.DisposeAsync();
+```
+</CodeGroup>
+
+## Raw SQL
+
+Execute raw SQL when you need full control:
+
+<CodeGroup>
+```csharp Execute (INSERT/UPDATE/DELETE)
+var result = await Database.ExecuteAsync(
+    "INSERT INTO users (name, email) VALUES (?, ?)",
+    "John", "john@example.com"
+);
+
+Console.WriteLine($"Rows affected: {result.RowsAffected}");
+Console.WriteLine($"Last insert ID: {result.LastInsertRowId}");
+```
+
+```csharp Query (SELECT)
+var users = await Database.QueryAsync<User>(
+    "SELECT * FROM users WHERE email LIKE ?",
+    "%@example.com"
+);
+```
+
+```csharp Batch Execute
+var results = await Database.ExecuteBatchAsync(
+    ("INSERT INTO users (name) VALUES (?)", new object[] { "User 1" }),
+    ("INSERT INTO users (name) VALUES (?)", new object[] { "User 2" }),
+    ("INSERT INTO users (name) VALUES (?)", new object[] { "User 3" })
+);
+```
+</CodeGroup>
+
+## Turso Cloud Sync
+
+For multi-device sync and cloud backup, use `TursoSyncDatabase`:
+
+### Setup
+
+```csharp Data/SyncedAppDatabase.cs
+using CloudNimble.BlazorEssentials.TursoDb;
+using Microsoft.JSInterop;
+
+public class SyncedAppDatabase : TursoSyncDatabase
+{
+    public TursoDbSet<User> Users { get; }
+
+    public SyncedAppDatabase(IJSRuntime jsRuntime) : base(jsRuntime)
+    {
+        Name = "myapp.db";
+        SyncUrl = "libsql://mydb-myorg.turso.io";
+        SyncAuthToken = "your-auth-token";
+        Users = new TursoDbSet<User>(this);
+    }
+}
+```
+
+<Warning>
+  Never hardcode auth tokens in production code. Use configuration or secure storage.
+</Warning>
+
+### Sync Operations
+
+<CodeGroup>
+```csharp Pull from Cloud
+// Download changes from Turso Cloud
+var result = await Database.PullAsync();
+Console.WriteLine($"Synced {result.FramesSynced} frames in {result.DurationMs}ms");
+```
+
+```csharp Push to Cloud
+// Upload local changes to Turso Cloud
+var result = await Database.PushAsync();
+```
+
+```csharp Bidirectional Sync
+// Pull then push in one operation
+var result = await Database.SyncAsync();
+```
+</CodeGroup>
+
+### Sync Events
+
+Subscribe to sync lifecycle events:
+
+```csharp
+Database.SyncStarted += (sender, e) =>
+{
+    Console.WriteLine("Sync started...");
+};
+
+Database.SyncCompleted += (sender, result) =>
+{
+    Console.WriteLine($"Sync completed: {result.FramesSynced} frames");
+};
+
+Database.SyncFailed += (sender, ex) =>
+{
+    Console.WriteLine($"Sync failed: {ex.Message}");
+};
+```
+
+### Sync Options
+
+| Property | Description | Default |
+|----------|-------------|---------|
+| `SyncUrl` | Turso Cloud database URL | Required |
+| `SyncAuthToken` | Authentication token | Required |
+| `SyncOnConnect` | Sync automatically on connect | `true` |
+| `SyncIntervalMs` | Auto-sync interval (0 = disabled) | `0` |
+| `EncryptionEnabled` | Enable local database encryption | `false` |
+| `EncryptionKey` | Encryption key for local database | `null` |
+
+## Cross-Origin Isolation
+
+TursoDb requires Cross-Origin Isolation headers for SharedArrayBuffer support. The `BlazorEssentials.Server`
+package provides middleware to add these headers.
+
+### Basic Configuration
+
+```csharp
+app.UseCrossOriginIsolation();
+```
+
+### Advanced Configuration
+
+```csharp
+app.UseCrossOriginIsolation(options =>
+{
+    // Use less strict policy for better compatibility
+    options.CoepPolicy = "credentialless";
+
+    // Exclude paths that need third-party resources
+    options.ExcludePaths.Add("/api/");
+    options.ExcludePaths.Add("/external/");
+
+    // Disable CORP header if causing issues
+    options.IncludeCorpHeader = false;
+});
+```
+
+### Headers Added
+
+| Header | Value | Purpose |
+|--------|-------|---------|
+| `Cross-Origin-Opener-Policy` | `same-origin` | Isolates browsing context |
+| `Cross-Origin-Embedder-Policy` | `require-corp` | Requires resources to grant permission |
+| `Cross-Origin-Resource-Policy` | `same-origin` | Controls resource sharing |
+
+## Type Mapping
+
+TursoDb automatically maps C# types to SQLite types:
+
+| C# Type | SQLite Type |
+|---------|-------------|
+| `int`, `long`, `short`, `byte` | `INTEGER` |
+| `float`, `double`, `decimal` | `REAL` |
+| `string` | `TEXT` |
+| `bool` | `INTEGER` (0/1) |
+| `DateTime`, `DateTimeOffset` | `TEXT` (ISO 8601) |
+| `Guid` | `TEXT` |
+| `byte[]` | `BLOB` |
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Use dependency injection">
+    Register your database as a scoped service for proper lifecycle management:
+
+    ```csharp
+    builder.Services.AddScoped<AppDatabase>();
+    ```
+  </Accordion>
+
+  <Accordion title="Connect once, early">
+    Connect to the database early in your app lifecycle, such as in `App.razor` or a layout component:
+
+    ```csharp
+    protected override async Task OnInitializedAsync()
+    {
+        await Database.ConnectAsync();
+    }
+    ```
+  </Accordion>
+
+  <Accordion title="Use transactions for related operations">
+    Wrap related operations in transactions to ensure data consistency:
+
+    ```csharp
+    await using var tx = await Database.BeginTransactionAsync();
+    // ... operations ...
+    await tx.CommitAsync();
+    ```
+  </Accordion>
+
+  <Accordion title="Handle sync conflicts">
+    When using cloud sync, implement conflict resolution strategies for your use case.
+    Consider using timestamps or version numbers to detect conflicts.
+  </Accordion>
+</AccordionGroup>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="SharedArrayBuffer is not defined">
+    This error indicates Cross-Origin Isolation is not configured. Ensure:
+
+    1. `BlazorEssentials.Server` is installed
+    2. `app.UseCrossOriginIsolation()` is called before other middleware
+    3. Headers are not being stripped by a proxy or CDN
+  </Accordion>
+
+  <Accordion title="Third-party scripts not loading">
+    Cross-Origin Isolation may break external scripts. Options:
+
+    1. Use `options.CoepPolicy = "credentialless"` for less strict isolation
+    2. Add script paths to `options.ExcludePaths`
+    3. Ensure external resources have `Cross-Origin-Resource-Policy` headers
+  </Accordion>
+
+  <Accordion title="Sync authentication failed">
+    Verify your Turso Cloud credentials:
+
+    1. Check `SyncUrl` format: `libsql://[db-name]-[org].turso.io`
+    2. Ensure `SyncAuthToken` is valid and not expired
+    3. Verify the database exists in your Turso dashboard
+  </Accordion>
+</AccordionGroup>
+
+## API Reference
+
+<CardGroup cols={2}>
+  <Card title="TursoDatabase" icon="database" href="/api-reference/CloudNimble/BlazorEssentials/TursoDb/TursoDatabase">
+    Base class for local databases
+  </Card>
+  <Card title="TursoSyncDatabase" icon="cloud" href="/api-reference/CloudNimble/BlazorEssentials/TursoDb/TursoSyncDatabase">
+    Sync-enabled database with Turso Cloud
+  </Card>
+  <Card title="TursoDbSet" icon="table" href="/api-reference/CloudNimble/BlazorEssentials/TursoDb/TursoDbSet">
+    Typed collection for entity CRUD operations
+  </Card>
+  <Card title="TursoQueryBuilder" icon="magnifying-glass" href="/api-reference/CloudNimble/BlazorEssentials/TursoDb/Query/TursoQueryBuilder">
+    Fluent query builder API
+  </Card>
+</CardGroup>

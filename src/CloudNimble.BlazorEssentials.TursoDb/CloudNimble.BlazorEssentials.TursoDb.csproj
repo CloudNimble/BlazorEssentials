@@ -1,0 +1,60 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+	<PropertyGroup>
+		<TargetFrameworks>net10.0;net9.0;net8.0;</TargetFrameworks>
+		<DocumentationFile>$(DocumentationFile)\$(AssemblyName).xml</DocumentationFile>
+		<AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<Description>A Turso database provider for Blazor that brings SQLite-compatible local-first databases with cloud sync to your Blazor apps.</Description>
+		<PackageReleaseNotes>
+		</PackageReleaseNotes>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageTags>blazor;razorcomponents;Razor Components;WebAssembly;Turso;SQLite;libsql;database;local-first</PackageTags>
+		<NoWarn>$(NoWarn);CS1998;CS1591;CA1052;CA1801;CA1822;NU5104</NoWarn>
+	</PropertyGroup>
+
+    <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
+        <PackageReference Include="Microsoft.JSInterop" Version="[10.*, 11.0.0)" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(TargetFramework)' == 'net9.0'">
+        <PackageReference Include="Microsoft.JSInterop" Version="[9.*, 11.0.0)" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
+        <PackageReference Include="Microsoft.JSInterop" Version="[8.*, 11.0.0)" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\CloudNimble.BlazorEssentials\CloudNimble.BlazorEssentials.csproj" />
+    </ItemGroup>
+
+	<!-- npm-based TypeScript compilation -->
+	<PropertyGroup Condition="'$(TargetFramework)' == 'net10.0'">
+		<!-- Ensure npm packages are restored and TypeScript compiles before static web assets are resolved -->
+        <PrepareForBuildDependsOn>
+            NpmInstall;
+            NpmBuild;
+            $(PrepareForBuildDependsOn)
+        </PrepareForBuildDependsOn>
+	</PropertyGroup>
+
+	<!-- Check for npm and restore packages -->
+	<Target Name="NpmInstall">
+		<Exec Command="npm --version" ContinueOnError="true" IgnoreExitCode="true">
+			<Output TaskParameter="ExitCode" PropertyName="NpmExitCode" />
+		</Exec>
+		<Error Condition="'$(NpmExitCode)' != '0'" Text="npm is not installed or not in PATH. Please install Node.js from https://nodejs.org/" />
+		<Message Importance="high" Text="Restoring npm packages..." />
+		<Exec Command="npm install" WorkingDirectory="$(MSBuildProjectDirectory)" />
+	</Target>
+
+	<!-- Build TypeScript using esbuild -->
+	<Target Name="NpmBuild" DependsOnTargets="NpmInstall">
+		<Message Importance="high" Text="Building TypeScript files with esbuild..." />
+		<Exec Command="npm run build" WorkingDirectory="$(MSBuildProjectDirectory)" />
+	</Target>
+
+</Project>

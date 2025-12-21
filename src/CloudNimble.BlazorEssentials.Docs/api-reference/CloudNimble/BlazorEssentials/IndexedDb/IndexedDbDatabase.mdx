@@ -6,8 +6,6 @@ tag: "ABSTRACT"
 keywords: ['IndexedDbDatabase', 'CloudNimble.BlazorEssentials.IndexedDb.IndexedDbDatabase', 'CloudNimble.BlazorEssentials.IndexedDb', 'class', 'System.Object']
 ---
 
-import { DocsBadge } from '/snippets/DocsBadge.jsx';
-
 ## Definition
 
 **Assembly:** CloudNimble.BlazorEssentials.IndexedDb.dll
@@ -28,7 +26,7 @@ Provides functionality for accessing IndexedDB from Blazor application
 
 ## Constructors
 
-### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor
 
 #### Syntax
 
@@ -42,7 +40,7 @@ public IndexedDbDatabase(Microsoft.JSInterop.IJSRuntime jsRuntime)
 |------|------|-------------|
 | `jsRuntime` | `Microsoft.JSInterop.IJSRuntime` | - |
 
-### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor <Badge color="gray">Inherited</Badge>
 
 <Note>Inherited from `object`</Note>
 
@@ -54,7 +52,7 @@ public Object()
 
 ## Properties
 
-### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  DatabaseDefinition
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> DatabaseDefinition
 
 #### Syntax
 
@@ -66,7 +64,7 @@ public CloudNimble.BlazorEssentials.IndexedDb.Schema.IndexedDbDatabaseDefinition
 
 Type: `CloudNimble.BlazorEssentials.IndexedDb.Schema.IndexedDbDatabaseDefinition`
 
-### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Name
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Name
 
 #### Syntax
 
@@ -78,7 +76,7 @@ public string Name { get; init; }
 
 Type: `string`
 
-### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ObjectStores
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ObjectStores
 
 #### Syntax
 
@@ -90,7 +88,7 @@ public System.Collections.Generic.List<CloudNimble.BlazorEssentials.IndexedDb.In
 
 Type: `System.Collections.Generic.List<CloudNimble.BlazorEssentials.IndexedDb.IndexedDbObjectStore>`
 
-### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Version
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Version
 
 #### Syntax
 
@@ -104,7 +102,7 @@ Type: `int`
 
 ## Methods
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  CallJavaScriptAsync
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> CallJavaScriptAsync
 
 #### Syntax
 
@@ -129,7 +127,7 @@ Type: `System.Threading.Tasks.Task`
 |-----------|-------------|
 | `IndexedDbException` |  |
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  CallJavaScriptAsync
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> CallJavaScriptAsync
 
 #### Syntax
 
@@ -158,7 +156,7 @@ Type: `System.Threading.Tasks.Task<TResult>`
 |-----------|-------------|
 | `IndexedDbException` |  |
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ConsoleLog
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ConsoleLog
 
 #### Syntax
 
@@ -182,7 +180,7 @@ Type: `System.Threading.Tasks.Task`
 |-----------|-------------|
 | `IndexedDbException` |  |
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  CreateObjectStoreAsync
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> CreateObjectStoreAsync
 
 This function provides the means to add a store to an existing database,
 
@@ -202,7 +200,7 @@ public System.Threading.Tasks.Task CreateObjectStoreAsync(CloudNimble.BlazorEsse
 
 Type: `System.Threading.Tasks.Task`
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  DeleteDatabaseAsync
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> DeleteDatabaseAsync
 
 Deletes this IndexedDb instance from the browser.
 
@@ -216,7 +214,7 @@ public System.Threading.Tasks.Task DeleteDatabaseAsync()
 
 Type: `System.Threading.Tasks.Task`
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  EnsureIsOpenAsync
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> EnsureIsOpenAsync
 
 #### Syntax
 
@@ -228,7 +226,7 @@ public System.Threading.Tasks.Task EnsureIsOpenAsync()
 
 Type: `System.Threading.Tasks.Task`
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Equals <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
 
 <Note>Inherited from `object`</Note>
 
@@ -248,7 +246,7 @@ public virtual bool Equals(object obj)
 
 Type: `bool`
 
-### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Equals <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge>
 
 <Note>Inherited from `object`</Note>
 
@@ -269,7 +267,7 @@ public static bool Equals(object objA, object objB)
 
 Type: `bool`
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetHashCode <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetHashCode <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
 
 <Note>Inherited from `object`</Note>
 
@@ -283,7 +281,7 @@ public virtual int GetHashCode()
 
 Type: `int`
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetType <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetType <Badge color="gray">Inherited</Badge>
 
 <Note>Inherited from `object`</Note>
 
@@ -297,7 +295,7 @@ public System.Type GetType()
 
 Type: `System.Type`
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  LoadSchemaAsync
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> LoadSchemaAsync
 
 Load database schema from databaseName
 
@@ -311,7 +309,7 @@ public System.Threading.Tasks.Task LoadSchemaAsync()
 
 Type: `System.Threading.Tasks.Task`
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  MemberwiseClone <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> MemberwiseClone <Badge color="gray">Inherited</Badge>
 
 <Note>Inherited from `object`</Note>
 
@@ -325,7 +323,7 @@ protected internal object MemberwiseClone()
 
 Type: `object`
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  OpenAsync
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> OpenAsync
 
 Opens the IndexedDB defined in the DbDatabase. Under the covers will create the database if it does not exist
             and create the stores defined in DbDatabase.
@@ -340,7 +338,7 @@ public System.Threading.Tasks.Task OpenAsync()
 
 Type: `System.Threading.Tasks.Task`
 
-### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ReferenceEquals <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ReferenceEquals <Badge color="gray">Inherited</Badge>
 
 <Note>Inherited from `object`</Note>
 
@@ -361,7 +359,7 @@ public static bool ReferenceEquals(object objA, object objB)
 
 Type: `bool`
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ToString <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ToString <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
 
 <Note>Inherited from `object`</Note>
 

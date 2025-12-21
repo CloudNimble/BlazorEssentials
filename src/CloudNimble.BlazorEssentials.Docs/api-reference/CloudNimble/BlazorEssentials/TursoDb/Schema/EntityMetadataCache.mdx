@@ -1,0 +1,78 @@
+---
+title: EntityMetadataCache
+description: "Caches entity metadata for performance."
+icon: bolt
+tag: "STATIC"
+keywords: ['EntityMetadataCache', 'CloudNimble.BlazorEssentials.TursoDb.Schema.EntityMetadataCache', 'CloudNimble.BlazorEssentials.TursoDb.Schema', 'class', 'System.Object']
+---
+
+## Definition
+
+**Assembly:** CloudNimble.BlazorEssentials.TursoDb.dll
+
+**Namespace:** CloudNimble.BlazorEssentials.TursoDb.Schema
+
+**Inheritance:** System.Object
+
+## Syntax
+
+```csharp
+CloudNimble.BlazorEssentials.TursoDb.Schema.EntityMetadataCache
+```
+
+## Summary
+
+Caches entity metadata for performance.
+
+## Methods
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Clear
+
+Clears all cached metadata.
+
+#### Syntax
+
+```csharp
+public static void Clear()
+```
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetOrCreate
+
+Gets or creates metadata for the specified entity type.
+
+#### Syntax
+
+```csharp
+public static CloudNimble.BlazorEssentials.TursoDb.Schema.EntityMetadata GetOrCreate<TEntity>() where TEntity : class
+```
+
+#### Returns
+
+Type: `CloudNimble.BlazorEssentials.TursoDb.Schema.EntityMetadata`
+The entity metadata.
+
+#### Type Parameters
+
+- `TEntity` - The entity type.
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetOrCreate
+
+Gets or creates metadata for the specified entity type.
+
+#### Syntax
+
+```csharp
+public static CloudNimble.BlazorEssentials.TursoDb.Schema.EntityMetadata GetOrCreate(System.Type entityType)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `entityType` | `System.Type` | The entity type. |
+
+#### Returns
+
+Type: `CloudNimble.BlazorEssentials.TursoDb.Schema.EntityMetadata`
+The entity metadata.
+

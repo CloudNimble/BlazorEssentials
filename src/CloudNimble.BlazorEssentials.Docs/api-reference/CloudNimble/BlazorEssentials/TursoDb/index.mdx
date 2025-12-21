@@ -1,0 +1,37 @@
+---
+title: Overview
+description: "Summary of the CloudNimble.BlazorEssentials.TursoDb Namespace"
+icon: folder-tree
+mode: wide
+keywords: ['CloudNimble.BlazorEssentials.TursoDb', 'namespace', 'ColumnAttribute', 'IndexAttribute', 'NotMappedAttribute', 'PrimaryKeyAttribute', 'TableAttribute', 'TursoDbException', 'ITursoDbSet', 'TursoDatabase', 'TursoDatabaseOptions', 'TursoDbSet']
+---
+
+## Types
+
+### <Icon icon="file-brackets-curly" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> Classes
+
+| Name | Summary |
+| ---- | ------- |
+| [ColumnAttribute](/api-reference/CloudNimble/BlazorEssentials/TursoDb/ColumnAttribute) | Specifies the column name and optional type for a property.              If not specified, the property name is used as the column name. |
+| [IndexAttribute](/api-reference/CloudNimble/BlazorEssentials/TursoDb/IndexAttribute) | Creates an index on the specified column. |
+| [NotMappedAttribute](/api-reference/CloudNimble/BlazorEssentials/TursoDb/NotMappedAttribute) | Excludes a property from database mapping.              Properties marked with this attribute will not be included in table creation or CRUD operations. |
+| [PrimaryKeyAttribute](/api-reference/CloudNimble/BlazorEssentials/TursoDb/PrimaryKeyAttribute) | Marks a property as the primary key of the table. |
+| [TableAttribute](/api-reference/CloudNimble/BlazorEssentials/TursoDb/TableAttribute) | Specifies the table name for an entity class.              If not specified, the class name is used as the table name. |
+| [TursoDbException](/api-reference/CloudNimble/BlazorEssentials/TursoDb/TursoDbException) | Represents an error that occurred during a Turso database operation. |
+| [TursoDatabase](/api-reference/CloudNimble/BlazorEssentials/TursoDb/TursoDatabase) | Base class for Turso databases. Inherit from this class and add               `TursoDbSet`1` properties for each entity type. |
+| [TursoDatabaseOptions](/api-reference/CloudNimble/BlazorEssentials/TursoDb/TursoDatabaseOptions) | Configuration options for a Turso database. |
+| [TursoDbSet](/api-reference/CloudNimble/BlazorEssentials/TursoDb/TursoDbSet) | Represents a collection of entities of a specific type in the database.              Provides CRUD operations and querying capabilities. |
+| [TursoPreparedStatement](/api-reference/CloudNimble/BlazorEssentials/TursoDb/TursoPreparedStatement) | Represents a prepared SQL statement for executing non-query commands. |
+| [TursoPreparedStatement](/api-reference/CloudNimble/BlazorEssentials/TursoDb/TursoPreparedStatement) | Represents a prepared SQL statement that can be executed multiple times              with different parameters for improved performance. |
+| [TursoResult](/api-reference/CloudNimble/BlazorEssentials/TursoDb/TursoResult) | Represents the result of a SQL execution operation. |
+| [TursoSyncDatabase](/api-reference/CloudNimble/BlazorEssentials/TursoDb/TursoSyncDatabase) | Base class for sync-enabled Turso databases. Extends [TursoDatabase](/api-reference/CloudNimble/BlazorEssentials/TursoDb/TursoDatabase)               with Turso Cloud synchronization capabilities (pull, push, sync). |
+| [TursoSyncOptions](/api-reference/CloudNimble/BlazorEssentials/TursoDb/TursoSyncOptions) | Configuration options for Turso Cloud sync. |
+| [TursoSyncResult](/api-reference/CloudNimble/BlazorEssentials/TursoDb/TursoSyncResult) | Represents the result of a sync operation. |
+| [TursoTransaction](/api-reference/CloudNimble/BlazorEssentials/TursoDb/TursoTransaction) | Represents a database transaction that can be committed or rolled back.              Implements IAsyncDisposable for automatic rollback if not committed. |
+
+### <Icon icon="plug" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} /> Interfaces
+
+| Name | Summary |
+| ---- | ------- |
+| [ITursoDbSet](/api-reference/CloudNimble/BlazorEssentials/TursoDb/ITursoDbSet) | Interface for TursoDbSet, used for database discovery. |
+

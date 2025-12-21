@@ -1,0 +1,258 @@
+---
+title: TursoPreparedStatement
+description: "Represents a prepared SQL statement that can be executed multiple times             with different parameters for improved performance."
+icon: code-branch
+keywords: ['TursoPreparedStatement', 'CloudNimble.BlazorEssentials.TursoDb.TursoPreparedStatement<TResult>', 'CloudNimble.BlazorEssentials.TursoDb', 'class', 'System.Object', 'System.IAsyncDisposable']
+---
+
+## Definition
+
+**Assembly:** CloudNimble.BlazorEssentials.TursoDb.dll
+
+**Namespace:** CloudNimble.BlazorEssentials.TursoDb
+
+**Inheritance:** System.Object
+
+## Syntax
+
+```csharp
+CloudNimble.BlazorEssentials.TursoDb.TursoPreparedStatement<TResult>
+```
+
+## Summary
+
+Represents a prepared SQL statement that can be executed multiple times
+            with different parameters for improved performance.
+
+## Type Parameters
+
+- `TResult` - The type of result returned by queries.
+
+## Examples
+
+```csharp
+var statement = Database.Prepare&lt;User&gt;("SELECT * FROM users WHERE age &gt; ?");
+var youngUsers = await statement.QueryAsync(18);
+var olderUsers = await statement.QueryAsync(65);
+```
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public Object()
+```
+
+## Properties
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Sql
+
+Gets the SQL statement.
+
+#### Syntax
+
+```csharp
+public string Sql { get; }
+```
+
+#### Property Value
+
+Type: `string`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> StatementId
+
+Gets the unique identifier for this prepared statement.
+
+#### Syntax
+
+```csharp
+public string StatementId { get; }
+```
+
+#### Property Value
+
+Type: `string`
+
+## Methods
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> DisposeAsync
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.ValueTask DisposeAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.ValueTask`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual bool Equals(object obj)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `obj` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool Equals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetHashCode <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual int GetHashCode()
+```
+
+#### Returns
+
+Type: `int`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetType <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public System.Type GetType()
+```
+
+#### Returns
+
+Type: `System.Type`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> MemberwiseClone <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+protected internal object MemberwiseClone()
+```
+
+#### Returns
+
+Type: `object`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> QueryAsync
+
+Executes the prepared statement as a query and returns all matching rows.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>> QueryAsync(params object[] parameters)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `parameters` | `object?[]` | The parameters for the statement. |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<System.Collections.Generic.List<TResult>>`
+A list of matching results.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> QuerySingleAsync
+
+Executes the prepared statement as a query and returns the first matching row or null.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<TResult> QuerySingleAsync(params object[] parameters)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `parameters` | `object?[]` | The parameters for the statement. |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<TResult?>`
+The first matching result or null.
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ReferenceEquals <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool ReferenceEquals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ToString <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual string ToString()
+```
+
+#### Returns
+
+Type: `string?`
+
+## Related APIs
+
+- System.IAsyncDisposable
+

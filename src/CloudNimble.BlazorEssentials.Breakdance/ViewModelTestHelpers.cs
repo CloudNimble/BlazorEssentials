@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CloudNimble.BlazorEssentials.Breakdance
+﻿namespace CloudNimble.BlazorEssentials.Breakdance
 {
 
     /// <summary>

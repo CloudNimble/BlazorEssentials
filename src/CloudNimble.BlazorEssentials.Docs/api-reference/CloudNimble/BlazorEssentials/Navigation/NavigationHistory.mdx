@@ -4,8 +4,6 @@ icon: file-brackets-curly
 keywords: ['NavigationHistory', 'CloudNimble.BlazorEssentials.Navigation.NavigationHistory', 'CloudNimble.BlazorEssentials.Navigation', 'class', 'System.Object']
 ---
 
-import { DocsBadge } from '/snippets/DocsBadge.jsx';
-
 ## Definition
 
 **Assembly:** CloudNimble.BlazorEssentials.dll
@@ -22,7 +20,7 @@ CloudNimble.BlazorEssentials.Navigation.NavigationHistory
 
 ## Constructors
 
-### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor
 
 #### Syntax
 
@@ -36,7 +34,7 @@ public NavigationHistory(Microsoft.JSInterop.IJSRuntime jsRuntime)
 |------|------|-------------|
 | `jsRuntime` | `Microsoft.JSInterop.IJSRuntime` | - |
 
-### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor <Badge color="gray">Inherited</Badge>
 
 <Note>Inherited from `object`</Note>
 
@@ -48,7 +46,7 @@ public Object()
 
 ## Methods
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Back
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Back
 
 This asynchronous method goes to the previous page in session history.
 
@@ -62,7 +60,7 @@ public System.Threading.Tasks.ValueTask Back()
 
 Type: `System.Threading.Tasks.ValueTask`
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Count
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Count
 
 Returns an Integer representing the number of elements in the session history, including the currently loaded page.
 
@@ -76,7 +74,7 @@ public System.Threading.Tasks.ValueTask<int> Count()
 
 Type: `System.Threading.Tasks.ValueTask<int>`
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  CurrentState
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> CurrentState
 
 Returns an *T* type representing the state at the top of the history stack.
 
@@ -94,7 +92,7 @@ Type: `System.Threading.Tasks.ValueTask<T>`
 
 - `T` - The type of the state data
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Equals <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
 
 <Note>Inherited from `object`</Note>
 
@@ -114,7 +112,7 @@ public virtual bool Equals(object obj)
 
 Type: `bool`
 
-### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Equals <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge>
 
 <Note>Inherited from `object`</Note>
 
@@ -135,7 +133,7 @@ public static bool Equals(object objA, object objB)
 
 Type: `bool`
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Forward
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Forward
 
 This asynchronous method goes to the next page in session history.
 
@@ -149,7 +147,7 @@ public System.Threading.Tasks.ValueTask Forward()
 
 Type: `System.Threading.Tasks.ValueTask`
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetHashCode <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetHashCode <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
 
 <Note>Inherited from `object`</Note>
 
@@ -163,7 +161,7 @@ public virtual int GetHashCode()
 
 Type: `int`
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetScrollRestoration
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetScrollRestoration
 
 Allows web applications to explicitly get default scroll restoration behavior on history navigation.
 
@@ -177,7 +175,7 @@ public System.Threading.Tasks.ValueTask<CloudNimble.BlazorEssentials.Navigation.
 
 Type: `System.Threading.Tasks.ValueTask<CloudNimble.BlazorEssentials.Navigation.ScrollRestorationType>`
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  GetType <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetType <Badge color="gray">Inherited</Badge>
 
 <Note>Inherited from `object`</Note>
 
@@ -191,7 +189,7 @@ public System.Type GetType()
 
 Type: `System.Type`
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Go
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Go
 
 Asynchronously loads a page from the session history, identified by its relative location to the current page.
 
@@ -211,7 +209,7 @@ public System.Threading.Tasks.ValueTask Go(int index)
 
 Type: `System.Threading.Tasks.ValueTask`
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  MemberwiseClone <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> MemberwiseClone <Badge color="gray">Inherited</Badge>
 
 <Note>Inherited from `object`</Note>
 
@@ -225,7 +223,7 @@ protected internal object MemberwiseClone()
 
 Type: `object`
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  PushState
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> PushState
 
 Pushes the given data onto the session history stack.
 
@@ -250,7 +248,7 @@ Type: `System.Threading.Tasks.ValueTask`
 
 - `T` - The type of the state data
 
-### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ReferenceEquals <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ReferenceEquals <Badge color="gray">Inherited</Badge>
 
 <Note>Inherited from `object`</Note>
 
@@ -271,7 +269,7 @@ public static bool ReferenceEquals(object objA, object objB)
 
 Type: `bool`
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ReplaceState
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ReplaceState
 
 Updates the most recent entry on the history stack.
 
@@ -296,7 +294,7 @@ Type: `System.Threading.Tasks.ValueTask`
 
 - `T` - The type of the state data
 
-### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  SetScrollRestoration
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> SetScrollRestoration
 
 Allows web applications to explicitly set default scroll restoration behavior on history navigation. This property can be either auto or manual.
 
@@ -316,7 +314,7 @@ public System.Threading.Tasks.ValueTask SetScrollRestoration(CloudNimble.BlazorE
 
 Type: `System.Threading.Tasks.ValueTask`
 
-### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  ToString <DocsBadge text="Inherited" variant="neutral" /> <DocsBadge text="Virtual" variant="warning" />
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ToString <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
 
 <Note>Inherited from `object`</Note>
 

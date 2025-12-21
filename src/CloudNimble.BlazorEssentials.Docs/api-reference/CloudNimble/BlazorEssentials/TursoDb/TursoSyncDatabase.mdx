@@ -1,0 +1,802 @@
+---
+title: TursoSyncDatabase
+description: "Base class for sync-enabled Turso databases. Extends [TursoDatabase](/api-reference/CloudNimble/BlazorEssentials/TursoDb/TursoDatabase)              with Tur..."
+icon: shapes
+tag: "ABSTRACT"
+keywords: ['TursoSyncDatabase', 'CloudNimble.BlazorEssentials.TursoDb.TursoSyncDatabase', 'CloudNimble.BlazorEssentials.TursoDb', 'class', 'CloudNimble.BlazorEssentials.TursoDb.TursoDatabase', 'System.IAsyncDisposable']
+---
+
+## Definition
+
+**Assembly:** CloudNimble.BlazorEssentials.TursoDb.dll
+
+**Namespace:** CloudNimble.BlazorEssentials.TursoDb
+
+**Inheritance:** CloudNimble.BlazorEssentials.TursoDb.TursoDatabase
+
+## Syntax
+
+```csharp
+CloudNimble.BlazorEssentials.TursoDb.TursoSyncDatabase
+```
+
+## Summary
+
+Base class for sync-enabled Turso databases. Extends [TursoDatabase](/api-reference/CloudNimble/BlazorEssentials/TursoDb/TursoDatabase)
+             with Turso Cloud synchronization capabilities (pull, push, sync).
+
+## Examples
+
+```csharp
+public class AppDatabase : TursoSyncDatabase
+{
+    public TursoDbSet&lt;User&gt; Users { get; }
+
+    public AppDatabase(IJSRuntime jsRuntime) : base(jsRuntime)
+    {
+        Name = "app.db";
+        SyncUrl = "libsql://mydb-myorg.turso.io";
+        SyncAuthToken = "your-auth-token";
+        Users = new TursoDbSet&lt;User&gt;(this);
+    }
+}
+
+// Usage
+await Database.ConnectAsync();
+await Database.PullAsync();   // Pull changes from cloud
+// ... make local changes ...
+await Database.PushAsync();   // Push local changes to cloud
+```
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `CloudNimble.BlazorEssentials.TursoDb.TursoDatabase`</Note>
+
+Initializes a new instance of the [TursoDatabase](/api-reference/CloudNimble/BlazorEssentials/TursoDb/TursoDatabase) class.
+
+#### Syntax
+
+```csharp
+protected TursoDatabase(Microsoft.JSInterop.IJSRuntime jsRuntime)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `jsRuntime` | `Microsoft.JSInterop.IJSRuntime` | The JavaScript runtime for interop. |
+
+#### Exceptions
+
+| Exception | Description |
+|-----------|-------------|
+| `ArgumentNullException` | Thrown when jsRuntime is null. |
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public Object()
+```
+
+## Properties
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> AuthToken <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `CloudNimble.BlazorEssentials.TursoDb.TursoDatabase`</Note>
+
+Gets or sets the authentication token for remote Turso databases.
+
+#### Syntax
+
+```csharp
+public string AuthToken { get; set; }
+```
+
+#### Property Value
+
+Type: `string?`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> AutoCreateSchema <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `CloudNimble.BlazorEssentials.TursoDb.TursoDatabase`</Note>
+
+Gets or sets whether to automatically create tables on connect.
+
+#### Syntax
+
+```csharp
+public bool AutoCreateSchema { get; set; }
+```
+
+#### Property Value
+
+Type: `bool`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> DbSets <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `CloudNimble.BlazorEssentials.TursoDb.TursoDatabase`</Note>
+
+Gets the list of DbSets in this database.
+
+#### Syntax
+
+```csharp
+public System.Collections.Generic.List<CloudNimble.BlazorEssentials.TursoDb.ITursoDbSet> DbSets { get; }
+```
+
+#### Property Value
+
+Type: `System.Collections.Generic.List<CloudNimble.BlazorEssentials.TursoDb.ITursoDbSet>`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> EncryptionEnabled
+
+Gets or sets whether encryption is enabled for the local database.
+
+#### Syntax
+
+```csharp
+public bool EncryptionEnabled { get; set; }
+```
+
+#### Property Value
+
+Type: `bool`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> EncryptionKey
+
+Gets or sets the encryption key for the local database.
+
+#### Syntax
+
+```csharp
+public string EncryptionKey { get; set; }
+```
+
+#### Property Value
+
+Type: `string?`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> IsConnected <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `CloudNimble.BlazorEssentials.TursoDb.TursoDatabase`</Note>
+
+Gets whether the database is currently connected.
+
+#### Syntax
+
+```csharp
+public bool IsConnected { get; }
+```
+
+#### Property Value
+
+Type: `bool`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> IsSyncing
+
+Gets whether a sync operation is currently in progress.
+
+#### Syntax
+
+```csharp
+public bool IsSyncing { get; }
+```
+
+#### Property Value
+
+Type: `bool`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Name <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `CloudNimble.BlazorEssentials.TursoDb.TursoDatabase`</Note>
+
+Gets or sets the database name/identifier.
+            This is used as the connection key in JavaScript.
+
+#### Syntax
+
+```csharp
+public string Name { get; init; }
+```
+
+#### Property Value
+
+Type: `string`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> SyncAuthToken
+
+Gets or sets the authentication token for Turso Cloud sync.
+
+#### Syntax
+
+```csharp
+public string SyncAuthToken { get; set; }
+```
+
+#### Property Value
+
+Type: `string`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> SyncIntervalMs
+
+Gets or sets the sync interval in milliseconds.
+            Set to 0 to disable automatic periodic sync. Default is 0.
+
+#### Syntax
+
+```csharp
+public int SyncIntervalMs { get; set; }
+```
+
+#### Property Value
+
+Type: `int`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> SyncOnConnect
+
+Gets or sets whether to sync on connect.
+            Default is true.
+
+#### Syntax
+
+```csharp
+public bool SyncOnConnect { get; set; }
+```
+
+#### Property Value
+
+Type: `bool`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> SyncUrl
+
+Gets or sets the sync URL for Turso Cloud.
+            This is typically in the format: libsql://[database-name]-[org-name].turso.io
+
+#### Syntax
+
+```csharp
+public string SyncUrl { get; set; }
+```
+
+#### Property Value
+
+Type: `string`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Url <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `CloudNimble.BlazorEssentials.TursoDb.TursoDatabase`</Note>
+
+Gets or sets the database URL.
+            Use ":memory:" for in-memory, "file:name.db" for local file, or a Turso cloud URL.
+
+#### Syntax
+
+```csharp
+public string Url { get; set; }
+```
+
+#### Property Value
+
+Type: `string`
+
+## Methods
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> BeginTransactionAsync <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `CloudNimble.BlazorEssentials.TursoDb.TursoDatabase`</Note>
+
+Begins a new database transaction.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<CloudNimble.BlazorEssentials.TursoDb.TursoTransaction> BeginTransactionAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<CloudNimble.BlazorEssentials.TursoDb.TursoTransaction>`
+A transaction that can be committed or rolled back.
+
+#### Examples
+
+```csharp
+await using var transaction = await Database.BeginTransactionAsync();
+try
+{
+    await Database.Users.AddAsync(user);
+    await transaction.CommitAsync();
+}
+catch
+{
+    await transaction.RollbackAsync();
+    throw;
+}
+```
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> CallJavaScriptAsync <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `CloudNimble.BlazorEssentials.TursoDb.TursoDatabase`</Note>
+
+Calls a JavaScript function in the Turso module.
+
+#### Syntax
+
+```csharp
+internal System.Threading.Tasks.Task CallJavaScriptAsync(string functionName, params object[] args)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `functionName` | `string` | - |
+| `args` | `object?[]` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> CallJavaScriptAsync <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `CloudNimble.BlazorEssentials.TursoDb.TursoDatabase`</Note>
+
+Calls a JavaScript function in the Turso module and returns the result.
+
+#### Syntax
+
+```csharp
+internal System.Threading.Tasks.Task<TResult> CallJavaScriptAsync<TResult>(string functionName, params object[] args)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `functionName` | `string` | - |
+| `args` | `object?[]` | - |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<TResult>`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ConnectAsync
+
+Connects to the database with sync support.
+            If [TursoSyncDatabase.SyncOnConnect](/api-reference/CloudNimble/BlazorEssentials/TursoDb/TursoSyncDatabase#synconconnect) is true, performs an initial sync after connecting.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task ConnectAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ConnectAsync <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `CloudNimble.BlazorEssentials.TursoDb.TursoDatabase`</Note>
+
+Connects to the database.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task ConnectAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+A task representing the asynchronous operation.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> DisconnectAsync <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `CloudNimble.BlazorEssentials.TursoDb.TursoDatabase`</Note>
+
+Disconnects from the database.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task DisconnectAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+A task representing the asynchronous operation.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> DisposeAsync <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `CloudNimble.BlazorEssentials.TursoDb.TursoDatabase`</Note>
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.ValueTask DisposeAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.ValueTask`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> EnsureConnectedAsync <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `CloudNimble.BlazorEssentials.TursoDb.TursoDatabase`</Note>
+
+Ensures the database is connected, connecting if necessary.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task EnsureConnectedAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual bool Equals(object obj)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `obj` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool Equals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ExecuteAsync <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `CloudNimble.BlazorEssentials.TursoDb.TursoDatabase`</Note>
+
+Executes a SQL statement and returns the result.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<CloudNimble.BlazorEssentials.TursoDb.TursoResult> ExecuteAsync(string sql, params object[] parameters)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `sql` | `string` | The SQL statement to execute. |
+| `parameters` | `object?[]` | The parameters for the SQL statement. |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<CloudNimble.BlazorEssentials.TursoDb.TursoResult>`
+The execution result.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ExecuteBatchAsync <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `CloudNimble.BlazorEssentials.TursoDb.TursoDatabase`</Note>
+
+Executes multiple SQL statements in a batch.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<System.Collections.Generic.List<CloudNimble.BlazorEssentials.TursoDb.TursoResult>> ExecuteBatchAsync(params (string, object[])[] statements)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `statements` | `(string, object?[])[]` | The statements to execute. |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<System.Collections.Generic.List<CloudNimble.BlazorEssentials.TursoDb.TursoResult>>`
+The results of each statement.
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetHashCode <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual int GetHashCode()
+```
+
+#### Returns
+
+Type: `int`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetType <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public System.Type GetType()
+```
+
+#### Returns
+
+Type: `System.Type`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> MemberwiseClone <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+protected internal object MemberwiseClone()
+```
+
+#### Returns
+
+Type: `object`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Prepare <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `CloudNimble.BlazorEssentials.TursoDb.TursoDatabase`</Note>
+
+Creates a prepared statement for queries that return results.
+
+#### Syntax
+
+```csharp
+public CloudNimble.BlazorEssentials.TursoDb.TursoPreparedStatement<TResult> Prepare<TResult>(string sql) where TResult : class, new()
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `sql` | `string` | The SQL query to prepare. |
+
+#### Returns
+
+Type: `CloudNimble.BlazorEssentials.TursoDb.TursoPreparedStatement<TResult>`
+A prepared statement that can be executed multiple times.
+
+#### Type Parameters
+
+- `TResult` - The type of result returned by the query.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Prepare <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `CloudNimble.BlazorEssentials.TursoDb.TursoDatabase`</Note>
+
+Creates a prepared statement for non-query commands.
+
+#### Syntax
+
+```csharp
+public CloudNimble.BlazorEssentials.TursoDb.TursoPreparedStatement Prepare(string sql)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `sql` | `string` | The SQL command to prepare. |
+
+#### Returns
+
+Type: `CloudNimble.BlazorEssentials.TursoDb.TursoPreparedStatement`
+A prepared statement that can be executed multiple times.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> PullAsync
+
+Pulls changes from Turso Cloud to the local database.
+            This downloads any changes made on other devices or the cloud.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<CloudNimble.BlazorEssentials.TursoDb.TursoSyncResult> PullAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<CloudNimble.BlazorEssentials.TursoDb.TursoSyncResult>`
+The sync result containing the number of frames synced.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> PushAsync
+
+Pushes local changes to Turso Cloud.
+            This uploads any local changes to the cloud for other devices to sync.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<CloudNimble.BlazorEssentials.TursoDb.TursoSyncResult> PushAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<CloudNimble.BlazorEssentials.TursoDb.TursoSyncResult>`
+The sync result containing the number of frames synced.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> QueryAsync <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `CloudNimble.BlazorEssentials.TursoDb.TursoDatabase`</Note>
+
+Executes a SQL query and returns all matching rows.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<System.Collections.Generic.List<T>> QueryAsync<T>(string sql, params object[] parameters)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `sql` | `string` | The SQL query to execute. |
+| `parameters` | `object?[]` | The parameters for the SQL query. |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<System.Collections.Generic.List<T>>`
+A list of results.
+
+#### Type Parameters
+
+- `T` - The type to deserialize results into.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> QuerySingleAsync <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `CloudNimble.BlazorEssentials.TursoDb.TursoDatabase`</Note>
+
+Executes a SQL query and returns the first matching row or null.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<T> QuerySingleAsync<T>(string sql, params object[] parameters)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `sql` | `string` | The SQL query to execute. |
+| `parameters` | `object?[]` | The parameters for the SQL query. |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<T?>`
+The first result or default.
+
+#### Type Parameters
+
+- `T` - The type to deserialize the result into.
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ReferenceEquals <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool ReferenceEquals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> SyncAsync
+
+Performs a bidirectional sync with Turso Cloud.
+            This combines pull and push operations.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<CloudNimble.BlazorEssentials.TursoDb.TursoSyncResult> SyncAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<CloudNimble.BlazorEssentials.TursoDb.TursoSyncResult>`
+The sync result containing the number of frames synced.
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ToString <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual string ToString()
+```
+
+#### Returns
+
+Type: `string?`
+
+## Events
+
+### <Icon icon="bell" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> SyncCompleted
+
+Occurs when a sync operation completes successfully.
+
+#### Syntax
+
+```csharp
+public System.EventHandler<CloudNimble.BlazorEssentials.TursoDb.TursoSyncResult> SyncCompleted
+```
+
+### <Icon icon="bell" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> SyncFailed
+
+Occurs when a sync operation fails.
+
+#### Syntax
+
+```csharp
+public System.EventHandler<System.Exception> SyncFailed
+```
+
+### <Icon icon="bell" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> SyncStarted
+
+Occurs when a sync operation starts.
+
+#### Syntax
+
+```csharp
+public System.EventHandler SyncStarted
+```
+
+## Related APIs
+
+- System.IAsyncDisposable
+

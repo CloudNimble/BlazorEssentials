@@ -1,4 +1,4 @@
-<Project Sdk="DotNetDocs.Sdk/1.1.0-preview.1">
+﻿<Project Sdk="DotNetDocs.Sdk/1.2.0">
 
 	<PropertyGroup>
 		<DocumentationType>Mintlify</DocumentationType>
@@ -8,7 +8,6 @@
 
 		<ConceptualDocsEnabled>true</ConceptualDocsEnabled>
 		<ShowPlaceholders>false</ShowPlaceholders>
-		<MintlifyNavigationMode>Unified</MintlifyNavigationMode>
 
 		<MintlifyTemplate>
 			<Name>BlazorEssentials</Name>
@@ -24,14 +23,23 @@
             <Styling>
                 <CodeBlocks>dark</CodeBlocks>
             </Styling>
-            <Navigation>
+            <Navigation Mode="Unified">
                 <Pages>
                     <Groups>
                         <Group Name="Getting Started" Icon="stars">
                             <Pages>index;</Pages>
                         </Group>
-                        <Group Name="Guides" Icon="dog-leashed">
-                            <Pages>guides/index;guides/pipeline;guides/conceptual-docs;guides/deployment</Pages>
+                        <Group Name="Guides" Icon="book-open">
+                            <Pages>guides/index;</Pages>
+                            <Groups>
+                                <Group Name="Client-Side Databases" Icon="database">
+                                    <Pages>
+                                        guides/databases/index;
+                                        guides/databases/indexeddb;
+                                        guides/databases/tursodb
+                                    </Pages>
+                                </Group>
+                            </Groups>
                         </Group>
                     </Groups>
                 </Pages>

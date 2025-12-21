@@ -1,0 +1,23 @@
+{
+  "name": "blazoressentials.tursodb",
+  "version": "1.0.0",
+  "description": "Turso database WASM wrapper for Blazor",
+  "repository": "https://github.com/cloudnimble/BlazorEssentials",
+  "author": "CloudNimble, Inc.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "esbuild Scripts/CloudNimble.BlazorEssentials.TursoDb.ts --bundle --format=esm --outfile=wwwroot/CloudNimble.BlazorEssentials.TursoDb.js --external:*.wasm",
+    "watch": "esbuild Scripts/CloudNimble.BlazorEssentials.TursoDb.ts --bundle --format=esm --outfile=wwwroot/CloudNimble.BlazorEssentials.TursoDb.js --external:*.wasm --watch",
+    "clean": "rimraf wwwroot/*.js wwwroot/*.js.map"
+  },
+  "devDependencies": {
+    "@microsoft/dotnet-js-interop": "10.0.0",
+    "esbuild": "^0.24.0",
+    "typescript": "^5.7.0",
+    "rimraf": "^6.0.1"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.14.0"
+  }
+}

@@ -1,11 +1,4 @@
 ﻿using CloudNimble.BlazorEssentials;
-using CloudNimble.BlazorEssentials.Authentication;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using System;
-using System.Linq;
-using System.Net.Http;
-using System.Reflection;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

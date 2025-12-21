@@ -5,7 +5,7 @@
 		<IsTestProject Condition="$(MSBuildProjectName.ToLower().Contains('.tests'))">true</IsTestProject>
 		<IsTestAssetProject Condition="$(RepoRelativeProjectDir.Contains('testassets'))">true</IsTestAssetProject>
 		<IsSampleProject Condition="$(MSBuildProjectName.ToLower().EndsWith('blazoressentials.testapp'))">true</IsSampleProject>
-		<IsNetCore Condition=" '$(TargetFramework)' == 'netcoreapp3.1' OR '$(TargetFramework)' == 'net5.0' OR '$(TargetFramework)' == 'net6.0' ">true</IsNetCore>
+		<IsNetCore Condition=" '$(TargetFramework)' == 'net8.0' OR '$(TargetFramework)' == 'net9.0' OR '$(TargetFramework)' == 'net10.0' ">true</IsNetCore>
 		<IsPrimaryProject Condition=" ('$(IsBenchmarkProject)' != 'true' And '$(IsTestProject)' != 'true' And '$(IsTestAssetProject)' != 'true' And '$(IsSampleProject)' != 'true' And '$(IsSampleProject)' != 'true') or '$(IsTemplatePackageProject)' == 'true' ">true</IsPrimaryProject>
 		<IncludeReadmeFile Condition="Exists('$(MSBuildProjectDirectory)\readme.md')">true</IncludeReadmeFile>
         <IncludePackageIcon Condition="Exists('$(MSBuildThisFileDirectory)\blazoressentials-logo.png')">true</IncludePackageIcon>
@@ -91,13 +91,15 @@
 		<GenerateProgramFile>false</GenerateProgramFile>
 	</PropertyGroup>
 
-	<PropertyGroup Condition=" $(IsTestProject) == 'true' ">
-		<EnableMSTestRunner>true</EnableMSTestRunner>
-		<TestingPlatformShowTestsFailure>true</TestingPlatformShowTestsFailure>
-		<TestingPlatformCommandLineArguments>$(TestingPlatformCommandLineArguments) --ignore-exit-code 8</TestingPlatformCommandLineArguments>
+    <PropertyGroup Condition=" $(IsTestProject) == 'true' ">
+        <NoWarn>$(NoWarn);CA1001;CA1707;CA2007;CA1801;CS1591</NoWarn>
 
-		<IsPackable>false</IsPackable>
-	</PropertyGroup>
+        <EnableMSTestRunner>true</EnableMSTestRunner>
+        <TestingPlatformShowTestsFailure>true</TestingPlatformShowTestsFailure>
+        <TestingPlatformCommandLineArguments>$(TestingPlatformCommandLineArguments) --ignore-exit-code 8</TestingPlatformCommandLineArguments>
+
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
 
 	<ItemGroup Condition=" $(IsTestProject) != 'true' and $(IsSampleProject) != 'true' ">
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.*" PrivateAssets="All" />

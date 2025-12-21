@@ -1,7 +1,6 @@
 ﻿using CloudNimble.BlazorEssentials.Breakdance;
 using CloudNimble.EasyAF.Configuration;
 using FluentAssertions;
-using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

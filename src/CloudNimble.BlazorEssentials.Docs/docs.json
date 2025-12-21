@@ -22,9 +22,15 @@
         "icon": "dog-leashed",
         "pages": [
           "guides/index",
-          "guides/pipeline",
-          "guides/conceptual-docs",
-          "guides/deployment"
+          {
+            "group": "Client-Side Databases",
+            "icon": "database",
+            "pages": [
+              "guides/databases/index",
+              "guides/databases/indexeddb",
+              "guides/databases/tursodb"
+            ]
+          }
         ]
       },
       {
@@ -79,6 +85,31 @@
                     ]
                   },
                   {
+                    "group": "IndexedDb",
+                    "icon": "folder-tree",
+                    "pages": [
+                      "api-reference/CloudNimble/BlazorEssentials/IndexedDb/index",
+                      "api-reference/CloudNimble/BlazorEssentials/IndexedDb/IndexAttribute",
+                      "api-reference/CloudNimble/BlazorEssentials/IndexedDb/IndexedDbDatabase",
+                      "api-reference/CloudNimble/BlazorEssentials/IndexedDb/IndexedDbException",
+                      "api-reference/CloudNimble/BlazorEssentials/IndexedDb/IndexedDbIndex",
+                      "api-reference/CloudNimble/BlazorEssentials/IndexedDb/IndexedDbNotFoundException",
+                      "api-reference/CloudNimble/BlazorEssentials/IndexedDb/IndexedDbObjectStore",
+                      "api-reference/CloudNimble/BlazorEssentials/IndexedDb/KeyRange",
+                      "api-reference/CloudNimble/BlazorEssentials/IndexedDb/ObjectStoreAttribute",
+                      {
+                        "group": "Schema",
+                        "icon": "folder-tree",
+                        "pages": [
+                          "api-reference/CloudNimble/BlazorEssentials/IndexedDb/Schema/index",
+                          "api-reference/CloudNimble/BlazorEssentials/IndexedDb/Schema/IndexedDbDatabaseDefinition",
+                          "api-reference/CloudNimble/BlazorEssentials/IndexedDb/Schema/IndexedDbIndexDefinition",
+                          "api-reference/CloudNimble/BlazorEssentials/IndexedDb/Schema/IndexedDbObjectStoreDefinition"
+                        ]
+                      }
+                    ]
+                  },
+                  {
                     "group": "Merlin",
                     "icon": "folder-tree",
                     "pages": [
@@ -108,11 +139,69 @@
                     ]
                   },
                   {
+                    "group": "Server",
+                    "icon": "folder-tree",
+                    "pages": [
+                      {
+                        "group": "Middleware",
+                        "icon": "folder-tree",
+                        "pages": [
+                          "api-reference/CloudNimble/BlazorEssentials/Server/Middleware/index",
+                          "api-reference/CloudNimble/BlazorEssentials/Server/Middleware/CrossOriginIsolationMiddleware",
+                          "api-reference/CloudNimble/BlazorEssentials/Server/Middleware/CrossOriginIsolationOptions"
+                        ]
+                      }
+                    ]
+                  },
+                  {
                     "group": "Threading",
                     "icon": "folder-tree",
                     "pages": [
                       "api-reference/CloudNimble/BlazorEssentials/Threading/index",
                       "api-reference/CloudNimble/BlazorEssentials/Threading/DelayDispatcher"
+                    ]
+                  },
+                  {
+                    "group": "TursoDb",
+                    "icon": "folder-tree",
+                    "pages": [
+                      "api-reference/CloudNimble/BlazorEssentials/TursoDb/index",
+                      "api-reference/CloudNimble/BlazorEssentials/TursoDb/ColumnAttribute",
+                      "api-reference/CloudNimble/BlazorEssentials/TursoDb/IndexAttribute",
+                      "api-reference/CloudNimble/BlazorEssentials/TursoDb/ITursoDbSet",
+                      "api-reference/CloudNimble/BlazorEssentials/TursoDb/NotMappedAttribute",
+                      "api-reference/CloudNimble/BlazorEssentials/TursoDb/PrimaryKeyAttribute",
+                      "api-reference/CloudNimble/BlazorEssentials/TursoDb/TableAttribute",
+                      "api-reference/CloudNimble/BlazorEssentials/TursoDb/TursoDatabase",
+                      "api-reference/CloudNimble/BlazorEssentials/TursoDb/TursoDatabaseOptions",
+                      "api-reference/CloudNimble/BlazorEssentials/TursoDb/TursoDbException",
+                      "api-reference/CloudNimble/BlazorEssentials/TursoDb/TursoDbSet",
+                      "api-reference/CloudNimble/BlazorEssentials/TursoDb/TursoPreparedStatement",
+                      "api-reference/CloudNimble/BlazorEssentials/TursoDb/TursoPreparedStatement",
+                      "api-reference/CloudNimble/BlazorEssentials/TursoDb/TursoResult",
+                      "api-reference/CloudNimble/BlazorEssentials/TursoDb/TursoSyncDatabase",
+                      "api-reference/CloudNimble/BlazorEssentials/TursoDb/TursoSyncOptions",
+                      "api-reference/CloudNimble/BlazorEssentials/TursoDb/TursoSyncResult",
+                      "api-reference/CloudNimble/BlazorEssentials/TursoDb/TursoTransaction",
+                      {
+                        "group": "Query",
+                        "icon": "folder-tree",
+                        "pages": [
+                          "api-reference/CloudNimble/BlazorEssentials/TursoDb/Query/index",
+                          "api-reference/CloudNimble/BlazorEssentials/TursoDb/Query/TursoQueryBuilder"
+                        ]
+                      },
+                      {
+                        "group": "Schema",
+                        "icon": "folder-tree",
+                        "pages": [
+                          "api-reference/CloudNimble/BlazorEssentials/TursoDb/Schema/index",
+                          "api-reference/CloudNimble/BlazorEssentials/TursoDb/Schema/ColumnMetadata",
+                          "api-reference/CloudNimble/BlazorEssentials/TursoDb/Schema/EntityMetadata",
+                          "api-reference/CloudNimble/BlazorEssentials/TursoDb/Schema/EntityMetadataCache",
+                          "api-reference/CloudNimble/BlazorEssentials/TursoDb/Schema/SqlGenerator"
+                        ]
+                      }
                     ]
                   }
                 ]
@@ -127,6 +216,14 @@
                 "group": "AspNetCore",
                 "icon": "folder-tree",
                 "pages": [
+                  {
+                    "group": "Builder",
+                    "icon": "folder-tree",
+                    "pages": [
+                      "api-reference/Microsoft/AspNetCore/Builder/index",
+                      "api-reference/Microsoft/AspNetCore/Builder/IApplicationBuilder"
+                    ]
+                  },
                   {
                     "group": "Components",
                     "icon": "folder-tree",
@@ -198,8 +295,6 @@
     ]
   },
   "$schema": "https://mintlify.com/docs.json",
-  "styling": {
-    "codeblocks": "dark"
-  },
+  "styling": {},
   "theme": "maple"
 }

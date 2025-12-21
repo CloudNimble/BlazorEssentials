@@ -5,7 +5,6 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Reflection;
 
 namespace CloudNimble.BlazorEssentials.Tests
 {

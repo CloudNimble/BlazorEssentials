@@ -1,0 +1,337 @@
+---
+title: EntityMetadata
+description: "Contains metadata about an entity type for database operations."
+icon: file-brackets-curly
+keywords: ['EntityMetadata', 'CloudNimble.BlazorEssentials.TursoDb.Schema.EntityMetadata', 'CloudNimble.BlazorEssentials.TursoDb.Schema', 'class', 'System.Object']
+---
+
+## Definition
+
+**Assembly:** CloudNimble.BlazorEssentials.TursoDb.dll
+
+**Namespace:** CloudNimble.BlazorEssentials.TursoDb.Schema
+
+**Inheritance:** System.Object
+
+## Syntax
+
+```csharp
+CloudNimble.BlazorEssentials.TursoDb.Schema.EntityMetadata
+```
+
+## Summary
+
+Contains metadata about an entity type for database operations.
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor
+
+Initializes a new instance of the [EntityMetadata](/api-reference/CloudNimble/BlazorEssentials/TursoDb/Schema/EntityMetadata) class.
+
+#### Syntax
+
+```csharp
+public EntityMetadata(System.Type entityType)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `entityType` | `System.Type` | The entity type to analyze. |
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public Object()
+```
+
+## Properties
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Columns
+
+Gets the list of columns in the entity.
+
+#### Syntax
+
+```csharp
+public System.Collections.Generic.IReadOnlyList<CloudNimble.BlazorEssentials.TursoDb.Schema.ColumnMetadata> Columns { get; }
+```
+
+#### Property Value
+
+Type: `System.Collections.Generic.IReadOnlyList<CloudNimble.BlazorEssentials.TursoDb.Schema.ColumnMetadata>`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> EntityType
+
+Gets the entity type.
+
+#### Syntax
+
+```csharp
+public System.Type EntityType { get; }
+```
+
+#### Property Value
+
+Type: `System.Type`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> NonKeyColumns
+
+Gets the columns that are not the primary key.
+
+#### Syntax
+
+```csharp
+public System.Collections.Generic.IReadOnlyList<CloudNimble.BlazorEssentials.TursoDb.Schema.ColumnMetadata> NonKeyColumns { get; }
+```
+
+#### Property Value
+
+Type: `System.Collections.Generic.IReadOnlyList<CloudNimble.BlazorEssentials.TursoDb.Schema.ColumnMetadata>`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> PrimaryKey
+
+Gets the primary key column, or null if none.
+
+#### Syntax
+
+```csharp
+public CloudNimble.BlazorEssentials.TursoDb.Schema.ColumnMetadata PrimaryKey { get; }
+```
+
+#### Property Value
+
+Type: `CloudNimble.BlazorEssentials.TursoDb.Schema.ColumnMetadata?`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> TableName
+
+Gets the table name in the database.
+
+#### Syntax
+
+```csharp
+public string TableName { get; }
+```
+
+#### Property Value
+
+Type: `string`
+
+## Methods
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual bool Equals(object obj)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `obj` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool Equals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetHashCode <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual int GetHashCode()
+```
+
+#### Returns
+
+Type: `int`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetInsertData
+
+Gets the column values for insert, excluding auto-increment primary keys with default values.
+
+#### Syntax
+
+```csharp
+public (string, string, object[]) GetInsertData(object entity)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `entity` | `object` | The entity instance. |
+
+#### Returns
+
+Type: `(string, string, object?[])`
+Column names, placeholders, and parameter values.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetPrimaryKeyValue
+
+Gets the primary key value from an entity.
+
+#### Syntax
+
+```csharp
+public object GetPrimaryKeyValue(object entity)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `entity` | `object` | The entity instance. |
+
+#### Returns
+
+Type: `object?`
+The primary key value.
+
+#### Exceptions
+
+| Exception | Description |
+|-----------|-------------|
+| `InvalidOperationException` | Thrown when no primary key is defined. |
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetType <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public System.Type GetType()
+```
+
+#### Returns
+
+Type: `System.Type`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetUpdateData
+
+Gets the column values for update, excluding the primary key.
+
+#### Syntax
+
+```csharp
+public (string, object[]) GetUpdateData(object entity)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `entity` | `object` | The entity instance. |
+
+#### Returns
+
+Type: `(string, object?[])`
+SET clause and parameter values including the primary key.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> MemberwiseClone <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+protected internal object MemberwiseClone()
+```
+
+#### Returns
+
+Type: `object`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ReferenceEquals <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool ReferenceEquals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> SetPrimaryKeyValue
+
+Sets the primary key value on an entity.
+
+#### Syntax
+
+```csharp
+public void SetPrimaryKeyValue(object entity, object value)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `entity` | `object` | The entity instance. |
+| `value` | `object?` | The primary key value. |
+
+#### Exceptions
+
+| Exception | Description |
+|-----------|-------------|
+| `InvalidOperationException` | Thrown when no primary key is defined. |
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ToString <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual string ToString()
+```
+
+#### Returns
+
+Type: `string?`
+

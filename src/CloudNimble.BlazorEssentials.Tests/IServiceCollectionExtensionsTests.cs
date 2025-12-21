@@ -1,16 +1,10 @@
 using CloudNimble.BlazorEssentials.Authentication;
-using CloudNimble.Breakdance.Assemblies;
-using CloudNimble.Breakdance.Blazor;
 using CloudNimble.EasyAF.Configuration;
 using CloudNimble.EasyAF.Core;
 using FluentAssertions;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Net.Http;
-using System.Reflection;
 
 namespace CloudNimble.BlazorEssentials.Tests
 {

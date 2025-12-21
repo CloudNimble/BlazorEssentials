@@ -5,8 +5,6 @@ icon: code-branch
 keywords: ['ViewModelBase', 'CloudNimble.BlazorEssentials.ViewModelBase<TConfig, TAppState>', 'CloudNimble.BlazorEssentials', 'class', 'CloudNimble.BlazorEssentials.BlazorObservable']
 ---
 
-import { DocsBadge } from '/snippets/DocsBadge.jsx';
-
 ## Definition
 
 **Assembly:** CloudNimble.BlazorEssentials.dll
@@ -32,7 +30,7 @@ A base class for your Blazor MVVM implementation that gives you access to all th
 
 ## Constructors
 
-### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor
 
 Creates a new instance of the `ViewModelBase`2`.
 
@@ -51,7 +49,7 @@ public ViewModelBase(System.Net.Http.IHttpClientFactory httpClientFactory, TConf
 | `appState` | `TAppState` | The *TAppState* instance injected from the DI container. |
 | `stateHasChangedConfig` | `CloudNimble.BlazorEssentials.StateHasChangedConfig` | - |
 
-### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  .ctor <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor <Badge color="gray">Inherited</Badge>
 
 <Note>Inherited from `CloudNimble.BlazorEssentials.BlazorObservable`</Note>
 
@@ -71,7 +69,7 @@ public BlazorObservable(CloudNimble.BlazorEssentials.StateHasChangedConfig state
 
 ## Properties
 
-### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  AppState
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> AppState
 
 The injected [AppStateBase](/api-reference/CloudNimble/BlazorEssentials/AppStateBase) instance for the ViewModel.
 
@@ -85,7 +83,7 @@ public TAppState AppState { get; internal set; }
 
 Type: `TAppState`
 
-### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Configuration
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Configuration
 
 The injected `ConfigurationBase` instance for the ViewModel.
 
@@ -99,7 +97,7 @@ public TConfig Configuration { get; internal set; }
 
 Type: `TConfig`
 
-### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  DelayDispatcher
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> DelayDispatcher
 
 #### Syntax
 
@@ -115,7 +113,7 @@ Type: `CloudNimble.BlazorEssentials.Threading.DelayDispatcher`
 
 This property is structured so that a new instance is not created unless specifically asked, to avoid unnecessary memory allocations.
 
-### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  FilterCriteria
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> FilterCriteria
 
 Allows you to set any additional filtering criteria for this ViewModels' HTTP requests from inside the Page itself.
 
@@ -129,7 +127,7 @@ public string FilterCriteria { get; set; }
 
 Type: `string`
 
-### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  HttpClientFactory
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> HttpClientFactory
 
 The injected [IHttpClientFactory](https://learn.microsoft.com/dotnet/api/system.net.http.ihttpclientfactory) instance for the ViewModel.
 
@@ -143,7 +141,7 @@ public System.Net.Http.IHttpClientFactory HttpClientFactory { get; internal set;
 
 Type: `System.Net.Http.IHttpClientFactory`
 
-### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  LoadingStatus <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> LoadingStatus <Badge color="gray">Inherited</Badge>
 
 <Note>Inherited from `CloudNimble.BlazorEssentials.BlazorObservable`</Note>
 
@@ -159,7 +157,7 @@ public CloudNimble.BlazorEssentials.LoadingStatus LoadingStatus { get; set; }
 
 Type: `CloudNimble.BlazorEssentials.LoadingStatus`
 
-### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  StateHasChanged <DocsBadge text="Inherited" variant="neutral" />
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> StateHasChanged <Badge color="gray">Inherited</Badge>
 
 <Note>Inherited from `CloudNimble.BlazorEssentials.BlazorObservable`</Note>
 
@@ -177,7 +175,7 @@ Type: `CloudNimble.BlazorEssentials.StateHasChangedConfig`
 
 ## Methods
 
-### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} style={{ paddingRight: '8px' }} />  Dispose <DocsBadge text="Override" variant="info" />
+### <Icon icon="code-merge" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Dispose <Badge color="blue">Override</Badge>
 
 <Note>Inherited from `CloudNimble.BlazorEssentials.BlazorObservable`</Note>
 

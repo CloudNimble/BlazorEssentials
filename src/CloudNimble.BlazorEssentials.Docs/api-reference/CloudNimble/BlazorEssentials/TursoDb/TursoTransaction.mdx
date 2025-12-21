@@ -1,0 +1,261 @@
+---
+title: TursoTransaction
+description: "Represents a database transaction that can be committed or rolled back.             Implements IAsyncDisposable for automatic rollback if not committed."
+icon: file-brackets-curly
+keywords: ['TursoTransaction', 'CloudNimble.BlazorEssentials.TursoDb.TursoTransaction', 'CloudNimble.BlazorEssentials.TursoDb', 'class', 'System.Object', 'System.IAsyncDisposable']
+---
+
+## Definition
+
+**Assembly:** CloudNimble.BlazorEssentials.TursoDb.dll
+
+**Namespace:** CloudNimble.BlazorEssentials.TursoDb
+
+**Inheritance:** System.Object
+
+## Syntax
+
+```csharp
+CloudNimble.BlazorEssentials.TursoDb.TursoTransaction
+```
+
+## Summary
+
+Represents a database transaction that can be committed or rolled back.
+            Implements IAsyncDisposable for automatic rollback if not committed.
+
+## Examples
+
+```csharp
+await using var transaction = await Database.BeginTransactionAsync();
+try
+{
+    await Database.Users.AddAsync(user);
+    await Database.Posts.AddAsync(post);
+    await transaction.CommitAsync();
+}
+catch
+{
+    await transaction.RollbackAsync();
+    throw;
+}
+```
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public Object()
+```
+
+## Properties
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Database
+
+Gets the database this transaction belongs to.
+
+#### Syntax
+
+```csharp
+public CloudNimble.BlazorEssentials.TursoDb.TursoDatabase Database { get; }
+```
+
+#### Property Value
+
+Type: `CloudNimble.BlazorEssentials.TursoDb.TursoDatabase`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> IsCompleted
+
+Gets whether the transaction has been completed (committed or rolled back).
+
+#### Syntax
+
+```csharp
+public bool IsCompleted { get; }
+```
+
+#### Property Value
+
+Type: `bool`
+
+## Methods
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> CommitAsync
+
+Commits the transaction, making all changes permanent.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task CommitAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+
+#### Exceptions
+
+| Exception | Description |
+|-----------|-------------|
+| `InvalidOperationException` | Thrown if the transaction is already completed. |
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> DisposeAsync
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.ValueTask DisposeAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.ValueTask`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual bool Equals(object obj)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `obj` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool Equals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetHashCode <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual int GetHashCode()
+```
+
+#### Returns
+
+Type: `int`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetType <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public System.Type GetType()
+```
+
+#### Returns
+
+Type: `System.Type`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> MemberwiseClone <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+protected internal object MemberwiseClone()
+```
+
+#### Returns
+
+Type: `object`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ReferenceEquals <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool ReferenceEquals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> RollbackAsync
+
+Rolls back the transaction, discarding all changes.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task RollbackAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+
+#### Exceptions
+
+| Exception | Description |
+|-----------|-------------|
+| `InvalidOperationException` | Thrown if the transaction is already completed. |
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ToString <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual string ToString()
+```
+
+#### Returns
+
+Type: `string?`
+
+## Related APIs
+
+- System.IAsyncDisposable
+

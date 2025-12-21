@@ -1,0 +1,149 @@
+---
+title: IApplicationBuilder
+description: "Extension methods for IApplicationBuilder from Microsoft.AspNetCore.Http.Abstractions"
+icon: file-brackets-curly
+keywords: ['IApplicationBuilder', 'Microsoft.AspNetCore.Builder.IApplicationBuilder', 'Microsoft.AspNetCore.Builder', 'error']
+---
+
+## Definition
+
+**Assembly:** Microsoft.AspNetCore.Http.Abstractions.dll
+
+**Namespace:** Microsoft.AspNetCore.Builder
+
+## Syntax
+
+```csharp
+Microsoft.AspNetCore.Builder.IApplicationBuilder
+```
+
+## Summary
+
+This type is defined in Microsoft.AspNetCore.Http.Abstractions.
+
+## Remarks
+
+See [Microsoft documentation](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.builder.iapplicationbuilder) for more information about the rest of the API.
+
+## Methods
+
+### <Icon icon="puzzle-piece" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> UseCrossOriginIsolation <Badge color="green">Extension</Badge>
+
+<Note>Extension method from `Microsoft.AspNetCore.Builder.ApplicationBuilderExtensions`</Note>
+
+Adds Cross-Origin Isolation middleware to the application pipeline.
+            This enables SharedArrayBuffer and high-resolution timers required by WASM libraries.
+
+#### Syntax
+
+```csharp
+public static Microsoft.AspNetCore.Builder.IApplicationBuilder UseCrossOriginIsolation(Microsoft.AspNetCore.Builder.IApplicationBuilder app)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `app` | `Microsoft.AspNetCore.Builder.IApplicationBuilder` | The application builder. |
+
+#### Returns
+
+Type: `Microsoft.AspNetCore.Builder.IApplicationBuilder`
+The application builder for chaining.
+
+#### Examples
+
+```csharp
+// In Program.cs
+var app = builder.Build();
+app.UseCrossOriginIsolation();
+```
+
+#### Remarks
+
+
+
+
+            This middleware adds the following headers to responses:
+            
+- `Cross-Origin-Opener-Policy: same-origin`
+- `Cross-Origin-Embedder-Policy: require-corp`
+- `Cross-Origin-Resource-Policy: same-origin`
+
+
+
+
+
+  &lt;strong&gt;Warning:&lt;/strong&gt; This may break third-party scripts and iframes.
+            Use [CrossOriginIsolationOptions})](https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.builder.applicationbuilderextensions.usecrossoriginisolation(microsoft.aspnetcore.builder.iapplicationbuilder,system.action{cloudnimble.blazoressentials.server.middleware.crossoriginisolationoptions}))
+            to configure exclusions.
+            
+
+
+
+### <Icon icon="puzzle-piece" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> UseCrossOriginIsolation <Badge color="green">Extension</Badge>
+
+<Note>Extension method from `Microsoft.AspNetCore.Builder.ApplicationBuilderExtensions`</Note>
+
+Adds Cross-Origin Isolation middleware to the application pipeline with custom options.
+
+#### Syntax
+
+```csharp
+public static Microsoft.AspNetCore.Builder.IApplicationBuilder UseCrossOriginIsolation(Microsoft.AspNetCore.Builder.IApplicationBuilder app, System.Action<CloudNimble.BlazorEssentials.Server.Middleware.CrossOriginIsolationOptions> configureOptions)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `app` | `Microsoft.AspNetCore.Builder.IApplicationBuilder` | The application builder. |
+| `configureOptions` | `System.Action<CloudNimble.BlazorEssentials.Server.Middleware.CrossOriginIsolationOptions>` | Action to configure the middleware options. |
+
+#### Returns
+
+Type: `Microsoft.AspNetCore.Builder.IApplicationBuilder`
+The application builder for chaining.
+
+#### Examples
+
+```csharp
+// In Program.cs
+var app = builder.Build();
+app.UseCrossOriginIsolation(options =&gt;
+{
+    // Use credentialless instead of require-corp for less strict isolation
+    options.CoepPolicy = "credentialless";
+
+    // Exclude API paths from cross-origin isolation
+    options.ExcludePaths.Add("/api/");
+
+    // Exclude external resource paths
+    options.ExcludePaths.Add("/external/");
+});
+```
+
+### <Icon icon="puzzle-piece" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> UseCrossOriginIsolation <Badge color="green">Extension</Badge>
+
+<Note>Extension method from `Microsoft.AspNetCore.Builder.ApplicationBuilderExtensions`</Note>
+
+Adds Cross-Origin Isolation middleware to the application pipeline with the specified options.
+
+#### Syntax
+
+```csharp
+public static Microsoft.AspNetCore.Builder.IApplicationBuilder UseCrossOriginIsolation(Microsoft.AspNetCore.Builder.IApplicationBuilder app, CloudNimble.BlazorEssentials.Server.Middleware.CrossOriginIsolationOptions options)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `app` | `Microsoft.AspNetCore.Builder.IApplicationBuilder` | The application builder. |
+| `options` | `CloudNimble.BlazorEssentials.Server.Middleware.CrossOriginIsolationOptions` | The middleware options. |
+
+#### Returns
+
+Type: `Microsoft.AspNetCore.Builder.IApplicationBuilder`
+The application builder for chaining.
+

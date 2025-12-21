@@ -1,0 +1,37 @@
+---
+title: Client-Side Databases
+sidebarTitle: Overview
+description: "Store data locally in the browser with IndexedDB or TursoDb"
+icon: database
+---
+
+BlazorEssentials provides two client-side database options for Blazor WebAssembly applications,
+enabling offline-capable, local-first experiences.
+
+<CardGroup cols={2}>
+  <Card title="IndexedDB" icon="box-archive" href="/guides/databases/indexeddb">
+    NoSQL key-value storage using the browser's built-in IndexedDB API.
+    Great for caching, offline data, and simple object storage.
+  </Card>
+  <Card title="TursoDb" icon="database" href="/guides/databases/tursodb">
+    Full SQLite database with SQL queries, transactions, and optional
+    Turso Cloud sync for multi-device experiences.
+  </Card>
+</CardGroup>
+
+## Choosing a Database
+
+| Feature | IndexedDB | TursoDb |
+|---------|-----------|---------|
+| Data Model | Key-value / Document | Relational (SQL) |
+| Query Language | JavaScript API | SQL |
+| Relationships | Manual | Foreign keys |
+| Transactions | Yes | Yes |
+| Cloud Sync | No | Yes (Turso Cloud) |
+| Browser Support | All modern browsers | Requires SharedArrayBuffer |
+| Schema | Dynamic | Defined with attributes |
+
+<Tip>
+  Use **IndexedDB** for simple caching and document storage. Use **TursoDb** when you need
+  SQL queries, relationships, or cloud synchronization.
+</Tip>

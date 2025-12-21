@@ -1,0 +1,233 @@
+---
+title: CrossOriginIsolationMiddleware
+description: "Middleware that adds Cross-Origin Isolation headers (COOP and COEP) to responses.              These headers are required for features like SharedArrayBuffer..."
+icon: file-brackets-curly
+keywords: ['CrossOriginIsolationMiddleware', 'CloudNimble.BlazorEssentials.Server.Middleware.CrossOriginIsolationMiddleware', 'CloudNimble.BlazorEssentials.Server.Middleware', 'class', 'System.Object']
+---
+
+## Definition
+
+**Assembly:** CloudNimble.BlazorEssentials.Server.dll
+
+**Namespace:** CloudNimble.BlazorEssentials.Server.Middleware
+
+**Inheritance:** System.Object
+
+## Syntax
+
+```csharp
+CloudNimble.BlazorEssentials.Server.Middleware.CrossOriginIsolationMiddleware
+```
+
+## Summary
+
+Middleware that adds Cross-Origin Isolation headers (COOP and COEP) to responses.
+             These headers are required for features like SharedArrayBuffer and high-resolution timers,
+             which are needed by WASM libraries like TursoDb that use OPFS (Origin Private File System).
+
+## Remarks
+
+
+
+
+  &lt;strong&gt;Warning:&lt;/strong&gt; Enabling cross-origin isolation may break third-party scripts,
+             iframes, and CDN resources that are not configured to work in an isolated context.
+             Test thoroughly before enabling in production.
+             
+
+
+
+
+             Headers added:
+             
+- `Cross-Origin-Opener-Policy: same-origin` - Isolates the browsing context
+- `Cross-Origin-Embedder-Policy: require-corp` - Requires all resources to explicitly grant permission
+
+
+
+
+## Examples
+
+```csharp
+// In Program.cs
+app.UseCrossOriginIsolation();
+
+// Or with options
+app.UseCrossOriginIsolation(options =&gt;
+{
+    options.CoopPolicy = "same-origin";
+    options.CoepPolicy = "require-corp";
+    options.ExcludePaths.Add("/api/");
+});
+```
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor
+
+Initializes a new instance of the [CrossOriginIsolationMiddleware](/api-reference/CloudNimble/BlazorEssentials/Server/Middleware/CrossOriginIsolationMiddleware) class.
+
+#### Syntax
+
+```csharp
+public CrossOriginIsolationMiddleware(Microsoft.AspNetCore.Http.RequestDelegate next, CloudNimble.BlazorEssentials.Server.Middleware.CrossOriginIsolationOptions options = null)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `next` | `Microsoft.AspNetCore.Http.RequestDelegate` | The next middleware in the pipeline. |
+| `options` | `CloudNimble.BlazorEssentials.Server.Middleware.CrossOriginIsolationOptions?` | Configuration options for cross-origin isolation. |
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public Object()
+```
+
+## Methods
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual bool Equals(object obj)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `obj` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool Equals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetHashCode <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual int GetHashCode()
+```
+
+#### Returns
+
+Type: `int`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetType <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public System.Type GetType()
+```
+
+#### Returns
+
+Type: `System.Type`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> InvokeAsync
+
+Invokes the middleware to add cross-origin isolation headers.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task InvokeAsync(Microsoft.AspNetCore.Http.HttpContext context)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `context` | `Microsoft.AspNetCore.Http.HttpContext` | The HTTP context. |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task`
+A task representing the asynchronous operation.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> MemberwiseClone <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+protected internal object MemberwiseClone()
+```
+
+#### Returns
+
+Type: `object`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ReferenceEquals <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool ReferenceEquals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ToString <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual string ToString()
+```
+
+#### Returns
+
+Type: `string?`
+

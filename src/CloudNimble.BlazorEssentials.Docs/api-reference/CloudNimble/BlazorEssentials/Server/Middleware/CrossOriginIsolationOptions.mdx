@@ -1,0 +1,267 @@
+---
+title: CrossOriginIsolationOptions
+description: "Configuration options for the [CrossOriginIsolationMiddleware](/api-reference/CloudNimble/BlazorEssentials/Server/Middleware/CrossOriginIsolationMiddleware)."
+icon: file-brackets-curly
+keywords: ['CrossOriginIsolationOptions', 'CloudNimble.BlazorEssentials.Server.Middleware.CrossOriginIsolationOptions', 'CloudNimble.BlazorEssentials.Server.Middleware', 'class', 'System.Object']
+---
+
+## Definition
+
+**Assembly:** CloudNimble.BlazorEssentials.Server.dll
+
+**Namespace:** CloudNimble.BlazorEssentials.Server.Middleware
+
+**Inheritance:** System.Object
+
+## Syntax
+
+```csharp
+CloudNimble.BlazorEssentials.Server.Middleware.CrossOriginIsolationOptions
+```
+
+## Summary
+
+Configuration options for the [CrossOriginIsolationMiddleware](/api-reference/CloudNimble/BlazorEssentials/Server/Middleware/CrossOriginIsolationMiddleware).
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor
+
+#### Syntax
+
+```csharp
+public CrossOriginIsolationOptions()
+```
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public Object()
+```
+
+## Properties
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> CoepPolicy
+
+Gets or sets the Cross-Origin-Embedder-Policy value.
+            Default is "require-corp".
+
+#### Syntax
+
+```csharp
+public string CoepPolicy { get; set; }
+```
+
+#### Property Value
+
+Type: `string`
+
+#### Remarks
+
+Possible values:
+            
+
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> CoopPolicy
+
+Gets or sets the Cross-Origin-Opener-Policy value.
+            Default is "same-origin".
+
+#### Syntax
+
+```csharp
+public string CoopPolicy { get; set; }
+```
+
+#### Property Value
+
+Type: `string`
+
+#### Remarks
+
+Possible values:
+            
+
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> CorpPolicy
+
+Gets or sets the Cross-Origin-Resource-Policy value.
+            Default is "same-origin".
+
+#### Syntax
+
+```csharp
+public string CorpPolicy { get; set; }
+```
+
+#### Property Value
+
+Type: `string`
+
+#### Remarks
+
+Possible values:
+            
+
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ExcludePaths
+
+Gets or sets a list of path prefixes to exclude from cross-origin isolation.
+            Paths starting with these prefixes will not have the headers added.
+
+#### Syntax
+
+```csharp
+public System.Collections.Generic.List<string> ExcludePaths { get; set; }
+```
+
+#### Property Value
+
+Type: `System.Collections.Generic.List<string>`
+
+#### Examples
+
+```csharp
+options.ExcludePaths.Add("/api/");
+options.ExcludePaths.Add("/external/");
+```
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> IncludeCorpHeader
+
+Gets or sets whether to include the Cross-Origin-Resource-Policy header.
+            Default is true.
+
+#### Syntax
+
+```csharp
+public bool IncludeCorpHeader { get; set; }
+```
+
+#### Property Value
+
+Type: `bool`
+
+## Methods
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual bool Equals(object obj)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `obj` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool Equals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetHashCode <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual int GetHashCode()
+```
+
+#### Returns
+
+Type: `int`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetType <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public System.Type GetType()
+```
+
+#### Returns
+
+Type: `System.Type`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> MemberwiseClone <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+protected internal object MemberwiseClone()
+```
+
+#### Returns
+
+Type: `object`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ReferenceEquals <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool ReferenceEquals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ToString <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual string ToString()
+```
+
+#### Returns
+
+Type: `string?`
+

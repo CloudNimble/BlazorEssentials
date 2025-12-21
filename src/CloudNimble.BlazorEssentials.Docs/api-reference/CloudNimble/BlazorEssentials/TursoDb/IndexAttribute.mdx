@@ -1,0 +1,67 @@
+---
+title: IndexAttribute
+description: "Creates an index on the specified column."
+icon: lock
+tag: "SEALED"
+keywords: ['IndexAttribute', 'CloudNimble.BlazorEssentials.TursoDb.IndexAttribute', 'CloudNimble.BlazorEssentials.TursoDb', 'class', 'System.Attribute']
+---
+
+## Definition
+
+**Assembly:** CloudNimble.BlazorEssentials.TursoDb.dll
+
+**Namespace:** CloudNimble.BlazorEssentials.TursoDb
+
+**Inheritance:** System.Attribute
+
+## Syntax
+
+```csharp
+CloudNimble.BlazorEssentials.TursoDb.IndexAttribute
+```
+
+## Summary
+
+Creates an index on the specified column.
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor
+
+#### Syntax
+
+```csharp
+public IndexAttribute()
+```
+
+## Properties
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Name
+
+Gets or sets the index name.
+            If not specified, the name is auto-generated as "ix_{tablename}_{columnname}".
+
+#### Syntax
+
+```csharp
+public string Name { get; set; }
+```
+
+#### Property Value
+
+Type: `string?`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Unique
+
+Gets or sets whether the index enforces uniqueness.
+
+#### Syntax
+
+```csharp
+public bool Unique { get; set; }
+```
+
+#### Property Value
+
+Type: `bool`
+

@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net10.0;net9.0;net8.0;</TargetFrameworks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CloudNimble.BlazorEssentials.Breakdance\CloudNimble.BlazorEssentials.Breakdance.csproj" />
+    <ProjectReference Include="..\CloudNimble.BlazorEssentials.TursoDb\CloudNimble.BlazorEssentials.TursoDb.csproj" />
+  </ItemGroup>
+
+</Project>

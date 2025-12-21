@@ -1,0 +1,523 @@
+---
+title: TursoDbSet
+description: "Represents a collection of entities of a specific type in the database.             Provides CRUD operations and querying capabilities."
+icon: code-branch
+keywords: ['TursoDbSet', 'CloudNimble.BlazorEssentials.TursoDb.TursoDbSet<TEntity>', 'CloudNimble.BlazorEssentials.TursoDb', 'class', 'System.Object', 'CloudNimble.BlazorEssentials.TursoDb.ITursoDbSet']
+---
+
+## Definition
+
+**Assembly:** CloudNimble.BlazorEssentials.TursoDb.dll
+
+**Namespace:** CloudNimble.BlazorEssentials.TursoDb
+
+**Inheritance:** System.Object
+
+## Syntax
+
+```csharp
+CloudNimble.BlazorEssentials.TursoDb.TursoDbSet<TEntity>
+```
+
+## Summary
+
+Represents a collection of entities of a specific type in the database.
+            Provides CRUD operations and querying capabilities.
+
+## Type Parameters
+
+- `TEntity` - The entity type this set manages.
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor
+
+Initializes a new instance of the `TursoDbSet`1` class.
+
+#### Syntax
+
+```csharp
+public TursoDbSet(CloudNimble.BlazorEssentials.TursoDb.TursoDatabase database)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `database` | `CloudNimble.BlazorEssentials.TursoDb.TursoDatabase` | The parent database. |
+
+#### Exceptions
+
+| Exception | Description |
+|-----------|-------------|
+| `ArgumentNullException` | Thrown when database is null. |
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public Object()
+```
+
+## Properties
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Database
+
+Gets the parent database.
+
+#### Syntax
+
+```csharp
+public CloudNimble.BlazorEssentials.TursoDb.TursoDatabase Database { get; }
+```
+
+#### Property Value
+
+Type: `CloudNimble.BlazorEssentials.TursoDb.TursoDatabase`
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> TableName
+
+Gets the table name for this entity type.
+
+#### Syntax
+
+```csharp
+public string TableName { get; }
+```
+
+#### Property Value
+
+Type: `string`
+
+## Methods
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> AddAsync
+
+Adds a new entity to the table.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<CloudNimble.BlazorEssentials.TursoDb.TursoResult> AddAsync(TEntity entity)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `entity` | `TEntity` | The entity to add. |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<CloudNimble.BlazorEssentials.TursoDb.TursoResult>`
+The execution result containing the last insert ID.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> AddRangeAsync
+
+Adds multiple entities to the table in a batch.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<int> AddRangeAsync(System.Collections.Generic.IEnumerable<TEntity> entities)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `entities` | `System.Collections.Generic.IEnumerable<TEntity>` | The entities to add. |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<int>`
+The number of entities added.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> CountAsync
+
+Gets the count of entities in the table.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<int> CountAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<int>`
+The count of entities.
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual bool Equals(object obj)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `obj` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Equals <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool Equals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> FindAsync
+
+Finds an entity by its primary key.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<TEntity> FindAsync(object key)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `key` | `object` | The primary key value. |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<TEntity?>`
+The entity if found, otherwise null.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> FirstOrDefaultAsync
+
+Gets the first entity matching the optional filter, or null if none.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<TEntity> FirstOrDefaultAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<TEntity?>`
+The first entity or null.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> FromSqlAsync
+
+Executes a raw SQL query against this entity's table.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<System.Collections.Generic.List<TEntity>> FromSqlAsync(string sql, params object[] parameters)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `sql` | `string` | The SQL query. |
+| `parameters` | `object?[]` | The query parameters. |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<System.Collections.Generic.List<TEntity>>`
+A list of matching entities.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetEntityMetadata
+
+#### Syntax
+
+```csharp
+public CloudNimble.BlazorEssentials.TursoDb.Schema.EntityMetadata GetEntityMetadata()
+```
+
+#### Returns
+
+Type: `CloudNimble.BlazorEssentials.TursoDb.Schema.EntityMetadata`
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetHashCode <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual int GetHashCode()
+```
+
+#### Returns
+
+Type: `int`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> GetType <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public System.Type GetType()
+```
+
+#### Returns
+
+Type: `System.Type`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> MemberwiseClone <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+protected internal object MemberwiseClone()
+```
+
+#### Returns
+
+Type: `object`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> OrderBy
+
+Creates a query builder with an initial ORDER BY clause (ascending).
+
+#### Syntax
+
+```csharp
+public CloudNimble.BlazorEssentials.TursoDb.Query.TursoQueryBuilder<TEntity> OrderBy(string column)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `column` | `string` | The column to order by. |
+
+#### Returns
+
+Type: `CloudNimble.BlazorEssentials.TursoDb.Query.TursoQueryBuilder<TEntity>`
+A query builder for fluent query construction.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> OrderByDescending
+
+Creates a query builder with an initial ORDER BY clause (descending).
+
+#### Syntax
+
+```csharp
+public CloudNimble.BlazorEssentials.TursoDb.Query.TursoQueryBuilder<TEntity> OrderByDescending(string column)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `column` | `string` | The column to order by. |
+
+#### Returns
+
+Type: `CloudNimble.BlazorEssentials.TursoDb.Query.TursoQueryBuilder<TEntity>`
+A query builder for fluent query construction.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Query
+
+Creates a new query builder for this entity set.
+
+#### Syntax
+
+```csharp
+public CloudNimble.BlazorEssentials.TursoDb.Query.TursoQueryBuilder<TEntity> Query()
+```
+
+#### Returns
+
+Type: `CloudNimble.BlazorEssentials.TursoDb.Query.TursoQueryBuilder<TEntity>`
+A query builder for fluent query construction.
+
+### <Icon icon="thumbtack" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ReferenceEquals <Badge color="gray">Inherited</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public static bool ReferenceEquals(object objA, object objB)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `objA` | `object?` | - |
+| `objB` | `object?` | - |
+
+#### Returns
+
+Type: `bool`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> RemoveAsync
+
+Removes an entity from the table.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<CloudNimble.BlazorEssentials.TursoDb.TursoResult> RemoveAsync(TEntity entity)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `entity` | `TEntity` | The entity to remove. |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<CloudNimble.BlazorEssentials.TursoDb.TursoResult>`
+The execution result.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> RemoveByKeyAsync
+
+Removes an entity by its primary key.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<CloudNimble.BlazorEssentials.TursoDb.TursoResult> RemoveByKeyAsync(object key)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `key` | `object` | The primary key value. |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<CloudNimble.BlazorEssentials.TursoDb.TursoResult>`
+The execution result.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> RemoveRangeAsync
+
+Removes multiple entities from the table.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<int> RemoveRangeAsync(System.Collections.Generic.IEnumerable<TEntity> entities)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `entities` | `System.Collections.Generic.IEnumerable<TEntity>` | The entities to remove. |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<int>`
+The number of entities removed.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ToListAsync
+
+Retrieves all entities from the table.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<System.Collections.Generic.List<TEntity>> ToListAsync()
+```
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<System.Collections.Generic.List<TEntity>>`
+A list of all entities.
+
+### <Icon icon="code-fork" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> ToString <Badge color="gray">Inherited</Badge> <Badge color="orange">Virtual</Badge>
+
+<Note>Inherited from `object`</Note>
+
+#### Syntax
+
+```csharp
+public virtual string ToString()
+```
+
+#### Returns
+
+Type: `string?`
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> UpdateAsync
+
+Updates an existing entity in the table.
+
+#### Syntax
+
+```csharp
+public System.Threading.Tasks.Task<CloudNimble.BlazorEssentials.TursoDb.TursoResult> UpdateAsync(TEntity entity)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `entity` | `TEntity` | The entity to update. |
+
+#### Returns
+
+Type: `System.Threading.Tasks.Task<CloudNimble.BlazorEssentials.TursoDb.TursoResult>`
+The execution result.
+
+### <Icon icon="function" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Where
+
+Creates a query builder with an initial WHERE clause.
+
+#### Syntax
+
+```csharp
+public CloudNimble.BlazorEssentials.TursoDb.Query.TursoQueryBuilder<TEntity> Where(string clause, params object[] parameters)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `clause` | `string` | The WHERE clause (e.g., "name = ?" or "age &gt; ?"). |
+| `parameters` | `object?[]` | The parameters for the clause. |
+
+#### Returns
+
+Type: `CloudNimble.BlazorEssentials.TursoDb.Query.TursoQueryBuilder<TEntity>`
+A query builder for fluent query construction.
+
+## Related APIs
+
+- CloudNimble.BlazorEssentials.TursoDb.ITursoDbSet
+

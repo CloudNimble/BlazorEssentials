@@ -1,0 +1,67 @@
+---
+title: TableAttribute
+description: "Specifies the table name for an entity class.             If not specified, the class name is used as the table name."
+icon: lock
+tag: "SEALED"
+keywords: ['TableAttribute', 'CloudNimble.BlazorEssentials.TursoDb.TableAttribute', 'CloudNimble.BlazorEssentials.TursoDb', 'class', 'System.Attribute']
+---
+
+## Definition
+
+**Assembly:** CloudNimble.BlazorEssentials.TursoDb.dll
+
+**Namespace:** CloudNimble.BlazorEssentials.TursoDb
+
+**Inheritance:** System.Attribute
+
+## Syntax
+
+```csharp
+CloudNimble.BlazorEssentials.TursoDb.TableAttribute
+```
+
+## Summary
+
+Specifies the table name for an entity class.
+            If not specified, the class name is used as the table name.
+
+## Constructors
+
+### <Icon icon="hammer" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> .ctor
+
+Initializes a new instance of the [TableAttribute](/api-reference/CloudNimble/BlazorEssentials/TursoDb/TableAttribute) class.
+
+#### Syntax
+
+```csharp
+public TableAttribute(string name)
+```
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------|-------------|
+| `name` | `string` | The table name in the database. |
+
+#### Exceptions
+
+| Exception | Description |
+|-----------|-------------|
+| `ArgumentException` | Thrown when name is null or whitespace. |
+
+## Properties
+
+### <Icon icon="tag" iconType="duotone" color="#419AC5" size={24} className="mr-2" /> Name
+
+Gets the table name in the database.
+
+#### Syntax
+
+```csharp
+public string Name { get; }
+```
+
+#### Property Value
+
+Type: `string`
+

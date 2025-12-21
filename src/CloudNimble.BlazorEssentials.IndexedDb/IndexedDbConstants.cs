@@ -1,6 +1,4 @@
-﻿using System.Reflection.Metadata;
-
-namespace CloudNimble.BlazorEssentials.IndexedDb
+﻿namespace CloudNimble.BlazorEssentials.IndexedDb
 {
 
     /// <summary>

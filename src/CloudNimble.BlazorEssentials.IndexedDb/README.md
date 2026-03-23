@@ -113,8 +113,8 @@ namespace BlazorEssentials.IndexedDb.Demo.Data
     public class TheSpaghettiFactoryDb: IndexedDbDatabase
     {
 
-        [ObjectStore(Name = "FiredEmployees", AutoIncrementKeys = false)]
-        [Index(Name = "FirstName", KeyPath = "firstName")]]
+        [ObjectStore(Name = "FiredEmployees", AutoIncrementKeys = false, KeyPath = "Id")]
+        [Index(Name = "FirstName", Path = "firstName")]
         public IndexedDbObjectStore Employees { get; }
 
         public TheSpaghettiFactoryDb(IJSRuntime jsRuntime): base(jsRuntime)

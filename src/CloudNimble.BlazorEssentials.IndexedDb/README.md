@@ -82,7 +82,7 @@ namespace BlazorEssentials.IndexedDb.Demo.Data
     public class TheFactoryDb: IndexedDbDatabase
     {
 
-        public IndexedDbObjectStore Employees { get; }
+        public IndexedDbObjectStore Employees { get; set;}
 
         public TheSpaghettiFactoryDb(IJSRuntime jsRuntime): base(jsRuntime)
         {

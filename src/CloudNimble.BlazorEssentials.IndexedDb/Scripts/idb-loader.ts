@@ -32,14 +32,14 @@ async function ensureIdbLoaded() {
 
 async function loadIdbWithFallback() {
     try {
-        // Try online CDN first for latest version
+        // Try online CDN first
         // @ts-ignore - Dynamic import from CDN
-        const onlineModule = await import('https://cdn.skypack.dev/idb');
+        const onlineModule = await import('https://cdn.jsdelivr.net/npm/idb@8.0.3/+esm');
         console.log('Loaded idb from online CDN');
         return onlineModule;
     } catch (onlineError) {
         console.warn('Failed to load idb from CDN, falling back to bundled version:', onlineError);
-        
+
         try {
             // Fallback to bundled version (will be available as static asset)
             // In Blazor, this would be loaded via JS interop or as a module

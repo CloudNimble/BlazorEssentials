@@ -42,8 +42,10 @@ async function loadIdbWithFallback() {
 
         try {
             // Fallback to bundled version (will be available as static asset)
-            // In Blazor, this would be loaded via JS interop or as a module
-            const bundledModule = await import('../wwwroot/lib/index.js');
+            // Use import.meta.url so the path resolves correctly at runtime regardless of
+            // deployment location (e.g., /_content/BlazorEssentials.IndexedDb/lib/index.js)
+            const libUrl = new URL('./lib/index.js', import.meta.url).href;
+            const bundledModule = await import(libUrl);
             console.log('Loaded idb from bundled version');
             return bundledModule;
         } catch (localError) {

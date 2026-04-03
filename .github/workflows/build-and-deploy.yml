@@ -1,0 +1,325 @@
+name: Build and Deploy to NuGet
+
+on:
+  push:
+    branches: [ main, dev ]
+    paths-ignore:
+      - '.github/**'
+      - 'src/CloudNimble.BlazorEssentials.Docs/**'
+  workflow_dispatch:
+    inputs:
+      deploy_to_nuget:
+        description: 'Deploy to NuGet'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+permissions:
+  contents: read
+  actions: write
+
+env:
+   SOLUTION_FILE: 'src/CloudNimble.BlazorEssentials.slnx'
+
+jobs:
+  build:
+    runs-on: windows-latest
+    outputs:
+      version: ${{ steps.version.outputs.VERSION }}
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v6
+      with:
+        fetch-depth: 0  # Full history for versioning
+
+    - name: Install .NET versions
+      shell: pwsh
+      run: |
+         Write-Host "Installing .NET versions..."
+         $versions = @("8.0", "9.0", "10.0")
+         foreach ($version in $versions) {
+           Write-Host "Installing .NET $version..."
+           Invoke-WebRequest -Uri "https://dot.net/v1/dotnet-install.ps1" -OutFile "dotnet-install.ps1"
+           ./dotnet-install.ps1 -Channel $version -InstallDir "$env:ProgramFiles\dotnet"
+         }
+
+         # Add to PATH for this job
+         echo "$env:ProgramFiles\dotnet" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+
+         # Verify installation
+         dotnet --list-sdks
+
+    - name: Get version variables
+      id: version
+      shell: pwsh
+      run: |
+        # Get version components from repository variables
+        $majorVersion = "${{ vars.VERSION_MAJOR }}"
+        if ([string]::IsNullOrEmpty($majorVersion)) { $majorVersion = "4" }
+
+        $minorVersion = "${{ vars.VERSION_MINOR }}"
+        if ([string]::IsNullOrEmpty($minorVersion)) { $minorVersion = "0" }
+
+        $patchVersion = "${{ vars.VERSION_PATCH }}"
+        if ([string]::IsNullOrEmpty($patchVersion)) { $patchVersion = "0" }
+
+        $previewSuffix = "${{ vars.VERSION_PREVIEW_SUFFIX }}"
+        if ([string]::IsNullOrEmpty($previewSuffix)) { $previewSuffix = "0" }
+
+        Write-Host "Version variables: MAJOR=$majorVersion, MINOR=$minorVersion, PATCH=$patchVersion, PREVIEW_SUFFIX=$previewSuffix"
+
+        # Determine version based on branch
+        $ref = "${{ github.ref }}"
+        if ($ref -eq "refs/heads/main") {
+          # Main branch: use patch version from repo variables
+          Write-Host "Main branch: using PATCH_VERSION from repo variables"
+
+          $version = "$majorVersion.$minorVersion.$patchVersion"
+          $buildNumber = $patchVersion
+
+          # Calculate next patch version for update after successful deployment
+          $nextPatchVersion = [int]$patchVersion + 1
+          echo "NEXT_PATCH_VERSION=$nextPatchVersion" >> $env:GITHUB_OUTPUT
+
+          Write-Host "Main branch version: $version (next patch will be $nextPatchVersion)"
+        }
+        elseif ($ref -eq "refs/heads/dev") {
+          # Dev branch: use preview versioning with incremented suffix
+          $nextPreviewSuffix = [int]$previewSuffix + 1
+          $version = "$majorVersion.$minorVersion.$patchVersion-preview.$nextPreviewSuffix"
+          $buildNumber = 0
+
+          # Store the next preview suffix for later update
+          echo "NEXT_PREVIEW_SUFFIX=$nextPreviewSuffix" >> $env:GITHUB_OUTPUT
+          Write-Host "Dev branch version: $version (next suffix will be $nextPreviewSuffix)"
+        }
+        else {
+          # Other branches (features/PRs): use CI versioning with timestamp
+          $timestamp = Get-Date -Format "yyyyMMdd-HHmmss" -AsUTC
+          $version = "$majorVersion.$minorVersion.$patchVersion-CI-$timestamp"
+          $buildNumber = 0
+          Write-Host "Feature branch version: $version"
+        }
+
+        # Output variables
+        echo "VERSION=$version" >> $env:GITHUB_OUTPUT
+        echo "MAJOR_VERSION=$majorVersion" >> $env:GITHUB_OUTPUT
+        echo "MINOR_VERSION=$minorVersion" >> $env:GITHUB_OUTPUT
+        echo "PATCH_VERSION=$patchVersion" >> $env:GITHUB_OUTPUT
+        echo "BUILD_NUMBER=$buildNumber" >> $env:GITHUB_OUTPUT
+        echo "BRANCH_TYPE=$(if ($ref -eq 'refs/heads/main') { 'main' } elseif ($ref -eq 'refs/heads/dev') { 'dev' } else { 'feature' })" >> $env:GITHUB_OUTPUT
+
+        Write-Host "Final version: $version"
+
+    - name: Restore dependencies
+      run: dotnet restore ${{ env.SOLUTION_FILE }}
+
+    - name: Build solution
+      run: dotnet build ${{ env.SOLUTION_FILE }} --configuration Release --no-restore /p:Version=${{ steps.version.outputs.VERSION }} /p:PackageVersion=${{ steps.version.outputs.VERSION }}
+
+    - name: Test
+      working-directory: src
+      run: dotnet test --configuration Release --no-build
+
+    - name: Pack
+      run: dotnet pack ${{ env.SOLUTION_FILE }} --configuration Release --no-build --output ./artifacts /p:PackageVersion=${{ steps.version.outputs.VERSION }}
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v7
+      with:
+        name: nuget-packages
+        path: ./artifacts/*.nupkg
+        retention-days: 7
+
+  deploy:
+    needs: build
+    runs-on: windows-latest
+    if: |
+      (github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev')) ||
+      (github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_to_nuget == 'true')
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v6
+
+    - name: Download artifacts
+      uses: actions/download-artifact@v8
+      with:
+        name: nuget-packages
+        path: ./artifacts
+
+    - name: Get version data from build
+      id: version
+      shell: pwsh
+      run: |
+        # Re-calculate version data for this job (since we can't pass complex data between jobs)
+        $majorVersion = "${{ vars.VERSION_MAJOR }}"
+        if ([string]::IsNullOrEmpty($majorVersion)) { $majorVersion = "4" }
+
+        $minorVersion = "${{ vars.VERSION_MINOR }}"
+        if ([string]::IsNullOrEmpty($minorVersion)) { $minorVersion = "0" }
+
+        $patchVersion = "${{ vars.VERSION_PATCH }}"
+        if ([string]::IsNullOrEmpty($patchVersion)) { $patchVersion = "0" }
+
+        $previewSuffix = "${{ vars.VERSION_PREVIEW_SUFFIX }}"
+        if ([string]::IsNullOrEmpty($previewSuffix)) { $previewSuffix = "0" }
+
+        $ref = "${{ github.ref }}"
+        if ($ref -eq "refs/heads/main") {
+          $nextPatchVersion = [int]$patchVersion + 1
+          echo "NEXT_PATCH_VERSION=$nextPatchVersion" >> $env:GITHUB_OUTPUT
+          echo "BRANCH_TYPE=main" >> $env:GITHUB_OUTPUT
+        }
+        elseif ($ref -eq "refs/heads/dev") {
+          $nextPreviewSuffix = [int]$previewSuffix + 1
+          echo "NEXT_PREVIEW_SUFFIX=$nextPreviewSuffix" >> $env:GITHUB_OUTPUT
+          echo "BRANCH_TYPE=dev" >> $env:GITHUB_OUTPUT
+        }
+        else {
+          echo "BRANCH_TYPE=other" >> $env:GITHUB_OUTPUT
+        }
+
+    - name: Push to NuGet
+      id: nuget_push
+      shell: pwsh
+      run: |
+        $deploymentSuccess = $true
+        $errorMessage = ""
+
+        Get-ChildItem ./artifacts/*.nupkg | ForEach-Object {
+          Write-Host "Pushing $($_.Name) to NuGet..."
+          try {
+            $result = dotnet nuget push $_.FullName `
+              --api-key ${{ secrets.NUGET_API_KEY }} `
+              --source https://api.nuget.org/v3/index.json `
+              --skip-duplicate 2>&1
+
+            Write-Host "Push result: $result"
+
+            # Check for specific error patterns
+            if ($result -match "error.*unauthorized|invalid.*api.*key|403") {
+              $deploymentSuccess = $false
+              $errorMessage = "Authentication failed - invalid API key"
+              Write-Host "$errorMessage"
+            }
+            elseif ($result -match "error.*conflict|409|already exists") {
+              Write-Host "Package version already exists, continuing..."
+            }
+            elseif ($result -match "error") {
+              $deploymentSuccess = $false
+              $errorMessage = "Deployment failed: $result"
+              Write-Host "$errorMessage"
+            }
+          }
+          catch {
+            $deploymentSuccess = $false
+            $errorMessage = "Exception during push: $($_.Exception.Message)"
+            Write-Host "$errorMessage"
+          }
+        }
+
+        echo "DEPLOYMENT_SUCCESS=$deploymentSuccess" >> $env:GITHUB_OUTPUT
+        echo "ERROR_MESSAGE=$errorMessage" >> $env:GITHUB_OUTPUT
+
+        if (-not $deploymentSuccess) {
+          Write-Host "Deployment failed: $errorMessage"
+          exit 1
+        }
+
+    - name: Update preview suffix (dev branch only)
+      if: steps.version.outputs.BRANCH_TYPE == 'dev' && steps.nuget_push.outputs.DEPLOYMENT_SUCCESS == 'true'
+      shell: pwsh
+      env:
+        GH_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
+      run: |
+        $nextSuffix = "${{ steps.version.outputs.NEXT_PREVIEW_SUFFIX }}"
+        Write-Host "Updating VERSION_PREVIEW_SUFFIX to $nextSuffix"
+
+        try {
+          gh variable set VERSION_PREVIEW_SUFFIX --body "$nextSuffix"
+          Write-Host "Successfully updated VERSION_PREVIEW_SUFFIX to $nextSuffix"
+        }
+        catch {
+          Write-Host "Failed to update VERSION_PREVIEW_SUFFIX: $($_.Exception.Message)"
+          # Don't fail the build for this
+        }
+
+    - name: Update patch version (main branch only)
+      if: steps.version.outputs.BRANCH_TYPE == 'main' && steps.nuget_push.outputs.DEPLOYMENT_SUCCESS == 'true'
+      shell: pwsh
+      env:
+        GH_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
+      run: |
+        $nextPatch = "${{ steps.version.outputs.NEXT_PATCH_VERSION }}"
+        Write-Host "Updating VERSION_PATCH to $nextPatch and resetting VERSION_PREVIEW_SUFFIX to 0"
+
+        try {
+          gh variable set VERSION_PATCH --body "$nextPatch"
+          Write-Host "Successfully updated VERSION_PATCH to $nextPatch"
+
+          gh variable set VERSION_PREVIEW_SUFFIX --body "0"
+          Write-Host "Successfully reset VERSION_PREVIEW_SUFFIX to 0"
+        }
+        catch {
+          Write-Host "Failed to update version variables: $($_.Exception.Message)"
+          # Don't fail the build for this
+        }
+
+  create-release:
+    needs: [build, deploy]
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    if: |
+      (github.event_name == 'push' && github.ref == 'refs/heads/main') ||
+      (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' && github.event.inputs.deploy_to_nuget == 'true')
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v6
+
+    - name: Download artifacts
+      uses: actions/download-artifact@v8
+      with:
+        name: nuget-packages
+        path: ./artifacts
+
+    - name: Prepare Release Notes
+      shell: pwsh
+      run: |
+         $version = "${{ needs.build.outputs.version }}"
+         Write-Host "Creating release for version: $version"
+
+         $packages = Get-ChildItem ./artifacts/*.nupkg | ForEach-Object { $_.Name -replace '\.nupkg$', '' }
+         $packageList = ""
+         foreach ($package in $packages) {
+           $packageName = $package -replace "\.$version$", ""
+           $packageList += "- [$packageName](https://www.nuget.org/packages/$packageName/$version)`n"
+         }
+
+         $lines = @(
+           "## NuGet Packages",
+           $packageList,
+           "",
+           "## Installation",
+           '```shell',
+           "dotnet add package BlazorEssentials --version $version",
+           '```'
+         )
+         $body = $lines -join "`n"
+         Set-Content -Path "./release-notes.md" -Value $body -Encoding utf8
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v2
+      with:
+         tag_name: v${{ needs.build.outputs.version }}
+         name: Release v${{ needs.build.outputs.version }}
+         body_path: ./release-notes.md
+         generate_release_notes: true
+         draft: false
+         prerelease: false

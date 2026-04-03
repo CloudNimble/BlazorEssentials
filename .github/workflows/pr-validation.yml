@@ -1,0 +1,98 @@
+name: PR Validation
+
+on:
+  pull_request:
+    branches: [ main, dev ]
+    types: [opened, synchronize, reopened]
+    paths-ignore:
+      - 'src/CloudNimble.BlazorEssentials.Docs/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: write
+
+env:
+   SOLUTION_FILE: 'src/CloudNimble.BlazorEssentials.slnx'
+
+jobs:
+  validate:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v6
+      with:
+        fetch-depth: 0  # Full history for versioning
+
+    - name: Install .NET versions
+      shell: pwsh
+      run: |
+         Write-Host "Installing .NET versions..."
+         $versions = @("8.0", "9.0", "10.0")
+         foreach ($version in $versions) {
+           Write-Host "Installing .NET $version..."
+           Invoke-WebRequest -Uri "https://dot.net/v1/dotnet-install.ps1" -OutFile "dotnet-install.ps1"
+           ./dotnet-install.ps1 -Channel $version -InstallDir "$env:ProgramFiles\dotnet"
+         }
+
+         # Add to PATH for this job
+         echo "$env:ProgramFiles\dotnet" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+
+         # Verify installation
+         dotnet --list-sdks
+
+    - name: Get version variables
+      id: version
+      shell: pwsh
+      run: |
+        # Get version components from repository variables
+        $majorVersion = "${{ vars.VERSION_MAJOR }}"
+        if ([string]::IsNullOrEmpty($majorVersion)) { $majorVersion = "4" }
+
+        $minorVersion = "${{ vars.VERSION_MINOR }}"
+        if ([string]::IsNullOrEmpty($minorVersion)) { $minorVersion = "0" }
+
+        Write-Host "Version variables: MAJOR=$majorVersion, MINOR=$minorVersion"
+
+        # PR validation: always use CI versioning with timestamp (no version increment)
+        $timestamp = Get-Date -Format "yyyyMMdd-HHmmss" -AsUTC
+        $version = "$majorVersion.$minorVersion.0-CI-$timestamp"
+
+        Write-Host "PR validation version: $version"
+
+        # Output variables
+        echo "VERSION=$version" >> $env:GITHUB_OUTPUT
+        echo "MAJOR_VERSION=$majorVersion" >> $env:GITHUB_OUTPUT
+        echo "MINOR_VERSION=$minorVersion" >> $env:GITHUB_OUTPUT
+
+        Write-Host "Final version: $version"
+
+    - name: Restore dependencies
+      run: dotnet restore ${{ env.SOLUTION_FILE }}
+
+    - name: Build solution
+      run: dotnet build ${{ env.SOLUTION_FILE }} --configuration Release --no-restore /p:Version=${{ steps.version.outputs.VERSION }} /p:PackageVersion=${{ steps.version.outputs.VERSION }}
+
+    - name: Test
+      working-directory: src
+      run: dotnet test --configuration Release --no-build
+
+    - name: Pack
+      run: dotnet pack ${{ env.SOLUTION_FILE }} --configuration Release --no-build --output ./artifacts /p:PackageVersion=${{ steps.version.outputs.VERSION }}
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v7
+      with:
+        name: nuget-packages-pr
+        path: ./artifacts/*.nupkg
+        retention-days: 7
+
+    - name: Validate packages
+      shell: pwsh
+      run: |
+        Write-Host "Validating NuGet packages..."
+        Get-ChildItem ./artifacts/*.nupkg | ForEach-Object {
+          Write-Host "Found package: $($_.Name)"
+        }
+        Write-Host "PR validation completed successfully"

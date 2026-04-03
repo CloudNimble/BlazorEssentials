@@ -7,9 +7,10 @@
   "author": "CloudNimble, Inc.",
   "license": "ISC",
   "scripts": {
+    "prebuild": "node Scripts/generate-idb-version.js",
     "build": "tsc",
     "watch": "tsc --watch",
-    "clean": "rimraf wwwroot/*.js wwwroot/*.js.map"
+    "clean": "rimraf wwwroot/*.js wwwroot/*.js.map Scripts/generated"
   },
   "devDependencies": {
     "@microsoft/dotnet-js-interop": "10.0.0",

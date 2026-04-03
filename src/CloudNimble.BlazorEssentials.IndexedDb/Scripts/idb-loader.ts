@@ -1,3 +1,5 @@
+import { IDB_VERSION } from './generated/idb-version';
+
 let idbModule: any = null;
 let isLoading = false;
 let loadPromise: Promise<any> | null = null;
@@ -32,18 +34,20 @@ async function ensureIdbLoaded() {
 
 async function loadIdbWithFallback() {
     try {
-        // Try online CDN first for latest version
+        // Try online CDN first
         // @ts-ignore - Dynamic import from CDN
-        const onlineModule = await import('https://cdn.skypack.dev/idb');
+        const onlineModule = await import(`https://cdn.jsdelivr.net/npm/idb@${IDB_VERSION}/+esm`);
         console.log('Loaded idb from online CDN');
         return onlineModule;
     } catch (onlineError) {
         console.warn('Failed to load idb from CDN, falling back to bundled version:', onlineError);
-        
+
         try {
             // Fallback to bundled version (will be available as static asset)
-            // In Blazor, this would be loaded via JS interop or as a module
-            const bundledModule = await import('../wwwroot/lib/index.js');
+            // Use import.meta.url so the path resolves correctly at runtime regardless of
+            // deployment location (e.g., /_content/BlazorEssentials.IndexedDb/lib/index.js)
+            const libUrl = new URL('./lib/index.js', import.meta.url).href;
+            const bundledModule = await import(libUrl);
             console.log('Loaded idb from bundled version');
             return bundledModule;
         } catch (localError) {

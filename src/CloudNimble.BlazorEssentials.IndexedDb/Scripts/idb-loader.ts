@@ -1,3 +1,5 @@
+import { IDB_VERSION } from './generated/idb-version';
+
 let idbModule: any = null;
 let isLoading = false;
 let loadPromise: Promise<any> | null = null;
@@ -34,7 +36,7 @@ async function loadIdbWithFallback() {
     try {
         // Try online CDN first
         // @ts-ignore - Dynamic import from CDN
-        const onlineModule = await import('https://cdn.jsdelivr.net/npm/idb@8.0.3/+esm');
+        const onlineModule = await import(`https://cdn.jsdelivr.net/npm/idb@${IDB_VERSION}/+esm`);
         console.log('Loaded idb from online CDN');
         return onlineModule;
     } catch (onlineError) {

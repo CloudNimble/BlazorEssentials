@@ -6,6 +6,7 @@
     "outDir": "./wwwroot",
     "rootDir": "./Scripts",
     "sourceMap": true,
+    "inlineSources": true,
     "declaration": false,
     "esModuleInterop": false,
     "skipLibCheck": true,

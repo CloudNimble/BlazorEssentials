@@ -13,7 +13,6 @@
             - Updated support for Blazor on .NET 10, 9, 8.
 			- Removed support for .NET 6.
 
-
             Version 3.0.0
             - Updated support for Blazor on .NET 9.0, 8.0, and 6.0.
             - Added `JsModule` class to simplify loading JavaScript modules &amp; building .NET wrappers for JS libraries.
@@ -49,7 +48,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="EasyAF.Http" Version="(4.*-*, 5.0.0]" />
+		<PackageReference Include="EasyAF.Http" Version="[4.*-*, 5.0.0)" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">

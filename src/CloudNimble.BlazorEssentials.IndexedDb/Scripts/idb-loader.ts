@@ -1,4 +1,4 @@
-import { IDB_VERSION } from './generated/idb-version';
+import { IDB_VERSION } from './generated/idb-version.js';
 
 let idbModule: any = null;
 let isLoading = false;

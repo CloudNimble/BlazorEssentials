@@ -18,7 +18,10 @@
       "WebFetch(domain:roxeem.com)",
       "mcp__playwright__browser_snapshot",
       "mcp__playwright__browser_evaluate",
-      "mcp__Mintlify__SearchMintlify"
+      "mcp__Mintlify__SearchMintlify",
+      "Bash(gh --version)",
+      "Bash(gh run:*)",
+      "WebFetch(domain:docs.github.com)"
     ],
     "deny": [],
     "ask": []

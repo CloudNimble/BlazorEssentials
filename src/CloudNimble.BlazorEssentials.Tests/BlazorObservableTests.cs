@@ -66,7 +66,8 @@ namespace CloudNimble.BlazorEssentials.Tests
                 await Task.Delay(50);
                 blazorObservable.StateHasChanged.Action();
             }
-            await Task.Delay(50);
+            // Wait long enough for the final throttle timer to elapse and dispatch.
+            await Task.Delay(throttleInterval * 2);
             count.Should().Be(3);
         }
     }

@@ -9,6 +9,7 @@ namespace CloudNimble.BlazorEssentials.Tests
     ///
     /// </summary>
     [TestClass]
+    [DoNotParallelize]
     public class BlazorObservableTests
     {
         /// <summary>

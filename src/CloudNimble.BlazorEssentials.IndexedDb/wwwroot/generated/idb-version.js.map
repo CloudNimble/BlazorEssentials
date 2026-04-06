@@ -1,1 +1,1 @@
-{"version":3,"file":"idb-version.js","sourceRoot":"","sources":["../../Scripts/generated/idb-version.ts"],"names":[],"mappings":"AAAA,iDAAiD;AACjD,MAAM,CAAC,MAAM,WAAW,GAAG,OAAO,CAAC"}
+{"version":3,"file":"idb-version.js","sourceRoot":"","sources":["../../Scripts/generated/idb-version.ts"],"names":[],"mappings":"AAAA,iDAAiD;AACjD,MAAM,CAAC,MAAM,WAAW,GAAG,OAAO,CAAC","sourcesContent":["// AUTO-GENERATED from package.json - DO NOT EDIT\nexport const IDB_VERSION = \"8.0.3\";\n"]}
